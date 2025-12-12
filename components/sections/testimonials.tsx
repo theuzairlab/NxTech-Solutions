@@ -175,15 +175,24 @@ export function Testimonials() {
   );
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-primary/5 overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#f5f5ff] via-white to-[#e6e6ff] z-6">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-24 left-1/3 w-[420px] h-[420px] bg-primary/12 blur-3xl" />
+        <div className="absolute bottom-[-200px] right-[-120px] w-[520px] h-[520px] bg-primary/10 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:140px_140px] opacity-60" />
+      </div>
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">
+            <span className="text-xs font-semibold tracking-[0.25em] text-primary">TESTIMONIALS</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
+            <span className="bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
               Client Testimonials
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto">
             Industry leaders trust NexTech for reliability, innovation, and measurable results
           </p>
         </div>

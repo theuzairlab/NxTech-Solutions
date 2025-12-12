@@ -128,15 +128,24 @@ const industries = [
 
 export function IndustriesServe() {
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-primary/5">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#e9f9f4] via-white to-[#c9f1e6] z-8">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-24 left-1/4 w-[520px] h-[520px] bg-primary/12 blur-3xl" />
+        <div className="absolute bottom-[-180px] right-[-80px] w-[620px] h-[620px] bg-primary/14 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-size-[140px_140px] opacity-60" />
+      </div>
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">
+            <span className="text-xs font-semibold tracking-[0.25em] text-primary">INDUSTRIES</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
+            <span className="bg-linear-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
               Industries We Serve
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto">
             Proven expertise across diverse sectors with tailored solutions
           </p>
         </div>
@@ -159,7 +168,7 @@ export function IndustriesServe() {
                   />
                   
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-primary/90 via-primary/50 to-transparent" />
                   
                   {/* Front Content */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
@@ -173,7 +182,7 @@ export function IndustriesServe() {
                 </div>
 
                 {/* Back Side */}
-                <div className="flip-card-back absolute inset-0 w-full h-full rounded-xl overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 border-2 border-primary/50">
+                <div className="flip-card-back absolute inset-0 w-full h-full rounded-xl overflow-hidden bg-linear-to-br from-primary via-primary/90 to-primary/80 border-2 border-primary/50">
                   {/* Back Content */}
                   <div className="absolute inset-0 p-4 flex flex-col">
                     <div className="mb-3">
@@ -193,7 +202,7 @@ export function IndustriesServe() {
                             key={serviceIndex}
                             className="flex items-start gap-2 text-white/90 text-xs"
                           >
-                            <CheckCircle2 className="h-3 w-3 text-white mt-0.5 flex-shrink-0" />
+                            <CheckCircle2 className="h-3 w-3 text-white mt-0.5 shrink-0" />
                             <span className="leading-tight">{service}</span>
                           </li>
                         ))}

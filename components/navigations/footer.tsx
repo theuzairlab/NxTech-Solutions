@@ -48,7 +48,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-gradient-to-b from-background to-primary/5 border-t border-border">
+    <footer className="bg-gradient-to-b from-background to-primary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}

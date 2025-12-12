@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { ServicesHero } from "@/components/sections/services-hero";
 import { AllServices } from "@/components/sections/all-services";
 import { AdditionalServices } from "@/components/sections/additional-services";
+import { ServicesIndustries } from "@/components/sections/services-industries";
+import { ServicesPortfolio } from "@/components/sections/services-portfolio";
+import { GetQuoteForm } from "@/components/sections/get-quote-form";
 import { CTABanner } from "@/components/sections/cta-banner";
 
 export const metadata: Metadata = {
@@ -15,6 +18,9 @@ export default function Services() {
       <ServicesHero />
       <AllServices />
       <AdditionalServices />
+      <ServicesIndustries />
+      <ServicesPortfolio />
+      <GetQuoteForm />
       <CTABanner />
     </div>
   );

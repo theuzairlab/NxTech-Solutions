@@ -2,10 +2,12 @@
 import Image from "next/image";
 import { ArrowRight, TrendingUp, Users, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const projects = [
   {
-    title: "E-commerce Platform ",
+    title: "E-commerce Platform for ABC Inc.",
+    link: "/projects/abc-inc",
     category: "Web Development",
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
     metrics: {
@@ -17,6 +19,7 @@ const projects = [
   },
   {
     title: "AI Sales Agent Implementation",
+    link: "/projects/ai-sales-agent",
     category: "AI Solutions",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
     metrics: {
@@ -28,6 +31,7 @@ const projects = [
   },
   {
     title: "Digital Marketing Campaign",
+    link: "/projects/digital-marketing-campaign",
     category: "Marketing",
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop",
     metrics: {
@@ -39,6 +43,7 @@ const projects = [
   },
   {
     title: "Cloud Infrastructure Migration",
+    link: "/projects/cloud-infrastructure-migration",
     category: "IT Services",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop",
     metrics: {
@@ -50,6 +55,7 @@ const projects = [
   },
   {
     title: "Mobile App Development",
+    link: "/projects/mobile-app-development",
     category: "App Development",
     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop",
     metrics: {
@@ -61,6 +67,7 @@ const projects = [
   },
   {
     title: "SEO & Content Strategy",
+    link: "/projects/seo-content-strategy",
     category: "SEO",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     metrics: {
@@ -74,18 +81,26 @@ const projects = [
 
 export function PortfolioHighlight() {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#eef4ff] via-white to-[#d5e6ff] z-7">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/10" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-24 left-10 w-[520px] h-[520px] bg-primary/15 blur-3xl" />
+        <div className="absolute bottom-[-200px] right-[-120px] w-[620px] h-[620px] bg-primary/12 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08)_0%,transparent_45%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.06),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.05),transparent_35%)]" />
+      </div>
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">
+            <span className="text-xs font-semibold tracking-[0.25em] text-primary">PORTFOLIO</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
+            <span className="bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
               Portfolio Highlights
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto">
             A curated selection of successful client projects with measurable impact
           </p>
         </div>
@@ -118,7 +133,9 @@ export function PortfolioHighlight() {
                 {/* Content */}
                 <div className="p-6 bg-white">
                   <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
+                    <Link href={project.link} className="">
                     {project.title}
+                    </Link>
                   </h3>
                   <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
                     {project.description}

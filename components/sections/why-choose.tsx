@@ -49,18 +49,26 @@ const features = [
 
 export function WhyChoose() {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#f2fbff] via-white to-[#dff3ff] z-9">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-primary/5" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/3 w-[420px] h-[420px] bg-primary/12 blur-3xl" />
+        <div className="absolute bottom-[-180px] right-0 w-[520px] h-[520px] bg-primary/14 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08)_0%,transparent_40%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.06),transparent_35%),radial-gradient(circle_at_80%_50%,rgba(255,255,255,0.05),transparent_30%)]" />
+      </div>
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">
+            <span className="text-xs font-semibold tracking-[0.25em] text-primary">WHY NXTECH</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
+            <span className="bg-linear-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
               Why Choose NxTech
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto">
             Enterprise-grade solutions with transparent execution and proven results
           </p>
         </div>
@@ -74,11 +82,11 @@ export function WhyChoose() {
                 className="group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
               >
                 {/* Gradient Background on Hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300`} />
+                <div className={`absolute inset-0 bg-linear-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300`} />
                 
                 <div className="relative z-10">
                   {/* Icon */}
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 rounded-xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <Icon className="h-8 w-8 text-primary" />
                   </div>
 

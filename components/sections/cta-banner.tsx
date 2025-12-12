@@ -4,16 +4,13 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 export function CTABanner() {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#00c2c7] via-[#00b1bb] to-[#009aa8] z-5">
       {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-primary/60" />
-      
-      {/* Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:32px_32px] opacity-70" />
       
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-white/15 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/15 rounded-full blur-3xl" />
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
