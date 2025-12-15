@@ -1,10 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export function CTABanner() {
   return (
-    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#00c2c7] via-[#00b1bb] to-[#009aa8] z-5">
+    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#00c2c7] via-[#00b1bb] to-[#009aa8] z-1">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:32px_32px] opacity-70" />
       
@@ -35,30 +36,34 @@ export function CTABanner() {
               size="lg" 
               className="group text-lg px-8 py-6 bg-white text-primary hover:bg-white/90 shadow-lg shadow-white/20"
             >
+              <Link href="/contact" className="flex items-center justify-center">
               Get Started Now
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
             <Button 
               size="lg" 
               variant="outline"
               className="text-lg px-8 py-6 border-2 border-white/30 bg-transparent text-white hover:bg-white/10 hover:border-white/50"
             >
+              <Link href="https://wa.me/+923331916991" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
               Schedule Consultation
+              </Link>
             </Button>
           </div>
 
           {/* Trust Indicators */}
           <div className="mt-12 flex flex-wrap justify-center gap-8 text-white/80">
             <div className="text-center">
-              <div className="text-2xl font-bold text-white">500+</div>
+              <div className="text-2xl font-bold text-white">50+ Clients</div>
               <div className="text-sm">Projects Delivered</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-white">98%</div>
+              <div className="text-2xl font-bold text-white">100% Satisfaction</div>
               <div className="text-sm">Client Satisfaction</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-white">24/7</div>
+              <div className="text-2xl font-bold text-white">24/7 Support</div>
               <div className="text-sm">Support Available</div>
             </div>
           </div>

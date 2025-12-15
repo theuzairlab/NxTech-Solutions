@@ -1,92 +1,60 @@
 "use client";
 import Image from "next/image";
-import { ArrowRight, Lightbulb, Rocket, Users } from "lucide-react";
-
-const storyTimeline = [
-  {
-    year: "2020",
-    title: "The Beginning",
-    description: "NxTech Solutions was founded with a vision to bridge the gap between cutting-edge technology and business growth. Our founders recognized the need for comprehensive digital solutions.",
-    icon: Lightbulb,
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
-  },
-  {
-    year: "2021-2022",
-    title: "Rapid Growth",
-    description: "We expanded our team, added AI and automation services, and began serving clients across multiple industries. Our commitment to innovation and client success drove exponential growth.",
-    icon: Rocket,
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
-  },
-  {
-    year: "2023-Present",
-    title: "Industry Leadership",
-    description: "Today, NxTech is a trusted partner for 500+ projects across 20+ industries. We continue to innovate with AI-powered solutions, helping businesses transform digitally and scale efficiently.",
-    icon: Users,
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=400&fit=crop",
-  },
-];
 
 export function OurStory() {
   return (
-    <section className="py-20 relative overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-primary/5" />
+    <section className="py-20 relative overflow-hidden bg-background">
+      {/* Dark background overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background/95" />
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
-              Our Story
-            </span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            How NxTech started and evolved into a leading digital solutions provider
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left Column - Image */}
+          <div className="flex items-center justify-center order-2 lg:order-1">
+            <div className="relative w-full max-w-lg aspect-square rounded-2xl overflow-hidden shadow-2xl">
+              <Image
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=800&fit=crop"
+                alt="NxTech Solutions - Digital Transformation"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10" />
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {storyTimeline.map((story, index) => {
-            const Icon = story.icon;
-            return (
-              <div
-                key={index}
-                className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
-              >
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={story.image}
-                    alt={story.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/20 to-transparent" />
-                  
-                  {/* Year Badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1.5 rounded-full bg-primary/90 backdrop-blur-sm text-white text-xs font-medium shadow-lg">
-                      {story.year}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
-                      <Icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {story.title}
-                    </h3>
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    {story.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+          {/* Right Column - Story Text */}
+          <div className="order-1 lg:order-2">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-8 text-foreground">
+              The NxTech Story
+            </h2>
+            
+            <div className="space-y-6 text-muted-foreground leading-relaxed">
+              <p className="text-lg">
+                Based on our commitment to excellence, NxTech Solutions is a leading digital transformation partner 
+                for businesses worldwide and a trusted technology provider for global enterprises deploying advanced 
+                digital solutions. NxTech supports clients in two ways: accelerating digital transformation with 
+                high-quality development, advanced AI-powered automation pipelines that push the boundaries of 
+                efficiency, scalability, and innovation, plus expert technology teams with expertise in web 
+                development, mobile apps, AI integration, cloud infrastructure, and digital marketing; and 
+                applying that expertise to help enterprises transform ideas from proof of concept into 
+                proprietary digital assets: systems that perform, deliver impact, and drive lasting results 
+                on the bottom line.
+              </p>
+            </div>
+            
+            <div className="mt-8">
+              <p className="text-muted-foreground">
+                For more information:{" "}
+                <a
+                  href="mailto:contact@nxtechsolutions.com"
+                  className="text-primary hover:text-primary/80 underline transition-colors"
+                >
+                  contact@nxtechsolutions.com
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

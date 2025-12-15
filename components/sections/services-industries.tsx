@@ -356,12 +356,12 @@ export function ServicesIndustries() {
           ))}
         </div>
 
-        <div className="text-center">
+        {/* <div className="text-center">
           <Button size="lg" variant="outline" className="border-2 border-primary/30 hover:bg-primary/10 text-primary hover:text-primary hover:border-primary/50">
             Explore All Industries
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

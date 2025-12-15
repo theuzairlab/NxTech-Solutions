@@ -128,7 +128,7 @@ export function Achievements() {
                 className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
               >
                 {/* Image Background */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                <div className="absolute inset-0 opacity-50 group-hover:opacity-10 transition-opacity duration-500">
                   <Image
                     src={achievement.image}
                     alt={achievement.title}
@@ -143,11 +143,11 @@ export function Achievements() {
                 <div className="relative p-6 z-10">
                   {/* Icon */}
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="h-8 w-8 text-primary" />
+                    <Icon className="h-8 w-8 text-foreground group-hover:text-primary" />
                   </div>
 
                   {/* Year Badge */}
-                  <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-3">
+                  <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-foreground group-hover:text-primary text-xs font-medium mb-3">
                     {achievement.year}
                   </div>
 
@@ -155,7 +155,7 @@ export function Achievements() {
                   <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
                     {achievement.title}
                   </h3>
-                  <p className="text-primary text-sm font-medium mb-2">
+                  <p className="text-foreground group-hover:text-primary text-sm font-medium mb-2">
                     {achievement.organization}
                   </p>
                   <p className="text-muted-foreground text-sm leading-relaxed">

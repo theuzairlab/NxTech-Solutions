@@ -60,7 +60,7 @@ export function OurProcess() {
                 className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
               >
                 {/* Image Background */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                <div className="absolute inset-0 opacity-70 group-hover:opacity-10 transition-opacity duration-500">
                   <Image
                     src={process.image}
                     alt={process.title}
@@ -87,7 +87,7 @@ export function OurProcess() {
                   <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
                     {process.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  <p className="text-white group-hover:text-foreground text-sm leading-relaxed mb-4">
                     {process.description}
                   </p>
 

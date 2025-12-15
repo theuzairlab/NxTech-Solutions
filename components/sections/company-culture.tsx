@@ -112,9 +112,9 @@ export function CompanyCulture() {
   }, [isHovered]);
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden rounded-b-[150px] z-6">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/10" />
+      <div className="absolute inset-0 bg-background" />s
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -138,7 +138,7 @@ export function CompanyCulture() {
                 className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
               >
                 {/* Image Background */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                <div className="absolute inset-0 opacity-50 group-hover:opacity-10 transition-opacity duration-500">
                   <Image
                     src={value.image}
                     alt={value.title}
@@ -153,7 +153,7 @@ export function CompanyCulture() {
                 <div className="relative p-6 z-10">
                   {/* Icon */}
                   <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="h-7 w-7 text-primary" />
+                    <Icon className="h-7 w-7 text-foreground group-hover:text-primary" />
                   </div>
 
                   {/* Content */}

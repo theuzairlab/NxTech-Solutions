@@ -4,7 +4,7 @@ import { Sparkles } from "lucide-react";
 
 export function AboutHero() {
   return (
-    <section className="relative min-h-[100vh] flex items-center justify-center overflow-hidden pt-20">
+    <section className="relative flex items-center justify-center overflow-hidden pt-12 sm:pt-16 md:pt-20 mt-8 sm:mt-12 md:mt-16 mx-4 sm:mx-8 md:mx-12 lg:mx-16 rounded-t-[50px] sm:rounded-t-[75px] md:rounded-t-[100px] lg:rounded-t-[150px]">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10" />
       
@@ -13,7 +13,7 @@ export function AboutHero() {
       
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-
+      {/* <video src="/about.mp4" autoPlay muted loop className="absolute inset-0 w-full h-full object-cover opacity-90 " /> */}
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}

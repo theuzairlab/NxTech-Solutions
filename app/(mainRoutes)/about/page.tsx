@@ -6,6 +6,7 @@ import { LeadershipTeam } from "@/components/sections/leadership-team";
 import { OurProcess } from "@/components/sections/our-process";
 import { Achievements } from "@/components/sections/achievements";
 import { CompanyCulture } from "@/components/sections/company-culture";
+import { CTABanner } from "@/components/sections/cta-banner";
 
 export const metadata: Metadata = {
   title: "About Us - NxTech Solutions",
@@ -22,6 +23,7 @@ export default function About() {
       <OurProcess />
       <Achievements />
       <CompanyCulture />
+      <CTABanner />
     </div>
   );
 }

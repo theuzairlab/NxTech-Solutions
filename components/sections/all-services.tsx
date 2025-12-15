@@ -1,6 +1,8 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { 
   Server, 
   TrendingUp, 
@@ -10,8 +12,7 @@ import {
   Globe, 
   Cloud, 
   Shield, 
-  MessageSquare,
-  ArrowRight 
+  MessageSquare
 } from "lucide-react";
 
 const mainServices = [
@@ -91,11 +92,11 @@ const mainServices = [
 
 export function AllServices() {
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-primary/5">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-32">
+    <section className="py-20 bg-linear-to-b from-background to-primary/5 pb-40">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-foreground to-primary bg-clip-text text-transparent">
               Our Services
             </span>
           </h2>
@@ -104,58 +105,55 @@ export function AllServices() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 auto-rows-fr">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {mainServices.map((service, index) => {
             const Icon = service.icon;
-            const isLastItem = index === mainServices.length - 1;
-            const isAloneInRow = isLastItem && mainServices.length % 3 === 1;
             
             return (
-              <Link
+              <div
                 key={index}
-                href={service.link}
-                className={`group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 ${
-                  isAloneInRow 
-                    ? 'lg:col-start-2 lg:col-end-3' 
-                    : 'w-full'
-                }`}
+                className="group relative overflow-visible rounded-2xl bg-white border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 flex flex-col"
               >
-                {/* Image Background - Visible on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 ease-in-out">
+                {/* Image - Always Visible */}
+                <div className="relative h-64 w-full overflow-hidden rounded-t-2xl">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover scale-100 group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
 
-                {/* Gradient Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-card/95 via-card/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Icon - Centered and overlapping image/content */}
+                <div className="absolute top-56 left-1/2 -translate-x-1/2 z-20 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white border-2 border-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="h-8 w-8 sm:h-10 sm:w-10 text-primary" strokeWidth={1.5} />
+                </div>
 
-                <div className="relative p-6 z-10 h-full flex flex-col">
-                  {/* Icon */}
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="h-8 w-8 text-primary" />
-                  </div>
+                {/* Content */}
+                <div className="p-6 pt-10 sm:pt-12 flex flex-col flex-1">
 
-                  {/* Content */}
-                  <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
+                  {/* Title */}
+                  <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-muted-foreground mb-4 grow">
+
+                  {/* Description */}
+                  <p className="text-muted-foreground text-sm mb-6 flex-1 leading-relaxed">
                     {service.description}
                   </p>
 
-                  {/* CTA */}
-                  <div className="flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all">
-                    <span>Learn More</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
+                  {/* View Service Button */}
+                  <Link href={service.link}>
+                    <Button 
+                      className="w-full bg-primary text-white hover:bg-primary/90 transition-colors"
+                      size="lg"
+                    >
+                      View Service
+                    </Button>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>
