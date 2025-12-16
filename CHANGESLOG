@@ -3,3 +3,10 @@
 - Added soft glow/mesh overlays and badges for section headers to align with NxTech teal/cyan theme.
 - Refined section backgrounds to alternate light gradients per section (aqua, ice blue, mint, soft blue, lilac) and intensified CTA teal block to mirror AIO stacked pill aesthetic.
 
+2025-12-15
+- Designed and implemented initial Prisma schema for core backend entities (users, services, industries, portfolio, case studies, testimonials, achievements/certifications, blog categories, blogs, team, contact submissions, and quote requests) backed by PostgreSQL.
+- Validated Prisma schema via `npx prisma validate` to ensure relations and enums compile correctly.
+- Integrated NextAuth with credential-based admin login, Prisma adapter usage, JWT sessions, secure cookies, middleware protection for dashboard routes, and an admin-only sign-in page.
+ - Added Prisma seed script to create an initial admin user (admin@nts.com / Admin@123) via `npx prisma db seed`.
+
+
