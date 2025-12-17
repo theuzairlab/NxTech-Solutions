@@ -26,8 +26,8 @@ export default async function About() {
   });
 
   const achievements = allItems
-    .filter((item) => item.type === "ACHIEVEMENT")
-    .map((item: any) => ({
+    .filter((item: typeof allItems[0]) => item.type === "ACHIEVEMENT")
+    .map((item: typeof allItems[0]) => ({
       id: item.id,
       type: item.type,
       icon: item.icon,
@@ -42,8 +42,8 @@ export default async function About() {
     }));
 
   const certifications = allItems
-    .filter((item) => item.type === "CERTIFICATION")
-    .map((item: any) => ({
+    .filter((item: typeof allItems[0]) => item.type === "CERTIFICATION")
+    .map((item: typeof allItems[0]) => ({
       id: item.id,
       type: item.type,
       icon: null,
