@@ -5,8 +5,8 @@ import { Home, User, Mail, MessageCircle, BookA } from "lucide-react";
 import { LiveChatWidget } from "@/components/ui/live-chat-widget";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 export const metadata: Metadata = {
-  title: "NxTech Solutions - Empowering Businesses with IT, Marketing & AI Solutions",
-  description: "NxTech delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.",
+  title: process.env.NEXT_PUBLIC_SITE_NAME + " Solutions - Empowering Businesses with IT, Marketing & AI Solutions",
+  description: process.env.NEXT_PUBLIC_SITE_NAME + " delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.",
 };
 
 export default function MainRoutesLayout({

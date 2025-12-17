@@ -7,8 +7,8 @@ import { DashboardHeader } from "@/components/admin/dashboard-header";
 import { IndustriesManagement } from "@/components/admin/industries-management";
 
 export const metadata: Metadata = {
-  title: "Industries - NxTech Admin",
-  description: "Manage industries served by NxTech Solutions.",
+  title: "Industries - " + process.env.NEXT_PUBLIC_SITE_NAME + " Admin",
+  description: "Manage industries served by " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions.",
 };
 
 export default async function IndustriesPage() {

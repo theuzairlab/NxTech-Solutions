@@ -7,7 +7,7 @@ import { SettingsManagement } from "@/components/admin/settings-management";
 import { DashboardHeader } from "@/components/admin/dashboard-header";
 
 export const metadata: Metadata = {
-  title: "Settings - NxTech Admin",
+  title: "Settings - " + process.env.NEXT_PUBLIC_SITE_NAME + " Admin",
   description: "Manage your account settings and preferences.",
 };
 

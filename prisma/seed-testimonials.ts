@@ -28,7 +28,7 @@ const testimonialData = [
     role: "CEO, TechStart Inc.",
     company: "E-commerce Platform",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
-    content: "NexTech transformed our digital presence completely. Their AI solutions increased our conversion rate by 180% in just 3 months.",
+    content: `"${process.env.NEXT_PUBLIC_SITE_NAME}" transformed our digital presence completely. Their AI solutions increased our conversion rate by 180% in just 3 months.`,
     rating: 5,
   },
   {
@@ -52,7 +52,7 @@ const testimonialData = [
     role: "Founder, RealEstate Pro",
     company: "Real Estate",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
-    content: "NexTech's lead generation services brought us qualified leads consistently. Our sales pipeline has never been stronger.",
+    content: `${process.env.NEXT_PUBLIC_SITE_NAME}'s lead generation services brought us qualified leads consistently. Our sales pipeline has never been stronger.`,
     rating: 5,
   },
   {
@@ -60,7 +60,7 @@ const testimonialData = [
     role: "VP of Operations",
     company: "FinTech Solutions",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop",
-    content: "Outstanding service and results. NxTech helped us streamline operations and reduce costs significantly.",
+    content: `Outstanding service and results. ${process.env.NEXT_PUBLIC_SITE_NAME} helped us streamline operations and reduce costs significantly.`,
     rating: 5,
   },
   {
@@ -68,7 +68,7 @@ const testimonialData = [
     role: "CEO, RetailMax",
     company: "E-commerce",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop",
-    content: "The AI solutions implemented by NxTech revolutionized our customer experience and boosted sales by 250%.",
+    content: `The AI solutions implemented by ${process.env.NEXT_PUBLIC_SITE_NAME} revolutionized our customer experience and boosted sales by 250%.`,
     rating: 5,
   },
 ];

@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     const uploaded = await imagekit.upload({
       file: buffer,
       fileName,
-      folder: "nxtech-solutions/services",
+      folder: `${process.env.NEXT_PUBLIC_SITE_NAME}/services`,
     });
 
     return NextResponse.json({

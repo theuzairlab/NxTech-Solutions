@@ -7,7 +7,7 @@ import { UsersManagement } from "@/components/admin/users-management";
 import { DashboardHeader } from "@/components/admin/dashboard-header";
 
 export const metadata: Metadata = {
-  title: "Users - NxTech Admin",
+  title: "Users - " + process.env.NEXT_PUBLIC_SITE_NAME + " Admin",
   description: "Manage admin users and public team members.",
 };
 

@@ -9,8 +9,8 @@ import { BlogsManagement } from "@/components/admin/blogs-management";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const metadata: Metadata = {
-  title: "Blogs - NxTech Admin",
-  description: "Manage blog posts and categories.",
+  title: "Blogs - " + process.env.NEXT_PUBLIC_SITE_NAME + " Admin",
+  description: "Manage blog posts and categories on the " + process.env.NEXT_PUBLIC_SITE_NAME + " website.",
 };
 
 export default async function BlogsPage() {

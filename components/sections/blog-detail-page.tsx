@@ -54,7 +54,7 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
       blogUrl = window.location.href;
     } else {
       // Fallback for SSR
-      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nxtech-solutions.com';
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `https://${process.env.NEXT_PUBLIC_SITE_NAME}.com`;
       blogUrl = `${baseUrl}/blog/${post.slug}`;
     }
     
@@ -89,7 +89,7 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
         break;
       case "twitter":
         // Twitter share URL with title and URL
-        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(blogUrl)}&text=${encodeURIComponent(title)}&via=NxTechSolutions`;
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(blogUrl)}&text=${encodeURIComponent(title)}&via=${process.env.NEXT_PUBLIC_TWITTER_USERNAME}`;
         window.open(
           twitterUrl,
           "_blank",

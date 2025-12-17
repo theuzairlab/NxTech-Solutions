@@ -4,6 +4,8 @@ import { motion } from "motion/react";
 import { Mail, Phone, MessageSquare, MapPin } from "lucide-react";
 
 export function ContactHero() {
+  const user_email = process.env.NEXT_PUBLIC_USER_EMAIL|| "";
+  const user_phone = process.env.NEXT_PUBLIC_USER_PHONE|| "";
   const handleLocationClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const element = document.getElementById('office-locations');
@@ -40,7 +42,7 @@ export function ContactHero() {
           {/* Quick Contact Info */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 max-w-4xl mx-auto">
             <motion.a
-              href="mailto:info@nxtech.com"
+              href={`mailto:${user_email}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -51,12 +53,12 @@ export function ContactHero() {
               </div>
               <div className="text-center">
                 <div className="text-sm text-white/70 mb-1">Email</div>
-                <div className="text-white font-semibold">info@nxtech.com</div>
+                <div className="text-white font-semibold">{user_email}</div>
               </div>
             </motion.a>
 
             <motion.a
-              href="tel:+92 333 1916991"
+              href={`tel:${user_phone}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -67,12 +69,12 @@ export function ContactHero() {
               </div>
               <div className="text-center">
                 <div className="text-sm text-white/70 mb-1">Phone</div>
-                <div className="text-white font-semibold">+92 333 1916991</div>
+                <div className="text-white font-semibold">{user_phone}</div>
               </div>
             </motion.a>
 
             <motion.a
-              href="https://wa.me/+923331916991"
+              href={`https://wa.me/${user_phone}`}
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}

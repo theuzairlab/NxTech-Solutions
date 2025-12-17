@@ -7,8 +7,8 @@ import { ServicesManagement } from "@/components/admin/services-management";
 import { DashboardHeader } from "@/components/admin/dashboard-header";
 
 export const metadata: Metadata = {
-  title: "Services - NxTech Admin",
-  description: "Manage services for NxTech Solutions",
+  title: "Services - " + process.env.NEXT_PUBLIC_SITE_NAME + " Admin",
+  description: "Manage services for " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
 };
 
 export default async function Services() {

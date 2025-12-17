@@ -121,8 +121,8 @@ export const MobileSidebar = ({
       >
         <div className="flex items-center justify-between z-20 w-full">
           <div className="flex items-center space-x-2">
-            <Image src="/icon.png" alt="NxTech Dashboard" width={24} height={24} className="shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" />
-            <span className="font-semibold text-sm text-black dark:text-white">NxTech</span>
+            <Image src="/icon.png" alt={`${process.env.NEXT_PUBLIC_SITE_NAME} Dashboard`} width={24} height={24} className="shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" />
+            <span className="font-semibold text-sm text-black dark:text-white">{process.env.NEXT_PUBLIC_SITE_NAME}</span>
           </div>
           <IconMenu2
             className="h-6 w-6 text-neutral-800 dark:text-neutral-200 cursor-pointer"

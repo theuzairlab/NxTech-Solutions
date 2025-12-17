@@ -160,7 +160,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
             </span>
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto">
-            Industry leaders trust NexTech for reliability, innovation, and measurable results
+            Industry leaders trust {process.env.NEXT_PUBLIC_SITE_NAME} for reliability, innovation, and measurable results
           </p>
         </div>
 

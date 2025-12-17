@@ -61,11 +61,11 @@ export function WhyChoose() {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">
-            <span className="text-xs font-semibold tracking-[0.25em] text-primary">WHY NXTECH</span>
+            <span className="text-xs font-semibold tracking-[0.25em] text-primary">WHY {process.env.NEXT_PUBLIC_SITE_NAME}</span>
           </div>
           <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
             <span className="bg-linear-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-              Why Choose NxTech
+              Why Choose {process.env.NEXT_PUBLIC_SITE_NAME}
             </span>
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto">

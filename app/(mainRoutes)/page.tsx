@@ -9,8 +9,8 @@ import { CTABanner } from "@/components/sections/cta-banner";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "NexTech Solutions - Empowering Businesses with IT, Marketing & AI Solutions",
-  description: "NexTech delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.",
+  title: `${process.env.NEXT_PUBLIC_SITE_NAME} Solutions - Empowering Businesses with IT, Marketing & AI Solutions`,
+  description: `${process.env.NEXT_PUBLIC_SITE_NAME} delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.`,
 };
 
 export default async function Home() {

@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
-
 type ChatMessage = {
   id?: string;
   text: string;
@@ -25,7 +24,7 @@ export function LiveChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: `msg-${Date.now()}`,
-      text: "Hello! 👋 Welcome to **NxTech Solutions**. I'm here to help you!\n\nI can assist you with:\n\n• Answering questions about our services and solutions\n• Arranging meetings with our team\n• Providing information about our offerings\n• Getting quotes for your projects\n• Recommending the best services for your needs\n\nFeel free to ask me anything! How can I help you today?",
+      text: `Hello! 👋 Welcome to **${process.env.NEXT_PUBLIC_SITE_NAME} Solutions**. I'm here to help you!\n\nI can assist you with:\n\n• Answering questions about our services and solutions\n• Arranging meetings with our team\n• Providing information about our offerings\n• Getting quotes for your projects\n• Recommending the best services for your needs\n\nFeel free to ask me anything! How can I help you today?`,
       sender: "bot",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       isTyping: false, // Initial message doesn't need typing effect
@@ -35,6 +34,8 @@ export function LiveChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [showCalendly, setShowCalendly] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_LINK || "";
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -158,6 +159,7 @@ export function LiveChatWidget() {
       handleSend();
     }
   };
+
 
   return (
     <>
@@ -473,7 +475,7 @@ export function LiveChatWidget() {
               </div>
               <div className="flex-1 overflow-hidden">
                 <iframe
-                  src="https://calendly.com/uzairullah397/new-meeting"
+                  src={calendlyUrl}
                   className="w-full h-full border-0"
                   title="Calendly Scheduling"
                 />

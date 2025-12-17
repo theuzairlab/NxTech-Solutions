@@ -2,6 +2,7 @@
 import Image from "next/image";
 
 export function OurStory() {
+  const user_email = process.env.NEXT_PUBLIC_USER_EMAIL|| "";
   return (
     <section className="py-20 relative overflow-hidden bg-background">
       {/* Dark background overlay */}
@@ -14,7 +15,7 @@ export function OurStory() {
             <div className="relative w-full max-w-lg aspect-square rounded-2xl overflow-hidden shadow-2xl">
               <Image
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=800&fit=crop"
-                alt="NxTech Solutions - Digital Transformation"
+                alt={`${process.env.NEXT_PUBLIC_SITE_NAME} Solutions - Digital Transformation`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -26,14 +27,14 @@ export function OurStory() {
           {/* Right Column - Story Text */}
           <div className="order-1 lg:order-2">
             <h2 className="text-4xl sm:text-5xl font-bold mb-8 text-foreground">
-              The NxTech Story
+              The {process.env.NEXT_PUBLIC_SITE_NAME} Story
             </h2>
             
             <div className="space-y-6 text-muted-foreground leading-relaxed">
               <p className="text-lg">
-                Based on our commitment to excellence, NxTech Solutions is a leading digital transformation partner 
+                Based on our commitment to excellence, {process.env.NEXT_PUBLIC_SITE_NAME} Solutions is a leading digital transformation partner 
                 for businesses worldwide and a trusted technology provider for global enterprises deploying advanced 
-                digital solutions. NxTech supports clients in two ways: accelerating digital transformation with 
+                digital solutions. {process.env.NEXT_PUBLIC_SITE_NAME} supports clients in two ways: accelerating digital transformation with 
                 high-quality development, advanced AI-powered automation pipelines that push the boundaries of 
                 efficiency, scalability, and innovation, plus expert technology teams with expertise in web 
                 development, mobile apps, AI integration, cloud infrastructure, and digital marketing; and 
@@ -47,10 +48,10 @@ export function OurStory() {
               <p className="text-muted-foreground">
                 For more information:{" "}
                 <a
-                  href="mailto:contact@nxtechsolutions.com"
+                  href={`mailto:${user_email}`}
                   className="text-primary hover:text-primary/80 underline transition-colors"
                 >
-                  contact@nxtechsolutions.com
+                  {user_email}
                 </a>
               </p>
             </div>

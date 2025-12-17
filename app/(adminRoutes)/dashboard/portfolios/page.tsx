@@ -7,7 +7,7 @@ import { DashboardHeader } from "@/components/admin/dashboard-header";
 import { PortfoliosManagement } from "@/components/admin/portfolios-management";
 
 export const metadata: Metadata = {
-  title: "Portfolios - NxTech Admin",
+  title: "Portfolios - " + process.env.NEXT_PUBLIC_SITE_NAME + " Admin",
   description: "Manage portfolio projects displayed on the website.",
 };
 

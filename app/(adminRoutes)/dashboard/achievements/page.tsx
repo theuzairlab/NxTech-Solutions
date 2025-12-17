@@ -7,8 +7,8 @@ import { DashboardHeader } from "@/components/admin/dashboard-header";
 import { AchievementsManagement } from "@/components/admin/achievements-management";
 
 export const metadata: Metadata = {
-  title: "Achievements & Certifications - NxTech Admin",
-  description: "Manage achievements and certifications displayed on the website.",
+  title: "Achievements & Certifications - " + process.env.NEXT_PUBLIC_SITE_NAME + " Admin",
+  description: "Manage achievements and certifications displayed on the " + process.env.NEXT_PUBLIC_SITE_NAME + " website.",
 };
 
 export default async function AchievementsPage() {

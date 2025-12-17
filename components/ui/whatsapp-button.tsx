@@ -14,7 +14,7 @@ export function WhatsAppButton() {
     return () => clearTimeout(timer);
   }, []);
 
-  const whatsappNumber = "+923331916991"; // Replace with your WhatsApp Business number
+  const whatsappNumber = process.env.NEXT_PUBLIC_USER_PHONE|| "";// Replace with your WhatsApp Business number
   const message = encodeURIComponent("Hello! I'd like to learn more about your services.");
 
   return (

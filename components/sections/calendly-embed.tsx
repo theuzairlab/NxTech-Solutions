@@ -1,6 +1,7 @@
 "use client";
 
 export function CalendlyEmbed() {
+  const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_LINK || "";
   return (
     <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#f0f9ff] via-white to-[#e0f2fe] z-1">
       <div className="absolute inset-0 pointer-events-none">
@@ -28,7 +29,7 @@ export function CalendlyEmbed() {
           <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border-2 border-border overflow-hidden">
             <div className="h-[700px] w-full">
               <iframe
-                src="https://calendly.com/uzairullah397/new-meeting"
+                src={calendlyUrl}
                 className="w-full h-full border-0"
                 title="Calendly Scheduling"
               />

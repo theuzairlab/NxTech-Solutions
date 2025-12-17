@@ -517,7 +517,7 @@ function BlogModal({
         image: form.image || "",
         categoryId: form.categoryId,
         authorUserId: null,
-        authorName: "NxTech Solutions", // Company name
+        authorName: process.env.NEXT_PUBLIC_SITE_NAME || "", // Company name
         authorAvatar: "",
         authorRole: "Company",
         tags: form.tags,

@@ -449,7 +449,7 @@ function TestimonialModal({
               value={form.content}
               onChange={(e) => setForm((f) => ({ ...f, content: e.target.value }))}
               className="min-h-[100px]"
-              placeholder="NexTech transformed our digital presence completely..."
+              placeholder={`${process.env.NEXT_PUBLIC_SITE_NAME} transformed our digital presence completely...`}
             />
           </div>
         </div>

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
+  const user_phone = process.env.NEXT_PUBLIC_USER_PHONE|| "";
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -184,7 +184,7 @@ export function HeroSection() {
 
           {/* Subheadline */}
           <p className="text-xl sm:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            NexTech delivers cutting-edge digital solutions that drive revenue,
+            {process.env.NEXT_PUBLIC_SITE_NAME} delivers cutting-edge digital solutions that drive revenue,
             automate operations, and scale your business.
           </p>
 
@@ -196,7 +196,7 @@ export function HeroSection() {
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             </Link>
-            <Link href="https://wa.me/+923331916991" target="_blank" rel="noopener noreferrer">
+            <Link href={`https://wa.me/${user_phone}`} target="_blank" rel="noopener noreferrer">
             <Button 
               size="lg" 
               variant="outline" 

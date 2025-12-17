@@ -19,7 +19,7 @@ export function AboutHero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
             <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-primary">About NxTech</span>
+            <span className="text-sm font-medium text-primary">About {process.env.NEXT_PUBLIC_SITE_NAME}</span>
           </div>
 
           {/* Headline */}

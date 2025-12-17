@@ -9,8 +9,8 @@ import { RecentActivity } from "@/components/admin/recent-activity";
 import { TrafficOverview } from "@/components/admin/traffic-overview";
 
 export const metadata: Metadata = {
-  title: "Dashboard - NxTech Solutions",
-  description: "Admin dashboard for NxTech Solutions",
+  title: "Dashboard - " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
+  description: "Admin dashboard for " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
 };
 
 async function getDashboardStats() {
@@ -288,7 +288,7 @@ export default async function Dashboard() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <DashboardHeader title="Dashboard" description="Overview of NxTech website performance, leads, and content activity." healthStatus={true} />
+      <DashboardHeader title="Dashboard" description={`Overview of ${process.env.NEXT_PUBLIC_SITE_NAME} website performance, leads, and content activity.`} healthStatus={true} />
       <AnalyticsCards data={stats} />
       <div className="grid gap-3 sm:gap-4 grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)]">
         <TrafficOverview />

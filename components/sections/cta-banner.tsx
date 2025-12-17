@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export function CTABanner() {
+  const user_phone = process.env.NEXT_PUBLIC_USER_PHONE|| "";
   return (
     <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#00c2c7] via-[#00b1bb] to-[#009aa8] z-1">
       {/* Gradient Background */}
@@ -46,7 +47,7 @@ export function CTABanner() {
               variant="outline"
               className="text-lg px-8 py-6 border-2 border-white/30 bg-transparent text-white hover:bg-white/10 hover:border-white/50"
             >
-              <Link href="https://wa.me/+923331916991" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+              <Link href={`https://wa.me/${user_phone}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
               Schedule Consultation
               </Link>
             </Button>

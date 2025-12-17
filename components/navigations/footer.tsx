@@ -31,14 +31,17 @@ const services = [
 ];
 
 const socialLinks = [
-  { name: "Facebook", icon: Facebook, href: "https://facebook.com/nxtechsolutions" },
-  { name: "Twitter", icon: Twitter, href: "https://twitter.com/nxtechsolutions" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/company/nxtechsolutions" },
-  { name: "Instagram", icon: Instagram, href: "https://instagram.com/nxtechsolutions" },
+  { name: "Facebook", icon: Facebook, href: process.env.NEXT_PUBLIC_FACEBOOK_URL || "" },
+  { name: "Twitter", icon: Twitter, href: process.env.NEXT_PUBLIC_TWITTER_URL || "" },
+  { name: "LinkedIn", icon: Linkedin, href: process.env.NEXT_PUBLIC_LINKEDIN_URL || "" },
+  { name: "Instagram", icon: Instagram, href: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "" },
 ];
 
 export function Footer() {
   const [email, setEmail] = useState("");
+
+  const user_email = process.env.NEXT_PUBLIC_USER_EMAIL || "";
+  const user_phone = process.env.NEXT_PUBLIC_USER_PHONE || "";
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,21 +59,21 @@ export function Footer() {
             <Link href="/" className="inline-block">
               <Image
                 src="/logo.png"
-                alt="NxTech Solutions"
+                alt={`${process.env.NEXT_PUBLIC_SITE_NAME} Solutions`}
                 width={150}
                 height={60}
                 className="h-auto"
               />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              NxTech delivers cutting-edge digital solutions that drive revenue, 
+              {process.env.NEXT_PUBLIC_SITE_NAME} delivers cutting-edge digital solutions that drive revenue, 
               automate operations, and scale your business.
             </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 text-primary" />
-                <a href="tel:+923331916991" className="hover:text-primary transition-colors">
-                  +92 333 1916991
+                <a href={`tel:${user_phone}`} className="hover:text-primary transition-colors">
+                  {user_phone}
                 </a>
               </div>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -83,8 +86,8 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 text-primary" />
-                <a href="mailto:info@nxtechsolutions.com" className="hover:text-primary transition-colors">
-                  info@nxtechsolutions.com
+                <a href={`mailto:${user_email}`} className="hover:text-primary transition-colors">
+                  {user_email}
                 </a>
               </div>
             </div>
@@ -178,7 +181,7 @@ export function Footer() {
         <div className="border-t border-border pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              © {new Date().getFullYear()} NxTech Solutions. All rights reserved.
+              © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_SITE_NAME} Solutions. All rights reserved.
             </p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-end">
               <Link

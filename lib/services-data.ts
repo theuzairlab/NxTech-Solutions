@@ -33,7 +33,7 @@ export const servicesData: Record<string, ServiceData> = {
     slug: "it-services",
     title: "IT Services",
     shortDescription: "Comprehensive IT consulting, software development, support, and cloud solutions to keep your business running smoothly.",
-    overview: "NexTech provides end-to-end IT solutions designed for enterprise-grade performance, security, and scalability. We help businesses plan, optimize, and modernize IT infrastructure with scalable and secure technology solutions.",
+    overview: `${process.env.NEXT_PUBLIC_SITE_NAME} provides end-to-end IT solutions designed for enterprise-grade performance, security, and scalability. We help businesses plan, optimize, and modernize IT infrastructure with scalable and secure technology solutions.`,
     sections: [
       {
         title: "IT Consulting",
@@ -875,9 +875,9 @@ export const additionalServicesData: Record<string, Partial<ServiceData>> = {
   "staff-augmentation": {
     slug: "staff-augmentation",
     title: "Staff Augmentation",
-    overview: "Provide professional talent fully managed by NexTech, including developers, marketers, designers & admins.",
+    overview: `Provide professional talent fully managed by ${process.env.NEXT_PUBLIC_SITE_NAME}, including developers, marketers, designers & admins.`,
     sections: [
-      { title: "Dedicated Remote Staff", content: "Full-time or part-time professionals managed by NexTech" },
+      { title: "Dedicated Remote Staff", content: `Full-time or part-time professionals managed by ${process.env.NEXT_PUBLIC_SITE_NAME}` },
       { title: "IT Engineers & Developers", content: "Experienced developers and IT engineers" },
       { title: "Digital Marketing Specialists", content: "Marketing experts and specialists" },
       { title: "Virtual Assistants", content: "Virtual assistants for various tasks" },

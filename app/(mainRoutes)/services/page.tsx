@@ -9,8 +9,8 @@ import { CTABanner } from "@/components/sections/cta-banner";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Services - NxTech Solutions | IT, Marketing, AI & Digital Solutions",
-  description: "Comprehensive digital services including IT solutions, digital marketing, AI agents, lead generation, web development, cloud services, and more. Transform your business with NxTech.",
+  title: "Services - " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions | IT, Marketing, AI & Digital Solutions",
+  description: "Comprehensive digital services including IT solutions, digital marketing, AI agents, lead generation, web development, cloud services, and more. Transform your business with " + process.env.NEXT_PUBLIC_SITE_NAME + ".",
 };
 
 export default async function Services() {

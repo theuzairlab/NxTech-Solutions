@@ -7,7 +7,7 @@ import { DashboardHeader } from "@/components/admin/dashboard-header";
 import { TestimonialsManagement } from "@/components/admin/testimonials-management";
 
 export const metadata: Metadata = {
-  title: "Testimonials - NxTech Admin",
+  title: "Testimonials - " + process.env.NEXT_PUBLIC_SITE_NAME + " Admin",
   description: "Manage testimonials displayed on the website.",
 };
 

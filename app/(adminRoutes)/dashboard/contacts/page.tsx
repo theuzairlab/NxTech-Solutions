@@ -8,8 +8,8 @@ import { DashboardHeader } from "@/components/admin/dashboard-header";
 import { ContactsManagement } from "@/components/admin/contacts-management";
 
 export const metadata: Metadata = {
-  title: "Contacts - NxTech Admin",
-  description: "Manage contact messages and quote requests from the website.",
+  title: "Contacts - " + process.env.NEXT_PUBLIC_SITE_NAME + " Admin",
+  description: "Manage contact messages and quote requests from the " + process.env.NEXT_PUBLIC_SITE_NAME + " website.",
 };
 
 export default async function ContactsPage() {
