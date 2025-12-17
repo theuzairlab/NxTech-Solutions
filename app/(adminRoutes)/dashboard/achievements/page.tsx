@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { DashboardHeader } from "@/components/admin/dashboard-header";
 import { AchievementsManagement } from "@/components/admin/achievements-management";
@@ -9,6 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default async function AchievementsPage() {
+  const session = await getServerSession(authConfig);
+  
+  if (!session?.user?.isAdmin) {
+    redirect("/");
+  }
   const achievements = await prisma.achievementCertification.findMany({
     orderBy: [
       { displayOrder: "asc" },

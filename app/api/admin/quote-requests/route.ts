@@ -10,12 +10,18 @@ export async function GET(req: Request) {
   }
 
   const { searchParams } = new URL(req.url);
-  const status = searchParams.get("status");
+  const statusParam = searchParams.get("status");
   const query = searchParams.get("q") || "";
+
+  // Validate status is a valid enum value
+  const validStatuses = ["NEW", "IN_PROGRESS", "QUOTED", "COMPLETED"] as const;
+  const status = statusParam && validStatuses.includes(statusParam as any)
+    ? (statusParam as "NEW" | "IN_PROGRESS" | "QUOTED" | "COMPLETED")
+    : undefined;
 
   const quotes = await prisma.quoteRequest.findMany({
     where: {
-      status: status || undefined,
+      ...(status && { status }),
       OR: query
         ? [
             { name: { contains: query, mode: "insensitive" } },

@@ -112,6 +112,7 @@ export default async function BlogPostPage({
       slug: true,
       title: true,
       excerpt: true,
+      content: true,
       image: true,
       category: {
         select: {
@@ -153,6 +154,7 @@ export default async function BlogPostPage({
     slug: p.slug,
     title: p.title,
     excerpt: p.excerpt,
+    content: p.content,
     image: p.image,
     category: p.category.name,
     author: {

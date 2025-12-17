@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 
 const ADMIN_PATHS = ["/dashboard"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow NextAuth endpoints and static assets
@@ -40,6 +40,9 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/dashboard"],
+  matcher: [
+    "/dashboard/:path*",
+    "/dashboard",
+  ],
 };
 

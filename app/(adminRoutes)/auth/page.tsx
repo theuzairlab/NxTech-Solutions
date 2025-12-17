@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function AdminAuthPage() {
+function AdminAuthForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
@@ -92,6 +92,23 @@ export default function AdminAuthPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function AdminAuthPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 px-4">
+        <div className="w-full max-w-md rounded-2xl border border-border bg-card shadow-xl p-8 space-y-6">
+          <div className="text-center space-y-2">
+            <h1 className="text-3xl font-bold text-foreground">Admin Sign In</h1>
+            <p className="text-muted-foreground text-sm">Loading...</p>
+          </div>
+        </div>
+      </div>
+    }>
+      <AdminAuthForm />
+    </Suspense>
   );
 }
 

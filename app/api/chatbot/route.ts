@@ -87,18 +87,31 @@ YOUR RESPONSIBILITIES:
    {"action": "book_meeting"}
    Then provide a friendly message like "You can also book a meeting with us!" but DO NOT include the raw Calendly URL in your response text.
 
-4. Recommend relevant services based on user needs. When recommending services, include a JSON action:
+4. Recommend relevant services based on user needs. When recommending services OR when asked to show/list all services, include a JSON action:
    {"action": "recommend_services", "services": ["service-slug-1", "service-slug-2"]}
    
+   IMPORTANT: When user asks to "show all services", "list all services", "what services do you offer", or similar requests, ALWAYS include ALL service slugs in the recommend_services action: ${JSON.stringify(context.serviceSlugs)}
+   
    Available service slugs: ${context.serviceSlugs.join(", ")}
+   
+   CRITICAL: When you include the recommend_services action, place the JSON on a SEPARATE LINE at the END of your response, or embed it invisibly. Your text response should be brief and natural (1-2 sentences) like "Here are our services:" or "Here's what we offer:" - DO NOT include the JSON inline with your text. The services will be displayed as interactive cards automatically.
 
 5. Be friendly, professional, and helpful. Keep responses concise (2-3 sentences max unless detailed explanation is needed).
 
+6. Format your responses attractively:
+   - Use **bold** for emphasis on important terms
+   - Use bullet points (-) or numbered lists (1., 2., etc.) for lists
+   - Use line breaks to separate ideas
+   - Keep paragraphs short (2-3 sentences)
+   - Use clear, conversational language
+
 IMPORTANT:
 - Always respond naturally in conversation, but include JSON actions when needed.
-- The JSON actions should be embedded naturally in your response or at the end.
+- JSON actions should be placed on SEPARATE LINES at the END of your response, NOT inline with your text.
+- NEVER include JSON objects in the middle of sentences - they will be automatically extracted and removed from the displayed text.
 - If user asks about pricing, mention that pricing varies by project and suggest booking a meeting or getting a quote.
-- If user wants to work with us, collect their information and use the create_lead action.`;
+- If user wants to work with us, collect their information and use the create_lead action.
+- Keep your text responses clean and readable - the JSON actions are processed separately and won't be shown to users.`;
 }
 
 async function callOpenRouter(messages: ChatMessage[]): Promise<string> {
@@ -151,25 +164,52 @@ function extractActions(responseText: string): {
   const actions: any = {};
   let cleanedText = responseText;
 
-  // Function to find and extract JSON objects (handles nested objects)
+  // Function to find and extract JSON objects (handles nested objects and arrays)
   function findJsonObjects(text: string): string[] {
     const results: string[] = [];
-    let depth = 0;
+    let braceDepth = 0;
+    let bracketDepth = 0;
     let start = -1;
+    let inString = false;
+    let escapeNext = false;
     
     for (let i = 0; i < text.length; i++) {
-      if (text[i] === '{') {
-        if (depth === 0) start = i;
-        depth++;
-      } else if (text[i] === '}') {
-        depth--;
-        if (depth === 0 && start !== -1) {
+      const char = text[i];
+      
+      if (escapeNext) {
+        escapeNext = false;
+        continue;
+      }
+      
+      if (char === '\\') {
+        escapeNext = true;
+        continue;
+      }
+      
+      if (char === '"' && !escapeNext) {
+        inString = !inString;
+        continue;
+      }
+      
+      if (inString) continue;
+      
+      if (char === '{') {
+        if (braceDepth === 0 && bracketDepth === 0) start = i;
+        braceDepth++;
+      } else if (char === '}') {
+        braceDepth--;
+        if (braceDepth === 0 && bracketDepth === 0 && start !== -1) {
           const jsonStr = text.substring(start, i + 1);
           // Only include if it contains "action" key
           if (jsonStr.includes('"action"')) {
             results.push(jsonStr);
           }
+          start = -1;
         }
+      } else if (char === '[') {
+        bracketDepth++;
+      } else if (char === ']') {
+        bracketDepth--;
       }
     }
     
@@ -196,8 +236,24 @@ function extractActions(responseText: string): {
         cleanedText = cleanedText.replace(jsonStr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "").trim();
       } else if (parsed.action === "recommend_services" && Array.isArray(parsed.services)) {
         actions.recommendServices = parsed.services;
-        // Remove this JSON from response text
-        cleanedText = cleanedText.replace(jsonStr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "").trim();
+        // Remove this JSON from response text - handle various placements
+        // Try multiple replacement strategies
+        cleanedText = cleanedText.replace(jsonStr, '').trim();
+        
+        // Also try with normalized whitespace
+        const normalizedJson = jsonStr.replace(/\s+/g, ' ');
+        cleanedText = cleanedText.replace(normalizedJson, '').trim();
+        
+        // Try with regex pattern (more flexible)
+        const escapedJson = jsonStr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        cleanedText = cleanedText.replace(new RegExp(escapedJson, 'g'), '').trim();
+        
+        // Clean up any double spaces or orphaned punctuation
+        cleanedText = cleanedText
+          .replace(/\s{2,}/g, ' ')
+          .replace(/\s*:\s*$/, '') // Remove trailing colons
+          .replace(/^\s*:\s*/, '') // Remove leading colons
+          .trim();
       } else if (parsed.action === "book_meeting") {
         actions.bookMeeting = true;
         // Remove this JSON from response text
@@ -209,6 +265,38 @@ function extractActions(responseText: string): {
     }
   }
 
+  // Additional cleanup: Remove any remaining JSON-like patterns that might have been missed
+  // This handles cases where JSON might appear inline with text
+  // Use a more robust approach to remove JSON objects
+  const jsonPatterns = [
+    // Pattern for recommend_services - handles arrays with any content
+    /\{\s*"action"\s*:\s*"recommend_services"\s*,\s*"services"\s*:\s*\[[^\]]*\]\s*\}/gi,
+    // More flexible pattern for recommend_services (handles any whitespace)
+    /\{\s*"action"\s*:\s*"recommend_services"\s*[^}]*"services"\s*:\s*\[[^}]*\]\s*\}/gi,
+    // Pattern for create_lead with nested objects
+    /\{\s*"action"\s*:\s*"create_lead"\s*[^}]*"lead"\s*:\s*\{[^}]*\}\s*\}/gi,
+    // Pattern for simple action objects
+    /\{\s*"action"\s*:\s*"[^"]+"\s*\}/gi,
+    // Catch any remaining JSON-like structures with "action" key
+    /\{[^{}]*"action"[^{}]*\}/gi,
+  ];
+
+  jsonPatterns.forEach(pattern => {
+    cleanedText = cleanedText.replace(pattern, '').trim();
+  });
+
+  // Remove any remaining empty curly braces or malformed JSON
+  cleanedText = cleanedText
+    .replace(/\{\s*\}/g, '')
+    .replace(/\{\s*[^}]*\}/g, (match) => {
+      // Only remove if it looks like JSON (has quotes and colons)
+      if (match.includes('"') && match.includes(':')) {
+        return '';
+      }
+      return match;
+    })
+    .trim();
+
   // Also check if Calendly URL is mentioned and remove it, set bookMeeting action
   if (responseText.includes(CALENDLY_LINK) || responseText.toLowerCase().includes("calendly")) {
     actions.bookMeeting = true;
@@ -219,9 +307,13 @@ function extractActions(responseText: string): {
 
   // Clean up extra whitespace, empty lines, and orphaned punctuation
   cleanedText = cleanedText
-    .replace(/\n\s*\n/g, "\n")
+    .replace(/\n\s*\n/g, "\n") // Remove multiple newlines
     .replace(/^\s*[.,;:]\s*/gm, "") // Remove leading punctuation on lines
     .replace(/\s+([.,;:])/g, "$1") // Fix spacing before punctuation
+    .replace(/\s{2,}/g, ' ') // Replace multiple spaces with single space
+    .replace(/^\s+|\s+$/g, '') // Trim start and end
+    .replace(/\s*:\s*/g, ': ') // Clean up colons (but keep them if they're part of text)
+    .replace(/:\s*\{/g, '') // Remove any remaining ": {" patterns
     .trim();
 
   return {
@@ -258,7 +350,23 @@ export async function POST(req: Request) {
     const aiResponse = await callOpenRouter(openRouterMessages);
 
     // Extract actions (lead creation, service recommendations)
-    const { replyText, actions } = extractActions(aiResponse);
+    let { replyText, actions } = extractActions(aiResponse);
+
+    // If user asked for all services and no services were recommended, add all services
+    const lastUserMessage = messages[messages.length - 1]?.content?.toLowerCase() || "";
+    const askedForAllServices = lastUserMessage.includes("all services") || 
+                                lastUserMessage.includes("show services") || 
+                                lastUserMessage.includes("list services") ||
+                                lastUserMessage.includes("what services") ||
+                                lastUserMessage.includes("services do you offer");
+    
+    if (askedForAllServices && (!actions?.recommendServices || actions.recommendServices.length === 0)) {
+      // Add all services to recommendations
+      if (!actions) {
+        actions = {};
+      }
+      actions.recommendServices = companyContext.serviceSlugs;
+    }
 
     // If create_lead action exists, save to database
     if (actions?.createLead) {

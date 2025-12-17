@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { DashboardHeader } from "@/components/admin/dashboard-header";
 import { TestimonialsManagement } from "@/components/admin/testimonials-management";
@@ -9,6 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default async function TestimonialsPage() {
+  const session = await getServerSession(authConfig);
+  
+  if (!session?.user?.isAdmin) {
+    redirect("/");
+  }
   const testimonials = await prisma.testimonial.findMany({
     orderBy: [
       { displayOrder: "asc" },

@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { ServicesManagement } from "@/components/admin/services-management";
 import { DashboardHeader } from "@/components/admin/dashboard-header";
@@ -9,6 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default async function Services() {
+  const session = await getServerSession(authConfig);
+  
+  if (!session?.user?.isAdmin) {
+    redirect("/");
+  }
   const services = await prisma.service.findMany({
     orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
     select: {

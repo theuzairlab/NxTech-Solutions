@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { DashboardHeader } from "@/components/admin/dashboard-header";
 import { ContactsManagement } from "@/components/admin/contacts-management";
@@ -9,6 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactsPage() {
+  const session = await getServerSession(authConfig);
+  
+  if (!session?.user?.isAdmin) {
+    redirect("/");
+  }
   const [contactSubmissions, quoteRequests, chatLeads] = await Promise.all([
     prisma.contactSubmission.findMany({
       orderBy: { createdAt: "desc" },
@@ -66,23 +75,25 @@ export default async function ContactsPage() {
         description="Manage contact messages and quote requests from the website."
         healthStatus={false}
       />
-      <ContactsManagement
-        initialContactSubmissions={contactSubmissions.map((c) => ({
-          ...c,
-          createdAt: c.createdAt.toISOString(),
-          updatedAt: c.updatedAt.toISOString(),
-        }))}
-        initialQuoteRequests={quoteRequests.map((q) => ({
-          ...q,
-          createdAt: q.createdAt.toISOString(),
-          updatedAt: q.updatedAt.toISOString(),
-        }))}
-        initialChatLeads={chatLeads.map((l) => ({
-          ...l,
-          createdAt: l.createdAt.toISOString(),
-          updatedAt: l.updatedAt.toISOString(),
-        }))}
-      />
+      <Suspense fallback={<div className="p-4 text-center text-muted-foreground">Loading contacts...</div>}>
+        <ContactsManagement
+          initialContactSubmissions={contactSubmissions.map((c) => ({
+            ...c,
+            createdAt: c.createdAt.toISOString(),
+            updatedAt: c.updatedAt.toISOString(),
+          }))}
+          initialQuoteRequests={quoteRequests.map((q) => ({
+            ...q,
+            createdAt: q.createdAt.toISOString(),
+            updatedAt: q.updatedAt.toISOString(),
+          }))}
+          initialChatLeads={chatLeads.map((l) => ({
+            ...l,
+            createdAt: l.createdAt.toISOString(),
+            updatedAt: l.updatedAt.toISOString(),
+          }))}
+        />
+      </Suspense>
     </>
   );
 }
