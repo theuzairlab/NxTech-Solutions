@@ -22,7 +22,7 @@ export async function GET() {
   });
 
   return NextResponse.json(
-    users.map((u) => ({ ...u, createdAt: u.createdAt.toISOString() }))
+    users.map((u: typeof users[0]) => ({ ...u, createdAt: u.createdAt.toISOString() }))
   );
 }
 

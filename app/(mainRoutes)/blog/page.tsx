@@ -54,7 +54,7 @@ export default async function Blog() {
   ]);
 
   // Transform blogs to match the expected format
-  const blogPosts = blogs.map((blog) => ({
+  const blogPosts = blogs.map((blog: typeof blogs[0]) => ({
     id: blog.id,
     slug: blog.slug,
     title: blog.title,
@@ -72,7 +72,7 @@ export default async function Blog() {
     featured: blog.featured,
   }));
 
-  const blogCategories = ["All", ...categories.map((cat) => cat.name)];
+  const blogCategories = ["All", ...categories.map((cat: typeof categories[0]) => cat.name)];
 
   return (
     <>

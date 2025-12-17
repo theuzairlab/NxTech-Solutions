@@ -60,7 +60,7 @@ export default async function Home() {
         { displayOrder: "asc" },
         { createdAt: "desc" },
       ],
-    }).then(portfolios => portfolios.map((p: any) => ({
+    }).then(portfolios => portfolios.map((p: typeof portfolios[0]) => ({
       id: p.id,
       slug: p.slug,
       title: p.title,

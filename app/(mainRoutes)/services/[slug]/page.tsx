@@ -9,7 +9,7 @@ export async function generateStaticParams() {
     select: { slug: true },
   });
   
-  return services.map((service) => ({
+  return services.map((service: typeof services[0]) => ({
     slug: service.slug,
   }));
 }

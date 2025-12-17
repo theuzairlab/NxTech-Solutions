@@ -13,7 +13,7 @@ export async function generateStaticParams() {
     },
   });
 
-  return blogs.map((blog) => ({
+  return blogs.map((blog: typeof blogs[0]) => ({
     slug: blog.slug,
   }));
 }
@@ -149,7 +149,7 @@ export default async function BlogPostPage({
     featured: post.featured,
   };
 
-  const transformedRelatedPosts = relatedPosts.map((p) => ({
+  const transformedRelatedPosts = relatedPosts.map((p: typeof relatedPosts[0]) => ({
     id: p.id,
     slug: p.slug,
     title: p.title,

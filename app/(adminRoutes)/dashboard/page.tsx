@@ -264,7 +264,10 @@ async function getDashboardActivities() {
     activities.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
     // Return activities with links
-    return activities.slice(0, 10).map(({ createdAt, ...rest }) => rest);
+    return activities.slice(0, 10).map((activity: typeof activities[0]) => {
+      const { createdAt, ...rest } = activity;
+      return rest;
+    });
   } catch (error) {
     console.error("Error fetching dashboard activities:", error);
     return [];

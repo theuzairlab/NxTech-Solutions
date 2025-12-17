@@ -39,17 +39,17 @@ async function getCompanyContext() {
   ]);
 
   const servicesList = services
-    .map((s) => `- ${s.title} (slug: ${s.slug}): ${s.shortDescription}`)
+    .map((s: typeof services[0]) => `- ${s.title} (slug: ${s.slug}): ${s.shortDescription}`)
     .join("\n");
 
   const industriesList = industries
-    .map((i) => `- ${i.name}: ${i.description || "Tailored solutions"}`)
+    .map((i: typeof industries[0]) => `- ${i.name}: ${i.description || "Tailored solutions"}`)
     .join("\n");
 
   return {
     servicesList,
     industriesList,
-    serviceSlugs: services.map((s) => s.slug),
+    serviceSlugs: services.map((s: typeof services[0]) => s.slug),
   };
 }
 
