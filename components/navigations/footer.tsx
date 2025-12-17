@@ -18,15 +18,14 @@ const quickLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
-  { name: "Portfolio", href: "/portfolio" },
   { name: "Contact", href: "/contact" },
 ];
 
 const services = [
   { name: "IT Services", href: "/services/it-services" },
   { name: "Digital Marketing", href: "/services/digital-marketing" },
-  { name: "AI Solutions", href: "/services/ai-solutions" },
-  { name: "Web Development", href: "/services/web-development" },
+  { name: "AI Solutions", href: "/services/ai-sales-agent" },
+  { name: "Web Development", href: "/services/web-app-development" },
   { name: "Lead Generation", href: "/services/lead-generation" },
 ];
 
