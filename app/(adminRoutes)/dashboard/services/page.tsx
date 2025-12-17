@@ -50,7 +50,7 @@ export default async function Services() {
         healthStatus={false}
       />
       <ServicesManagement
-        initialServices={services.map((s) => ({
+        initialServices={services.map((s: any) => ({
           ...s,
           createdAt: s.createdAt.toISOString(),
           updatedAt: s.updatedAt.toISOString(),

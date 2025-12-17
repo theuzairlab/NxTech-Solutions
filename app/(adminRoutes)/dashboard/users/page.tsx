@@ -47,7 +47,7 @@ export default async function UsersPage() {
     <>
     <DashboardHeader title="Users" description="Manage admin users and public team members." healthStatus={false} />
     <UsersManagement
-      initialUsers={users.map((u) => ({
+      initialUsers={users.map((u: any) => ({
         ...u,
         createdAt: u.createdAt.toISOString(),
       }))}

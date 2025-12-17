@@ -51,7 +51,7 @@ export default async function PortfoliosPage() {
         healthStatus={false}
       />
       <PortfoliosManagement
-        initialPortfolios={portfolios.map((p) => ({
+        initialPortfolios={portfolios.map((p: any) => ({
           ...p,
           createdAt: p.createdAt.toISOString(),
           updatedAt: p.updatedAt.toISOString(),

@@ -47,7 +47,7 @@ export default async function TestimonialsPage() {
         healthStatus={false}
       />
       <TestimonialsManagement
-        initialTestimonials={testimonials.map((t) => ({
+        initialTestimonials={testimonials.map((t: any) => ({
           ...t,
           createdAt: t.createdAt.toISOString(),
           updatedAt: t.updatedAt.toISOString(),

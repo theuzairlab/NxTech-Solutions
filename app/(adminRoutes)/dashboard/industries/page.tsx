@@ -44,7 +44,7 @@ export default async function IndustriesPage() {
         healthStatus={false}
       />
       <IndustriesManagement
-        initialIndustries={industries.map((i) => ({
+        initialIndustries={industries.map((i: any) => ({
           ...i,
           createdAt: i.createdAt.toISOString(),
           updatedAt: i.updatedAt.toISOString(),

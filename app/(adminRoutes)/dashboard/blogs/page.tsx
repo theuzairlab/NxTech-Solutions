@@ -77,13 +77,13 @@ export default async function BlogsPage() {
         </TabsList>
         <TabsContent value="posts">
           <BlogsManagement
-            initialBlogs={blogs.map((b) => ({
+            initialBlogs={blogs.map((b: any) => ({
               ...b,
               publishedAt: b.publishedAt?.toISOString() || null,
               createdAt: b.createdAt.toISOString(),
               updatedAt: b.updatedAt.toISOString(),
             }))}
-            categories={categories.map((c) => ({
+            categories={categories.map((c: any) => ({
               id: c.id,
               slug: c.slug,
               name: c.name,
@@ -92,7 +92,7 @@ export default async function BlogsPage() {
         </TabsContent>
         <TabsContent value="categories">
           <BlogCategoriesManagement
-            initialCategories={categories.map((c) => ({
+            initialCategories={categories.map((c: any) => ({
               ...c,
               createdAt: c.createdAt.toISOString(),
               updatedAt: c.updatedAt.toISOString(),

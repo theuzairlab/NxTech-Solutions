@@ -77,17 +77,17 @@ export default async function ContactsPage() {
       />
       <Suspense fallback={<div className="p-4 text-center text-muted-foreground">Loading contacts...</div>}>
         <ContactsManagement
-          initialContactSubmissions={contactSubmissions.map((c) => ({
+          initialContactSubmissions={contactSubmissions.map((c: any) => ({
             ...c,
             createdAt: c.createdAt.toISOString(),
             updatedAt: c.updatedAt.toISOString(),
           }))}
-          initialQuoteRequests={quoteRequests.map((q) => ({
+          initialQuoteRequests={quoteRequests.map((q: any) => ({
             ...q,
             createdAt: q.createdAt.toISOString(),
             updatedAt: q.updatedAt.toISOString(),
           }))}
-          initialChatLeads={chatLeads.map((l) => ({
+          initialChatLeads={chatLeads.map((l: any) => ({
             ...l,
             createdAt: l.createdAt.toISOString(),
             updatedAt: l.updatedAt.toISOString(),
