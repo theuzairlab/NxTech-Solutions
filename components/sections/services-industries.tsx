@@ -50,7 +50,7 @@ export async function ServicesIndustries() {
   });
 
   return (
-    <section id="industries" className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#f0f9ff] via-white to-[#e0f2fe] z-6">
+    <section id="industries" className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#f0f9ff] via-white to-[#e0f2fe] z-6">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 right-1/4 w-[520px] h-[520px] bg-primary/12 blur-3xl" />
         <div className="absolute -bottom-20 left-10 w-[480px] h-[480px] bg-primary/10 blur-3xl" />
@@ -86,7 +86,7 @@ export async function ServicesIndustries() {
               return (
                 <div
                   key={industry.id}
-                  className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+                  className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
                 >
                   {/* Image Background */}
                   <div className="absolute inset-0 opacity-90 group-hover:opacity-75 transition-opacity duration-500 ease-in-out">

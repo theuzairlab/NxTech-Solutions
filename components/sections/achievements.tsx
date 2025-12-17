@@ -105,7 +105,7 @@ export function Achievements({ achievements, certifications }: AchievementsProps
               return (
                 <div
                   key={achievement.id}
-                  className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+                  className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
                 >
                   {/* Image Background */}
                   {achievement.image && (
@@ -124,7 +124,7 @@ export function Achievements({ achievements, certifications }: AchievementsProps
 
                   <div className="relative p-6 z-10">
                     {/* Icon */}
-                    <div className="w-16 h-16 rounded-xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-16 h-16 rounded-lg sm:rounded-xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                       <Icon className="h-8 w-8 text-foreground group-hover:text-primary" />
                     </div>
 
@@ -160,7 +160,7 @@ export function Achievements({ achievements, certifications }: AchievementsProps
 
         {/* Certifications */}
         {certifications.length > 0 && (
-          <div className="bg-card rounded-2xl border border-border p-8">
+          <div className="bg-card rounded-xl sm:rounded-2xl border border-border p-6 sm:p-8">
             <h3 className="text-2xl font-semibold mb-6 text-center text-foreground">
               Certifications & Partnerships
             </h3>
@@ -177,7 +177,7 @@ export function Achievements({ achievements, certifications }: AchievementsProps
                 {duplicatedCertifications.map((cert, index) => (
                   <div
                     key={`${cert.id}-${index}`}
-                    className="group flex flex-col items-center justify-center p-4 rounded-xl bg-linear-to-br from-primary/5 to-primary/10 border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 shrink-0 w-[200px]"
+                    className="group flex flex-col items-center justify-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-br from-primary/5 to-primary/10 border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 shrink-0 w-[200px]"
                   >
                     {/* Company Logo */}
                     <div className="relative w-16 h-16 mb-3 rounded-full overflow-hidden bg-white border border-border/50 flex items-center justify-center">

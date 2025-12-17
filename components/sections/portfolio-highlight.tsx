@@ -43,7 +43,7 @@ export function PortfolioHighlight({ portfolios }: PortfolioHighlightProps) {
   }
 
   return (
-    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#eef4ff] via-white to-[#d5e6ff] z-7">
+    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#eef4ff] via-white to-[#d5e6ff] z-7">
       {/* Background Gradient */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 left-10 w-[520px] h-[520px] bg-primary/15 blur-3xl" />
@@ -79,15 +79,15 @@ export function PortfolioHighlight({ portfolios }: PortfolioHighlightProps) {
             return (
               <div
                 key={portfolio.id}
-                className="group relative overflow-hidden rounded-2xl bg-white border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+                className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-white border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
               >
                 {/* Image */}
-                <div className="relative h-60 overflow-hidden rounded-2xl">
+                <div className="relative h-60 overflow-hidden rounded-xl sm:rounded-2xl">
                   <Image
                     src={portfolio.image}
                     alt={portfolio.title}
                     fill
-                    className="object-cover p-2 rounded-2xl"
+                    className="object-cover p-2 rounded-xl sm:rounded-2xl"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   

@@ -221,29 +221,29 @@ export function UsersManagement({
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-end gap-3">
-        <Button size="sm" variant="outline" onClick={() => setShowUserModal(true)}>
-          Add admin user
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center sm:justify-end gap-2 sm:gap-3">
+        <Button size="sm" variant="outline" onClick={() => setShowUserModal(true)} className="w-full sm:w-auto">
+          <span className="text-xs sm:text-sm">Add admin user</span>
         </Button>
-        <Button size="sm" onClick={() => setShowTeamModal(true)}>
-          Add team member
+        <Button size="sm" onClick={() => setShowTeamModal(true)} className="w-full sm:w-auto">
+          <span className="text-xs sm:text-sm">Add team member</span>
         </Button>
       </div>
 
       {/* Spacer row to align with overall layout; forms are now in modals */}
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <Card className="rounded-2xl shadow-sm border-border/60">
-          <CardHeader className="pb-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <CardTitle className="text-sm md:text-base">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
+        <Card className="rounded-lg sm:rounded-2xl shadow-sm border-border/60">
+          <CardHeader className="pb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <CardTitle className="text-sm sm:text-base">
               Users with dashboard access
             </CardTitle>
             <Input
               placeholder="Search users..."
               value={userQuery}
               onChange={(e) => setUserQuery(e.target.value)}
-              className="h-8 w-full max-w-xs text-xs"
+              className="h-8 w-full sm:max-w-xs text-xs"
             />
           </CardHeader>
           <CardContent className="space-y-2">
@@ -265,16 +265,16 @@ export function UsersManagement({
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl shadow-sm border-border/60">
-          <CardHeader className="pb-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <CardTitle className="text-sm md:text-base">
+        <Card className="rounded-lg sm:rounded-2xl shadow-sm border-border/60">
+          <CardHeader className="pb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <CardTitle className="text-sm sm:text-base">
               Team members (public site)
             </CardTitle>
             <Input
               placeholder="Search team..."
               value={teamQuery}
               onChange={(e) => setTeamQuery(e.target.value)}
-              className="h-8 w-full max-w-xs text-xs"
+              className="h-8 w-full sm:max-w-xs text-xs"
             />
           </CardHeader>
           <CardContent className="space-y-2">

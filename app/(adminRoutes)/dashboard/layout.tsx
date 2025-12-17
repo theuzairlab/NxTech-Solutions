@@ -12,9 +12,9 @@ export default function AdminRoutesLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen flex bg-background">
+    <div className="min-h-screen flex flex-col md:flex-row bg-background">
       <AdminSidebar />
-      <main className="flex-1 overflow-y-auto p-6 -ml-5 rounded-l-3xl z-50 bg-white">
+      <main className="flex-1 overflow-y-auto p-4 md:p-6 md:-ml-5 md:rounded-l-3xl z-50 bg-white w-full">
         <div className="mx-auto max-w-7xl">
           {children}
         </div>

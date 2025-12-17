@@ -49,7 +49,7 @@ const features = [
 
 export function WhyChoose() {
   return (
-    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#f2fbff] via-white to-[#dff3ff] z-9">
+    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#f2fbff] via-white to-[#dff3ff] z-9">
       {/* Background Gradient */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/3 w-[420px] h-[420px] bg-primary/12 blur-3xl" />
@@ -79,14 +79,14 @@ export function WhyChoose() {
             return (
               <div
                 key={index}
-                className="group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+                className="group relative p-8 rounded-xl sm:rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
               >
                 {/* Gradient Background on Hover */}
-                <div className={`absolute inset-0 bg-linear-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300`} />
+                <div className={`absolute inset-0 bg-linear-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 rounded-xl sm:rounded-2xl transition-opacity duration-300`} />
                 
                 <div className="relative z-10">
                   {/* Icon */}
-                  <div className="w-16 h-16 rounded-xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 rounded-lg sm:rounded-xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <Icon className="h-8 w-8 text-primary" />
                   </div>
 

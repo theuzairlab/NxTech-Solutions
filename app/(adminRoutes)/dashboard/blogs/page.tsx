@@ -62,10 +62,10 @@ export default async function BlogsPage() {
         description="Manage blog posts and categories."
         healthStatus={false}
       />
-      <Tabs defaultValue="posts" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="posts">Blog Posts</TabsTrigger>
-          <TabsTrigger value="categories">Categories</TabsTrigger>
+      <Tabs defaultValue="posts" className="space-y-4 sm:space-y-6">
+        <TabsList className="w-full sm:w-fit">
+          <TabsTrigger value="posts" className="text-xs sm:text-sm">Blog Posts</TabsTrigger>
+          <TabsTrigger value="categories" className="text-xs sm:text-sm">Categories</TabsTrigger>
         </TabsList>
         <TabsContent value="posts">
           <BlogsManagement

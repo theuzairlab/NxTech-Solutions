@@ -164,15 +164,15 @@ export function BlogsManagement({
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-2">
-          <h2 className="text-xl font-semibold">Blog Posts</h2>
-          <Badge variant="secondary">{blogs.length}</Badge>
+          <h2 className="text-lg sm:text-xl font-semibold">Blog Posts</h2>
+          <Badge variant="secondary" className="text-xs">{blogs.length}</Badge>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2">
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="h-9 w-40">
+            <SelectTrigger className="h-9 w-full sm:w-40 text-sm">
               <SelectValue placeholder="All Categories" />
             </SelectTrigger>
             <SelectContent>
@@ -188,22 +188,22 @@ export function BlogsManagement({
             placeholder="Search blogs..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="h-9 w-56"
+            className="h-9 w-full sm:w-56 text-sm"
           />
-          <Button size="sm" onClick={() => setShowCreate(true)}>
-            <Plus className="h-4 w-4 mr-1" /> Add Blog
+          <Button size="sm" onClick={() => setShowCreate(true)} className="w-full sm:w-auto">
+            <Plus className="h-4 w-4 mr-1" /> <span className="text-xs sm:text-sm">Add Blog</span>
           </Button>
         </div>
       </div>
 
       {filtered.length === 0 ? (
-        <Card className="rounded-2xl border border-dashed border-border/60">
-          <CardContent className="py-10 text-center text-sm text-muted-foreground">
+        <Card className="rounded-lg sm:rounded-2xl border border-dashed border-border/60">
+          <CardContent className="py-8 sm:py-10 text-center text-xs sm:text-sm text-muted-foreground">
             No blogs found. Add one to get started.
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filtered.map((blog) => (
             <Card
               key={blog.id}

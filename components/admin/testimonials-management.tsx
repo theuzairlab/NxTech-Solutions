@@ -129,35 +129,35 @@ export function TestimonialsManagement({ initialTestimonials }: { initialTestimo
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-2">
-          <h2 className="text-xl font-semibold">Testimonials</h2>
-          <Badge variant="secondary">{testimonials.length}</Badge>
+          <h2 className="text-lg sm:text-xl font-semibold">Testimonials</h2>
+          <Badge variant="secondary" className="text-xs">{testimonials.length}</Badge>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
           <Input
             placeholder="Search testimonials..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="h-9 w-56"
+            className="h-9 w-full sm:w-56 text-sm"
           />
-          <Button size="sm" onClick={() => setShowCreate(true)}>
-            <Plus className="h-4 w-4 mr-1" /> Add Testimonial
+          <Button size="sm" onClick={() => setShowCreate(true)} className="w-full sm:w-auto">
+            <Plus className="h-4 w-4 mr-1" /> <span className="text-xs sm:text-sm">Add Testimonial</span>
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {filtered.map((testimonial) => (
           <Card
             key={testimonial.id}
             className="rounded-2xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
           >
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between gap-2 mb-4">
-                <div className="flex items-center gap-3 flex-1">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-primary/20 shrink-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-2 mb-3 sm:mb-4">
+                <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                  <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-primary/20 shrink-0">
                     <Image
                       src={testimonial.image || "/icon.png"}
                       alt={testimonial.name}
@@ -166,13 +166,13 @@ export function TestimonialsManagement({ initialTestimonials }: { initialTestimo
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base font-semibold text-foreground truncate">
+                    <h3 className="text-sm sm:text-base font-semibold text-foreground truncate">
                       {testimonial.name}
                     </h3>
-                    <p className="text-xs text-muted-foreground truncate">
+                    <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
                       {testimonial.role}
                     </p>
-                    <p className="text-xs text-primary font-medium truncate">
+                    <p className="text-[10px] sm:text-xs text-primary font-medium truncate">
                       {testimonial.company}
                     </p>
                   </div>
@@ -197,11 +197,11 @@ export function TestimonialsManagement({ initialTestimonials }: { initialTestimo
                 </div>
               </div>
 
-              <div className="flex gap-1 mb-3">
+              <div className="flex gap-0.5 sm:gap-1 mb-2 sm:mb-3">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className={`h-4 w-4 ${
+                    className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${
                       i < testimonial.rating
                         ? "fill-primary text-primary"
                         : "fill-muted text-muted-foreground"
@@ -210,7 +210,7 @@ export function TestimonialsManagement({ initialTestimonials }: { initialTestimo
                 ))}
               </div>
 
-              <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+              <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-3">
                 "{testimonial.content}"
               </p>
 
@@ -237,8 +237,8 @@ export function TestimonialsManagement({ initialTestimonials }: { initialTestimo
         ))}
 
         {filtered.length === 0 && (
-          <Card className="rounded-2xl border border-dashed border-border/60 col-span-full">
-            <CardContent className="py-10 text-center text-sm text-muted-foreground">
+          <Card className="rounded-lg sm:rounded-2xl border border-dashed border-border/60 col-span-full">
+            <CardContent className="py-8 sm:py-10 text-center text-xs sm:text-sm text-muted-foreground">
               No testimonials found. Add one to get started.
             </CardContent>
           </Card>

@@ -263,3 +263,17 @@ enum QuoteRequestStatus {
   COMPLETED
 }
 
+/// Chatbot leads collected from the live chat widget
+model ChatLead {
+  id          String   @id @default(uuid())
+  name        String?
+  email       String?
+  phone       String?
+  company     String?
+  message     String?  // Last message or conversation summary
+  budget      String?
+  sourcePage  String?  // Page path where lead was collected
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+

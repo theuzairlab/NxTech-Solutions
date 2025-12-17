@@ -47,24 +47,63 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
   };
 
   const handleShare = async (platform: string) => {
-    const url = window.location.href;
+    // Construct the full URL explicitly - use current page URL or construct from slug
+    let blogUrl: string;
+    if (typeof window !== 'undefined') {
+      // Use the current page URL (most reliable)
+      blogUrl = window.location.href;
+    } else {
+      // Fallback for SSR
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nxtech-solutions.com';
+      blogUrl = `${baseUrl}/blog/${post.slug}`;
+    }
+    
     const title = post.title;
-    const text = post.excerpt;
+    const text = post.excerpt || post.title;
 
     switch (platform) {
       case "copy":
-        await navigator.clipboard.writeText(url);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(blogUrl);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        } else {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = blogUrl;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        }
         break;
       case "facebook":
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank");
+        // Facebook share URL - only use 'u' parameter (quote is deprecated)
+        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(blogUrl)}`;
+        // Open in new tab (Facebook handles the rest)
+        window.open(facebookUrl, "_blank", "noopener,noreferrer");
         break;
       case "twitter":
-        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, "_blank");
+        // Twitter share URL with title and URL
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(blogUrl)}&text=${encodeURIComponent(title)}&via=NxTechSolutions`;
+        window.open(
+          twitterUrl,
+          "_blank",
+          "width=600,height=400"
+        );
         break;
       case "linkedin":
-        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, "_blank");
+        // LinkedIn share URL
+        const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(blogUrl)}`;
+        window.open(
+          linkedInUrl,
+          "_blank",
+          "width=600,height=400"
+        );
         break;
     }
   };
@@ -72,7 +111,7 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden pt-32 rounded-b-[200px] bg-linear-to-b from-primary via-primary/95 to-primary/90 z-5">
+      <section className="relative py-24 overflow-hidden pt-32 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[200px] bg-linear-to-b from-primary via-primary/95 to-primary/90 z-5">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30" />
         
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
@@ -153,7 +192,7 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
       </section>
 
       {/* Article Content */}
-      <section className="relative py-16 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#f5f9ff] via-white to-[#e8f2ff] z-4">
+      <section className="relative py-16 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#f5f9ff] via-white to-[#e8f2ff] z-4">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-24 left-1/4 w-[520px] h-[520px] bg-primary/12 blur-3xl" />
           <div className="absolute -bottom-20 right-10 w-[480px] h-[480px] bg-primary/10 blur-3xl" />
@@ -167,7 +206,7 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative h-96 w-full rounded-2xl overflow-hidden mb-12 shadow-xl"
+              className="relative h-96 w-full rounded-xl sm:rounded-2xl overflow-hidden mb-12 shadow-xl"
             >
               <Image
                 src={post.image}
@@ -186,7 +225,7 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="prose prose-lg max-w-none"
             >
-              <div className="bg-white rounded-2xl border border-border p-8 md:p-12 shadow-lg">
+              <div className="bg-white rounded-xl sm:rounded-2xl border border-border p-6 sm:p-8 md:p-12 shadow-lg">
                 <div className="blog-content text-foreground">
                   <ReactMarkdown
                     components={{
@@ -256,56 +295,64 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-12 flex flex-wrap items-center gap-4 justify-center"
+              className="mt-8 sm:mt-12"
             >
-              <span className="text-muted-foreground font-medium">Share this article:</span>
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleShare("facebook")}
-                  className="border-border hover:border-primary"
-                >
-                  <Facebook className="h-4 w-4 mr-2" />
-                  Facebook
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleShare("twitter")}
-                  className="border-border hover:border-primary"
-                >
-                  <Twitter className="h-4 w-4 mr-2" />
-                  Twitter
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleShare("linkedin")}
-                  className="border-border hover:border-primary"
-                >
-                  <Linkedin className="h-4 w-4 mr-2" />
-                  LinkedIn
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleShare("copy")}
-                  className="border-border hover:border-primary"
-                >
-                  {copied ? (
-                    <>
-                      <CheckCircle2 className="h-4 w-4 mr-2" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-4 w-4 mr-2" />
-                      Copy Link
-                    </>
-                  )}
-                </Button>
-              </div>
+              <Card className="bg-primary/5 border-primary/20">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                    <span className="text-sm sm:text-base text-muted-foreground font-medium whitespace-nowrap">
+                      Share this article:
+                    </span>
+                    <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleShare("facebook")}
+                        className="border-border hover:border-primary bg-white text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 flex-1 sm:flex-initial min-w-[100px] sm:min-w-0"
+                      >
+                        <Facebook className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2 flex-shrink-0" />
+                        <span className="whitespace-nowrap">Facebook</span>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleShare("twitter")}
+                        className="border-border hover:border-primary bg-white text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 flex-1 sm:flex-initial min-w-[100px] sm:min-w-0"
+                      >
+                        <Twitter className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2 flex-shrink-0" />
+                        <span className="whitespace-nowrap">Twitter</span>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleShare("linkedin")}
+                        className="border-border hover:border-primary bg-white text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 flex-1 sm:flex-initial min-w-[100px] sm:min-w-0"
+                      >
+                        <Linkedin className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2 flex-shrink-0" />
+                        <span className="whitespace-nowrap">LinkedIn</span>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleShare("copy")}
+                        className="border-border hover:border-primary bg-white text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 flex-1 sm:flex-initial min-w-[100px] sm:min-w-0"
+                      >
+                        {copied ? (
+                          <>
+                            <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2 flex-shrink-0" />
+                            <span className="whitespace-nowrap">Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2 flex-shrink-0" />
+                            <span className="whitespace-nowrap">Copy Link</span>
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           </div>
         </div>
@@ -313,7 +360,7 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
 
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
-        <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-white via-[#f0f9ff] to-white z-3">
+        <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-white via-[#f0f9ff] to-white z-3">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute -top-24 right-1/4 w-[520px] h-[520px] bg-primary/8 blur-3xl" />
             <div className="absolute -bottom-20 left-10 w-[480px] h-[480px] bg-primary/8 blur-3xl" />

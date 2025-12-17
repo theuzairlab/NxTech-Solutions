@@ -210,6 +210,29 @@ Service data is stored in `lib/services-data.ts` as JSON objects. Each service i
 
 ## 🔧 Configuration
 
+### Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```bash
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+
+# OpenRouter API (for AI Chatbot)
+OPENROUTER_API_KEY="your-openrouter-api-key"
+# OR use OpenAI API key directly
+OPENAI_API_KEY="your-openai-api-key"
+
+# NextAuth (for admin dashboard)
+NEXTAUTH_SECRET="your-nextauth-secret"
+NEXTAUTH_URL="http://localhost:3000"
+
+# Site URL (optional, for OpenRouter referrer)
+NEXT_PUBLIC_SITE_URL="https://nxtechsolutions.com"
+```
+
+**Note**: The chatbot uses OpenRouter API (OpenAI-compatible). You can use either `OPENROUTER_API_KEY` or `OPENAI_API_KEY`. OpenRouter is recommended as it provides access to multiple AI models.
+
 ### Next.js Config
 
 - Image optimization with Unsplash domain whitelist
@@ -251,11 +274,11 @@ This project is private and proprietary to NxTech Solutions.
 
 ## 🔄 Future Enhancements
 
-- [ ] Backend API integration for service data
-- [ ] Admin dashboard for content management
-- [ ] Blog section
-- [ ] Contact form with email automation
-- [ ] AI chatbot integration
+- [x] Backend API integration for service data
+- [x] Admin dashboard for content management
+- [x] Blog section
+- [x] Contact form with email automation
+- [x] AI chatbot integration
 - [ ] Multi-language support
 - [ ] Analytics integration
 - [ ] Performance monitoring

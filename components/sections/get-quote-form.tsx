@@ -118,7 +118,7 @@ export function GetQuoteForm() {
 
   if (isSubmitted) {
     return (
-      <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#00c2c7] via-[#00b1bb] to-[#009aa8] z-2">
+      <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#00c2c7] via-[#00b1bb] to-[#009aa8] z-2">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:32px_32px] opacity-70" />
         
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
@@ -162,7 +162,7 @@ export function GetQuoteForm() {
   }
 
   return (
-    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#f0f9ff] via-white to-[#e0f2fe] z-2">
+    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#f0f9ff] via-white to-[#e0f2fe] z-2">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 right-1/4 w-[520px] h-[520px] bg-primary/12 blur-3xl" />
         <div className="absolute -bottom-20 left-10 w-[480px] h-[480px] bg-primary/10 blur-3xl" />
@@ -210,7 +210,7 @@ export function GetQuoteForm() {
           </div>
 
           {/* Step Content */}
-          <div className="bg-card border border-border rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-6 sm:p-8 mb-8 shadow-lg">
             {/* Step 1: Select Services */}
             {currentStep === 1 && (
               <div className="space-y-6">
@@ -221,7 +221,7 @@ export function GetQuoteForm() {
                     <button
                       key={service}
                       onClick={() => handleServiceToggle(service)}
-                      className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                      className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300 text-left ${
                         formData.services.includes(service)
                           ? "border-primary bg-primary/10 text-primary"
                           : "border-border hover:border-primary/50 text-foreground"
@@ -248,7 +248,7 @@ export function GetQuoteForm() {
                   value={formData.projectDescription}
                   onChange={(e) => handleInputChange("projectDescription", e.target.value)}
                   placeholder="Describe your project in detail..."
-                  className="w-full min-h-[200px] p-4 rounded-xl border-2 border-border focus:border-primary focus:outline-none resize-none"
+                  className="w-full min-h-[200px] p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 border-border focus:border-primary focus:outline-none resize-none"
                 />
               </div>
             )}
@@ -266,7 +266,7 @@ export function GetQuoteForm() {
                       <button
                         key={option}
                         onClick={() => handleInputChange("timeline", option)}
-                        className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+                        className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300 ${
                           formData.timeline === option
                             ? "border-primary bg-primary/10 text-primary"
                             : "border-border hover:border-primary/50"
@@ -285,7 +285,7 @@ export function GetQuoteForm() {
                       <button
                         key={option}
                         onClick={() => handleInputChange("budget", option)}
-                        className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+                        className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300 ${
                           formData.budget === option
                             ? "border-primary bg-primary/10 text-primary"
                             : "border-border hover:border-primary/50"
@@ -313,7 +313,7 @@ export function GetQuoteForm() {
                       value={formData.name}
                       onChange={(e) => handleInputChange("name", e.target.value)}
                       placeholder="John Doe"
-                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary focus:outline-none"
+                      className="w-full p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 border-border focus:border-primary focus:outline-none"
                     />
                   </div>
                   <div>
@@ -323,7 +323,7 @@ export function GetQuoteForm() {
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       placeholder="john@example.com"
-                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary focus:outline-none"
+                      className="w-full p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 border-border focus:border-primary focus:outline-none"
                     />
                   </div>
                   <div>
@@ -333,7 +333,7 @@ export function GetQuoteForm() {
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
                       placeholder="+1 (555) 123-4567"
-                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary focus:outline-none"
+                      className="w-full p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 border-border focus:border-primary focus:outline-none"
                     />
                   </div>
                   <div>
@@ -343,7 +343,7 @@ export function GetQuoteForm() {
                       value={formData.company}
                       onChange={(e) => handleInputChange("company", e.target.value)}
                       placeholder="Your Company"
-                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary focus:outline-none"
+                      className="w-full p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 border-border focus:border-primary focus:outline-none"
                     />
                   </div>
                   <div className="md:col-span-2">
@@ -353,7 +353,7 @@ export function GetQuoteForm() {
                       value={formData.website}
                       onChange={(e) => handleInputChange("website", e.target.value)}
                       placeholder="https://yourwebsite.com"
-                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary focus:outline-none"
+                      className="w-full p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 border-border focus:border-primary focus:outline-none"
                     />
                   </div>
                 </div>
@@ -403,7 +403,7 @@ export function GetQuoteForm() {
           </div>
 
           {/* Info Note */}
-          <div className="mt-8 p-4 rounded-xl bg-primary/5 border border-primary/20 text-center">
+          <div className="mt-8 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-primary/5 border border-primary/20 text-center">
             <p className="text-sm text-muted-foreground">
               <Mail className="inline h-4 w-4 mr-2 text-primary" />
               You'll receive an email confirmation and we'll contact you via WhatsApp within 24 hours

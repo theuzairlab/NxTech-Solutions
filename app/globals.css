@@ -185,6 +185,17 @@
   display: none;
 }
 
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Blog Content Styling */
 .blog-content {
   line-height: 1.8;

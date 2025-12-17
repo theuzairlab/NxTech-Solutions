@@ -142,7 +142,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
   }
 
   return (
-    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#f5f5ff] via-white to-[#e6e6ff] z-6">
+    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#f5f5ff] via-white to-[#e6e6ff] z-6">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 left-1/3 w-[420px] h-[420px] bg-primary/12 blur-3xl" />
         <div className="absolute bottom-[-200px] right-[-120px] w-[520px] h-[520px] bg-primary/10 blur-3xl" />

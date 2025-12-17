@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactsPage() {
-  const [contactSubmissions, quoteRequests] = await Promise.all([
+  const [contactSubmissions, quoteRequests, chatLeads] = await Promise.all([
     prisma.contactSubmission.findMany({
       orderBy: { createdAt: "desc" },
       select: {
@@ -42,6 +42,21 @@ export default async function ContactsPage() {
         updatedAt: true,
       },
     }),
+    prisma.chatLead.findMany({
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        company: true,
+        message: true,
+        budget: true,
+        sourcePage: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    }),
   ]);
 
   return (
@@ -61,6 +76,11 @@ export default async function ContactsPage() {
           ...q,
           createdAt: q.createdAt.toISOString(),
           updatedAt: q.updatedAt.toISOString(),
+        }))}
+        initialChatLeads={chatLeads.map((l) => ({
+          ...l,
+          createdAt: l.createdAt.toISOString(),
+          updatedAt: l.updatedAt.toISOString(),
         }))}
       />
     </>

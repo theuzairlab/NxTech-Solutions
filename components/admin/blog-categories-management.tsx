@@ -114,53 +114,53 @@ export function BlogCategoriesManagement({ initialCategories }: { initialCategor
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-2">
-          <h2 className="text-xl font-semibold">Blog Categories</h2>
-          <Badge variant="secondary">{categories.length}</Badge>
+          <h2 className="text-lg sm:text-xl font-semibold">Blog Categories</h2>
+          <Badge variant="secondary" className="text-xs">{categories.length}</Badge>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
           <Input
             placeholder="Search categories..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="h-9 w-56"
+            className="h-9 w-full sm:w-56 text-sm"
           />
-          <Button size="sm" onClick={() => setShowCreate(true)}>
-            <Plus className="h-4 w-4 mr-1" /> Add Category
+          <Button size="sm" onClick={() => setShowCreate(true)} className="w-full sm:w-auto">
+            <Plus className="h-4 w-4 mr-1" /> <span className="text-xs sm:text-sm">Add Category</span>
           </Button>
         </div>
       </div>
 
       {filtered.length === 0 ? (
-        <Card className="rounded-2xl border border-dashed border-border/60">
-          <CardContent className="py-10 text-center text-sm text-muted-foreground">
+        <Card className="rounded-lg sm:rounded-2xl border border-dashed border-border/60">
+          <CardContent className="py-8 sm:py-10 text-center text-xs sm:text-sm text-muted-foreground">
             No categories found. Add one to get started.
           </CardContent>
         </Card>
       ) : (
-        <Card className="rounded-2xl border border-border shadow-sm">
-          <CardContent className="p-0">
+        <Card className="rounded-lg sm:rounded-2xl border border-border shadow-sm">
+          <CardContent className="p-0 overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[200px]">Name</TableHead>
-                  <TableHead>Slug</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead className="min-w-[120px] sm:w-[200px]">Name</TableHead>
+                  <TableHead className="min-w-[100px]">Slug</TableHead>
+                  <TableHead className="hidden md:table-cell">Description</TableHead>
+                  <TableHead className="text-right min-w-[100px]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filtered.map((category) => (
                   <TableRow key={category.id}>
-                    <TableCell className="font-medium">{category.name}</TableCell>
+                    <TableCell className="font-medium text-sm">{category.name}</TableCell>
                     <TableCell>
-                      <code className="text-xs bg-muted px-2 py-1 rounded">
+                      <code className="text-[10px] sm:text-xs bg-muted px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">
                         /{category.slug}
                       </code>
                     </TableCell>
-                    <TableCell className="text-muted-foreground">
+                    <TableCell className="hidden md:table-cell text-xs sm:text-sm text-muted-foreground">
                       {category.description || (
                         <span className="text-muted-foreground/50 italic">No description</span>
                       )}
@@ -170,18 +170,18 @@ export function BlogCategoriesManagement({ initialCategories }: { initialCategor
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8"
+                          className="h-7 w-7 sm:h-8 sm:w-8"
                           onClick={() => setEditCategory(category)}
                         >
-                          <Pencil className="h-4 w-4" />
+                          <Pencil className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50"
+                          className="h-7 w-7 sm:h-8 sm:w-8 text-red-500 hover:text-red-600 hover:bg-red-50"
                           onClick={() => setConfirmDeleteId(category.id)}
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                         </Button>
                       </div>
                     </TableCell>

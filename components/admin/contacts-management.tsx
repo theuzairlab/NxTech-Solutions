@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,6 +50,19 @@ type QuoteRequestSummary = {
   updatedAt: string;
 };
 
+type ChatLeadSummary = {
+  id: string;
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  company: string | null;
+  message: string | null;
+  budget: string | null;
+  sourcePage: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
 async function jsonFetch<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
     ...options,
@@ -78,12 +92,21 @@ function getWordPreview(text: string, wordCount = 5): string {
 export function ContactsManagement({
   initialContactSubmissions,
   initialQuoteRequests,
+  initialChatLeads,
 }: {
   initialContactSubmissions: ContactSubmissionSummary[];
   initialQuoteRequests: QuoteRequestSummary[];
+  initialChatLeads: ChatLeadSummary[];
 }) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const tabParam = searchParams.get("tab");
+  const defaultTab = tabParam === "quotes" || tabParam === "chatbot-leads" ? tabParam : "contacts";
+  const [activeTab, setActiveTab] = useState(defaultTab);
+
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmissionSummary[]>(initialContactSubmissions);
   const [quoteRequests, setQuoteRequests] = useState<QuoteRequestSummary[]>(initialQuoteRequests);
+  const [chatLeads, setChatLeads] = useState<ChatLeadSummary[]>(initialChatLeads);
 
   const [contactQuery, setContactQuery] = useState("");
   const [contactStatusFilter, setContactStatusFilter] = useState<"all" | ContactSubmissionStatus>("all");
@@ -92,6 +115,21 @@ export function ContactsManagement({
   const [quoteQuery, setQuoteQuery] = useState("");
   const [quoteStatusFilter, setQuoteStatusFilter] = useState<"all" | QuoteRequestStatus>("all");
   const [selectedQuote, setSelectedQuote] = useState<QuoteRequestSummary | null>(null);
+
+  const [chatLeadQuery, setChatLeadQuery] = useState("");
+  const [selectedChatLead, setSelectedChatLead] = useState<ChatLeadSummary | null>(null);
+
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab === "quotes" || tab === "contacts" || tab === "chatbot-leads") {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    router.push(`/dashboard/contacts?tab=${value}`, { scroll: false });
+  };
 
   const filteredContacts = useMemo(() => {
     return contactSubmissions.filter((c) => {
@@ -118,6 +156,18 @@ export function ContactsManagement({
       return matchesStatus && matchesQuery;
     });
   }, [quoteRequests, quoteStatusFilter, quoteQuery]);
+
+  const filteredChatLeads = useMemo(() => {
+    return chatLeads.filter((lead) => {
+      const search = chatLeadQuery.toLowerCase();
+      const matchesQuery =
+        !search ||
+        `${lead.name || ""} ${lead.email || ""} ${lead.company || ""} ${lead.message || ""} ${lead.sourcePage || ""}`
+          .toLowerCase()
+          .includes(search);
+      return matchesQuery;
+    });
+  }, [chatLeads, chatLeadQuery]);
 
   const updateContactStatus = async (id: string, status: ContactSubmissionStatus) => {
     const prev = contactSubmissions;
@@ -192,29 +242,30 @@ export function ContactsManagement({
   };
 
   return (
-    <Tabs defaultValue="contacts" className="space-y-6">
+    <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
       <TabsList>
         <TabsTrigger value="contacts">Contact Messages</TabsTrigger>
         <TabsTrigger value="quotes">Quote Requests</TabsTrigger>
+        <TabsTrigger value="chatbot-leads">Chatbot Leads</TabsTrigger>
       </TabsList>
 
-      <TabsContent value="contacts" className="space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+      <TabsContent value="contacts" className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="flex items-center gap-2">
-            <h2 className="text-xl font-semibold">Contact Messages</h2>
-            <Badge variant="secondary">{contactSubmissions.length}</Badge>
+            <h2 className="text-lg sm:text-xl font-semibold">Contact Messages</h2>
+            <Badge variant="secondary" className="text-xs">{contactSubmissions.length}</Badge>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
             <Input
               placeholder="Search by name, email, subject..."
               value={contactQuery}
               onChange={(e) => setContactQuery(e.target.value)}
-              className="h-9 w-56"
+              className="h-9 w-full sm:w-56 text-sm"
             />
             <select
               value={contactStatusFilter}
               onChange={(e) => setContactStatusFilter(e.target.value as any)}
-              className="h-9 rounded-md border border-border bg-background px-2 text-sm"
+              className="h-9 rounded-md border border-border bg-background px-2 text-xs sm:text-sm"
             >
               <option value="all">All statuses</option>
               <option value="NEW">New</option>
@@ -224,15 +275,15 @@ export function ContactsManagement({
           </div>
         </div>
 
-        <div className="rounded-2xl border border-border/70 overflow-hidden bg-card">
+        <div className="rounded-lg sm:rounded-2xl border border-border/70 overflow-x-auto bg-card">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[220px]">Name</TableHead>
-                <TableHead>Subject</TableHead>
+                <TableHead className="min-w-[180px] sm:w-[220px]">Name</TableHead>
+                <TableHead className="min-w-[120px]">Subject</TableHead>
                 <TableHead className="hidden md:table-cell">Created</TableHead>
-                <TableHead className="w-[160px]">Status</TableHead>
-                <TableHead className="w-[140px] text-right">Actions</TableHead>
+                <TableHead className="min-w-[100px] sm:w-[160px]">Status</TableHead>
+                <TableHead className="min-w-[80px] sm:w-[140px] text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -287,7 +338,7 @@ export function ContactsManagement({
               ))}
               {filteredContacts.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={5} className="py-10 text-center text-sm text-muted-foreground">
+                  <TableCell colSpan={5} className="py-8 sm:py-10 text-center text-xs sm:text-sm text-muted-foreground">
                     No contact messages found.
                   </TableCell>
                 </TableRow>
@@ -297,23 +348,23 @@ export function ContactsManagement({
         </div>
       </TabsContent>
 
-      <TabsContent value="quotes" className="space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+      <TabsContent value="quotes" className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="flex items-center gap-2">
-            <h2 className="text-xl font-semibold">Quote Requests</h2>
-            <Badge variant="secondary">{quoteRequests.length}</Badge>
+            <h2 className="text-lg sm:text-xl font-semibold">Quote Requests</h2>
+            <Badge variant="secondary" className="text-xs">{quoteRequests.length}</Badge>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
             <Input
               placeholder="Search by name, email, company..."
               value={quoteQuery}
               onChange={(e) => setQuoteQuery(e.target.value)}
-              className="h-9 w-56"
+              className="h-9 w-full sm:w-56 text-sm"
             />
             <select
               value={quoteStatusFilter}
               onChange={(e) => setQuoteStatusFilter(e.target.value as any)}
-              className="h-9 rounded-md border border-border bg-background px-2 text-sm"
+              className="h-9 rounded-md border border-border bg-background px-2 text-xs sm:text-sm"
             >
               <option value="all">All statuses</option>
               <option value="NEW">New</option>
@@ -324,16 +375,16 @@ export function ContactsManagement({
           </div>
         </div>
 
-        <div className="rounded-2xl border border-border/70 overflow-hidden bg-card">
+        <div className="rounded-lg sm:rounded-2xl border border-border/70 overflow-x-auto bg-card">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[220px]">Client</TableHead>
-                <TableHead>Services</TableHead>
+                <TableHead className="min-w-[180px] sm:w-[220px]">Client</TableHead>
+                <TableHead className="min-w-[120px]">Services</TableHead>
                 <TableHead className="hidden lg:table-cell">Timeline / Budget</TableHead>
                 <TableHead className="hidden xl:table-cell">Project</TableHead>
-                <TableHead className="w-[160px]">Status</TableHead>
-                <TableHead className="w-[140px] text-right">Actions</TableHead>
+                <TableHead className="min-w-[100px] sm:w-[160px]">Status</TableHead>
+                <TableHead className="min-w-[80px] sm:w-[140px] text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -363,10 +414,10 @@ export function ContactsManagement({
                       </p>
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <div className="flex flex-wrap gap-1">
+                  <TableCell className="min-w-[120px]">
+                    <div className="flex flex-wrap gap-0.5 sm:gap-1">
                       {quote.services.map((service) => (
-                        <Badge key={service} variant="outline" className="text-[10px]">
+                        <Badge key={service} variant="outline" className="text-[9px] sm:text-[10px]">
                           {service}
                         </Badge>
                       ))}
@@ -389,13 +440,13 @@ export function ContactsManagement({
                       {getWordPreview(quote.projectDescription, 5)}
                     </p>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="min-w-[100px] sm:w-[160px]">
                     <select
                       value={quote.status}
                       onChange={(e) =>
                         updateQuoteStatus(quote.id, e.target.value as QuoteRequestStatus)
                       }
-                      className="h-8 w-full rounded-md border border-border bg-background px-2 text-xs"
+                      className="h-7 sm:h-8 w-full rounded-md border border-border bg-background px-1.5 sm:px-2 text-[10px] sm:text-xs"
                     >
                       <option value="NEW">New</option>
                       <option value="IN_PROGRESS">In Progress</option>
@@ -403,11 +454,12 @@ export function ContactsManagement({
                       <option value="COMPLETED">Completed</option>
                     </select>
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="min-w-[80px] sm:w-[140px] text-right">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => setSelectedQuote(quote)}
+                      className="text-xs h-7 sm:h-8 px-2 sm:px-3"
                     >
                       View
                     </Button>
@@ -416,8 +468,96 @@ export function ContactsManagement({
               ))}
               {filteredQuotes.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={6} className="py-10 text-center text-sm text-muted-foreground">
+                  <TableCell colSpan={6} className="py-8 sm:py-10 text-center text-xs sm:text-sm text-muted-foreground">
                     No quote requests found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </TabsContent>
+
+      <TabsContent value="chatbot-leads" className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg sm:text-xl font-semibold">Chatbot Leads</h2>
+            <Badge variant="secondary" className="text-xs">{chatLeads.length}</Badge>
+          </div>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+            <Input
+              placeholder="Search by name, email, company, message..."
+              value={chatLeadQuery}
+              onChange={(e) => setChatLeadQuery(e.target.value)}
+              className="h-9 w-full sm:w-56 text-sm"
+            />
+          </div>
+        </div>
+
+        <div className="rounded-lg sm:rounded-2xl border border-border/70 overflow-x-auto bg-card">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="min-w-[180px] sm:w-[220px]">Name</TableHead>
+                <TableHead className="min-w-[120px]">Message</TableHead>
+                <TableHead className="hidden md:table-cell">Source Page</TableHead>
+                <TableHead className="hidden lg:table-cell">Budget</TableHead>
+                <TableHead className="hidden md:table-cell">Created</TableHead>
+                <TableHead className="min-w-[80px] sm:w-[140px] text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredChatLeads.map((lead) => (
+                <TableRow key={lead.id}>
+                  <TableCell className="min-w-[180px] sm:w-[220px]">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                        <p className="font-medium text-xs sm:text-sm truncate">{lead.name || "Anonymous"}</p>
+                        <Badge className="bg-purple-500/10 text-purple-700 border border-purple-500/30 text-[9px] sm:text-xs">Chat Lead</Badge>
+                      </div>
+                      <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
+                        {lead.email || "No email"}
+                        {lead.phone ? ` • ${lead.phone}` : ""}
+                        {lead.company ? ` • ${lead.company}` : ""}
+                      </p>
+                    </div>
+                  </TableCell>
+                  <TableCell className="min-w-[120px]">
+                    <div className="space-y-1">
+                      <p className="text-[10px] sm:text-xs text-muted-foreground line-clamp-2">
+                        {lead.message ? getWordPreview(lead.message, 5) : "No message"}
+                      </p>
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell text-xs text-muted-foreground">
+                    {lead.sourcePage ? (
+                      <span className="truncate block max-w-[150px]">{lead.sourcePage}</span>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
+                  </TableCell>
+                  <TableCell className="hidden lg:table-cell text-xs text-muted-foreground">
+                    {lead.budget || <span className="text-muted-foreground">—</span>}
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell text-xs text-muted-foreground">
+                    {formatDate(lead.createdAt)}
+                  </TableCell>
+                  <TableCell className="min-w-[80px] sm:w-[140px] text-right">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setSelectedChatLead(lead)}
+                      className="text-xs h-7 sm:h-8 px-2 sm:px-3"
+                    >
+                      View
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {filteredChatLeads.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={6} className="py-8 sm:py-10 text-center text-xs sm:text-sm text-muted-foreground">
+                    No chatbot leads found.
                   </TableCell>
                 </TableRow>
               )}
@@ -532,6 +672,67 @@ export function ContactsManagement({
             <div className="space-y-1">
               <Label className="text-xs text-muted-foreground">Project Description</Label>
               <p className="whitespace-pre-wrap">{selectedQuote.projectDescription}</p>
+            </div>
+          </div>
+        )}
+      </AdminModal>
+
+      {/* Chat Lead detail modal */}
+      <AdminModal
+        open={!!selectedChatLead}
+        onClose={() => setSelectedChatLead(null)}
+        title={selectedChatLead ? `Chat Lead${selectedChatLead.name ? ` from ${selectedChatLead.name}` : ""}` : "Chat Lead details"}
+        description={selectedChatLead?.company || selectedChatLead?.email || ""}
+      >
+        {selectedChatLead && (
+          <div className="space-y-4 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {selectedChatLead.name && (
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">Name</Label>
+                  <p>{selectedChatLead.name}</p>
+                </div>
+              )}
+              {selectedChatLead.email && (
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">Email</Label>
+                  <p>{selectedChatLead.email}</p>
+                </div>
+              )}
+              {selectedChatLead.phone && (
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">Phone</Label>
+                  <p>{selectedChatLead.phone}</p>
+                </div>
+              )}
+              {selectedChatLead.company && (
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">Company</Label>
+                  <p>{selectedChatLead.company}</p>
+                </div>
+              )}
+              {selectedChatLead.budget && (
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">Budget</Label>
+                  <p>{selectedChatLead.budget}</p>
+                </div>
+              )}
+              {selectedChatLead.sourcePage && (
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">Source Page</Label>
+                  <p className="truncate">{selectedChatLead.sourcePage}</p>
+                </div>
+              )}
+            </div>
+            {selectedChatLead.message && (
+              <div className="space-y-1">
+                <Label className="text-xs text-muted-foreground">Message</Label>
+                <p className="whitespace-pre-wrap">{selectedChatLead.message}</p>
+              </div>
+            )}
+            <div className="space-y-1">
+              <Label className="text-xs text-muted-foreground">Created</Label>
+              <p>{formatDate(selectedChatLead.createdAt)}</p>
             </div>
           </div>
         )}

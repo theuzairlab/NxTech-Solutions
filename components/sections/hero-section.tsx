@@ -104,7 +104,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden rounded-b-[150px] shadow-sm z-11">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] shadow-sm z-11">
       {/* Base Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10" />
       

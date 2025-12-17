@@ -123,26 +123,26 @@ export function ServicesManagement({ initialServices }: { initialServices: Servi
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-2">
-          <h2 className="text-xl font-semibold">Services</h2>
-          <Badge variant="secondary">{services.length}</Badge>
+          <h2 className="text-lg sm:text-xl font-semibold">Services</h2>
+          <Badge variant="secondary" className="text-xs">{services.length}</Badge>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
           <Input
             placeholder="Search services..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="h-9 w-56"
+            className="h-9 w-full sm:w-56 text-sm"
           />
-          <Button size="sm" onClick={() => setShowCreate(true)}>
-            <Plus className="h-4 w-4 mr-1" /> Add service
+          <Button size="sm" onClick={() => setShowCreate(true)} className="w-full sm:w-auto">
+            <Plus className="h-4 w-4 mr-1" /> <span className="text-xs sm:text-sm">Add service</span>
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {filtered.map((service) => (
           <ServiceCard
             key={service.id}
@@ -158,8 +158,8 @@ export function ServicesManagement({ initialServices }: { initialServices: Servi
         ))}
 
         {filtered.length === 0 && (
-          <Card className="rounded-2xl border border-dashed border-border/60">
-            <CardContent className="py-10 text-center text-sm text-muted-foreground">
+          <Card className="rounded-lg sm:rounded-2xl border border-dashed border-border/60 col-span-full">
+            <CardContent className="py-8 sm:py-10 text-center text-xs sm:text-sm text-muted-foreground">
               No services found. Add one to get started.
             </CardContent>
           </Card>

@@ -154,33 +154,33 @@ export function IndustriesManagement({ initialIndustries }: { initialIndustries:
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-2">
-          <h2 className="text-xl font-semibold">Industries</h2>
-          <Badge variant="secondary">{industries.length}</Badge>
+          <h2 className="text-lg sm:text-xl font-semibold">Industries</h2>
+          <Badge variant="secondary" className="text-xs">{industries.length}</Badge>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
           <Input
             placeholder="Search industries..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="h-9 w-56"
+            className="h-9 w-full sm:w-56 text-sm"
           />
-          <Button size="sm" onClick={() => setShowCreate(true)}>
-            <Plus className="h-4 w-4 mr-1" /> Add Industry
+          <Button size="sm" onClick={() => setShowCreate(true)} className="w-full sm:w-auto">
+            <Plus className="h-4 w-4 mr-1" /> <span className="text-xs sm:text-sm">Add Industry</span>
           </Button>
         </div>
       </div>
 
       {filtered.length === 0 ? (
-        <Card className="rounded-2xl border border-dashed border-border/60">
-          <CardContent className="py-10 text-center text-sm text-muted-foreground">
+        <Card className="rounded-lg sm:rounded-2xl border border-dashed border-border/60">
+          <CardContent className="py-8 sm:py-10 text-center text-xs sm:text-sm text-muted-foreground">
             No industries found. Add one to get started.
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filtered.map((industry) => (
             <Card
               key={industry.id}
@@ -197,46 +197,46 @@ export function IndustriesManagement({ initialIndustries }: { initialIndustries:
                   />
                 </div>
               )}
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold mb-1">{industry.name}</h3>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-lg font-semibold mb-1 truncate">{industry.name}</h3>
                     {industry.description && (
-                      <p className="text-sm text-muted-foreground line-clamp-2">
+                      <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
                         {industry.description}
                       </p>
                     )}
                   </div>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-border">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                     {industry.isActive ? (
-                      <Badge variant="default" className="text-xs">Active</Badge>
+                      <Badge variant="default" className="text-[10px] sm:text-xs">Active</Badge>
                     ) : (
-                      <Badge variant="secondary" className="text-xs">Inactive</Badge>
+                      <Badge variant="secondary" className="text-[10px] sm:text-xs">Inactive</Badge>
                     )}
                     {industry.displayOrder !== null && (
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="text-[10px] sm:text-xs">
                         Order: {industry.displayOrder}
                       </Badge>
                     )}
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 shrink-0">
                     <Button
                       variant="outline"
                       size="icon"
-                      className="h-8 w-8"
+                      className="h-7 w-7 sm:h-8 sm:w-8"
                       onClick={() => setEditIndustry(industry)}
                     >
-                      <Pencil className="h-4 w-4" />
+                      <Pencil className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </Button>
                     <Button
                       variant="outline"
                       size="icon"
-                      className="h-8 w-8 text-red-500 hover:text-red-600"
+                      className="h-7 w-7 sm:h-8 sm:w-8 text-red-500 hover:text-red-600"
                       onClick={() => setConfirmDeleteId(industry.id)}
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </Button>
                   </div>
                 </div>

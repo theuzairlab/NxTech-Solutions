@@ -37,9 +37,9 @@ export function ServiceCard({
   const serviceLink = link || `/services/${slug}`;
 
   return (
-    <div className="group relative overflow-visible rounded-2xl bg-white border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 flex flex-col">
+    <div className="group relative overflow-visible rounded-xl sm:rounded-2xl bg-white border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 flex flex-col">
       {/* Image - Always Visible */}
-      <div className="relative h-64 w-full overflow-hidden rounded-t-2xl">
+      <div className="relative h-64 w-full overflow-hidden rounded-t-xl sm:rounded-t-2xl">
         {image ? (
           <Image
             src={image}

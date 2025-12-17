@@ -112,7 +112,7 @@ export function CompanyCulture() {
   }, [isHovered]);
 
   return (
-    <section className="py-20 relative overflow-hidden rounded-b-[150px] z-6">
+    <section className="py-20 relative overflow-hidden rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] z-6">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-background" />s
       

@@ -225,7 +225,7 @@ export function AdditionalServices({ services }: AdditionalServicesProps) {
   }, [isHovered, transformedServices.length]);
 
   return (
-    <section className="relative py-20 bg-gradient-to-b from-primary/90 to-background -mt-32 rounded-t-[150px] rounded-b-[150px] z-7">
+    <section className="relative py-20 bg-gradient-to-b from-primary/90 to-background -mt-32 rounded-t-[50px] sm:rounded-t-[100px] md:rounded-t-[150px] rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] z-7">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">

@@ -21,7 +21,7 @@ type ServicesSnapshotProps = {
 
 export function ServicesSnapshot({ services }: ServicesSnapshotProps) {
   return (
-    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#e7f9ff] via-white to-[#c9f2ff] z-10">
+    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#e7f9ff] via-white to-[#c9f2ff] z-10">
       {/* Soft glow accents */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 -left-16 w-96 h-96 bg-primary/15 blur-3xl" />
@@ -53,7 +53,7 @@ export function ServicesSnapshot({ services }: ServicesSnapshotProps) {
             return (
               <div
                 key={service.id}
-                className={`group relative overflow-hidden rounded-2xl bg-card/90 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 backdrop-blur-sm`}
+                className={`group relative overflow-hidden rounded-xl sm:rounded-2xl bg-card/90 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 backdrop-blur-sm`}
               >
                 {/* Image Background - always visible, subtle hover lift */}
                 <div className="absolute inset-0 opacity-90 group-hover:opacity-80 transition-opacity duration-400 ease-in-out">
