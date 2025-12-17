@@ -32,7 +32,7 @@ export default async function AchievementsPage() {
         healthStatus={false}
       />
       <AchievementsManagement
-        initialAchievements={achievements.map((a) => ({
+        initialAchievements={achievements.map((a: any) => ({
           ...a,
           createdAt: a.createdAt.toISOString(),
           updatedAt: a.updatedAt.toISOString(),
