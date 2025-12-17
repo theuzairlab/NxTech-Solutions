@@ -66,7 +66,7 @@ export async function GET() {
     }> = [];
 
     // Add quote requests
-    recentQuotes.forEach(quote => {
+    recentQuotes.forEach((quote: typeof recentQuotes[0]) => {
       activities.push({
         type: "lead",
         title: `New quote request${quote.company ? ` from ${quote.company}` : ` from ${quote.name}`}`,
@@ -76,7 +76,7 @@ export async function GET() {
     });
 
     // Add contact submissions
-    recentContacts.forEach(contact => {
+    recentContacts.forEach((contact: typeof recentContacts[0]) => {
       activities.push({
         type: "contact",
         title: `Contact form submitted by ${contact.name}`,
@@ -86,7 +86,7 @@ export async function GET() {
     });
 
     // Add published blogs
-    recentBlogs.forEach(blog => {
+    recentBlogs.forEach((blog: typeof recentBlogs[0]) => {
       if (blog.publishedAt) {
         activities.push({
           type: "blog",
@@ -98,7 +98,7 @@ export async function GET() {
     });
 
     // Add chat leads
-    recentChatLeads.forEach(lead => {
+    recentChatLeads.forEach((lead: typeof recentChatLeads[0]) => {
       if (lead.name || lead.company) {
         activities.push({
           type: "lead",
@@ -110,7 +110,7 @@ export async function GET() {
     });
 
     // Sort by createdAt (most recent first) and take top 10
-    activities.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    activities.sort((a: typeof activities[0], b: typeof activities[0]) => b.createdAt.getTime() - a.createdAt.getTime());
     const topActivities = activities.slice(0, 10);
 
     return NextResponse.json(topActivities);

@@ -213,7 +213,7 @@ async function getDashboardActivities() {
     }> = [];
 
     // Add quote requests
-    recentQuotes.forEach((quote: any) => {
+    recentQuotes.forEach((quote: typeof recentQuotes[0]) => {
       activities.push({
         type: "lead",
         title: `New quote request${quote.company ? ` from ${quote.company}` : ` from ${quote.name}`}`,
@@ -224,7 +224,7 @@ async function getDashboardActivities() {
     });
 
     // Add contact submissions
-    recentContacts.forEach((contact: any) => {
+    recentContacts.forEach((contact: typeof recentContacts[0]) => {
       activities.push({
         type: "contact",
         title: `Contact form submitted by ${contact.name}`,
@@ -235,7 +235,7 @@ async function getDashboardActivities() {
     });
 
     // Add published blogs
-    recentBlogs.forEach((blog: any) => {
+    recentBlogs.forEach((blog: typeof recentBlogs[0]) => {
       if (blog.publishedAt && blog.slug) {
         activities.push({
           type: "blog",
@@ -248,7 +248,7 @@ async function getDashboardActivities() {
     });
 
     // Add chat leads
-    recentChatLeads.forEach((lead: any) => {
+    recentChatLeads.forEach((lead: typeof recentChatLeads[0]) => {
       if (lead.name || lead.company) {
         activities.push({
           type: "lead",
@@ -261,7 +261,7 @@ async function getDashboardActivities() {
     });
 
     // Sort by createdAt (most recent first) and take top 10
-    activities.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    activities.sort((a: typeof activities[0], b: typeof activities[0]) => b.createdAt.getTime() - a.createdAt.getTime());
 
     // Return activities with links
     return activities.slice(0, 10).map((activity: typeof activities[0]) => {

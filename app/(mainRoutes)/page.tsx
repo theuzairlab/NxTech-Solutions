@@ -60,18 +60,21 @@ export default async function Home() {
         { displayOrder: "asc" },
         { createdAt: "desc" },
       ],
-    }).then(portfolios => portfolios.map((p: typeof portfolios[0]) => ({
-      id: p.id,
-      slug: p.slug,
-      title: p.title,
-      category: p.category,
-      type: p.type || null,
-      image: p.image,
-      description: p.description,
-      link: p.link,
-      metrics: p.metrics,
-    }))),
+    }),
   ]);
+
+  // Transform portfolios to match expected format
+  const transformedPortfolios = portfolios.map((p: typeof portfolios[0]) => ({
+    id: p.id,
+    slug: p.slug,
+    title: p.title,
+    category: p.category,
+    type: p.type || null,
+    image: p.image,
+    description: p.description,
+    link: p.link,
+    metrics: p.metrics,
+  }));
 
   return (
     <div className="w-full">
@@ -79,7 +82,7 @@ export default async function Home() {
       <ServicesSnapshot services={mainServices} />
       <WhyChoose />
       <IndustriesServe />
-      <PortfolioHighlight portfolios={portfolios as any} />
+      <PortfolioHighlight portfolios={transformedPortfolios} />
       <Testimonials testimonials={testimonials} />
       <CTABanner />
     </div>
