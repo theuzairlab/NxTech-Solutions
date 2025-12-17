@@ -213,7 +213,7 @@ async function getDashboardActivities() {
     }> = [];
 
     // Add quote requests
-    recentQuotes.forEach(quote => {
+    recentQuotes.forEach((quote: any) => {
       activities.push({
         type: "lead",
         title: `New quote request${quote.company ? ` from ${quote.company}` : ` from ${quote.name}`}`,
@@ -224,7 +224,7 @@ async function getDashboardActivities() {
     });
 
     // Add contact submissions
-    recentContacts.forEach(contact => {
+    recentContacts.forEach((contact: any) => {
       activities.push({
         type: "contact",
         title: `Contact form submitted by ${contact.name}`,
@@ -235,7 +235,7 @@ async function getDashboardActivities() {
     });
 
     // Add published blogs
-    recentBlogs.forEach(blog => {
+    recentBlogs.forEach((blog: any) => {
       if (blog.publishedAt && blog.slug) {
         activities.push({
           type: "blog",
@@ -248,7 +248,7 @@ async function getDashboardActivities() {
     });
 
     // Add chat leads
-    recentChatLeads.forEach(lead => {
+    recentChatLeads.forEach((lead: any) => {
       if (lead.name || lead.company) {
         activities.push({
           type: "lead",
