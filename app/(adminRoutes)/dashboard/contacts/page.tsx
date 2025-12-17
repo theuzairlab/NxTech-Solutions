@@ -1,0 +1,70 @@
+import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
+import { DashboardHeader } from "@/components/admin/dashboard-header";
+import { ContactsManagement } from "@/components/admin/contacts-management";
+
+export const metadata: Metadata = {
+  title: "Contacts - NxTech Admin",
+  description: "Manage contact messages and quote requests from the website.",
+};
+
+export default async function ContactsPage() {
+  const [contactSubmissions, quoteRequests] = await Promise.all([
+    prisma.contactSubmission.findMany({
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        subject: true,
+        message: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    }),
+    prisma.quoteRequest.findMany({
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        company: true,
+        website: true,
+        services: true,
+        projectDescription: true,
+        timeline: true,
+        budget: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    }),
+  ]);
+
+  return (
+    <>
+      <DashboardHeader
+        title="Contacts"
+        description="Manage contact messages and quote requests from the website."
+        healthStatus={false}
+      />
+      <ContactsManagement
+        initialContactSubmissions={contactSubmissions.map((c) => ({
+          ...c,
+          createdAt: c.createdAt.toISOString(),
+          updatedAt: c.updatedAt.toISOString(),
+        }))}
+        initialQuoteRequests={quoteRequests.map((q) => ({
+          ...q,
+          createdAt: q.createdAt.toISOString(),
+          updatedAt: q.updatedAt.toISOString(),
+        }))}
+      />
+    </>
+  );
+}
+
+

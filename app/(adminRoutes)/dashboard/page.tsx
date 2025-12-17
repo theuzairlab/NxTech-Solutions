@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Dashboard() {
   return (
     <div className="space-y-6">
-      <DashboardHeader />
+      <DashboardHeader title="Dashboard" description="Overview of NxTech website performance, leads, and content activity." healthStatus={true} />
       <AnalyticsCards />
       <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)]">
         <TrafficOverview />

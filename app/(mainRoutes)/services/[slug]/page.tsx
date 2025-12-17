@@ -1,18 +1,29 @@
 import { notFound } from "next/navigation";
-import { servicesData, additionalServicesData, ServiceData } from "@/lib/services-data";
 import { ServiceDetailPage } from "@/components/services/service-detail-page";
+import { prisma } from "@/lib/prisma";
+import type { ServiceData } from "@/lib/services-data";
 
 export async function generateStaticParams() {
-  const mainServiceSlugs = Object.keys(servicesData);
-  const additionalServiceSlugs = Object.keys(additionalServicesData);
-  return [...mainServiceSlugs, ...additionalServiceSlugs].map((slug) => ({
-    slug,
+  const services = await prisma.service.findMany({
+    where: { isActive: true },
+    select: { slug: true },
+  });
+  
+  return services.map((service) => ({
+    slug: service.slug,
   }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = servicesData[slug] || additionalServicesData[slug];
+  const service = await prisma.service.findUnique({
+    where: { slug, isActive: true },
+    select: {
+      title: true,
+      shortDescription: true,
+      overview: true,
+    },
+  });
   
   if (!service) {
     return {
@@ -28,24 +39,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = servicesData[slug] || additionalServicesData[slug];
+  const service = await prisma.service.findUnique({
+    where: { slug, isActive: true },
+  });
   
   if (!service) {
     notFound();
   }
 
-  // Merge additional services data with main services structure
+  // Convert database service to ServiceData format
   const fullServiceData: ServiceData = {
-    ...service,
-    slug: service.slug || slug,
-    title: service.title || "",
-    shortDescription: service.shortDescription || "",
-    overview: service.overview || service.title || "",
-    sections: service.sections || [],
-    cta: service.cta || { text: "Get Started", link: "/contact" },
-    image: service.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
-    icon: service.icon || "Code",
-  } as ServiceData;
+    slug: service.slug,
+    title: service.title,
+    shortDescription: service.shortDescription,
+    overview: service.overview,
+    image: service.image,
+    icon: service.icon,
+    sections: (service.sections as any) || [],
+    features: (service.features as any) || [],
+    benefits: (service.benefits as any) || [],
+    useCases: (service.useCases as any) || [],
+    caseStudies: (service.caseStudies as any) || [],
+    pricing: (service.pricing as any) || undefined,
+    cta: (service.cta as any) || { text: "Get Started", link: "/contact" },
+  };
 
   return <ServiceDetailPage service={fullServiceData} />;
 }

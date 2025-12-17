@@ -71,11 +71,15 @@ model Portfolio {
   slug        String        @unique
   title       String
   category    String
+  type        String?       // e.g., "Web Development", "AI Solutions", "Digital Marketing"
   image       String
   description String
   link        String?
+  client      String?       // Client name
 
-  metrics Json? // [{ label, value, icon }]
+  metrics Json? // { label, value, icon }
+  before  Json? // { key: value } object for before metrics
+  after   Json? // { key: value } object for after metrics
 
   isFeatured   Boolean      @default(false)
   displayOrder Int?

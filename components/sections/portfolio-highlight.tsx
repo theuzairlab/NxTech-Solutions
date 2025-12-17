@@ -1,85 +1,47 @@
 "use client";
 import Image from "next/image";
-import { ArrowRight, TrendingUp, Users, Zap } from "lucide-react";
+import { ArrowRight, TrendingUp, Users, Zap, Bot, Megaphone, Code, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import * as LucideIcons from "lucide-react";
 
-const projects = [
-  {
-    title: "E-commerce Platform for ABC Inc.",
-    link: "/projects/abc-inc",
-    category: "Web Development",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-    metrics: {
-      label: "Revenue Increase",
-      value: "250%",
-      icon: TrendingUp,
-    },
-    description: "Complete platform redesign with AI-powered recommendations",
-  },
-  {
-    title: "AI Sales Agent Implementation",
-    link: "/projects/ai-sales-agent",
-    category: "AI Solutions",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
-    metrics: {
-      label: "Lead Conversion",
-      value: "180%",
-      icon: Users,
-    },
-    description: "Automated lead qualification and meeting scheduling",
-  },
-  {
-    title: "Digital Marketing Campaign",
-    link: "/projects/digital-marketing-campaign",
-    category: "Marketing",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop",
-    metrics: {
-      label: "ROI Improvement",
-      value: "320%",
-      icon: Zap,
-    },
-    description: "Multi-channel campaign with advanced targeting",
-  },
-  {
-    title: "Cloud Infrastructure Migration",
-    link: "/projects/cloud-infrastructure-migration",
-    category: "IT Services",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop",
-    metrics: {
-      label: "Cost Reduction",
-      value: "45%",
-      icon: TrendingUp,
-    },
-    description: "Seamless migration with zero downtime",
-  },
-  {
-    title: "Mobile App Development",
-    link: "/projects/mobile-app-development",
-    category: "App Development",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop",
-    metrics: {
-      label: "User Growth",
-      value: "500%",
-      icon: Users,
-    },
-    description: "Cross-platform app with native performance",
-  },
-  {
-    title: "SEO & Content Strategy",
-    link: "/projects/seo-content-strategy",
-    category: "SEO",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    metrics: {
-      label: "Organic Traffic",
-      value: "400%",
-      icon: TrendingUp,
-    },
-    description: "Comprehensive SEO overhaul with content strategy",
-  },
-];
+type PortfolioData = {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  type: string | null;
+  image: string;
+  description: string;
+  link: string | null;
+  metrics: any; // JSON from Prisma
+};
 
-export function PortfolioHighlight() {
+type PortfolioHighlightProps = {
+  portfolios: PortfolioData[];
+};
+
+export function PortfolioHighlight({ portfolios }: PortfolioHighlightProps) {
+  // Helper function to get icon component from icon name
+  const getIconComponent = (iconName: string | null | undefined) => {
+    if (!iconName) return TrendingUp; // Default icon
+    
+    const IconComponent = (LucideIcons as any)[iconName];
+    if (IconComponent) {
+      return IconComponent;
+    }
+    
+    // Fallback to default icon if not found
+    return TrendingUp;
+  };
+
+  // Limit to 6 featured portfolios or first 6 active ones
+  const displayedPortfolios = portfolios.slice(0, 6);
+
+  if (displayedPortfolios.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#eef4ff] via-white to-[#d5e6ff] z-7">
       {/* Background Gradient */}
@@ -96,7 +58,7 @@ export function PortfolioHighlight() {
             <span className="text-xs font-semibold tracking-[0.25em] text-primary">PORTFOLIO</span>
           </div>
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
-            <span className="bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
               Portfolio Highlights
             </span>
           </h2>
@@ -106,55 +68,70 @@ export function PortfolioHighlight() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {projects.map((project, index) => {
-            const MetricIcon = project.metrics.icon;
+          {displayedPortfolios.map((portfolio) => {
+            const MetricIcon = portfolio.metrics?.icon
+              ? getIconComponent(portfolio.metrics.icon)
+              : TrendingUp;
+            
+            const portfolioLink = portfolio.link || `/portfolio/${portfolio.slug}`;
+            const categoryBadge = portfolio.type || portfolio.category;
+
             return (
               <div
-                key={index}
+                key={portfolio.id}
                 className="group relative overflow-hidden rounded-2xl bg-white border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
               >
                 {/* Image */}
                 <div className="relative h-60 overflow-hidden rounded-2xl">
                   <Image
-                    src={project.image}
-                    alt={project.title}
+                    src={portfolio.image}
+                    alt={portfolio.title}
                     fill
-                    className="object-cover p-2 rounded-2xl "
+                    className="object-cover p-2 rounded-2xl"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   
                   {/* Category Badge */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="px-3 py-1.5 rounded-full bg-primary/90 backdrop-blur-sm text-white text-xs font-medium shadow-md">
-                      {project.category}
-                    </span>
-                  </div>
+                  {categoryBadge && (
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="px-3 py-1.5 rounded-full bg-primary/90 backdrop-blur-sm text-white text-xs font-medium shadow-md">
+                        {categoryBadge}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}
                 <div className="p-6 bg-white">
                   <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
-                    <Link href={project.link} className="">
-                    {project.title}
+                    <Link href={portfolioLink}>
+                      {portfolio.title}
                     </Link>
                   </h3>
                   <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
-                    {project.description}
+                    {portfolio.description}
                   </p>
 
-                  {/* Metrics - Matching Screenshot Style */}
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
-                    <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                      <MetricIcon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-3xl font-bold text-primary mb-0.5">
-                        {project.metrics.value}
+                  {/* Metrics - Only show if metrics exist */}
+                  {portfolio.metrics && 
+                   typeof portfolio.metrics === 'object' && 
+                   portfolio.metrics !== null &&
+                   'label' in portfolio.metrics && 
+                   'value' in portfolio.metrics && (
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-linear-to-br from-primary/5 to-primary/10 border border-primary/20">
+                      <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
+                        <MetricIcon className="h-6 w-6 text-primary" />
                       </div>
-                      <div className="text-xs text-muted-foreground font-medium">
-                        {project.metrics.label}
+                      <div className="flex-1 min-w-0">
+                        <div className="text-3xl font-bold text-primary mb-0.5">
+                          {String(portfolio.metrics.value)}
+                        </div>
+                        <div className="text-xs text-muted-foreground font-medium">
+                          {String(portfolio.metrics.label)}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             );
@@ -162,13 +139,14 @@ export function PortfolioHighlight() {
         </div>
 
         <div className="text-center">
-          <Button size="lg" className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg shadow-primary/25">
-            View Full Portfolio
-            <ArrowRight className="ml-2 h-5 w-5" />
+          <Button asChild size="lg" className="bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg shadow-primary/25">
+            <Link href="/services">
+              View Full Portfolio
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
           </Button>
         </div>
       </div>
     </section>
   );
 }
-

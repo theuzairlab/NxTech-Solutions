@@ -7,17 +7,39 @@ import Link from "next/link";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, User } from "lucide-react";
-import { blogPosts, blogCategories, BlogPost } from "@/lib/blog-data";
 
-export function BlogPosts() {
+type BlogPost = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  category: string;
+  author: {
+    name: string;
+    avatar: string;
+    role: string;
+  };
+  tags: string[];
+  publishedAt: string;
+  readTime: number;
+  featured: boolean;
+};
+
+type BlogPostsProps = {
+  initialPosts: BlogPost[];
+  initialCategories: string[];
+};
+
+export function BlogPosts({ initialPosts, initialCategories }: BlogPostsProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const filteredPosts = useMemo(() => {
     if (selectedCategory === "All") {
-      return blogPosts;
+      return initialPosts;
     }
-    return blogPosts.filter(post => post.category === selectedCategory);
-  }, [selectedCategory]);
+    return initialPosts.filter(post => post.category === selectedCategory);
+  }, [selectedCategory, initialPosts]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -45,7 +67,7 @@ export function BlogPosts() {
           className="mb-12"
         >
           <div className="flex flex-wrap justify-center gap-3">
-            {blogCategories.map((category) => (
+            {initialCategories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
@@ -118,14 +140,22 @@ export function BlogPosts() {
 
                   <CardFooter className="mb-4 border-t border-border flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="relative w-8 h-8 rounded-full overflow-hidden">
-                        <Image
-                          src={post.author.avatar}
-                          alt={post.author.name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
+                      {post.author.avatar ? (
+                        <div className="relative w-8 h-8 rounded-full overflow-hidden">
+                          <Image
+                            src={post.author.avatar}
+                            alt={post.author.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-xs font-semibold text-primary">
+                            {post.author.name.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
                       <div>
                         <div className="text-sm font-medium text-foreground">{post.author.name}</div>
                         <div className="text-xs text-muted-foreground">{post.author.role}</div>

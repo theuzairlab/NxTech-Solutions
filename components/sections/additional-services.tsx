@@ -162,10 +162,34 @@ const duplicatedServices = additionalServices.flatMap(category =>
 
 const duplicatedAllServices = [...duplicatedServices, ...duplicatedServices, ...duplicatedServices];
 
-export function AdditionalServices() {
+type Service = {
+  id: string;
+  slug: string;
+  title: string;
+  shortDescription: string;
+  image: string;
+  icon: string;
+};
+
+type AdditionalServicesProps = {
+  services: Service[];
+};
+
+export function AdditionalServices({ services }: AdditionalServicesProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const positionRef = useRef(0);
+  
+  // Transform database services to the format expected by the component
+  const transformedServices = services.map((service) => ({
+    name: service.title,
+    image: service.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
+    slug: service.slug,
+  }));
+  
+  const duplicatedServices = transformedServices.length > 0 
+    ? [...transformedServices, ...transformedServices, ...transformedServices]
+    : [];
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -179,7 +203,7 @@ export function AdditionalServices() {
       if (firstCard) {
         const cardWidth = firstCard.offsetWidth;
         const gap = 16;
-        const setWidth = (cardWidth + gap) * duplicatedServices.length;
+        const setWidth = transformedServices.length > 0 ? (cardWidth + gap) * transformedServices.length : 0;
 
         if (!isHovered) {
           positionRef.current -= speed;
@@ -198,7 +222,7 @@ export function AdditionalServices() {
     return () => {
       if (animationId) cancelAnimationFrame(animationId);
     };
-  }, [isHovered]);
+  }, [isHovered, transformedServices.length]);
 
   return (
     <section className="relative py-20 bg-gradient-to-b from-primary/90 to-background -mt-32 rounded-t-[150px] rounded-b-[150px] z-7">
@@ -225,33 +249,65 @@ export function AdditionalServices() {
             className="flex gap-4 will-change-transform"
             style={{ transition: isHovered ? 'transform 0.3s ease-out' : 'none' }}
           >
-            {duplicatedAllServices.map((service, index) => {
-              const Icon = service.icon;
-              const serviceSlug = service.name.toLowerCase().replace(/\s+/g, '-').replace(/[&/]/g, '');
+            {duplicatedServices.length === 0 ? (
+              <div className="text-center py-12 w-full">
+                <p className="text-muted-foreground">No additional services available at the moment.</p>
+              </div>
+            ) : (
+              duplicatedServices.map((service, index) => {
+                return (
+                  <Link
+                    key={`${service.slug}-${index}`}
+                    href={`/services/${service.slug}`}
+                    className="group relative shrink-0 w-[280px] rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+                  >
+                    {/* Image */}
+                    <div className="relative h-40 overflow-hidden">
+                      <Image
+                        src={service.image}
+                        alt={service.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-4">
+                      <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                        {service.name}
+                      </h3>
+                    </div>
+                  </Link>
+                );
+              })
+            )}
+          </div>
+        </div>
+
+        {/* Services Grid */}
+        {transformedServices.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+            {transformedServices.map((service) => {
               return (
                 <Link
-                  key={index}
-                  href={`/services/${service.category.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="group relative shrink-0 w-[280px] rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+                  key={service.slug}
+                  href={`/services/${service.slug}`}
+                  className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
                 >
-                  {/* Image */}
-                  <div className="relative h-40 overflow-hidden">
-                    <Image
-                      src={service.image}
-                      alt={service.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Icon className="h-5 w-5 text-primary" />
-                      <span className="text-xs font-medium text-primary">{service.category}</span>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  <div className="relative p-1 z-10">
+                    <div className="relative h-48 w-full rounded-lg overflow-hidden">
+                      <Image
+                        src={service.image}
+                        alt={service.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
                     </div>
-                    <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                    
+                    <h3 className="text-xl p-2 font-semibold text-foreground group-hover:text-primary transition-colors">
                       {service.name}
                     </h3>
                   </div>
@@ -259,49 +315,7 @@ export function AdditionalServices() {
               );
             })}
           </div>
-        </div>
-
-        {/* Category Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-          {additionalServices.map((category, index) => {
-            const Icon = category.icon;
-            const categorySlug = category.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
-            return (
-              <Link
-                key={index}
-                href={`/services/${categorySlug}`}
-                className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                
-                <div className="relative p-6 z-10">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="h-7 w-7 text-primary" />
-                  </div>
-                  
-                  <h3 className="text-xl font-semibold mb-4 text-foreground group-hover:text-primary transition-colors">
-                    {category.category}
-                  </h3>
-                  
-                  <ul className="space-y-2">
-                    {category.services.slice(0, 3).map((service, serviceIndex) => (
-                      <li key={serviceIndex} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <ArrowRight className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                        <span>{service.name}</span>
-                      </li>
-                    ))}
-                    {category.services.length > 3 && (
-                      <li className="flex items-center gap-2 text-sm text-primary font-medium mt-2">
-                        <span>+{category.services.length - 3} more services</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+        )}
       </div>
     </section>
   );

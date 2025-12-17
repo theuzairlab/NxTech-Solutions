@@ -1,64 +1,25 @@
 "use client";
-import { 
-  Code2, 
-  Megaphone, 
-  Bot, 
-  Users, 
-  Palette, 
-  Search, 
-  Globe,
-  ArrowRight 
-} from "lucide-react";
+
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import * as LucideIcons from "lucide-react";
 
-const services = [
-  {
-    icon: Code2,
-    title: "IT Services",
-    link: "/services/it-services",
-    description: "Enterprise-grade IT solutions and infrastructure",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-  },
-  {
-    icon: Megaphone,
-    title: "Digital Marketing",
-    link: "/services/digital-marketing",
-    description: "Data-driven campaigns that generate ROI",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop",
-  },
-  {
-    icon: Bot,
-    title: "AI Agents", 
-    link: "/services/ai-agents",
-    description: "Intelligent automation for sales and support",
-    image: "https://images.unsplash.com/photo-1694903110330-cc64b7e1d21d?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    icon: Users,
-    title: "Lead Generation",
-    link: "/services/lead-generation",
-    description: "B2B & B2C targeted lead acquisition",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
-  },
-  {
-    icon: Globe,
-    title: "Web Development", 
-    link: "/services/web-development",
-    description: "Custom websites and web applications",
-    image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=600&fit=crop",
-  },
-  {
-    icon: Search,
-    title: "SEO Services",
-    link: "/services/seo-services",
-    description: "Organic growth and search visibility",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
+type ServiceSnapshotItem = {
+  id: string;
+  slug: string;
+  title: string;
+  shortDescription: string;
+  image: string;
+  icon: string | null;
+};
 
-export function ServicesSnapshot() {
+type ServicesSnapshotProps = {
+  services: ServiceSnapshotItem[];
+};
+
+export function ServicesSnapshot({ services }: ServicesSnapshotProps) {
   return (
     <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#e7f9ff] via-white to-[#c9f2ff] z-10">
       {/* Soft glow accents */}
@@ -84,23 +45,29 @@ export function ServicesSnapshot() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 auto-rows-fr">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            
+          {services.map((service) => {
+            const IconComponent = service.icon
+              ? (LucideIcons[service.icon as keyof typeof LucideIcons] as React.ComponentType<{ className?: string }>)
+              : null;
+
             return (
               <div
-                key={index}
+                key={service.id}
                 className={`group relative overflow-hidden rounded-2xl bg-card/90 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 backdrop-blur-sm`}
               >
                 {/* Image Background - always visible, subtle hover lift */}
                 <div className="absolute inset-0 opacity-90 group-hover:opacity-80 transition-opacity duration-400 ease-in-out">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover scale-100 group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
+                  {service.image ? (
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover scale-100 group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-muted" />
+                  )}
                 </div>
 
                 {/* Soft wash overlay for readability */}
@@ -114,21 +81,23 @@ export function ServicesSnapshot() {
 
                 <div className="relative p-6 z-10 h-full flex flex-col">
                   {/* Icon */}
-                  <div className="w-14 h-14 rounded-xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="h-7 w-7 text-primary" />
-                  </div>
+                  {IconComponent && (
+                    <div className="w-14 h-14 rounded-xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <IconComponent className="h-7 w-7 text-primary" />
+                    </div>
+                  )}
 
                   {/* Content */}
                   <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-muted-foreground mb-4 grow">
-                    {service.description}
+                    {service.shortDescription}
                   </p>
 
                   {/* Arrow */}
                   <div className="flex items-center z-10 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Link href={service.link} className="z-10 flex items-center">
+                    <Link href={`/services/${service.slug}`} className="z-10 flex items-center">
                       <span className="text-sm font-medium">Learn more</span>
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>

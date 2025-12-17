@@ -1,132 +1,53 @@
-"use client";
 import Image from "next/image";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
-const industries = [
-  {
-    name: "E-commerce",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
-    description: "Complete digital commerce solutions",
-    services: [
-      "E-commerce Platform Development",
-      "Payment Gateway Integration",
-      "Inventory Management Systems",
-      "AI-Powered Recommendations",
-      "Mobile Commerce Solutions"
-    ],
-  },
-  {
-    name: "Real Estate",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
-    description: "Property management and sales platforms",
-    services: [
-      "Property Listing Platforms",
-      "CRM for Real Estate",
-      "Virtual Tour Integration",
-      "Lead Management Systems",
-      "Document Automation"
-    ],
-  },
-  {
-    name: "Travel & Tourism",
-    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&h=400&fit=crop",
-    description: "Travel booking and management systems",
-    services: [
-      "Booking Platforms",
-      "Travel Management Systems",
-      "Mobile Travel Apps",
-      "Payment Processing",
-      "Customer Support Automation"
-    ],
-  },
-  {
-    name: "Healthcare",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop",
-    description: "Healthcare technology solutions",
-    services: [
-      "Patient Management Systems",
-      "Telemedicine Platforms",
-      "Medical Records Management",
-      "Appointment Scheduling",
-      "HIPAA Compliant Solutions"
-    ],
-  },
-  {
-    name: "FinTech",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-    description: "Financial technology platforms",
-    services: [
-      "Payment Processing Systems",
-      "Banking Applications",
-      "Investment Platforms",
-      "Fraud Detection Systems",
-      "Regulatory Compliance"
-    ],
-  },
-  {
-    name: "SaaS",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-    description: "Software as a Service platforms",
-    services: [
-      "Cloud-Based Applications",
-      "Subscription Management",
-      "API Development",
-      "Multi-Tenant Architecture",
-      "Analytics & Reporting"
-    ],
-  },
-  {
-    name: "Education",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop",
-    description: "E-learning and education platforms",
-    services: [
-      "Learning Management Systems",
-      "Online Course Platforms",
-      "Student Information Systems",
-      "Virtual Classroom Solutions",
-      "Assessment & Testing Tools"
-    ],
-  },
-  {
-    name: "Logistics",
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop",
-    description: "Supply chain and logistics management",
-    services: [
-      "Warehouse Management",
-      "Fleet Tracking Systems",
-      "Route Optimization",
-      "Inventory Tracking",
-      "Delivery Management"
-    ],
-  },
-  {
-    name: "Hospitality",
-    image: "https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?w=600&h=400&fit=crop",
-    description: "Hotel and restaurant management",
-    services: [
-      "Hotel Booking Systems",
-      "POS Integration",
-      "Guest Management",
-      "Reservation Systems",
-      "Loyalty Programs"
-    ],
-  },
-  {
-    name: "Professional Services",
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=400&fit=crop",
-    description: "Business and professional solutions",
-    services: [
-      "Client Management Systems",
-      "Project Management Tools",
-      "Time Tracking Solutions",
-      "Billing & Invoicing",
-      "Document Management"
-    ],
-  },
-];
+type IndustrySnapshot = {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  painPoints: string[];
+  solutions: string[];
+};
 
-export function IndustriesServe() {
+export async function IndustriesServe() {
+  const industriesFromDb = await prisma.industry.findMany({
+    where: {
+      isActive: true,
+    },
+    orderBy: [
+      { displayOrder: "asc" },
+      { createdAt: "asc" },
+    ],
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      image: true,
+      services: true,
+    },
+  });
+
+  const industries: IndustrySnapshot[] = industriesFromDb.map((industry) => {
+    const services = industry.services as any;
+    const painPoints = Array.isArray(services?.painPoints) ? services.painPoints : [];
+    const solutions = Array.isArray(services?.solutions) ? services.solutions : [];
+
+    return {
+      id: industry.id,
+      name: industry.name,
+      description: industry.description || "",
+      image:
+        industry.image ||
+        "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
+      painPoints,
+      solutions,
+    };
+  }).slice(0, 10);
+
   return (
     <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#e9f9f4] via-white to-[#c9f1e6] z-8">
       <div className="absolute inset-0 pointer-events-none">
@@ -150,11 +71,16 @@ export function IndustriesServe() {
           </p>
         </div>
 
+        {industries.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No industries available at the moment.</p>
+          </div>
+        ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-12">
-          {industries.map((industry, index) => (
+          {industries.map((industry) => (
             <div
-              key={index}
-              className="group relative aspect-square rounded-xl cursor-pointer flip-card-container"
+              key={industry.id}
+              className="group relative aspect-4/5 md:aspect-3/4 rounded-xl cursor-pointer flip-card-container"
             >
               {/* Flip Card Container */}
               <div className="flip-card-inner">
@@ -194,19 +120,45 @@ export function IndustriesServe() {
                       </p>
                     </div>
                     
-                    {/* Services List */}
-                    <div className="flex-1 overflow-y-auto">
-                      <ul className="space-y-2">
-                        {industry.services.map((service, serviceIndex) => (
-                          <li
-                            key={serviceIndex}
-                            className="flex items-start gap-2 text-white/90 text-xs"
-                          >
-                            <CheckCircle2 className="h-3 w-3 text-white mt-0.5 shrink-0" />
-                            <span className="leading-tight">{service}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    {/* Pain points & our solutions */}
+                    <div className="flex-1 overflow-y-auto space-y-3">
+                      {industry.painPoints.length > 0 && (
+                        <div>
+                          <p className="text-[11px] font-semibold text-white/80 mb-1">
+                            Pain points
+                          </p>
+                          <ul className="space-y-1">
+                            {industry.painPoints.slice(0, 3).map((point, idx) => (
+                              <li
+                                key={idx}
+                                className="flex items-start gap-2 text-white/90 text-xs"
+                              >
+                                <span className="mt-0.5 text-white">•</span>
+                                <span className="leading-tight">{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {industry.solutions.length > 0 && (
+                        <div>
+                          <p className="text-[11px] font-semibold text-white/80 mb-1">
+                            Our solutions
+                          </p>
+                          <ul className="space-y-1">
+                            {industry.solutions.slice(0, 3).map((solution, idx) => (
+                              <li
+                                key={idx}
+                                className="flex items-start gap-2 text-white/90 text-xs"
+                              >
+                                <CheckCircle2 className="h-3 w-3 text-white mt-0.5 shrink-0" />
+                                <span className="leading-tight">{solution}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                     
                     {/* Learn More Button */}
@@ -222,12 +174,15 @@ export function IndustriesServe() {
             </div>
           ))}
         </div>
+        )}
 
         <div className="text-center">
+          <Link href={'/services#industries'}>
           <Button size="lg" variant="outline" className="border-2 border-primary/30 hover:bg-primary/10 text-primary hover:text-primary hover:border-primary/50">
             Explore All Industries
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
+          </Link>
         </div>
       </div>
     </section>

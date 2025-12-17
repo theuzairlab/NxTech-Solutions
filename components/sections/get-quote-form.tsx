@@ -92,51 +92,28 @@ export function GetQuoteForm() {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Here you would typically:
-    // 1. Send email via API (e.g., SendGrid, Resend, etc.)
-    // 2. Send WhatsApp notification via API (e.g., Twilio, WhatsApp Business API)
-    // 3. Save to database
-    
-    // Example email payload
-    const emailPayload = {
-      to: "info@nxtech-solutions.com",
-      subject: `New Quote Request from ${formData.name}`,
-      body: `
-        New Quote Request:
-        
-        Services: ${formData.services.join(", ")}
-        Project Description: ${formData.projectDescription}
-        Timeline: ${formData.timeline}
-        Budget: ${formData.budget}
-        
-        Contact Details:
-        Name: ${formData.name}
-        Email: ${formData.email}
-        Phone: ${formData.phone}
-        Company: ${formData.company || "N/A"}
-        Website: ${formData.website || "N/A"}
-      `
-    };
 
-    // Example WhatsApp payload
-    const whatsappPayload = {
-      to: "+1234567890", // Your WhatsApp Business number
-      message: `New Quote Request:\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nServices: ${formData.services.join(", ")}\nBudget: ${formData.budget}`
-    };
+    try {
+      const res = await fetch("/api/quote-requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // In production, you would make actual API calls:
-    // await fetch('/api/send-email', { method: 'POST', body: JSON.stringify(emailPayload) });
-    // await fetch('/api/send-whatsapp', { method: 'POST', body: JSON.stringify(whatsappPayload) });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || "Failed to submit quote request");
+      }
 
-    console.log("Email Payload:", emailPayload);
-    console.log("WhatsApp Payload:", whatsappPayload);
-
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Failed to submit quote request", error);
+      alert("Something went wrong while submitting your quote request. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {

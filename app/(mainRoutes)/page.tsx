@@ -6,21 +6,81 @@ import { IndustriesServe } from "@/components/sections/industries-serve";
 import { PortfolioHighlight } from "@/components/sections/portfolio-highlight";
 import { Testimonials } from "@/components/sections/testimonials";
 import { CTABanner } from "@/components/sections/cta-banner";
+import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "NexTech Solutions - Empowering Businesses with IT, Marketing & AI Solutions",
   description: "NexTech delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.",
 };
 
-export default function Home() {
+export default async function Home() {
+  const [mainServices, testimonials, portfolios] = await Promise.all([
+    prisma.service.findMany({
+      where: {
+        isMainService: true,
+        isActive: true,
+      },
+      orderBy: [
+        { displayOrder: "asc" },
+        { createdAt: "asc" },
+      ],
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        shortDescription: true,
+        image: true,
+        icon: true,
+      },
+    }),
+    prisma.testimonial.findMany({
+      where: {
+        isActive: true,
+      },
+      orderBy: [
+        { displayOrder: "asc" },
+        { createdAt: "asc" },
+      ],
+      select: {
+        id: true,
+        name: true,
+        role: true,
+        company: true,
+        image: true,
+        content: true,
+        rating: true,
+      },
+    }),
+    prisma.portfolio.findMany({
+      where: {
+        isActive: true,
+      },
+      orderBy: [
+        { isFeatured: "desc" },
+        { displayOrder: "asc" },
+        { createdAt: "desc" },
+      ],
+    }).then(portfolios => portfolios.map((p: any) => ({
+      id: p.id,
+      slug: p.slug,
+      title: p.title,
+      category: p.category,
+      type: p.type || null,
+      image: p.image,
+      description: p.description,
+      link: p.link,
+      metrics: p.metrics,
+    }))),
+  ]);
+
   return (
     <div className="w-full">
       <HeroSection />
-      <ServicesSnapshot />
+      <ServicesSnapshot services={mainServices} />
       <WhyChoose />
       <IndustriesServe />
-      <PortfolioHighlight />
-      <Testimonials />
+      <PortfolioHighlight portfolios={portfolios as any} />
+      <Testimonials testimonials={testimonials} />
       <CTABanner />
     </div>
   );

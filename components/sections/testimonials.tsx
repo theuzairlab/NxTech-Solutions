@@ -3,61 +3,21 @@ import Image from "next/image";
 import { Star, Quote } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-const testimonials = [
-  {
-    name: "Sarah Johnson",
-    role: "CEO, TechStart Inc.",
-    company: "E-commerce Platform",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
-    content: "NexTech transformed our digital presence completely. Their AI solutions increased our conversion rate by 180% in just 3 months.",
-    rating: 5,
-  },
-  {
-    name: "Michael Chen",
-    role: "Marketing Director",
-    company: "SaaS Company",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop",
-    content: "The team's expertise in digital marketing is unmatched. We saw a 320% ROI improvement within the first quarter.",
-    rating: 5,
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "CTO, HealthTech Solutions",
-    company: "Healthcare Platform",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
-    content: "Their cloud migration was seamless with zero downtime. We reduced infrastructure costs by 45% while improving performance.",
-    rating: 5,
-  },
-  {
-    name: "David Thompson",
-    role: "Founder, RealEstate Pro",
-    company: "Real Estate",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
-    content: "NexTech's lead generation services brought us qualified leads consistently. Our sales pipeline has never been stronger.",
-    rating: 5,
-  },
-  {
-    name: "Lisa Anderson",
-    role: "VP of Operations",
-    company: "FinTech Solutions",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop",
-    content: "Outstanding service and results. NxTech helped us streamline operations and reduce costs significantly.",
-    rating: 5,
-  },
-  {
-    name: "James Wilson",
-    role: "CEO, RetailMax",
-    company: "E-commerce",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop",
-    content: "The AI solutions implemented by NxTech revolutionized our customer experience and boosted sales by 250%.",
-    rating: 5,
-  },
-];
+type TestimonialData = {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  image: string;
+  content: string;
+  rating: number;
+};
 
-// Duplicate testimonials for infinite scroll
-const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
+type TestimonialsProps = {
+  testimonials: TestimonialData[];
+};
 
-export function Testimonials() {
+export function Testimonials({ testimonials }: TestimonialsProps) {
   const topRowRef = useRef<HTMLDivElement>(null);
   const bottomRowRef = useRef<HTMLDivElement>(null);
   const [isTopHovered, setIsTopHovered] = useState(false);
@@ -66,10 +26,13 @@ export function Testimonials() {
   const bottomPositionRef = useRef<number | null>(null);
   const isInitializedRef = useRef(false);
 
+  // Duplicate testimonials for infinite scroll
+  const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
+
   useEffect(() => {
     const topRow = topRowRef.current;
     const bottomRow = bottomRowRef.current;
-    if (!topRow || !bottomRow) return;
+    if (!topRow || !bottomRow || testimonials.length === 0) return;
 
     let animationId: number;
     const speed = 0.5; // pixels per frame
@@ -118,9 +81,9 @@ export function Testimonials() {
     return () => {
       if (animationId) cancelAnimationFrame(animationId);
     };
-  }, [isTopHovered, isBottomHovered]);
+  }, [isTopHovered, isBottomHovered, testimonials.length]);
 
-  const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimonials[0]; index: number }) => (
+  const TestimonialCard = ({ testimonial, index }: { testimonial: TestimonialData; index: number }) => (
     <div
       className="group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 shrink-0 w-full sm:w-[400px]"
     >
@@ -152,7 +115,7 @@ export function Testimonials() {
         <div className="flex items-center gap-4">
           <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-primary/20">
             <Image
-              src={testimonial.image}
+              src={testimonial.image || "/icon.png"}
               alt={testimonial.name}
               fill
               className="object-cover"
@@ -173,6 +136,10 @@ export function Testimonials() {
       </div>
     </div>
   );
+
+  if (testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[150px] bg-linear-to-b from-[#f5f5ff] via-white to-[#e6e6ff] z-6">
@@ -209,7 +176,7 @@ export function Testimonials() {
             style={{ transition: isTopHovered ? 'transform 0.3s ease-out' : 'none' }}
           >
             {duplicatedTestimonials.map((testimonial, index) => (
-              <TestimonialCard key={`top-${index}`} testimonial={testimonial} index={index} />
+              <TestimonialCard key={`top-${testimonial.id}-${index}`} testimonial={testimonial} index={index} />
             ))}
           </div>
         </div>
@@ -226,7 +193,7 @@ export function Testimonials() {
             style={{ transition: isBottomHovered ? 'transform 0.3s ease-out' : 'none' }}
           >
             {duplicatedTestimonials.map((testimonial, index) => (
-              <TestimonialCard key={`bottom-${index}`} testimonial={testimonial} index={index} />
+              <TestimonialCard key={`bottom-${testimonial.id}-${index}`} testimonial={testimonial} index={index} />
             ))}
           </div>
         </div>
@@ -234,4 +201,3 @@ export function Testimonials() {
     </section>
   );
 }
-

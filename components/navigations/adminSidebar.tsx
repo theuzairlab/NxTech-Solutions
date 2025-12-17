@@ -46,7 +46,7 @@ export function AdminSidebar() {
         },
         {
             label: "Projects",
-            href: "/dashboard/projects",
+            href: "/dashboard/portfolios",
             icon: (
                 <FolderGit2 className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
             ),
@@ -105,7 +105,15 @@ export function AdminSidebar() {
     };
 
     return (
-        <div className="h-screen border-r border-neutral-200 bg-primary pr-4">
+        <div 
+            className="h-screen border-r border-neutral-200 bg-primary pr-4"
+            style={{
+                position: "sticky",
+                left: 0,
+                top: 0,
+                bottom: 0,
+            }}
+            >
             <Sidebar open={open} setOpen={setOpen}>
                 <SidebarBody className="justify-between gap-10 h-full">
                     <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">

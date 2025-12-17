@@ -7,8 +7,27 @@ import { ArrowLeft, Clock, Calendar, Share2, Facebook, Twitter, Linkedin, Copy, 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { BlogPost } from "@/lib/blog-data";
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+
+type BlogPost = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string; // Markdown content
+  image: string;
+  category: string;
+  author: {
+    name: string;
+    avatar: string;
+    role: string;
+  };
+  tags: string[];
+  publishedAt: string;
+  readTime: number;
+  featured: boolean;
+};
 
 interface BlogDetailPageProps {
   post: BlogPost;
@@ -97,14 +116,22 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
             {/* Author & Meta Info */}
             <div className="flex flex-wrap items-center gap-6 text-white/80">
               <div className="flex items-center gap-3">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                  <Image
-                    src={post.author.avatar}
-                    alt={post.author.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                {post.author.avatar ? (
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                    <Image
+                      src={post.author.avatar}
+                      alt={post.author.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+                    <span className="text-lg font-semibold text-white">
+                      {post.author.name.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                )}
                 <div>
                   <div className="font-semibold text-white">{post.author.name}</div>
                   <div className="text-sm text-white/70">{post.author.role}</div>
@@ -160,10 +187,66 @@ export function BlogDetailPage({ post, relatedPosts }: BlogDetailPageProps) {
               className="prose prose-lg max-w-none"
             >
               <div className="bg-white rounded-2xl border border-border p-8 md:p-12 shadow-lg">
-                <div 
-                  className="blog-content text-foreground"
-                  dangerouslySetInnerHTML={{ __html: post.content }}
-                />
+                <div className="blog-content text-foreground">
+                  <ReactMarkdown
+                    components={{
+                      h1: ({ node, ...props }: any) => (
+                        <h1 className="text-3xl font-bold mb-4 mt-6 text-foreground" {...props} />
+                      ),
+                      h2: ({ node, ...props }: any) => (
+                        <h2 className="text-2xl font-bold mb-3 mt-5 text-foreground" {...props} />
+                      ),
+                      h3: ({ node, ...props }: any) => (
+                        <h3 className="text-xl font-semibold mb-2 mt-4 text-foreground" {...props} />
+                      ),
+                      p: ({ node, ...props }: any) => (
+                        <p className="mb-4 leading-relaxed text-foreground" {...props} />
+                      ),
+                      ul: ({ node, ...props }: any) => (
+                        <ul className="list-disc pl-6 mb-4 text-foreground" {...props} />
+                      ),
+                      ol: ({ node, ...props }: any) => (
+                        <ol className="list-decimal pl-6 mb-4 text-foreground" {...props} />
+                      ),
+                      li: ({ node, ...props }: any) => (
+                        <li className="mb-1 text-foreground" {...props} />
+                      ),
+                      blockquote: ({ node, ...props }: any) => (
+                        <blockquote
+                          className="border-l-4 border-primary pl-4 italic my-4 text-muted-foreground"
+                          {...props}
+                        />
+                      ),
+                      code: ({ node, inline, ...props }: any) =>
+                        inline ? (
+                          <code
+                            className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-foreground"
+                            {...props}
+                          />
+                        ) : (
+                          <pre className="bg-muted p-4 rounded-lg overflow-x-auto my-4">
+                            <code className="text-sm font-mono text-foreground" {...props} />
+                          </pre>
+                        ),
+                      a: ({ node, ...props }: any) => (
+                        <a
+                          className="text-primary hover:underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          {...props}
+                        />
+                      ),
+                      img: ({ node, ...props }: any) => (
+                        <img className="rounded-lg my-4 max-w-full" {...props} />
+                      ),
+                      hr: ({ node, ...props }: any) => (
+                        <hr className="my-6 border-border" {...props} />
+                      ),
+                    }}
+                  >
+                    {post.content}
+                  </ReactMarkdown>
+                </div>
               </div>
             </motion.article>
 

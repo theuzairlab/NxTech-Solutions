@@ -4,111 +4,40 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Star } from "lucide-react";
 import { ServiceData } from "@/lib/services-data";
-import { useEffect, useRef } from "react";
 
 interface ServiceDetailPageProps {
   service: ServiceData;
 }
 
 export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = 500;
-
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-    }> = [];
-
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        size: Math.random() * 2 + 1,
-      });
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach((particle) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(0, 206, 209, 0.3)";
-        ctx.fill();
-      });
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = 500;
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative min-h-[500px] flex items-center justify-center overflow-hidden">
-        {/* Base Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10 z-0" />
-        
-        {/* Animated Canvas for Particles */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 z-0"
-          style={{ opacity: 0.6 }}
-        />
+      <section className="relative min-h-[500px] flex items-center justify-center overflow-hidden rounded-b-[150px]">
+        {/* Service Image Background */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={service.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop"}
+            alt={service.title}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
 
-        {/* Animated Grid Pattern */}
-        <div 
-          className="absolute inset-0 z-0 opacity-30"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(0, 206, 209, 0.1) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(0, 206, 209, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: "50px 50px",
-            animation: "gridMove 20s linear infinite",
-          }}
-        />
+        {/* Dark Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-black/50 z-[1]" />
 
         {/* Content */}
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-              {service.title}
-            </span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-white">
+            {service.title}
           </h1>
-          <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-xl sm:text-2xl text-white/90 max-w-3xl mx-auto mb-8">
             {service.shortDescription || service.overview}
           </p>
-          <Button asChild size="lg" className="text-lg px-8 py-6">
+          <Button asChild size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-white">
             <Link href={service.cta.link}>
               {service.cta.text}
               <ArrowRight className="ml-2 h-5 w-5" />

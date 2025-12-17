@@ -8,5 +8,9 @@
 - Validated Prisma schema via `npx prisma validate` to ensure relations and enums compile correctly.
 - Integrated NextAuth with credential-based admin login, Prisma adapter usage, JWT sessions, secure cookies, middleware protection for dashboard routes, and an admin-only sign-in page.
  - Added Prisma seed script to create an initial admin user (admin@nts.com / Admin@123) via `npx prisma db seed`.
-
-
+2025-12-17
+- Implemented public API endpoints for saving contact messages and quote requests to the database (`/api/contact-submissions` and `/api/quote-requests`) and wired the frontend `ContactForm` and `GetQuoteForm` components to use them.
+- Added admin API endpoints to list and update statuses for contact submissions and quote requests under `/api/admin/contact-submissions` and `/api/admin/quote-requests`.
+- Created a new dashboard Contacts page (`/dashboard/contacts`) with tabs for "Contact Messages" and "Quote Requests", including search, status filters, status updates, word-based previews for long text, detail modals, and shadcn data-table layouts, and integrated it into the admin sidebar navigation.
+- Updated the home page `ServicesSnapshot` section to load main services dynamically from the database (matching the services page query), using service slugs, images, icons, and short descriptions for the cards.
+- Updated the home page `IndustriesServe` section to read industries from the database, show only the top 10 industries, enlarge the flip cards, and display top pain points and solutions on the back similar to the services industries section.

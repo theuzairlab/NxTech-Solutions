@@ -3,17 +3,18 @@
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-export function DashboardHeader() {
+export function DashboardHeader({ title, description, healthStatus }: { title: string, description: string, healthStatus: boolean }) {
   return (
     <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between mb-6">
       <div>
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
-          Admin Dashboard
+          {title}
         </h1>
         <p className="text-sm md:text-base text-muted-foreground mt-1">
-          Overview of NxTech website performance, leads, and content activity.
+          {description}
         </p>
       </div>
+      {healthStatus && (
       <motion.div
         initial={{ opacity: 0, y: 4 }}
         animate={{ opacity: 1, y: 0 }}
@@ -22,8 +23,9 @@ export function DashboardHeader() {
         )}
       >
         <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-        <span>Systems healthy · Live analytics snapshot</span>
-      </motion.div>
+          <span>Systems healthy · Live analytics snapshot</span>
+        </motion.div>
+      )}
     </div>
   );
 }
