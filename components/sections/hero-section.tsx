@@ -7,6 +7,7 @@ import Link from "next/link";
 export function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const user_phone = process.env.NEXT_PUBLIC_USER_PHONE|| "";
+  
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -14,87 +15,41 @@ export function HeroSection() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Set canvas size
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight > 700 ? 700 : window.innerHeight;
 
-    // Particle system
-    class Particle {
+    const particles: Array<{
       x: number;
       y: number;
       vx: number;
       vy: number;
-      radius: number;
-      opacity: number;
-      canvasWidth: number;
-      canvasHeight: number;
+      size: number;
+    }> = [];
 
-      constructor(canvasWidth: number, canvasHeight: number) {
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
-        this.x = Math.random() * canvasWidth;
-        this.y = Math.random() * canvasHeight;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.radius = Math.random() * 2 + 1;
-        this.opacity = Math.random() * 0.5 + 0.2;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > this.canvasWidth) this.vx *= -1;
-        if (this.y < 0 || this.y > this.canvasHeight) this.vy *= -1;
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 206, 209, ${this.opacity})`;
-        ctx.fill();
-      }
-    }
-
-    // Create particles
-    const particles: Particle[] = [];
-    const particleCount = 50;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle(canvas.width, canvas.height));
-    }
-
-    // Animation loop
-    const animate = () => {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw connections
-      particles.forEach((p1, i) => {
-        particles.slice(i + 1).forEach((p2) => {
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 150) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(0, 206, 209, ${0.2 * (1 - distance / 150)})`;
-            ctx.lineWidth = 1;
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
-          }
-        });
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        size: Math.random() * 3 + 1,
       });
+    }
 
-      // Update and draw particles
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
       particles.forEach((particle) => {
-        particle.update();
-        particle.draw();
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0, 206, 209, 0.4)";
+        ctx.fill();
       });
 
       requestAnimationFrame(animate);
@@ -102,66 +57,42 @@ export function HeroSection() {
 
     animate();
 
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight > 700 ? 700 : window.innerHeight;
     };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] shadow-sm z-11">
       {/* Base Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10 z-0" />
       
-      {/* Animated Canvas for Particles */}
+      {/* Animated Canvas for Particles - Above background image */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 z-0"
-        style={{ opacity: 0.6 }}
+        className="absolute inset-0 z-[2]"
       />
 
       {/* Animated Grid Pattern */}
       <div 
-        className="absolute inset-0 z-0 opacity-30"
+        className="absolute inset-0 z-[2] opacity-20 bg-[length:30px_30px] sm:bg-[length:40px_40px] md:bg-[length:50px_50px]"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(0, 206, 209, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(0, 206, 209, 0.1) 1px, transparent 1px)
+            linear-gradient(to right, rgba(0, 206, 209, 0.2) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 206, 209, 0.2) 1px, transparent 1px)
           `,
-          backgroundSize: "50px 50px",
-          animation: "gridMove 20s linear infinite",
-        }}
-      />
-
-      {/* Animated Diagonal Lines */}
-      <div 
-        className="absolute inset-0 z-0 opacity-20"
-        style={{
-          backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 206, 209, 0.1) 10px, rgba(0, 206, 209, 0.1) 20px)",
-          animation: "diagonalMove 15s linear infinite",
         }}
       />
 
       {/* Animated Gradient Orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" 
+      <div className="absolute top-10 left-4 sm:top-20 sm:left-10 w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 bg-primary/20 rounded-full blur-3xl animate-pulse z-[2]" 
         style={{ animation: "float 6s ease-in-out infinite" }} />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"
+      <div className="absolute bottom-10 right-4 sm:bottom-20 sm:right-10 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-primary/20 rounded-full blur-3xl animate-pulse z-[2]"
         style={{ animation: "float 8s ease-in-out infinite reverse" }} />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl"
-        style={{ animation: "pulse 4s ease-in-out infinite" }} />
-
-      {/* Tech Hexagon Pattern */}
-      <div className="absolute inset-0 z-0 opacity-10">
-        <div className="absolute top-20 left-20 w-32 h-32 border-2 border-primary/30 rotate-45"
-          style={{ animation: "rotate 20s linear infinite" }} />
-        <div className="absolute bottom-40 right-32 w-24 h-24 border-2 border-primary/30 rotate-45"
-          style={{ animation: "rotate 15s linear infinite reverse" }} />
-        <div className="absolute top-1/3 right-1/4 w-16 h-16 border-2 border-primary/30 rotate-45"
-          style={{ animation: "rotate 25s linear infinite" }} />
-      </div>
-
-      {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-transparent to-primary/20 z-0"
-        style={{ animation: "gradientShift 8s ease-in-out infinite" }} />
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-5xl mx-auto text-center">
@@ -228,10 +159,6 @@ export function HeroSection() {
           </div>
         </div>
       </div>
-
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
     </section>
   );
 }

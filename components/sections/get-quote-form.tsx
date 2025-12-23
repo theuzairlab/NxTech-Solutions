@@ -116,53 +116,81 @@ export function GetQuoteForm() {
     }
   };
 
-  if (isSubmitted) {
-    return (
-      <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#00c2c7] via-[#00b1bb] to-[#009aa8] z-2">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-size[32px_32px] opacity-70" />
-        
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/20 mb-8">
-              <CheckCircle2 className="h-10 w-10 text-white" />
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white">
-              Thank You!
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              We've received your quote request and will get back to you within 24 hours.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-white text-primary hover:bg-white/90"
-                onClick={() => {
-                  setIsSubmitted(false);
-                  setCurrentStep(1);
-                  setFormData({
-                    services: [],
-                    projectDescription: "",
-                    timeline: "",
-                    budget: "",
-                    name: "",
-                    email: "",
-                    phone: "",
-                    company: "",
-                    website: ""
-                  });
-                }}
-              >
-                Submit Another Request
-              </Button>
+  const handleCloseModal = () => {
+    setIsSubmitted(false);
+    setCurrentStep(1);
+    setFormData({
+      services: [],
+      projectDescription: "",
+      timeline: "",
+      budget: "",
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      website: ""
+    });
+  };
+
+  return (
+    <>
+      {/* Success Modal/Popup */}
+      {isSubmitted && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-300">
+          <div className="relative w-full max-w-2xl bg-gradient-to-br from-[#00c2c7] via-[#00b1bb] to-[#009aa8] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:32px_32px] opacity-70" />
+            
+            {/* Close Button */}
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
+              aria-label="Close"
+            >
+              <span className="text-2xl font-bold">×</span>
+            </button>
+
+            {/* Content - Centered */}
+            <div className="relative p-8 sm:p-12 text-center">
+              {/* Success Icon */}
+              <div className="flex justify-center mb-6 sm:mb-8">
+                <div className="relative">
+                  {/* Outer white circle */}
+                  <div className="absolute inset-0 w-24 h-24 rounded-full bg-white/30 blur-xl"></div>
+                  {/* Inner circle with icon */}
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center shadow-lg">
+                    <CheckCircle2 className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Heading */}
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white drop-shadow-lg">
+                Thank You!
+              </h2>
+
+              {/* Message */}
+              <p className="text-lg sm:text-xl text-white/90 mb-8 sm:mb-10 leading-relaxed max-w-xl mx-auto">
+                We've received your quote request and will get back to you within 24 hours.
+              </p>
+
+              {/* Button */}
+              <div className="flex justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-6 text-base sm:text-lg"
+                  onClick={handleCloseModal}
+                >
+                  Submit Another Request
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    );
-  }
+      )}
 
-  return (
-    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#f0f9ff] via-white to-[#e0f2fe] z-2">
+      {/* Form Section - Hidden when submitted */}
+      <section className={`relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-gradient-to-b from-[#f0f9ff] via-white to-[#e0f2fe] z-4 ${isSubmitted ? 'opacity-30 pointer-events-none' : ''}`}>
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 right-1/4 w-[520px] h-[520px] bg-primary/12 blur-3xl" />
         <div className="absolute -bottom-20 left-10 w-[480px] h-[480px] bg-primary/10 blur-3xl" />
@@ -412,6 +440,7 @@ export function GetQuoteForm() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 

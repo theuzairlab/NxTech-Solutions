@@ -226,32 +226,41 @@ export function AdditionalServices({ services }: AdditionalServicesProps) {
 
   return (
     <section className="relative py-20 bg-gradient-to-b from-primary/90 to-background -mt-32 rounded-t-[50px] sm:rounded-t-[100px] md:rounded-t-[150px] rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] z-7">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+      {/* Background Decorations */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-10 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
+            <span className="text-xs font-semibold tracking-[0.25em] text-white">ADDITIONAL SERVICES</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-white via-white to-primary/90 bg-clip-text text-transparent">
               Additional Services
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
             Specialized services to support every aspect of your business
           </p>
         </div>
 
         {/* Auto-scrolling Services */}
         <div
-          className="overflow-hidden"
+          className="overflow-hidden py-4"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <div
             ref={scrollRef}
-            className="flex gap-4 will-change-transform"
+            className="flex gap-5 lg:gap-6 will-change-transform"
             style={{ transition: isHovered ? 'transform 0.3s ease-out' : 'none' }}
           >
             {duplicatedServices.length === 0 ? (
               <div className="text-center py-12 w-full">
-                <p className="text-muted-foreground">No additional services available at the moment.</p>
+                <p className="text-white/80">No additional services available at the moment.</p>
               </div>
             ) : (
               duplicatedServices.map((service, index) => {
@@ -259,24 +268,40 @@ export function AdditionalServices({ services }: AdditionalServicesProps) {
                   <Link
                     key={`${service.slug}-${index}`}
                     href={`/services/${service.slug}`}
-                    className="group relative shrink-0 w-[280px] rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+                    className="group relative shrink-0 w-[300px] sm:w-[320px] rounded-2xl overflow-hidden bg-white border-2 border-white/20 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-2 flex flex-col"
                   >
-                    {/* Image */}
-                    <div className="relative h-40 overflow-hidden">
+                    {/* Image Section */}
+                    <div className="relative h-48 overflow-hidden">
                       <Image
                         src={service.image}
                         alt={service.name}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 768px) 300px, 320px"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      {/* Dark Overlay for better contrast */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-500" />
+                      
+                      {/* Hover Accent Line */}
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/80 to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                     </div>
 
-                    {/* Content */}
-                    <div className="p-4">
-                      <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {/* Content Section */}
+                    <div className="p-5 bg-white flex-1 flex flex-col">
+                      <h3 className="text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-300 leading-tight">
                         {service.name}
                       </h3>
+                      
+                      {/* Arrow Icon */}
+                      <div className="mt-3 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span className="text-sm font-semibold">Learn More</span>
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 rounded-2xl" />
                     </div>
                   </Link>
                 );
@@ -287,29 +312,49 @@ export function AdditionalServices({ services }: AdditionalServicesProps) {
 
         {/* Services Grid */}
         {transformedServices.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-20">
             {transformedServices.map((service) => {
               return (
                 <Link
                   key={service.slug}
                   href={`/services/${service.slug}`}
-                  className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+                  className="group relative overflow-hidden rounded-2xl bg-white border-2 border-white/20 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 flex flex-col h-full"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  <div className="relative p-1 z-10">
-                    <div className="relative h-48 w-full rounded-lg overflow-hidden">
-                      <Image
-                        src={service.image}
-                        alt={service.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-                    </div>
+                  {/* Image Section */}
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    {/* Dark Overlay for better text contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10 group-hover:from-black/80 group-hover:via-black/40 transition-all duration-500" />
                     
-                    <h3 className="text-xl p-2 font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {service.name}
-                    </h3>
+                    {/* Service Name Badge */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                      <h3 className="text-xl font-bold text-white mb-0 group-hover:text-primary-foreground transition-colors duration-300 drop-shadow-lg">
+                        {service.name}
+                      </h3>
+                    </div>
+
+                    {/* Hover Accent Line */}
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/80 to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                  </div>
+
+                  {/* Content Section */}
+                  <div className="relative p-6 bg-white flex-1 flex flex-col">
+                    {/* Learn More Section */}
+                    <div className="mt-auto flex items-center gap-2 text-primary duration-300">
+                      <span className="text-sm font-semibold">Explore Service</span>
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+
+                  {/* Hover Glow Effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 rounded-2xl" />
                   </div>
                 </Link>
               );

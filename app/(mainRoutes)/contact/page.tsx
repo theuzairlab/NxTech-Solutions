@@ -8,9 +8,9 @@ export default function Contact() {
   return (
     <>
       <ContactHero />
-      <ContactForm />
-      <OfficeLocations />
       <GetQuoteForm />
+      <OfficeLocations />
+      <ContactForm />
       <CalendlyEmbed />
     </>
   );
