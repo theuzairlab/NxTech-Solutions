@@ -214,10 +214,10 @@ export function GetQuoteForm() {
 
         <div className="max-w-3xl mx-auto">
           {/* Progress Steps */}
-          <div className="flex items-center justify-around mb-12">
+          <div className="flex items-center justify-between mb-12 w-full">
             {[1, 2, 3, 4].map((step) => (
-              <div key={step} className="flex items-center flex-1">
-                <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
+              <div key={step} className="flex items-center flex-1 last:flex-none">
+                <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 shrink-0 ${
                   currentStep >= step
                     ? "bg-primary border-primary text-white"
                     : "bg-card border-border text-muted-foreground"
@@ -228,11 +228,11 @@ export function GetQuoteForm() {
                     <span className="font-semibold">{step}</span>
                   )}
                 </div>
-                {/* {step < 4 && ( */}
-                  <div className={`flex-1 h-0.5 mx-2 transition-all duration-300 bg-border ${
+                {step < 4 && (
+                  <div className={`flex-1 h-0.5 mx-2 transition-all duration-300 ${
                     currentStep > step ? "bg-primary" : "bg-border"
                   }`} />
-                {/* )} */}
+                )}
               </div>
             ))}
           </div>

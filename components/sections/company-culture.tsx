@@ -160,7 +160,7 @@ export function CompanyCulture() {
                   <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
                     {value.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <p className="text-foreground text-sm leading-relaxed">
                     {value.description}
                   </p>
                 </div>

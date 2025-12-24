@@ -32,6 +32,7 @@ interface NavItemsProps {
   }[];
   className?: string;
   onItemClick?: () => void;
+  visible?: boolean;
 }
 
 interface MobileNavProps {
@@ -105,19 +106,23 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: "800px",
       }}
       className={cn(
-        "relative z-[60] mx-auto mt-2 hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex",
+        "relative z-[60] mx-auto mt-2 hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent py-2 lg:flex",
         visible 
-          ? "bg-card/95 backdrop-blur-md border border-border shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
-          : "bg-card/98 backdrop-blur-md border-b border-border shadow-lg",
+          ? "bg-card/95 backdrop-blur-md border border-border shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] px-4"
+          : "bg-card/98 backdrop-blur-md border-b border-border shadow-lg px-6",
         className,
       )}
     >
-      {children}
+      {React.Children.map(children, (child) =>
+        React.isValidElement(child) && child.type === NavItems
+          ? React.cloneElement(child as React.ReactElement<NavItemsProps>, { visible })
+          : child,
+      )}
     </motion.div>
   );
 };
 
-export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
+export const NavItems = ({ items, className, onItemClick, visible }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
   const pathname = usePathname();
 
@@ -125,7 +130,8 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium transition duration-200 lg:flex lg:space-x-2",
+        "hidden flex-row items-center font-medium transition duration-200 lg:flex flex-1 justify-center",
+        visible ? "gap-0 text-sm" : "gap-4 text-base",
         className,
       )}
     >
@@ -138,9 +144,10 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
             onMouseEnter={() => setHovered(idx)}
             onClick={onItemClick}
             className={cn(
-              "relative px-4 py-2 rounded-lg transition-all duration-200",
+              "relative py-2 rounded-lg transition-all duration-200 whitespace-nowrap shrink-0",
+              visible ? "px-2 text-sm" : "px-4 text-base",
               isActive
-                ? "text-primary"
+                ? "text-primary font-medium"
                 : "text-muted-foreground hover:text-foreground"
             )}
             key={`link-${idx}`}
@@ -305,7 +312,7 @@ export const NavbarLogo = () => {
   return (
     <Link
       href="/"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-base font-normal group"
+      className="relative z-20 flex items-center space-x-2 py-1 text-base font-normal group shrink-0"
     >
       {/* Show logo.png on small screens (when text is hidden), icon.png on larger screens */}
       <Image
@@ -322,7 +329,7 @@ export const NavbarLogo = () => {
         height={35}
         className="transition-transform duration-300 group-hover:scale-105 hidden sm:block"
       />
-      <span className="font-medium text-foreground hidden sm:inline">
+      <span className="font-medium text-foreground hidden sm:inline whitespace-nowrap">
         {process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"} Solutions
       </span>
     </Link>

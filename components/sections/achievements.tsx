@@ -147,7 +147,7 @@ export function Achievements({ achievements, certifications }: AchievementsProps
                       </p>
                     )}
                     {achievement.description && (
-                      <p className="text-muted-foreground text-sm leading-relaxed">
+                      <p className="text-foreground text-sm leading-relaxed">
                         {achievement.description}
                       </p>
                     )}

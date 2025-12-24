@@ -45,9 +45,12 @@ export function NavbarComponent({ navItems }: { navItems: { name: string; link: 
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
-          <div className="flex items-center gap-4">
-            <NavbarButton href="/contact" variant="primary">
+          <div className="flex items-center gap-2 shrink-0">
+            <NavbarButton href="/get-quote" variant="secondary" className="text-xs sm:text-sm px-3 py-1.5 whitespace-nowrap">
               Get a Quote
+            </NavbarButton>
+            <NavbarButton href="/contact" variant="primary" className="text-xs sm:text-sm px-3 py-1.5 whitespace-nowrap">
+              Contact Us
             </NavbarButton>
           </div>
         </NavBody>
@@ -99,7 +102,7 @@ export function NavbarComponent({ navItems }: { navItems: { name: string; link: 
         })}
         <div className="flex w-full flex-col gap-4 pt-4 mt-4 border-t border-border">
           <NavbarButton
-            href="/contact"
+            href="/get-quote"
             onClick={() => setIsMobileMenuOpen(false)}
             variant="primary"
             className="w-full"
