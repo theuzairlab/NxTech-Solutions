@@ -66,7 +66,7 @@ export function BlogHero() {
   }, []);
 
   return (
-    <section className="relative py-24 overflow-hidden pt-32 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[200px] z-5">
+    <section className="relative py-24 overflow-hidden pt-32 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] z-5">
       {/* Base Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10 z-0" />
       

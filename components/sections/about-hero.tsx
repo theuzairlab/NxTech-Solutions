@@ -64,7 +64,7 @@ export function AboutHero() {
   }, []);
 
   return (
-    <section className="relative flex items-center justify-center overflow-hidden pt-12 sm:pt-16 md:pt-20 mt-8 sm:mt-12 md:mt-16 mx-4 sm:mx-8 md:mx-12 lg:mx-16 rounded-t-[50px] sm:rounded-t-[75px] md:rounded-t-[100px] lg:rounded-t-[150px]">
+    <section className="relative flex items-center justify-center overflow-hidden pt-12 sm:pt-16 md:pt-20  rounded-b-[50px] sm:rounded-b-[75px] md:rounded-b-[100px] lg:rounded-b-[150px]">
       {/* Base Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10 z-0" />
       

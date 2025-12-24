@@ -72,7 +72,7 @@ export function ServicesSnapshot({ services }: ServicesSnapshotProps) {
 
                 {/* Soft wash overlay for readability */}
                 <div className="absolute inset-0 group-hover:bg-white/10 transition-colors duration-300" />
-
+                  
                 {/* Gradient tint on hover */}
                 <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-primary/5 to-primary/10 opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
                 
@@ -82,8 +82,8 @@ export function ServicesSnapshot({ services }: ServicesSnapshotProps) {
                 <div className="relative p-6 z-10 h-full flex flex-col">
                   {/* Icon */}
                   {IconComponent && (
-                    <div className="w-14 h-14 rounded-xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="h-7 w-7 text-primary" />
+                    <div className="w-14 h-14 rounded-xl bg-linear-to-br from-primary/60 to-primary/40 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <IconComponent className="h-7 w-7 text-white" />
                     </div>
                   )}
 
@@ -91,7 +91,7 @@ export function ServicesSnapshot({ services }: ServicesSnapshotProps) {
                   <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-muted-foreground mb-4 grow">
+                  <p className="text-foreground mb-4 grow">
                     {service.shortDescription}
                   </p>
 
@@ -109,10 +109,12 @@ export function ServicesSnapshot({ services }: ServicesSnapshotProps) {
         </div>
 
         <div className="text-center">
+          <Link href="/services">
           <Button size="lg" variant="outline" className="border-2 border-primary/30 hover:bg-primary/10 text-primary hover:text-primary hover:border-primary/50 shadow-lg shadow-primary/10">
             View All Services
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
+          </Link>
         </div>
       </div>
     </section>
