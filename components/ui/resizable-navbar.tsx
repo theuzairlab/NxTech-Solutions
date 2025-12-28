@@ -312,7 +312,7 @@ export const NavbarLogo = () => {
   return (
     <Link
       href="/"
-      className="relative z-20 flex items-center space-x-2 py-1 text-base font-normal group shrink-0"
+      className="relative z-20 flex items-center space-x-2 py-1 text-base font-normal group shrink-0 "
     >
       {/* Show logo.png on small screens (when text is hidden), icon.png on larger screens */}
       <Image
@@ -320,18 +320,23 @@ export const NavbarLogo = () => {
         alt={`${process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"} Solutions`}
         width={100}
         height={60}
-        className="transition-transform duration-300 group-hover:scale-105 sm:hidden"
+        className="transition-transform duration-300 group-hover:scale-105 sm:hidden rounded-2xl"
       />
       <Image
         src="/icon.png"
         alt={`${process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"} Solutions`}
-        width={35}
-        height={35}
-        className="transition-transform duration-300 group-hover:scale-105 hidden sm:block"
+        width={40}
+        height={40}
+        className="transition-transform duration-300 group-hover:scale-105 hidden sm:block rounded-full"
       />
-      <span className="font-medium text-foreground hidden sm:inline whitespace-nowrap">
-        {process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"} Solutions
-      </span>
+      <div className="hidden sm:flex flex-col">
+        <span className="font-medium text-foreground whitespace-nowrap">
+          {process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"} Solutions
+        </span>
+        <span className="text-[0.7rem] -mt-1 text-muted-foreground whitespace-nowrap">
+          Simplify the future
+        </span>
+      </div>
     </Link>
   );
 };

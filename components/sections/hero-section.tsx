@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { CalendlyModal } from "@/components/ui/calendly-modal";
 
 export function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const user_phone = process.env.NEXT_PUBLIC_USER_PHONE|| "";
+  const [showCalendlyModal, setShowCalendlyModal] = useState(false);
   
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -121,21 +122,20 @@ export function HeroSection() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/contact">
+            <Link href="/get-quote">
             <Button size="lg" className="group text-lg px-8 py-6 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg shadow-primary/25">
               Get a Quote
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             </Link>
-            <Link href={`https://wa.me/${user_phone}`} target="_blank" rel="noopener noreferrer">
             <Button 
               size="lg" 
               variant="outline" 
               className="text-lg px-8 py-6 border-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 hover:text-black"
+              onClick={() => setShowCalendlyModal(true)}
             >
               Book a Free Consultation
             </Button>
-            </Link>
           </div>
 
           {/* Stats or Trust Indicators */}
@@ -159,6 +159,7 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+      <CalendlyModal isOpen={showCalendlyModal} onClose={() => setShowCalendlyModal(false)} />
     </section>
   );
 }

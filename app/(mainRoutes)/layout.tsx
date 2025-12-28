@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-// import { FloatingNav } from "@/components/ui/floating-navbar";
 import { Footer } from "@/components/navigations/footer";
 import { Home, User, Mail, MessageCircle, BookA } from "lucide-react";
 import { LiveChatWidget } from "@/components/ui/live-chat-widget";
@@ -42,7 +41,6 @@ export default function MainRoutesLayout({
   return (
     <>
       <main className="relative w-full">
-        {/* <FloatingNav navItems={navItems} /> */}
         <NavbarComponent navItems={navItems} />
         {children}
         <WhatsAppButton />

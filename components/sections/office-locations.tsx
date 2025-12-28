@@ -16,7 +16,19 @@ const offices = [
     hours: "Mon - Fri: 9:00 AM - 6:00 PM PKT",
     timezone: "PKT",
     mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5012.291232314648!2d67.05960709522539!3d24.793725274135653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33ce94e2c599f%3A0x575c37514a65ffcf!2s40%20Khayaban-e-Bukhari%2C%20D.H.A%20Phase%206%20Bukhari%20Commercial%20Area%20Phase%206%20Defence%20Housing%20Authority%2C%20Karachi%2C%2075500%2C%20Pakistan!5e1!3m2!1sen!2s!4v1765565438641!5m2!1sen!2s",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop"
+    image: "https://images.unsplash.com/photo-1617373743747-3bb331fd4e8d?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    id: 2,
+    name: "London Office",
+    address: "71-75 Shelton Street, Covent Garden, London, WC2H 9JQ",
+    city: "London, UK",
+    phone: "+44 757 588 8810",
+    email: "info@nxflight.com",
+    hours: "Mon - Fri: 9:00 AM - 6:00 PM",
+    timezone: "GMT",
+    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.304074452422!2d-0.12769792360081022!3d51.51521677963758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604b900d29dd5%3A0x42350ff228f06a30!2s71-75%20Shelton%20St%2C%20London%20WC2H%209JQ%2C%20UK!5e1!3m2!1sen!2s!4v1765565438641!5m2!1sen!2s",
+    image: "https://images.unsplash.com/photo-1580097808007-84cc45c04471?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
 ];
 

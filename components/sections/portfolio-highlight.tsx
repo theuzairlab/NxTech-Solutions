@@ -140,7 +140,7 @@ export function PortfolioHighlight({ portfolios }: PortfolioHighlightProps) {
 
         <div className="text-center">
           <Button asChild size="lg" className="bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg shadow-primary/25">
-            <Link href="/services">
+            <Link href="/services#portfolio-section">
               View Full Portfolio
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

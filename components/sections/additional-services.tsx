@@ -238,7 +238,7 @@ export function AdditionalServices({ services }: AdditionalServicesProps) {
             <span className="text-xs font-semibold tracking-[0.25em] text-white">ADDITIONAL SERVICES</span>
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-white via-white to-primary/90 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent">
               Additional Services
             </span>
           </h2>
