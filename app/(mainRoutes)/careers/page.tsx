@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CareersPage() {
-  const jobs = await prisma.job.findMany({
+  const jobsData = await prisma.job.findMany({
     where: {
       isActive: true,
     },
@@ -29,6 +29,12 @@ export default async function CareersPage() {
       createdAt: true,
     },
   });
+
+  // Transform jobs to match component type (convert Date to string)
+  const jobs = jobsData.map((job) => ({
+    ...job,
+    createdAt: job.createdAt.toISOString(),
+  }));
 
   return (
     <div className="w-full">

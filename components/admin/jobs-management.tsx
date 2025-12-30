@@ -207,7 +207,7 @@ export function JobsManagement({ initialJobs }: { initialJobs: Job[] }) {
 
       <ConfirmDialog
         open={!!confirmDeleteId}
-        onClose={() => setConfirmDeleteId(null)}
+        onCancel={() => setConfirmDeleteId(null)}
         onConfirm={() => {
           if (confirmDeleteId) {
             handleDelete(confirmDeleteId);

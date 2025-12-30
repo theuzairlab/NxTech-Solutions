@@ -16,8 +16,8 @@ type Job = {
   location: string | null;
   type: string | null;
   description: string;
-  requirements: any;
-  benefits: any;
+  requirements?: any;
+  benefits?: any;
 };
 
 export function JobApplicationForm({ job, onClose }: { job: Job; onClose: () => void }) {

@@ -15,12 +15,21 @@ type Job = {
   location: string | null;
   type: string | null;
   description: string;
-  requirements: any;
-  benefits: any;
-  createdAt: string;
+  requirements?: any;
+  benefits?: any;
+  createdAt?: string;
 };
 
-export function JobDetailPage({ job, otherJobs }: { job: Job; otherJobs: Job[] }) {
+type OtherJob = {
+  id: string;
+  title: string;
+  department: string;
+  location: string | null;
+  type: string | null;
+  description: string;
+};
+
+export function JobDetailPage({ job, otherJobs }: { job: Job; otherJobs: OtherJob[] }) {
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 

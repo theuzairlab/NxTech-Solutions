@@ -56,7 +56,7 @@ export default async function JobDetailPageRoute({
   }
 
   // Get other active jobs for "Other Openings" section
-  const otherJobs = await prisma.job.findMany({
+  const otherJobsData = await prisma.job.findMany({
     where: {
       isActive: true,
       id: { not: id },
@@ -73,9 +73,28 @@ export default async function JobDetailPageRoute({
       location: true,
       type: true,
       description: true,
+      requirements: true,
+      benefits: true,
+      createdAt: true,
     },
   });
 
-  return <JobDetailPage job={job} otherJobs={otherJobs} />;
+  // Transform job to match component type (convert Date to string)
+  const transformedJob = {
+    ...job,
+    createdAt: job.createdAt.toISOString(),
+  };
+
+  // Transform otherJobs to match component type (only include needed fields)
+  const transformedOtherJobs = otherJobsData.map((jobItem: any) => ({
+    id: jobItem.id,
+    title: jobItem.title,
+    department: jobItem.department,
+    location: jobItem.location,
+    type: jobItem.type,
+    description: jobItem.description,
+  }));
+
+  return <JobDetailPage job={transformedJob} otherJobs={transformedOtherJobs} />;
 }
 

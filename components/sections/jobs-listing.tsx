@@ -13,8 +13,8 @@ type Job = {
   location: string | null;
   type: string | null;
   description: string;
-  requirements: any;
-  benefits: any;
+  requirements?: any;
+  benefits?: any;
   createdAt: string;
 };
 
