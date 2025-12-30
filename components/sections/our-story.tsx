@@ -15,7 +15,7 @@ export function OurStory() {
             <div className="relative w-full max-w-lg aspect-square rounded-2xl overflow-hidden shadow-2xl">
               <Image
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=800&fit=crop"
-                alt={`${process.env.NEXT_PUBLIC_SITE_NAME} Solutions - Digital Transformation`}
+                alt={`${process.env.NEXT_PUBLIC_SITE_NAME} - Digital Transformation`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -32,7 +32,7 @@ export function OurStory() {
             
             <div className="space-y-6 text-muted-foreground leading-relaxed">
               <p className="text-lg">
-                Based on our commitment to excellence, {process.env.NEXT_PUBLIC_SITE_NAME} Solutions is a leading digital transformation partner 
+                Based on our commitment to excellence, {process.env.NEXT_PUBLIC_SITE_NAME} is a leading digital transformation partner 
                 for businesses worldwide and a trusted technology provider for global enterprises deploying advanced 
                 digital solutions. {process.env.NEXT_PUBLIC_SITE_NAME} supports clients in two ways: accelerating digital transformation with 
                 high-quality development, advanced AI-powered automation pipelines that push the boundaries of 

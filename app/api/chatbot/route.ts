@@ -54,10 +54,10 @@ async function getCompanyContext() {
 }
 
 function buildSystemPrompt(context: Awaited<ReturnType<typeof getCompanyContext>>): string {
-  return `You are a helpful AI assistant for ${process.env.NEXT_PUBLIC_SITE_NAME} Solutions, a digital transformation company.
+  return `You are a helpful AI assistant for ${process.env.NEXT_PUBLIC_SITE_NAME} , a digital transformation company.
 
 COMPANY INFORMATION:
-${process.env.NEXT_PUBLIC_SITE_NAME} Solutions provides comprehensive digital services to help businesses grow and scale.
+${process.env.NEXT_PUBLIC_SITE_NAME} provides comprehensive digital services to help businesses grow and scale.
 
 OUR SERVICES:
 ${context.servicesList}
@@ -127,7 +127,7 @@ async function callOpenRouter(messages: ChatMessage[]): Promise<string> {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${apiKey}`,
       "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || `https://${process.env.NEXT_PUBLIC_SITE_NAME}.com`,
-      "X-Title": `${process.env.NEXT_PUBLIC_SITE_NAME} Solutions Chatbot`,
+      "X-Title": `${process.env.NEXT_PUBLIC_SITE_NAME} Chatbot`,
     },
     body: JSON.stringify({
       model: "openai/gpt-4o-mini", // Using GPT-4o-mini via OpenRouter (cost-effective)

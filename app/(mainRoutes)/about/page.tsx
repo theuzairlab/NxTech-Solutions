@@ -10,8 +10,8 @@ import { CTABanner } from "@/components/sections/cta-banner";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "About Us - " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
-  description: "Learn about " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions - our mission, vision, values, leadership team, process, achievements, and company culture.",
+  title: "About Us - " + process.env.NEXT_PUBLIC_SITE_NAME,
+  description: "Learn about " + process.env.NEXT_PUBLIC_SITE_NAME + " - our mission, vision, values, leadership team, process, achievements, and company culture.",
 };
 
 export default async function About() {

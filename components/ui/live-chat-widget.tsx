@@ -24,7 +24,7 @@ export function LiveChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: `msg-${Date.now()}`,
-      text: `Hello! 👋 Welcome to **${process.env.NEXT_PUBLIC_SITE_NAME} Solutions**. I'm here to help you!\n\nI can assist you with:\n\n• Answering questions about our services and solutions\n• Arranging meetings with our team\n• Providing information about our offerings\n• Getting quotes for your projects\n• Recommending the best services for your needs\n\nFeel free to ask me anything! How can I help you today?`,
+      text: `Hello! 👋 Welcome to **${process.env.NEXT_PUBLIC_SITE_NAME}**. I'm here to help you!\n\nI can assist you with:\n\n• Answering questions about our services and solutions\n• Arranging meetings with our team\n• Providing information about our offerings\n• Getting quotes for your projects\n• Recommending the best services for your needs\n\nFeel free to ask me anything! How can I help you today?`,
       sender: "bot",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       isTyping: false, // Initial message doesn't need typing effect

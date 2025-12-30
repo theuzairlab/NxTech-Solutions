@@ -9,8 +9,8 @@ import { RecentActivity } from "@/components/admin/recent-activity";
 import { TrafficOverview } from "@/components/admin/traffic-overview";
 
 export const metadata: Metadata = {
-  title: "Dashboard - " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
-  description: "Admin dashboard for " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
+  title: "Dashboard - " + process.env.NEXT_PUBLIC_SITE_NAME,
+  description: "Admin dashboard for " + process.env.NEXT_PUBLIC_SITE_NAME,
 };
 
 async function getDashboardStats() {

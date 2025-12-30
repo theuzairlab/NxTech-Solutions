@@ -69,7 +69,7 @@ export function PageLoader() {
         <div className="text-center">
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">
             <span className="bg-gradient-to-r from-primary via-primary/90 to-primary bg-clip-text text-transparent">
-              {process.env.NEXT_PUBLIC_SITE_NAME || "NXTECH"} SOLUTIONS
+              {process.env.NEXT_PUBLIC_SITE_NAME || "NXTECH"}
             </span>
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base">

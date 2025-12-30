@@ -104,9 +104,10 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       }}
       style={{
         minWidth: "800px",
+        maxWidth: "100%",
       }}
       className={cn(
-        "relative z-[60] mx-auto mt-2 hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent py-2 lg:flex",
+        "relative z-[60] mx-auto mt-2 hidden w-full max-w-7xl flex-row items-center justify-between gap-4 self-start rounded-full bg-transparent py-2 lg:flex",
         visible 
           ? "bg-card/95 backdrop-blur-md border border-border shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] px-4"
           : "bg-card/98 backdrop-blur-md border-b border-border shadow-lg px-6",
@@ -243,7 +244,7 @@ export const MobileNavMenu = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[10000] md:hidden"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[10000] lg:hidden"
           />
 
           {/* Sidebar */}
@@ -257,7 +258,7 @@ export const MobileNavMenu = ({
               damping: 30,
             }}
             className={cn(
-              "fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-card border-l border-border shadow-2xl z-[10001] md:hidden overflow-y-auto",
+              "fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-card border-l border-border shadow-2xl z-[10001] lg:hidden overflow-y-auto",
               className,
             )}
           >
@@ -317,24 +318,24 @@ export const NavbarLogo = () => {
       {/* Show logo.png on small screens (when text is hidden), icon.png on larger screens */}
       <Image
         src="/logo.png"
-        alt={`${process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"} Solutions`}
+        alt={`${process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"}`}
         width={100}
         height={60}
         className="transition-transform duration-300 group-hover:scale-105 sm:hidden rounded-2xl"
       />
       <Image
         src="/icon.png"
-        alt={`${process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"} Solutions`}
+        alt={`${process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"}`}
         width={40}
         height={40}
         className="transition-transform duration-300 group-hover:scale-105 hidden sm:block rounded-full"
       />
       <div className="hidden sm:flex flex-col">
         <span className="font-medium text-foreground whitespace-nowrap">
-          {process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"} Solutions
+          {process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"}
         </span>
         <span className="text-[0.7rem] -mt-1 text-muted-foreground whitespace-nowrap">
-          Simplify the future
+          {process.env.NEXT_PUBLIC_SITE_TAGLINE || "Simplify the future"}
         </span>
       </div>
     </Link>

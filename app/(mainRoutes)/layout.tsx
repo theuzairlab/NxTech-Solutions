@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/navigations/footer";
-import { Home, User, Mail, MessageCircle, BookA } from "lucide-react";
+import { Home, User, Mail, MessageCircle, BookA, Briefcase } from "lucide-react";
 import { LiveChatWidget } from "@/components/ui/live-chat-widget";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { NavbarComponent } from "@/components/navigations/Navbar";
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_SITE_NAME + " Solutions - Empowering Businesses with IT, Marketing & AI Solutions",
+  title: process.env.NEXT_PUBLIC_SITE_NAME + " - Empowering Businesses with IT, Marketing & AI Solutions",
   description: process.env.NEXT_PUBLIC_SITE_NAME + " delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.",
 };
 
@@ -35,6 +35,11 @@ export default function MainRoutesLayout({
           name: "Blogs",
           link: "/blog",
           icon: <BookA className="h-4 w-4 text-muted-foreground" />,
+        },
+        {
+          name: "Careers",
+          link: "/careers",
+          icon: <Briefcase className="h-4 w-4 text-muted-foreground" />,
         },
       ];
 

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service - " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
-  description: "Terms of Service for " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
+  title: "Terms of Service - " + process.env.NEXT_PUBLIC_SITE_NAME,
+  description: "Terms of Service for " + process.env.NEXT_PUBLIC_SITE_NAME,
 };
 
 export default function TermsOfService() {
@@ -39,14 +39,14 @@ export default function TermsOfService() {
               <div>
                 <h2 className="text-2xl font-bold mb-4 text-foreground">1. Acceptance of Terms</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  By accessing and using {process.env.NEXT_PUBLIC_SITE_NAME} Solutions' website and services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+                  By accessing and using {process.env.NEXT_PUBLIC_SITE_NAME} ' website and services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
                 </p>
               </div>
 
               <div>
                 <h2 className="text-2xl font-bold mb-4 text-foreground">2. Use License</h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  Permission is granted to temporarily access the materials on {process.env.NEXT_PUBLIC_SITE_NAME} Solutions' website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+                  Permission is granted to temporarily access the materials on {process.env.NEXT_PUBLIC_SITE_NAME}' website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
                 </p>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                   <li>Modify or copy the materials</li>
@@ -59,7 +59,7 @@ export default function TermsOfService() {
               <div>
                 <h2 className="text-2xl font-bold mb-4 text-foreground">3. Services</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  {process.env.NEXT_PUBLIC_SITE_NAME} Solutions provides IT services, digital marketing, AI solutions, web development, and related services. We reserve the right to modify, suspend, or discontinue any service at any time without prior notice.
+                  {process.env.NEXT_PUBLIC_SITE_NAME} provides IT services, digital marketing, AI solutions, web development, and related services. We reserve the right to modify, suspend, or discontinue any service at any time without prior notice.
                 </p>
               </div>
 
@@ -73,14 +73,14 @@ export default function TermsOfService() {
               <div>
                 <h2 className="text-2xl font-bold mb-4 text-foreground">5. Intellectual Property</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  The Service and its original content, features, and functionality are and will remain the exclusive property of {process.env.NEXT_PUBLIC_SITE_NAME} Solutions and its licensors. The Service is protected by copyright, trademark, and other laws.
+                  The Service and its original content, features, and functionality are and will remain the exclusive property of {process.env.NEXT_PUBLIC_SITE_NAME} and its licensors. The Service is protected by copyright, trademark, and other laws.
                 </p>
               </div>
 
               <div>
                 <h2 className="text-2xl font-bold mb-4 text-foreground">6. Limitation of Liability</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  In no event shall {process.env.NEXT_PUBLIC_SITE_NAME} Solutions, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.
+                  In no event shall {process.env.NEXT_PUBLIC_SITE_NAME}, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.
                 </p>
               </div>
 
@@ -94,7 +94,7 @@ export default function TermsOfService() {
               <div>
                 <h2 className="text-2xl font-bold mb-4 text-foreground">8. Governing Law</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  These Terms shall be interpreted and governed by the laws of the jurisdiction in which {process.env.NEXT_PUBLIC_SITE_NAME} Solutions operates, without regard to its conflict of law provisions.
+                  These Terms shall be interpreted and governed by the laws of the jurisdiction in which {process.env.NEXT_PUBLIC_SITE_NAME} operates, without regard to its conflict of law provisions.
                 </p>
               </div>
 

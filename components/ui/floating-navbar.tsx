@@ -134,7 +134,7 @@ export const FloatingNav = ({
                 >
                   <Image 
                     src="/logo.png" 
-                    alt={`${process.env.NEXT_PUBLIC_SITE_NAME} Solutions`} 
+                    alt={`${process.env.NEXT_PUBLIC_SITE_NAME}`} 
                     width={isScrolled ? 80 : 120} 
                     height={isScrolled ? 80 : 120}
                     className="transition-transform duration-300 group-hover:scale-105"
@@ -242,7 +242,7 @@ export const FloatingNav = ({
               <Link href="/" className="shrink-0">
                 <Image 
                   src="/logo.png" 
-                  alt={`${process.env.NEXT_PUBLIC_SITE_NAME} Solutions`} 
+                  alt={`${process.env.NEXT_PUBLIC_SITE_NAME}`} 
                   width={100} 
                   height={100}
                   className="h-10 w-auto"
@@ -316,7 +316,7 @@ export const FloatingNav = ({
                   <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
                     <Image 
                       src="/logo.png" 
-                      alt={`${process.env.NEXT_PUBLIC_SITE_NAME} Solutions`} 
+                      alt={`${process.env.NEXT_PUBLIC_SITE_NAME}`} 
                       width={120} 
                       height={120}
                       className="h-12 w-auto"

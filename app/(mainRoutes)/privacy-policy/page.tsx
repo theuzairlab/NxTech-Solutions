@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
-  description: "Privacy Policy for " + process.env.NEXT_PUBLIC_SITE_NAME + " Solutions",
+  title: "Privacy Policy - " + process.env.NEXT_PUBLIC_SITE_NAME,
+  description: "Privacy Policy for " + process.env.NEXT_PUBLIC_SITE_NAME,
 };
 
 export default function PrivacyPolicy() {
@@ -39,7 +39,7 @@ export default function PrivacyPolicy() {
               <div>
                 <h2 className="text-2xl font-bold mb-4 text-foreground">1. Introduction</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  {process.env.NEXT_PUBLIC_SITE_NAME} Solutions ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.
+                  {process.env.NEXT_PUBLIC_SITE_NAME} ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.
                 </p>
               </div>
 

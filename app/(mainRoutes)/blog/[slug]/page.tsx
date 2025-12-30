@@ -43,7 +43,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${post.title} - ${process.env.NEXT_PUBLIC_SITE_NAME} Solutions Blog`,
+    title: `${post.title} - ${process.env.NEXT_PUBLIC_SITE_NAME} - Blog`,
     description: post.excerpt,
     keywords: post.tags.join(", "),
     authors: [{ name: post.authorName }],

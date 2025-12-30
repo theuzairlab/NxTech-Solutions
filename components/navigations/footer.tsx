@@ -59,7 +59,7 @@ export function Footer() {
             <Link href="/" className="inline-block">
               <Image
                 src="/logo.png"
-                alt={`${process.env.NEXT_PUBLIC_SITE_NAME} Solutions`}
+                alt={`${process.env.NEXT_PUBLIC_SITE_NAME}`}
                 width={150}
                 height={60}
                 className="h-auto"
@@ -181,7 +181,7 @@ export function Footer() {
         <div className="border-t border-border pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_SITE_NAME} Solutions. All rights reserved.
+              © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_SITE_NAME}. All rights reserved.
             </p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-end">
               <Link

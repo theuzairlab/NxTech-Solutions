@@ -45,11 +45,11 @@ export function NavbarComponent({ navItems }: { navItems: { name: string; link: 
       <NavBody>
         <NavbarLogo />
         <NavItems items={navItems} />
-          <div className="flex items-center gap-2 shrink-0">
-            <NavbarButton href="/get-quote" variant="secondary" className="text-xs sm:text-sm px-3 py-1.5 whitespace-nowrap">
+          <div className="flex items-center gap-2 shrink-0 min-w-0">
+            <NavbarButton href="/get-quote" variant="secondary" className="text-xs sm:text-sm px-2 sm:px-3 py-1.5 whitespace-nowrap shrink-0">
             Get a Quote
           </NavbarButton>
-            <NavbarButton href="/contact" variant="primary" className="text-xs sm:text-sm px-3 py-1.5 whitespace-nowrap">
+            <NavbarButton href="/contact" variant="primary" className="text-xs sm:text-sm px-2 sm:px-3 py-1.5 whitespace-nowrap shrink-0">
               Contact Us
             </NavbarButton>
         </div>

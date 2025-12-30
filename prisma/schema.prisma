@@ -277,3 +277,53 @@ model ChatLead {
   updatedAt   DateTime @updatedAt
 }
 
+/// Job postings for careers page
+model Job {
+  id          String   @id @default(uuid())
+  title       String
+  department  String
+  location    String?  // e.g., "Remote", "New York, NY", "Hybrid"
+  type        String?  // e.g., "Full-time", "Part-time", "Contract"
+  description String   // Job description/requirements
+  requirements Json?   // Array of requirements
+  benefits    Json?    // Array of benefits
+  
+  isActive     Boolean  @default(true)
+  displayOrder Int?
+  
+  applications JobApplication[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+/// Job applications submitted by candidates
+model JobApplication {
+  id                String              @id @default(uuid())
+  jobId             String
+  job               Job                 @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  
+  // Required fields
+  fullName          String
+  email             String
+  roleApplyingFor   String
+  yearsOfExperience String
+  coreSkills        String[]           // Array of skills
+  resumeUrl         String              // URL to uploaded resume
+  
+  // Optional fields
+  linkedinUrl       String?
+  portfolioUrl      String?
+  
+  status            JobApplicationStatus @default(NEW)
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+enum JobApplicationStatus {
+  NEW
+  SHORTLISTED
+  REJECTED
+}
+
