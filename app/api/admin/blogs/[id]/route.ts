@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { revalidatePublicPages, revalidateDynamicRoute } from "@/lib/revalidate";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -32,6 +33,12 @@ export async function PATCH(req: Request, { params }: RouteContext) {
     featured,
     isPublished,
   } = body;
+
+  // Get old slug before update to revalidate old route if slug changed
+  const oldBlog = await prisma.blog.findUnique({
+    where: { id },
+    select: { slug: true, isPublished: true },
+  });
 
   // Calculate read time if content changed
   let calculatedReadTime = readTime;
@@ -88,6 +95,19 @@ export async function PATCH(req: Request, { params }: RouteContext) {
     },
   });
 
+  // Revalidate public pages that display blogs
+  await revalidatePublicPages({
+    paths: ["/", "/blog"],
+  });
+  
+  // Revalidate the blog detail page (both old and new slug if changed)
+  if (updated.isPublished) {
+    await revalidateDynamicRoute(`/blog/${updated.slug}`);
+  }
+  if (oldBlog && oldBlog.slug !== updated.slug && oldBlog.isPublished) {
+    await revalidateDynamicRoute(`/blog/${oldBlog.slug}`);
+  }
+
   return NextResponse.json(updated);
 }
 
@@ -98,9 +118,25 @@ export async function DELETE(_req: Request, { params }: RouteContext) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
+  // Get slug before deletion to revalidate the route
+  const blog = await prisma.blog.findUnique({
+    where: { id },
+    select: { slug: true, isPublished: true },
+  });
+
   await prisma.blog.delete({
     where: { id },
   });
+
+  // Revalidate public pages that display blogs
+  await revalidatePublicPages({
+    paths: ["/", "/blog"],
+  });
+  
+  // Revalidate the deleted blog detail page if it was published
+  if (blog && blog.isPublished) {
+    await revalidateDynamicRoute(`/blog/${blog.slug}`);
+  }
 
   return new NextResponse(null, { status: 204 });
 }

@@ -3,6 +3,10 @@ import { ServiceDetailPage } from "@/components/services/service-detail-page";
 import { prisma } from "@/lib/prisma";
 import type { ServiceData } from "@/lib/services-data";
 
+// ISR: Revalidate every hour (3600 seconds)
+// Pages can also be revalidated on-demand when admin makes changes
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const services = await prisma.service.findMany({
     where: { isActive: true },

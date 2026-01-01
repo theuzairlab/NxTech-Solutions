@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { JobDetailPage } from "@/components/sections/job-detail-page";
 
+// ISR: Revalidate every hour (3600 seconds)
+// Pages can also be revalidated on-demand when admin makes changes
+export const revalidate = 3600;
+
 export async function generateMetadata({ 
   params 
 }: { 

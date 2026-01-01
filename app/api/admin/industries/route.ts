@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { revalidatePublicPages } from "@/lib/revalidate";
 
 export async function GET() {
   const session = await getServerSession(authConfig);
@@ -74,6 +75,11 @@ export async function POST(req: Request) {
       createdAt: true,
       updatedAt: true,
     },
+  });
+
+  // Revalidate public pages that display industries (homepage and services page)
+  await revalidatePublicPages({
+    paths: ["/", "/services"],
   });
 
   return NextResponse.json(created);

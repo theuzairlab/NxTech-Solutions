@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   description: `${process.env.NEXT_PUBLIC_SITE_NAME} delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.`,
 };
 
+// ISR: Revalidate every hour (3600 seconds)
+// Pages can also be revalidated on-demand when admin makes changes
+export const revalidate = 3600;
+
 export default async function Home() {
   const [mainServices, testimonials, portfolios] = await Promise.all([
     prisma.service.findMany({

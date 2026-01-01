@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { revalidatePublicPages, revalidateDynamicRoute } from "@/lib/revalidate";
 
 export async function GET() {
   const session = await getServerSession(authConfig);
@@ -68,6 +69,11 @@ export async function POST(req: Request) {
         },
       },
     },
+  });
+
+  // Revalidate public pages that display jobs (careers page)
+  await revalidatePublicPages({
+    paths: ["/careers"],
   });
 
   return NextResponse.json(created, { status: 201 });

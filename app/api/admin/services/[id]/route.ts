@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { revalidatePublicPages, revalidateDynamicRoute } from "@/lib/revalidate";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -33,6 +34,12 @@ export async function PATCH(req: Request, { params }: RouteContext) {
     pricing,
     cta,
   } = body as any;
+
+  // Get old slug before update to revalidate old route if slug changed
+  const oldService = await prisma.service.findUnique({
+    where: { id },
+    select: { slug: true },
+  });
 
   const updated = await prisma.service.update({
     where: { id },
@@ -77,6 +84,17 @@ export async function PATCH(req: Request, { params }: RouteContext) {
     },
   });
 
+  // Revalidate public pages that display services
+  await revalidatePublicPages({
+    paths: ["/", "/services"],
+  });
+  
+  // Revalidate the service detail page (both old and new slug if changed)
+  await revalidateDynamicRoute(`/services/${updated.slug}`);
+  if (oldService && oldService.slug !== updated.slug) {
+    await revalidateDynamicRoute(`/services/${oldService.slug}`);
+  }
+
   return NextResponse.json(updated);
 }
 
@@ -87,7 +105,24 @@ export async function DELETE(_req: Request, { params }: RouteContext) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
+  // Get slug before deletion to revalidate the route
+  const service = await prisma.service.findUnique({
+    where: { id },
+    select: { slug: true },
+  });
+
   await prisma.service.delete({ where: { id } });
+
+  // Revalidate public pages that display services
+  await revalidatePublicPages({
+    paths: ["/", "/services"],
+  });
+  
+  // Revalidate the deleted service detail page
+  if (service) {
+    await revalidateDynamicRoute(`/services/${service.slug}`);
+  }
+
   return new NextResponse(null, { status: 204 });
 }
 

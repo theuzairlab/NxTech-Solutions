@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   description: "Comprehensive digital services including IT solutions, digital marketing, AI agents, lead generation, web development, cloud services, and more. Transform your business with " + process.env.NEXT_PUBLIC_SITE_NAME + ".",
 };
 
+// ISR: Revalidate every hour (3600 seconds)
+// Pages can also be revalidated on-demand when admin makes changes
+export const revalidate = 3600;
+
 export default async function Services() {
   // Fetch main services (isMainService: true) and additional services (isMainService: false)
   const [mainServices, additionalServices, portfolios] = await Promise.all([

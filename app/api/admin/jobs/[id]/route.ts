@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { revalidatePublicPages, revalidateDynamicRoute } from "@/lib/revalidate";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -49,6 +50,14 @@ export async function PATCH(req: Request, { params }: RouteContext) {
     },
   });
 
+  // Revalidate public pages that display jobs (careers page and job detail page)
+  await revalidatePublicPages({
+    paths: ["/careers"],
+  });
+  
+  // Revalidate the job detail page
+  await revalidateDynamicRoute(`/careers/${updated.id}`);
+
   return NextResponse.json(updated);
 }
 
@@ -62,6 +71,14 @@ export async function DELETE(_req: Request, { params }: RouteContext) {
   await prisma.job.delete({
     where: { id },
   });
+
+  // Revalidate public pages that display jobs (careers page and job detail page)
+  await revalidatePublicPages({
+    paths: ["/careers"],
+  });
+  
+  // Revalidate the deleted job detail page
+  await revalidateDynamicRoute(`/careers/${id}`);
 
   return new NextResponse(null, { status: 204 });
 }

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { revalidatePublicPages } from "@/lib/revalidate";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -64,6 +65,11 @@ export async function PATCH(req: Request, { params }: RouteContext) {
     },
   });
 
+  // Revalidate public pages that display testimonials (homepage)
+  await revalidatePublicPages({
+    paths: ["/"],
+  });
+
   return NextResponse.json(updated);
 }
 
@@ -76,6 +82,11 @@ export async function DELETE(_req: Request, { params }: RouteContext) {
 
   await prisma.testimonial.delete({
     where: { id },
+  });
+
+  // Revalidate public pages that display testimonials (homepage)
+  await revalidatePublicPages({
+    paths: ["/"],
   });
 
   return new NextResponse(null, { status: 204 });

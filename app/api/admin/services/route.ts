@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { revalidatePublicPages, revalidateDynamicRoute } from "@/lib/revalidate";
 
 export async function GET() {
   const session = await getServerSession(authConfig);
@@ -108,6 +109,14 @@ export async function POST(req: Request) {
       updatedAt: true,
     },
   });
+
+  // Revalidate public pages that display services
+  await revalidatePublicPages({
+    paths: ["/", "/services"],
+  });
+  
+  // Revalidate the new service detail page
+  await revalidateDynamicRoute(`/services/${created.slug}`);
 
   return NextResponse.json(created, { status: 201 });
 }

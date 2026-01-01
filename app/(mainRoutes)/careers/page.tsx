@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   description: `Join ${process.env.NEXT_PUBLIC_SITE_NAME} and be part of a team that's shaping the future of digital solutions.`,
 };
 
+// ISR: Revalidate every hour (3600 seconds)
+// Pages can also be revalidated on-demand when admin makes changes
+export const revalidate = 3600;
+
 export default async function CareersPage() {
   const jobsData = await prisma.job.findMany({
     where: {
