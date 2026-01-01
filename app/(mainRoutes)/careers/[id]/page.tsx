@@ -6,7 +6,7 @@ import { JobDetailPage } from "@/components/sections/job-detail-page";
 // ISR: Revalidate every hour (3600 seconds)
 // Pages can also be revalidated on-demand when admin makes changes
 // Note: This must be a static value (compile-time constant), not a runtime expression
-export const revalidate = 600;
+export const revalidate = 60;
 
 export async function generateMetadata({ 
   params 

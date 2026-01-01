@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 // ISR: Revalidate every hour (3600 seconds)
 // Pages can also be revalidated on-demand when admin makes changes
 // Note: This must be a static value (compile-time constant), not a runtime expression
-export const revalidate = 600;
+export const revalidate = 60;
 
 export default async function CareersPage() {
   const jobsData = await prisma.job.findMany({
