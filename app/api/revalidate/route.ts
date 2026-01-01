@@ -1,4 +1,4 @@
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -7,13 +7,12 @@ import { NextRequest, NextResponse } from "next/server";
  * 
  * Usage:
  * POST /api/revalidate?secret=YOUR_SECRET&path=/services
- * POST /api/revalidate?secret=YOUR_SECRET&path=/services/my-service&tag=services
+ * POST /api/revalidate?secret=YOUR_SECRET&path=/services/my-service
  */
 export async function POST(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const secret = searchParams.get("secret");
   const path = searchParams.get("path");
-  const tag = searchParams.get("tag");
 
   // Verify secret token
   if (secret !== process.env.REVALIDATION_SECRET) {
@@ -23,31 +22,22 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!path && !tag) {
+  if (!path) {
     return NextResponse.json(
-      { message: "Path or tag is required" },
+      { message: "Path is required" },
       { status: 400 }
     );
   }
 
   try {
     // Revalidate by path
-    if (path) {
-      revalidatePath(path, "page");
-      console.log(`[Revalidation API] Revalidated path: ${path}`);
-    }
-
-    // Revalidate by tag
-    if (tag) {
-      revalidateTag(tag);
-      console.log(`[Revalidation API] Revalidated tag: ${tag}`);
-    }
+    revalidatePath(path, "page");
+    console.log(`[Revalidation API] Revalidated path: ${path}`);
 
     return NextResponse.json({
       revalidated: true,
       now: Date.now(),
-      path: path || null,
-      tag: tag || null,
+      path: path,
     });
   } catch (error: any) {
     console.error("[Revalidation API] Error:", error);
