@@ -5,7 +5,7 @@ import { BlogDetailPage } from "@/components/sections/blog-detail-page";
 
 // ISR: Revalidate every hour (3600 seconds)
 // Pages can also be revalidated on-demand when admin makes changes
-export const revalidate = 3600;
+export const revalidate = process.env.REVALIDATE_TIME ? parseInt(process.env.REVALIDATE_TIME) : 3600;
 
 export async function generateStaticParams() {
   const blogs = await prisma.blog.findMany({

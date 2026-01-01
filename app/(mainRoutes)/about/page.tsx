@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   description: "Learn about " + process.env.NEXT_PUBLIC_SITE_NAME + " - our mission, vision, values, leadership team, process, achievements, and company culture.",
 };
 
+// ISR: Revalidate every hour (3600 seconds)
+// Pages can also be revalidated on-demand when admin makes changes
+export const revalidate = process.env.REVALIDATE_TIME ? parseInt(process.env.REVALIDATE_TIME) : 3600;
+
 export default async function About() {
   const allItems = await prisma.achievementCertification.findMany({
     where: {
