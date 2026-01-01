@@ -3,12 +3,16 @@ import { revalidatePath } from "next/cache";
 /**
  * Revalidates public pages that display dynamic content
  * Call this after creating, updating, or deleting content in admin API routes
+ * 
+ * This function uses both direct revalidatePath and the revalidation API endpoint
+ * for maximum reliability
  */
 export async function revalidatePublicPages(options?: {
   paths?: string[];
 }) {
   // Get the production URL - prefer NEXT_PUBLIC_SITE_URL, fallback to production domain
   const productionUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nxtechnova.com";
+  const revalidationSecret = process.env.REVALIDATION_SECRET || process.env.NEXT_PUBLIC_REVALIDATION_SECRET || "your-secret-key-change-this";
   const isProduction = process.env.NODE_ENV === "production" || process.env.VERCEL;
 
   // Default paths that should be revalidated
@@ -24,31 +28,37 @@ export async function revalidatePublicPages(options?: {
   const pathsToRevalidate = options?.paths || defaultPaths;
 
   try {
-    // Step 1: Revalidate paths using Next.js revalidatePath (works within current execution)
+    // Step 1: Direct revalidation using revalidatePath (works within current execution)
     for (const path of pathsToRevalidate) {
       revalidatePath(path, 'page');
-      console.log(`[Revalidation] Revalidated path: ${path}`);
+      console.log(`[Revalidation] Direct revalidation - path: ${path}`);
     }
 
-    // Step 2: In production, trigger a fetch with cache-busting to ensure edge cache is cleared
-    // This helps ensure Vercel's edge network picks up the revalidation
+    // Step 2: Also call the revalidation API endpoint for better reliability
+    // This ensures revalidation works even if called from different contexts
     if (isProduction && productionUrl) {
       const revalidationPromises = pathsToRevalidate.map(async (path) => {
         try {
-          const url = `${productionUrl}${path}?revalidate=${Date.now()}`;
-          const response = await fetch(url, {
-            method: "GET",
+          const apiUrl = `${productionUrl}/api/revalidate?secret=${revalidationSecret}&path=${encodeURIComponent(path)}`;
+          const response = await fetch(apiUrl, {
+            method: "POST",
             headers: {
-              "Cache-Control": "no-cache, no-store, must-revalidate",
-              "Pragma": "no-cache",
-              "X-Revalidate": "true",
+              "Content-Type": "application/json",
             },
-            cache: "no-store", // Ensure no caching of this request
+            cache: "no-store",
           });
-          console.log(`[Revalidation] Triggered fetch for ${path}, status: ${response.status}`);
-          return { path, success: true, status: response.status };
+          
+          if (response.ok) {
+            const data = await response.json();
+            console.log(`[Revalidation] API revalidation successful - path: ${path}`, data);
+            return { path, success: true, status: response.status };
+          } else {
+            const errorText = await response.text();
+            console.error(`[Revalidation] API revalidation failed - path: ${path}, status: ${response.status}, error: ${errorText}`);
+            return { path, success: false, status: response.status, error: errorText };
+          }
         } catch (error: any) {
-          console.error(`[Revalidation] Failed to fetch ${productionUrl}${path}:`, error.message);
+          console.error(`[Revalidation] Failed to call revalidation API for ${path}:`, error.message);
           return { path, success: false, error: error.message };
         }
       });
@@ -70,29 +80,35 @@ export async function revalidatePublicPages(options?: {
 export async function revalidateDynamicRoute(path: string) {
   // Get the production URL
   const productionUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nxtechnova.com";
+  const revalidationSecret = process.env.REVALIDATION_SECRET || process.env.NEXT_PUBLIC_REVALIDATION_SECRET || "your-secret-key-change-this";
   const isProduction = process.env.NODE_ENV === "production" || process.env.VERCEL;
 
   try {
-    // Step 1: Revalidate path using Next.js revalidatePath
+    // Step 1: Direct revalidation using revalidatePath
     revalidatePath(path, 'page');
-    console.log(`[Revalidation] Revalidated dynamic route: ${path}`);
+    console.log(`[Revalidation] Direct revalidation - dynamic route: ${path}`);
     
-    // Step 2: In production, trigger fetch to clear edge cache
+    // Step 2: Also call the revalidation API endpoint for better reliability
     if (isProduction && productionUrl) {
       try {
-        const url = `${productionUrl}${path}?revalidate=${Date.now()}`;
-        const response = await fetch(url, {
-          method: "GET",
+        const apiUrl = `${productionUrl}/api/revalidate?secret=${revalidationSecret}&path=${encodeURIComponent(path)}`;
+        const response = await fetch(apiUrl, {
+          method: "POST",
           headers: {
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-            "Pragma": "no-cache",
-            "X-Revalidate": "true",
+            "Content-Type": "application/json",
           },
-          cache: "no-store", // Ensure no caching of this request
+          cache: "no-store",
         });
-        console.log(`[Revalidation] Triggered fetch for ${path}, status: ${response.status}`);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log(`[Revalidation] API revalidation successful - path: ${path}`, data);
+        } else {
+          const errorText = await response.text();
+          console.error(`[Revalidation] API revalidation failed - path: ${path}, status: ${response.status}, error: ${errorText}`);
+        }
       } catch (error: any) {
-        console.error(`[Revalidation] Failed to fetch ${productionUrl}${path}:`, error.message);
+        console.error(`[Revalidation] Failed to call revalidation API for ${path}:`, error.message);
       }
     }
     
