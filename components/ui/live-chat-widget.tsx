@@ -192,7 +192,7 @@ export function LiveChatWidget() {
             className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-28 md:right-6 z-[9999] bg-white rounded-2xl shadow-2xl border-2 border-border overflow-hidden ${
               isMinimized 
                 ? "w-[calc(100vw-2rem)] sm:w-80 h-16" 
-                : "w-[calc(100vw-2rem)] sm:w-96 md:w-[400px] lg:w-[420px] h-[calc(100vh-8rem)] sm:h-[600px] md:h-[650px]"
+                : "w-[calc(100vw-2rem)] sm:w-96 md:w-[400px] lg:w-[420px] h-[calc(100vh-10rem)] sm:h-[500px] md:h-[550px] max-h-[85vh]"
             } flex flex-col transition-all duration-300`}
           >
             {/* Header */}
@@ -225,7 +225,7 @@ export function LiveChatWidget() {
             {!isMinimized && (
               <>
                 {/* Messages */}
-                <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-muted/30">
+                <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-muted/30 min-h-0">
                   {/* Quick Action Buttons - Show only on first message */}
                   {messages.length === 1 && (
                     <div className="space-y-2 mb-3 sm:mb-4">

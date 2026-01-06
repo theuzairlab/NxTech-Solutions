@@ -106,18 +106,17 @@ export function HeroSection() {
           {/* Headline with Gradient */}
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold mb-6 leading-tight">
             <span className="bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-              Empowering Businesses with
+              Beyond Integration. Fusion. Innovation.
             </span>
-            <br />
+            {/* <br />
             <span className="bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
               IT, Marketing & AI Solutions
-            </span>
+            </span> */}
           </h1>
 
           {/* Subheadline */}
           <p className="text-xl sm:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            {process.env.NEXT_PUBLIC_SITE_NAME} delivers cutting-edge digital solutions that drive revenue,
-            automate operations, and scale your business.
+            {process.env.NEXT_PUBLIC_SITE_NAME} achieves fusion where your operational backbone (IT), your growth voice (Marketing), and your decision-making mind (AI) combine to form a new, more powerful business entity. We engineer this reaction to release massive energy for growth.
           </p>
 
           {/* CTAs */}
@@ -149,7 +148,7 @@ export function HeroSection() {
               <div className="text-sm text-muted-foreground">Projects Delivered</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary">98%</div>
+              <div className="text-3xl font-bold text-primary">93-97%</div>
               <div className="text-sm text-muted-foreground">Client Satisfaction</div>
             </div>
             <div>
