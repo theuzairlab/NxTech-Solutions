@@ -1,93 +1,47 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/hero-section";
-import { ServicesSnapshot } from "@/components/sections/services-snapshot";
-import { WhyChoose } from "@/components/sections/why-choose";
-import { IndustriesServe } from "@/components/sections/industries-serve";
-import { PortfolioHighlight } from "@/components/sections/portfolio-highlight";
+import { CoreServicesGrid } from "@/components/sections/core-services-grid";
+import { HowWeBuild } from "@/components/sections/how-we-build";
+import { AIWorkflowVisual } from "@/components/sections/ai-workflow-visual";
+import { CaseStudiesResults } from "@/components/sections/case-studies-results";
+import { IndustriesServeRevOps } from "@/components/sections/industries-serve-revops";
 import { Testimonials } from "@/components/sections/testimonials";
 import { CTABanner } from "@/components/sections/cta-banner";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: `${process.env.NEXT_PUBLIC_SITE_NAME}  - Empowering Businesses with IT, Marketing & AI Solutions`,
-  description: `${process.env.NEXT_PUBLIC_SITE_NAME} delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.`,
+  title: `${process.env.NEXT_PUBLIC_SITE_NAME} - AI-Powered Growth Systems That Turn Traffic Into Revenue`,
+  description: `${process.env.NEXT_PUBLIC_SITE_NAME} helps service-based businesses automate lead generation, qualify prospects using AI, and convert them into booked appointments and paying clients. Automation. Development. Performance Marketing.`,
 };
 
-// ISR: Revalidate every hour (3600 seconds)
-// Pages can also be revalidated on-demand when admin makes changes
-// Note: This must be a static value (compile-time constant), not a runtime expression
 export const revalidate = 3600;
 
 export default async function Home() {
-  const [mainServices, testimonials, portfolios] = await Promise.all([
-    prisma.service.findMany({
-      where: {
-        isMainService: true,
-        isActive: true,
-      },
-      orderBy: [
-        { displayOrder: "asc" },
-        { createdAt: "asc" },
-      ],
-      select: {
-        id: true,
-        slug: true,
-        title: true,
-        shortDescription: true,
-        image: true,
-        icon: true,
-      },
-    }),
-    prisma.testimonial.findMany({
-      where: {
-        isActive: true,
-      },
-      orderBy: [
-        { displayOrder: "asc" },
-        { createdAt: "asc" },
-      ],
-      select: {
-        id: true,
-        name: true,
-        role: true,
-        company: true,
-        image: true,
-        content: true,
-        rating: true,
-      },
-    }),
-    prisma.portfolio.findMany({
-      where: {
-        isActive: true,
-      },
-      orderBy: [
-        { isFeatured: "desc" },
-        { displayOrder: "asc" },
-        { createdAt: "desc" },
-      ],
-    }),
-  ]);
-
-  // Transform portfolios to match expected format
-  const transformedPortfolios = portfolios.map((p: typeof portfolios[0]) => ({
-    id: p.id,
-    slug: p.slug,
-    title: p.title,
-    category: p.category,
-    type: p.type || null,
-    image: p.image,
-    description: p.description,
-    link: p.link,
-    metrics: p.metrics,
-  }));
+  const testimonials = await prisma.testimonial.findMany({
+    where: { isActive: true },
+    orderBy: [
+      { displayOrder: "asc" },
+      { createdAt: "asc" },
+    ],
+    select: {
+      id: true,
+      name: true,
+      role: true,
+      company: true,
+      image: true,
+      content: true,
+      rating: true,
+    },
+  });
 
   return (
     <div className="w-full">
       <HeroSection />
-      <ServicesSnapshot services={mainServices} />
-      <WhyChoose />
-      <IndustriesServe />
-      <PortfolioHighlight portfolios={transformedPortfolios} />
+      <CoreServicesGrid />
+      <HowWeBuild />
+      <AIWorkflowVisual />
+      <CaseStudiesResults />
+      <IndustriesServeRevOps />
       <Testimonials testimonials={testimonials} />
       <CTABanner />
     </div>

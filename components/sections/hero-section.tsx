@@ -1,165 +1,216 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, TrendingUp, Users, Zap, Calendar } from "lucide-react";
 import Link from "next/link";
 import { CalendlyModal } from "@/components/ui/calendly-modal";
 
+const TRUST_INDUSTRIES = [
+  "Real Estate",
+  "Dental",
+  "SaaS",
+  "E‑commerce",
+  "Coaches",
+  "Local Business",
+];
+
 export function HeroSection() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showCalendlyModal, setShowCalendlyModal] = useState(false);
-  
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight > 700 ? 700 : window.innerHeight;
-
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-    }> = [];
-
-    for (let i = 0; i < 80; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
-        size: Math.random() * 3 + 1,
-      });
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach((particle) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(0, 206, 209, 0.4)";
-        ctx.fill();
-      });
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight > 700 ? 700 : window.innerHeight;
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] shadow-sm z-11">
+    <section className="relative min-h-screen flex items-center overflow-hidden rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] shadow-sm z-12">
       {/* Base Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10 z-0" />
-      
-      {/* Animated Canvas for Particles - Above background image */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-[2]"
-      />
+      <div className="absolute inset-0 bg-linear-to-br from-primary/[0.07] via-background to-primary/5 z-0" />
 
-      {/* Animated Grid Pattern */}
-      <div 
-        className="absolute inset-0 z-[2] opacity-20 bg-[length:30px_30px] sm:bg-[length:40px_40px] md:bg-[length:50px_50px]"
+      {/* Subtle Grid Pattern - CSS only */}
+      <div
+        className="absolute inset-0 z-[2] opacity-[0.15]"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(0, 206, 209, 0.2) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(0, 206, 209, 0.2) 1px, transparent 1px)
+            linear-gradient(to right, rgba(0, 206, 209, 0.15) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 206, 209, 0.15) 1px, transparent 1px)
           `,
+          backgroundSize: "40px 40px",
         }}
       />
 
-      {/* Animated Gradient Orbs */}
-      <div className="absolute top-10 left-4 sm:top-20 sm:left-10 w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 bg-primary/20 rounded-full blur-3xl animate-pulse z-[2]" 
-        style={{ animation: "float 6s ease-in-out infinite" }} />
-      <div className="absolute bottom-10 right-4 sm:bottom-20 sm:right-10 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-primary/20 rounded-full blur-3xl animate-pulse z-[2]"
-        style={{ animation: "float 8s ease-in-out infinite reverse" }} />
-      
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="max-w-5xl mx-auto text-center">
-          {/* Badge */}
-          {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Next-Generation Solutions</span>
-          </div> */}
+      {/* Soft gradient orbs - no JS animation, use CSS only */}
+      <div className="absolute top-20 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl z-[2]" />
+      <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary/10 rounded-full blur-3xl z-[2]" />
 
-          {/* Headline with Gradient */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-              Beyond Integration. Fusion. Innovation.
-            </span>
-            {/* <br />
-            <span className="bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
-              IT, Marketing & AI Solutions
-            </span> */}
-          </h1>
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[calc(100vh-8rem)]">
+          {/* Left: Copy - Refined typography */}
+          <div className="flex flex-col justify-center">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-[1.15] tracking-tight text-foreground">
+              We Build AI-Powered Growth Systems
+              <span className="block mt-2 text-primary">
+                That Turn Traffic Into Revenue
+              </span>
+            </h1>
 
-          {/* Subheadline */}
-          <p className="text-xl sm:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            {process.env.NEXT_PUBLIC_SITE_NAME} achieves fusion where your operational backbone (IT), your growth voice (Marketing), and your decision-making mind (AI) combine to form a new, more powerful business entity. We engineer this reaction to release massive energy for growth.
-          </p>
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 max-w-xl leading-[1.7]">
+              {process.env.NEXT_PUBLIC_SITE_NAME} helps service-based businesses
+              automate lead generation, qualify prospects using AI, and convert
+              them into booked appointments and paying clients.
+            </p>
+            <p className="text-sm sm:text-base text-foreground/80 mb-8 font-medium">
+              Not just marketing. Not just development.{" "}
+              <span className="text-primary">We build complete revenue systems.</span>
+            </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/get-quote">
-            <Button size="lg" className="group text-lg px-8 py-6 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg shadow-primary/25">
-              Get a Quote
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            </Link>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="text-lg px-8 py-6 border-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 hover:text-black"
-              onClick={() => setShowCalendlyModal(true)}
-            >
-              Book a Free Consultation
-            </Button>
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button
+                size="lg"
+                className="group text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg"
+                onClick={() => setShowCalendlyModal(true)}
+              >
+                Book Strategy Call
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-0.5 transition-transform" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 border-2 border-primary/30  hover:border-primary/50"
+              >
+                <Link href="/services" className="flex items-center">
+                  Explore Services
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                </Link>
+              </Button>
+            </div>
           </div>
 
-          {/* Stats or Trust Indicators */}
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-8">
-            <div>
-              <div className="text-3xl font-bold text-primary">20+</div>
-              <div className="text-sm text-muted-foreground">Industries Served</div>
+          {/* Right: Dashboard-style UI - Pure HTML/CSS, no canvas, no JS */}
+          <div className="relative hidden lg:block h-[420px] xl:h-[480px]">
+            <div className="absolute inset-0 rounded-2xl border border-border/60 bg-white/95 shadow-xl shadow-black/5 overflow-hidden">
+              {/* Dashboard header bar */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-border/40 bg-muted/30">
+                <div className="flex gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
+                </div>
+                <span className="text-[10px] font-medium text-muted-foreground ml-2">
+                  Growth Pipeline Dashboard
+                </span>
+              </div>
+
+              {/* Dashboard content */}
+              <div className="p-4 space-y-4">
+                {/* Stat cards row */}
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="rounded-lg bg-primary/10 border border-primary/20 p-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <TrendingUp className="h-3.5 w-3.5 text-primary" />
+                      <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide">Leads</span>
+                    </div>
+                    <span className="text-lg font-bold text-foreground">2,847</span>
+                    <p className="text-[10px] text-primary font-medium mt-0.5">+24% this week</p>
+                  </div>
+                  <div className="rounded-lg bg-primary/10 border border-primary/20 p-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Users className="h-3.5 w-3.5 text-primary" />
+                      <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide">Booked</span>
+                    </div>
+                    <span className="text-lg font-bold text-foreground">312</span>
+                    <p className="text-[10px] text-primary font-medium mt-0.5">Appointments</p>
+                  </div>
+                  <div className="rounded-lg bg-primary/10 border border-primary/20 p-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Zap className="h-3.5 w-3.5 text-primary" />
+                      <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide">Response</span>
+                    </div>
+                    <span className="text-lg font-bold text-foreground">&lt;30s</span>
+                    <p className="text-[10px] text-primary font-medium mt-0.5">Avg. response</p>
+                  </div>
+                </div>
+
+                {/* Pipeline funnel table */}
+                <div className="rounded-lg border border-border/50 overflow-hidden">
+                  <div className="bg-muted/50 px-3 py-2 border-b border-border/50">
+                    <span className="text-[10px] font-semibold text-muted-foreground uppercase">Pipeline Stage</span>
+                  </div>
+                  <div className="divide-y divide-border/30">
+                    {[
+                      { stage: "Traffic → Landing", value: "98%", fill: "w-[98%]" },
+                      { stage: "CRM Capture", value: "94%", fill: "w-[94%]" },
+                      { stage: "AI Qualification", value: "87%", fill: "w-[87%]" },
+                      { stage: "Calendar Booked", value: "72%", fill: "w-[72%]" },
+                    ].map((row) => (
+                      <div key={row.stage} className="flex items-center justify-between px-3 py-2 text-[11px]">
+                        <span className="text-foreground/90 font-medium">{row.stage}</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-1.5 rounded-full bg-muted overflow-hidden">
+                            <div className={`h-full rounded-full bg-primary/70 ${row.fill}`} />
+                          </div>
+                          <span className="text-primary font-semibold w-8">{row.value}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom status row */}
+                <div className="flex items-center justify-between text-[10px] text-muted-foreground pt-1">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    AI automation active
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    Live
+                  </span>
+                </div>
+              </div>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-primary">500+</div>
-              <div className="text-sm text-muted-foreground">Projects Delivered</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-primary">93-97%</div>
-              <div className="text-sm text-muted-foreground">Client Satisfaction</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-primary">24/7</div>
-              <div className="text-sm text-muted-foreground">Support Available</div>
+          </div>
+
+          {/* Mobile: Compact dashboard-style placeholder */}
+          <div className="lg:hidden mt-8">
+            <div className="rounded-2xl border border-border/60 bg-white/95 p-4 shadow-lg">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-lg bg-primary/10 p-3">
+                  <span className="text-xs text-muted-foreground">Leads</span>
+                  <p className="text-lg font-bold text-foreground">2,847</p>
+                </div>
+                <div className="rounded-lg bg-primary/10 p-3">
+                  <span className="text-xs text-muted-foreground">Booked</span>
+                  <p className="text-lg font-bold text-foreground">312</p>
+                </div>
+              </div>
+              <p className="text-[10px] text-muted-foreground mt-3 text-center">Growth Pipeline Dashboard</p>
             </div>
           </div>
         </div>
+
+        {/* Trust Bar - Centered below both columns, card view */}
+        {/* <div className="flex justify-center">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-3 px-5 sm:px-8 py-4 rounded-2xl border border-border/60 bg-card/80 backdrop-blur-sm shadow-lg shadow-black/5 w-full sm:w-auto max-w-2xl">
+            <span className="text-xs font-semibold tracking-widest text-muted-foreground uppercase shrink-0">
+              Trusted across industries
+            </span>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {TRUST_INDUSTRIES.map((industry) => (
+                <span
+                  key={industry}
+                  className="inline-flex items-center px-4 py-2 rounded-xl border border-border/50 bg-background/80 text-sm font-medium text-foreground/90 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-colors cursor-default"
+                >
+                  {industry}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div> */}
       </div>
-      <CalendlyModal isOpen={showCalendlyModal} onClose={() => setShowCalendlyModal(false)} />
+
+      <CalendlyModal
+        isOpen={showCalendlyModal}
+        onClose={() => setShowCalendlyModal(false)}
+      />
     </section>
   );
 }
-

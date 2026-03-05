@@ -29,7 +29,7 @@ export function CalendlyModal({ isOpen, onClose }: CalendlyModalProps) {
             className="bg-white rounded-none sm:rounded-2xl shadow-2xl w-full h-[80vh] mt-10 sm:w-full sm:max-w-4xl sm:h-[80vh] flex flex-col overflow-hidden"
           >
             <div className="bg-primary text-white p-3 sm:p-4 flex items-center justify-between">
-              <div className="font-semibold text-sm sm:text-base">Book a Free Consultation</div>
+              <div className="font-semibold text-sm sm:text-base">Book Strategy Call</div>
               <button
                 onClick={onClose}
                 className="p-1 sm:p-1.5 rounded-lg hover:bg-white/20 transition-colors"

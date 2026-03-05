@@ -1,15 +1,15 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { 
-  Phone, 
-  MapPin, 
-  Mail, 
-  Facebook, 
-  Twitter, 
-  Linkedin, 
+import {
+  Phone,
+  MapPin,
+  Mail,
+  Facebook,
+  Twitter,
+  Linkedin,
   Instagram,
-  Send
+  Send,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -23,18 +23,33 @@ const quickLinks = [
 ];
 
 const services = [
-  { name: "IT Services", href: "/services/it-services" },
+  { name: "AI Automation", href: "/services/ai-automation-marketing" },
+  { name: "Web Development", href: "/services/web-development" },
+  { name: "App Development", href: "/services/app-development" },
   { name: "Digital Marketing", href: "/services/digital-marketing" },
-  { name: "AI Solutions", href: "/services/ai-sales-agent" },
-  { name: "Web Development", href: "/services/web-app-development" },
-  { name: "Lead Generation", href: "/services/lead-generation" },
 ];
 
 const socialLinks = [
-  { name: "Facebook", icon: Facebook, href: process.env.NEXT_PUBLIC_FACEBOOK_URL || "" },
-  { name: "Twitter", icon: Twitter, href: process.env.NEXT_PUBLIC_TWITTER_URL || "" },
-  { name: "LinkedIn", icon: Linkedin, href: process.env.NEXT_PUBLIC_LINKEDIN_URL || "" },
-  { name: "Instagram", icon: Instagram, href: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "" },
+  {
+    name: "Facebook",
+    icon: Facebook,
+    href: process.env.NEXT_PUBLIC_FACEBOOK_URL || "",
+  },
+  {
+    name: "Twitter",
+    icon: Twitter,
+    href: process.env.NEXT_PUBLIC_TWITTER_URL || "",
+  },
+  {
+    name: "LinkedIn",
+    icon: Linkedin,
+    href: process.env.NEXT_PUBLIC_LINKEDIN_URL || "",
+  },
+  {
+    name: "Instagram",
+    icon: Instagram,
+    href: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "",
+  },
 ];
 
 export function Footer() {
@@ -56,37 +71,58 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <Link href="/" className="inline-block">
+            <Link
+              href="/"
+              className="relative z-20 flex items-center space-x-2 py-1 text-base font-normal group shrink-0 "
+            >
               <Image
-                src="/logo.png"
-                alt={`${process.env.NEXT_PUBLIC_SITE_NAME}`}
-                width={150}
-                height={60}
-                className="h-auto"
+                src="/icon.png"
+                alt={`${process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"}`}
+                width={40}
+                height={40}
+                className=" rounded-full"
               />
+              <div className="flex flex-col">
+                <span className="font-medium text-foreground whitespace-nowrap">
+                  {process.env.NEXT_PUBLIC_SITE_NAME || "NxTech"}
+                </span>
+                <span className="text-[0.7rem] -mt-1 text-muted-foreground whitespace-nowrap">
+                  {process.env.NEXT_PUBLIC_SITE_TAGLINE ||
+                    "Simplify the future"}
+                </span>
+              </div>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              {process.env.NEXT_PUBLIC_SITE_NAME} delivers cutting-edge digital solutions that drive revenue, 
-              automate operations, and scale your business.
+              {process.env.NEXT_PUBLIC_SITE_NAME} delivers cutting-edge digital
+              solutions that drive revenue, automate operations, and scale your
+              business.
             </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 text-primary" />
-                <a href={`tel:${user_phone}`} className="hover:text-primary transition-colors">
+                <a
+                  href={`tel:${user_phone}`}
+                  className="hover:text-primary transition-colors"
+                >
                   {user_phone}
                 </a>
               </div>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                 <span>
-                  Building 40C Office 07, 4th Floor<br />
-                  Main Khayaban-e-Bukhari<br />
+                  Building 40C Office 07, 4th Floor
+                  <br />
+                  Main Khayaban-e-Bukhari
+                  <br />
                   DHA Phase 6, Karachi
                 </span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 text-primary" />
-                <a href={`mailto:${user_email}`} className="hover:text-primary transition-colors">
+                <a
+                  href={`mailto:${user_email}`}
+                  className="hover:text-primary transition-colors"
+                >
                   {user_email}
                 </a>
               </div>
@@ -95,7 +131,9 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-foreground">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4 text-foreground">
+              Quick Links
+            </h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -112,7 +150,9 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-foreground">Services</h3>
+            <h3 className="text-lg font-semibold mb-4 text-foreground">
+              Services
+            </h3>
             <ul className="space-y-2">
               {services.map((service) => (
                 <li key={service.name}>
@@ -129,9 +169,12 @@ export function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-foreground">Newsletter</h3>
+            <h3 className="text-lg font-semibold mb-4 text-foreground">
+              Newsletter
+            </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Subscribe to get updates on our latest solutions and industry insights.
+              Subscribe to get updates on our latest solutions and industry
+              insights.
             </p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
               <div className="flex gap-2">
@@ -155,7 +198,9 @@ export function Footer() {
 
             {/* Social Media */}
             <div className="mt-6">
-              <h4 className="text-sm font-semibold mb-3 text-foreground">Follow Us</h4>
+              <h4 className="text-sm font-semibold mb-3 text-foreground">
+                Follow Us
+              </h4>
               <div className="flex gap-3">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
@@ -181,7 +226,8 @@ export function Footer() {
         <div className="border-t border-border pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_SITE_NAME}. All rights reserved.
+              © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_SITE_NAME}.
+              All rights reserved.
             </p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-end">
               <Link
@@ -204,4 +250,3 @@ export function Footer() {
     </footer>
   );
 }
-
