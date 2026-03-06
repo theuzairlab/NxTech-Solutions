@@ -8,35 +8,21 @@ export function PageLoader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Simulate loading progress
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 90) {
-          clearInterval(progressInterval);
-          return 90;
-        }
-        return prev + 8;
-      });
-    }, 150);
-
-    // Check if page is loaded
-    const handleLoad = () => {
+    // Use DOMContentLoaded (not load) to avoid blocking LCP - hide before all images finish
+    const handleReady = () => {
       setProgress(100);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
+      setTimeout(() => setIsLoading(false), 300);
     };
 
-    // Check if already loaded
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      handleReady();
+      return undefined;
     }
-
+    document.addEventListener("DOMContentLoaded", handleReady);
+    const fallback = setTimeout(handleReady, 2500);
     return () => {
-      clearInterval(progressInterval);
-      window.removeEventListener("load", handleLoad);
+      document.removeEventListener("DOMContentLoaded", handleReady);
+      clearTimeout(fallback);
     };
   }, []);
 

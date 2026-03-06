@@ -1,10 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, Users, Zap, Calendar } from "lucide-react";
 import Link from "next/link";
-import { CalendlyModal } from "@/components/ui/calendly-modal";
+import dynamic from "next/dynamic";
+
+const CalendlyModal = dynamic(
+  () => import("@/components/ui/calendly-modal").then((m) => ({ default: m.CalendlyModal })),
+  { ssr: false }
+);
 
 const TRUST_INDUSTRIES = [
   "Real Estate",
@@ -20,11 +26,18 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen lg:min-h-[calc(100vh-8rem)] flex items-center overflow-hidden rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] shadow-sm z-12">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat min-h-screen"
-        style={{ backgroundImage: "url(/abc.jpg)" }}
-      />
+      {/* Background Image - next/image for LCP optimization (WebP/AVIF, priority) */}
+      <div className="absolute inset-0 z-0 min-h-screen">
+        <Image
+          src="/abc.jpg"
+          alt=""
+          fill
+          priority
+          fetchPriority="high"
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+      </div>
       {/* Gradient Overlay for readability */}
       <div className="absolute inset-0 bg-linear-to-br from-primary/[0.07] via-background/50 to-primary/5 z-1" />
 
