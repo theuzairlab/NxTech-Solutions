@@ -15,9 +15,9 @@ export function PageLoader() {
           clearInterval(progressInterval);
           return 90;
         }
-        return prev + Math.random() * 15;
+        return prev + 8;
       });
-    }, 100);
+    }, 150);
 
     // Check if page is loaded
     const handleLoad = () => {

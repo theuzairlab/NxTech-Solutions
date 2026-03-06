@@ -1,13 +1,32 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/hero-section";
 import { CoreServicesGrid } from "@/components/sections/core-services-grid";
-import { HowWeBuild } from "@/components/sections/how-we-build";
-import { AIWorkflowVisual } from "@/components/sections/ai-workflow-visual";
-import { CaseStudiesResults } from "@/components/sections/case-studies-results";
-import { IndustriesServeRevOps } from "@/components/sections/industries-serve-revops";
-import { Testimonials } from "@/components/sections/testimonials";
-import { CTABanner } from "@/components/sections/cta-banner";
 import { prisma } from "@/lib/prisma";
+
+const HowWeBuild = dynamic(() =>
+  import("@/components/sections/how-we-build").then((m) => ({ default: m.HowWeBuild }))
+);
+
+const AIWorkflowVisual = dynamic(() =>
+  import("@/components/sections/ai-workflow-visual").then((m) => ({ default: m.AIWorkflowVisual }))
+);
+
+const CaseStudiesResults = dynamic(() =>
+  import("@/components/sections/case-studies-results").then((m) => ({ default: m.CaseStudiesResults }))
+);
+
+const IndustriesServeRevOps = dynamic(() =>
+  import("@/components/sections/industries-serve-revops").then((m) => ({ default: m.IndustriesServeRevOps }))
+);
+
+const Testimonials = dynamic(() =>
+  import("@/components/sections/testimonials").then((m) => ({ default: m.Testimonials }))
+);
+
+const CTABanner = dynamic(() =>
+  import("@/components/sections/cta-banner").then((m) => ({ default: m.CTABanner }))
+);
 
 export const metadata: Metadata = {
   title: `${process.env.NEXT_PUBLIC_SITE_NAME} - AI-Powered Growth Systems That Turn Traffic Into Revenue`,

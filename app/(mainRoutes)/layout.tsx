@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/navigations/footer";
 import { Home, User, Mail, MessageCircle, BookA, Briefcase } from "lucide-react";
-import { LiveChatWidget } from "@/components/ui/live-chat-widget";
-import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { NavbarComponent } from "@/components/navigations/Navbar";
+import { LazyWidgets } from "@/components/ui/lazy-widgets-client";
 export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_SITE_NAME + " - Empowering Businesses with IT, Marketing & AI Solutions",
   description: process.env.NEXT_PUBLIC_SITE_NAME + " delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.",
@@ -48,8 +47,7 @@ export default function MainRoutesLayout({
       <main className="relative w-full">
         <NavbarComponent navItems={navItems} />
         {children}
-        <WhatsAppButton />
-        <LiveChatWidget />
+        <LazyWidgets />
       </main>
       <Footer />
     </>

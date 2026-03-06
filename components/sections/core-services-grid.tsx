@@ -1,81 +1,64 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, MapPin, Ruler, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import {
-  Bot,
-  Globe2,
-  Smartphone,
-  Megaphone,
-  type LucideIcon,
-} from "lucide-react";
 
 const CORE_SERVICES = [
   {
     slug: "ai-automation-marketing",
     title: "AI Marketing & Business Automation",
-    shortHook:
+    description:
       "We design AI-driven lead generation and follow-up systems that instantly respond, qualify, and book appointments automatically.",
-    bullets: [
-      "AI Voice Calling",
-      "CRM Automation",
-      "Lead Scoring",
-      "Multi-Channel Follow-up",
+    details: [
+      { icon: MapPin, label: "AI Voice Calling", value: "Instant qualification" },
+      { icon: Ruler, label: "CRM Automation", value: "Seamless workflows" },
+      { icon: Clock, label: "Lead Scoring", value: "Smart prioritization" },
     ],
-    ctaText: "Explore AI Automation",
-    icon: Bot,
+    image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2006&auto=format&fit=crop",
+    imagePosition: "left" as const,
   },
   {
     slug: "web-development",
     title: "Web Development",
-    shortHook:
-      "High-performance websites engineered to convert visitors into leads and revenue.",
-    bullets: [
-      "Conversion-focused UX",
-      "Speed optimized",
-      "CRM integrated",
-      "Analytics ready",
+    description:
+      "High-performance websites engineered to convert visitors into leads and revenue. Conversion-focused UX, speed optimized, CRM integrated.",
+    details: [
+      { icon: MapPin, label: "Conversion UX", value: "Built to convert" },
+      { icon: Ruler, label: "Speed optimized", value: "Fast loading" },
+      { icon: Clock, label: "Analytics ready", value: "Data-driven" },
     ],
-    ctaText: "Explore Web Development",
-    icon: Globe2,
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+    imagePosition: "right" as const,
   },
   {
     slug: "app-development",
     title: "App Development",
-    shortHook:
+    description:
       "Scalable mobile and web applications built for growth, performance, and seamless user experience.",
-    bullets: [
-      "MVP Development",
-      "SaaS Platforms",
-      "Admin Dashboards",
-      "Payment Integration",
+    details: [
+      { icon: MapPin, label: "MVP Development", value: "Fast to market" },
+      { icon: Ruler, label: "SaaS Platforms", value: "Scalable architecture" },
+      { icon: Clock, label: "Payment Integration", value: "Revenue ready" },
     ],
-    ctaText: "Explore App Development",
-    icon: Smartphone,
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop",
+    imagePosition: "left" as const,
   },
   {
     slug: "digital-marketing",
     title: "Digital Marketing",
-    shortHook:
+    description:
       "Performance-driven paid advertising and funnel optimization designed to generate measurable ROI.",
-    bullets: [
-      "Meta Ads",
-      "Google PPC",
-      "LinkedIn Ads",
-      "Retargeting Systems",
+    details: [
+      { icon: MapPin, label: "Meta & Google Ads", value: "Paid acquisition" },
+      { icon: Ruler, label: "LinkedIn Ads", value: "B2B targeting" },
+      { icon: Clock, label: "Retargeting", value: "Win back visitors" },
     ],
-    ctaText: "Explore Digital Marketing",
-    icon: Megaphone,
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format",
+    imagePosition: "right" as const,
   },
-] as const satisfies Array<{
-  slug: string;
-  title: string;
-  shortHook: string;
-  bullets: string[];
-  ctaText: string;
-  icon: LucideIcon;
-}>;
+];
 
 export function CoreServicesGrid() {
   return (
@@ -83,79 +66,112 @@ export function CoreServicesGrid() {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 -left-16 w-96 h-96 bg-primary/15 blur-3xl" />
         <div className="absolute -bottom-20 right-10 w-[480px] h-[480px] bg-primary/10 blur-3xl" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-size-[140px_140px] opacity-60" />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">
-            <span className="text-xs font-semibold tracking-[0.2em] text-primary">
-              SERVICES
-            </span>
-          </div>
+          <div className="h-px w-16 bg-primary/30 mx-auto mb-2" />
+          <p className="text-sm font-medium tracking-wider text-primary/80">
+            — Core Services
+          </p>
           <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-            <span className="bg-linear-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-              Core Services
-            </span>
+            <span className="text-foreground">Our </span>
+            <span className="text-primary">Core Services</span>
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto">
-            Automation. Development. Performance Marketing. Engineered for
-            scalable businesses.
+          <p className="text-lg text-muted-foreground/90 max-w-2xl mx-auto">
+            Automation. Development. Performance Marketing.
           </p>
         </div>
 
-        {/* 2x2 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-5xl mx-auto">
+        <div className="space-y-12 sm:space-y-16 max-w-6xl mx-auto">
           {CORE_SERVICES.map((service) => {
-            const Icon = service.icon;
+            const isImageLeft = service.imagePosition === "left";
             return (
-              <div
+              <Link
                 key={service.slug}
-                className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-card/90 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 backdrop-blur-sm p-6"
+                href={`/services/${service.slug}`}
+                className="block group"
               >
-                <div className="relative z-10 h-full flex flex-col">
-                  <div className="w-14 h-14 rounded-xl bg-linear-to-br from-primary/60 to-primary/40 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="h-7 w-7 text-white" />
+                <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-card/90 border border-border shadow-lg hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                    {/* Image side */}
+                    <div
+                      className={`relative overflow-hidden m-2 rounded-2xl shadow-lg ${!isImageLeft ? "md:order-2" : ""}`}
+                    >
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                      />
+                      <div
+                        className={`absolute inset-0 ${
+                          isImageLeft
+                            ? "bg-linear-to-r from-transparent to-black/30"
+                            : "bg-linear-to-l from-transparent to-black/30"
+                        }`}
+                      />
+                      <div className="absolute bottom-4 left-4 flex gap-2">
+                        <span className="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
+                          {service.slug.includes("ai") && "AI"}
+                          {service.slug.includes("web") && "Web"}
+                          {service.slug.includes("app") && "App"}
+                          {service.slug.includes("digital") && "Marketing"}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Content side */}
+                    <div
+                      className={`flex flex-col justify-center p-6 sm:p-8 md:p-10 ${!isImageLeft ? "md:order-1" : ""}`}
+                    >
+                      <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-muted-foreground mb-6 leading-relaxed">
+                        {service.description}
+                      </p>
+
+                      <ul className="space-y-3 mb-6">
+                        {service.details.map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <li
+                              key={item.label}
+                              className="flex items-center gap-3 text-sm"
+                            >
+                              <span className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
+                                <Icon className="h-4 w-4 text-primary" />
+                              </span>
+                              <span className="text-foreground font-medium">
+                                {item.label}
+                              </span>
+                              <span className="text-muted-foreground">
+                                : {item.value}
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+
+                      <span className="inline-flex items-center text-primary font-semibold group-hover:gap-2 transition-all">
+                        Learn more
+                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </div>
                   </div>
-
-                  <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-4 grow">
-                    {service.shortHook}
-                  </p>
-
-                  <ul className="space-y-2 mb-6">
-                    {service.bullets.map((bullet) => (
-                      <li
-                        key={bullet}
-                        className="flex items-center gap-2 text-sm text-foreground"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    href={`/services/${service.slug}`}
-                    className="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link"
-                  >
-                    {service.ctaText}
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
-                  </Link>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
 
-        <div className="text-center">
+        <div className="text-center mt-14">
           <Button
             asChild
             size="lg"
-            variant="outline"
-            className="border-2 border-primary/30 hover:bg-primary/10 text-primary hover:text-primary hover:border-primary/50 shadow-lg shadow-primary/10"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg"
           >
             <Link href="/services" className="flex items-center">
               View All Services

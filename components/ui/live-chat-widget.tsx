@@ -207,17 +207,17 @@ export function LiveChatWidget() {
               <div className="flex items-center gap-1 sm:gap-2">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
-                  className="p-1 sm:p-1.5 rounded-lg hover:bg-white/20 transition-colors"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-white/20 transition-colors -m-1"
                   aria-label={isMinimized ? "Expand chat" : "Minimize chat"}
                 >
-                  <Minimize2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <Minimize2 className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 sm:p-1.5 rounded-lg hover:bg-white/20 transition-colors"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-white/20 transition-colors -m-1"
                   aria-label="Close chat"
                 >
-                  <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
               </div>
             </div>

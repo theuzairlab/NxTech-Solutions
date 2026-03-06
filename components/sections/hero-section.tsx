@@ -19,9 +19,14 @@ export function HeroSection() {
   const [showCalendlyModal, setShowCalendlyModal] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] shadow-sm z-12">
-      {/* Base Gradient Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-primary/[0.07] via-background to-primary/5 z-0" />
+    <section className="relative min-h-screen lg:min-h-[calc(100vh-8rem)] flex items-center overflow-hidden rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] shadow-sm z-12">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat min-h-screen"
+        style={{ backgroundImage: "url(/abc.jpg)" }}
+      />
+      {/* Gradient Overlay for readability */}
+      <div className="absolute inset-0 bg-linear-to-br from-primary/[0.07] via-background/50 to-primary/5 z-1" />
 
       {/* Subtle Grid Pattern - CSS only */}
       <div
@@ -39,8 +44,8 @@ export function HeroSection() {
       <div className="absolute top-20 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl z-[2]" />
       <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary/10 rounded-full blur-3xl z-[2]" />
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[calc(100vh-8rem)]">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pt-28 sm:pb-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[calc(100vh-6rem)] sm:min-h-[calc(100vh-8rem)]">
           {/* Left: Copy - Refined typography */}
           <div className="flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-[1.15] tracking-tight text-foreground">

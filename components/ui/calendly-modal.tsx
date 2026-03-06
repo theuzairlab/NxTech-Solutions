@@ -18,7 +18,7 @@ export function CalendlyModal({ isOpen, onClose }: CalendlyModalProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[999999999] bg-black/50 flex items-center justify-center p-0 sm:p-4"
+          className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-0 sm:p-4"
           onClick={onClose}
         >
           <motion.div
@@ -32,8 +32,8 @@ export function CalendlyModal({ isOpen, onClose }: CalendlyModalProps) {
               <div className="font-semibold text-sm sm:text-base">Book Strategy Call</div>
               <button
                 onClick={onClose}
-                className="p-1 sm:p-1.5 rounded-lg hover:bg-white/20 transition-colors"
-                aria-label="Close"
+                className="min-w-[48px] min-h-[48px] flex items-center justify-center rounded-lg hover:bg-white/20 transition-colors -m-2"
+                aria-label="Close booking modal"
               >
                 <X className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>

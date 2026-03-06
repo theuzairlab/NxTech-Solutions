@@ -36,9 +36,10 @@ export function WhatsAppButton() {
                 <h3 className="text-base sm:text-lg font-bold text-foreground">Chat on WhatsApp</h3>
                 <button
                   onClick={() => setIsExpanded(false)}
-                  className="p-1 rounded-full hover:bg-muted transition-colors"
+                  className="min-w-[48px] min-h-[48px] flex items-center justify-center rounded-full hover:bg-muted transition-colors -m-2"
+                  aria-label="Close WhatsApp panel"
                 >
-                  <X className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
+                  <X className="h-5 w-5 text-muted-foreground" />
                 </button>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
