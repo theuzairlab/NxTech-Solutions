@@ -110,11 +110,11 @@ export function Footer() {
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                 <span>
-                  Building 40C Office 07, 4th Floor
+                  71-75 Shelton Street,
                   <br />
-                  Main Khayaban-e-Bukhari
+                  Covent Garden,
                   <br />
-                  DHA Phase 6, Karachi
+                  London, WC2H 9JQ
                 </span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -190,6 +190,7 @@ export function Footer() {
                   type="submit"
                   size="icon"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                  aria-label="Subscribe to newsletter"
                 >
                   <Send className="h-4 w-4" />
                 </Button>

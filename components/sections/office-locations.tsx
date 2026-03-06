@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const offices = [
   {
     id: 1,
-    name: "Headquarters",
+    name: "Karachi Office",
     address: "Building 40C Office 07, 4th Floor, Main Khayaban-e-Bukhari, DHA Phase 6, Karachi",
     city: "Karachi, Pakistan",
     phone: process.env.NEXT_PUBLIC_USER_PHONE|| "",
