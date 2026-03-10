@@ -24,7 +24,17 @@ const nextConfig: NextConfig = {
   // Enable source maps for production debugging (dev only in most setups)
   // Enable for production debugging: productionBrowserSourceMaps: true
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["lucide-react", "motion"],
+  },
+  async headers() {
+    return [
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
   },
 };
 
