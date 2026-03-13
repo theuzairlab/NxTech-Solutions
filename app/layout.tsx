@@ -59,7 +59,7 @@ export default function RootLayout({
       >
         {/* GTM + Clarity load after idle + 2s delay to reduce TBT */}
         <GTMDelayed />
-        <PageLoader />
+        {/* <PageLoader /> */}
         <AuthSessionProvider>
           {children}
           <Toaster richColors closeButton />

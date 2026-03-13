@@ -53,19 +53,32 @@ interface MobileNavMenuProps {
   onClose: () => void;
 }
 
+const SCROLL_THRESHOLD = 80;
+const SCROLL_HIDE_DELTA = 5;
+
 export const Navbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  const lastScrollY = useRef(0);
+  const { scrollY } = useScroll();
   const [visible, setVisible] = useState<boolean>(false);
+  const [hidden, setHidden] = useState<boolean>(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 100) {
-      setVisible(true);
-    } else {
+    const prev = lastScrollY.current;
+    lastScrollY.current = latest;
+
+    if (latest < SCROLL_THRESHOLD) {
+      setHidden(false);
       setVisible(false);
+      return;
+    }
+
+    setVisible(true);
+
+    if (latest > prev + SCROLL_HIDE_DELTA) {
+      setHidden(true);
+    } else if (latest < prev - SCROLL_HIDE_DELTA) {
+      setHidden(false);
     }
   });
 
@@ -73,6 +86,8 @@ export const Navbar = ({ children, className }: NavbarProps) => {
     <motion.div
       ref={ref}
       className={cn("fixed inset-x-0 top-0 z-[9999] w-full", className)}
+      animate={{ y: hidden ? "-100px" : 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)

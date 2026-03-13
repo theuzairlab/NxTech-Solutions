@@ -153,6 +153,28 @@
   }
 }
 
+/* Service card overlay animations */
+@keyframes svc-node-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+@keyframes svc-cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes svc-badge-pop {
+  0% { opacity: 0; transform: scale(0.7) translateY(-8px); }
+  70% { transform: scale(1.05) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes svc-bar-fill {
+  from { height: 0; }
+  to { height: var(--bar-height, 80%); }
+}
+
 /* Testimonials marquee - CSS-only, no JS RAF */
 @keyframes testimonial-scroll-left {
   0% { transform: translateX(0); }

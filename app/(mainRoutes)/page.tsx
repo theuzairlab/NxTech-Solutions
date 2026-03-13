@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/hero-section";
 import { CoreServicesGrid } from "@/components/sections/core-services-grid";
 import { prisma } from "@/lib/prisma";
-
 const HowWeBuild = dynamic(() =>
   import("@/components/sections/how-we-build").then((m) => ({ default: m.HowWeBuild }))
 );

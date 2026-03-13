@@ -11,165 +11,226 @@ import {
   CheckCircle,
   ArrowRight,
 } from "lucide-react";
+import Link from "next/link";
+import { motion } from "motion/react";
+import { Timeline } from "@/components/ui/timeline";
 
-const LEFT_STEPS = [
-  { step: 1, label: "Traffic", desc: "Inbound visitors & ads", icon: TrafficCone },
-  { step: 2, label: "Landing Page", desc: "Capture with forms", icon: FileText },
-  { step: 3, label: "CRM", desc: "Centralized lead data", icon: Database },
-  { step: 4, label: "AI Call", desc: "Instant qualification", icon: Phone },
-];
+const STEPS = [
+  {
+    step: 1,
+    label: "Traffic Generation",
+    desc: "Inbound visitors & targeted ad campaigns drive qualified prospects straight into your funnel.",
+    icon: TrafficCone,
+    phase: "Acquisition",
+    metric: { value: "10K+", label: "Monthly visitors" },
+    progress: 82,
+    color: "#00b4d8",
+  },
+  {
+    step: 2,
+    label: "Landing Page Capture",
+    desc: "High-converting pages with optimized forms and compelling CTAs capture lead information instantly.",
+    icon: FileText,
+    phase: "Acquisition",
+    metric: { value: "38%", label: "Conversion rate" },
+    progress: 68,
+    color: "#0891b2",
+  },
+  {
+    step: 3,
+    label: "CRM Integration",
+    desc: "Lead data flows into your centralized CRM — organized, tagged, and ready for AI processing.",
+    icon: Database,
+    phase: "Acquisition",
+    metric: { value: "< 2s", label: "Sync time" },
+    progress: 95,
+    color: "#6366f1",
+  },
+  {
+    step: 4,
+    label: "AI Qualification Call",
+    desc: "AI instantly calls and qualifies leads, filtering out tire-kickers and surfacing high-intent prospects.",
+    icon: Phone,
+    phase: "Acquisition",
+    metric: { value: "< 30s", label: "Response time" },
+    progress: 90,
+    color: "#7c3aed",
+  },
+  {
+    step: 5,
+    label: "Follow-up Automation",
+    desc: "Multi-channel sequences — email, SMS, and WhatsApp — nurture leads until they're sales-ready.",
+    icon: Mail,
+    phase: "Conversion",
+    metric: { value: "7x", label: "Touch points" },
+    progress: 75,
+    color: "#8b5cf6",
+  },
+  {
+    step: 6,
+    label: "Hot Lead Scoring",
+    desc: "AI scores and prioritizes every lead based on behavior, engagement, and buying signals.",
+    icon: Tag,
+    phase: "Conversion",
+    metric: { value: "95%", label: "Accuracy" },
+    progress: 95,
+    color: "#a855f7",
+  },
+  {
+    step: 7,
+    label: "Calendar Booking",
+    desc: "Qualified prospects self-schedule directly into your sales team's calendar — zero friction.",
+    icon: Calendar,
+    phase: "Conversion",
+    metric: { value: "24/7", label: "Availability" },
+    progress: 100,
+    color: "#059669",
+  },
+  {
+    step: 8,
+    label: "Sales Close",
+    desc: "Warm, pre-qualified appointments convert into paying clients at significantly higher close rates.",
+    icon: CheckCircle,
+    phase: "Conversion",
+    metric: { value: "3.2x", label: "ROI achieved" },
+    progress: 88,
+    color: "#10b981",
+  },
+] as const;
 
-const RIGHT_STEPS = [
-  { step: 5, label: "Follow-up Automation", desc: "Email & SMS sequences", icon: Mail },
-  { step: 6, label: "Hot Lead Tag", desc: "Score & prioritize", icon: Tag },
-  { step: 7, label: "Calendar Booking", desc: "Self-serve scheduling", icon: Calendar },
-  { step: 8, label: "Sales Close", desc: "Booked appointment → deal", icon: CheckCircle },
-];
+function StepContent({ step }: { step: (typeof STEPS)[number] }) {
+  const Icon = step.icon;
+
+  return (
+    <div
+      className="group rounded-2xl border bg-white/95 p-4 shadow-lg shadow-black/4 backdrop-blur-sm transition-all duration-300 hover:shadow-xl sm:p-6"
+      style={{ borderColor: `${step.color}30` }}
+    >
+      {/* Phase badge */}
+      <span
+        className="mb-4 inline-flex items-center rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest"
+        style={{
+          color: step.color,
+          backgroundColor: `${step.color}12`,
+          border: `1px solid ${step.color}25`,
+        }}
+      >
+        {step.phase} &middot; Step {String(step.step).padStart(2, "0")}
+      </span>
+
+      {/* Header */}
+      <div className="mb-4 flex items-center gap-4">
+        <div
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl shadow-md transition-transform duration-300 group-hover:scale-110"
+          style={{ backgroundColor: step.color }}
+        >
+          <Icon className="h-6 w-6 text-white" />
+        </div>
+        <h4 className="text-base font-bold leading-snug text-foreground sm:text-xl">
+          {step.label}
+        </h4>
+      </div>
+
+      {/* Description */}
+      <p className="mb-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
+        {step.desc}
+      </p>
+
+      {/* Metric + progress bar */}
+      <div
+        className="rounded-xl px-4 py-3.5"
+        style={{ backgroundColor: `${step.color}08` }}
+      >
+        <div className="mb-2 flex items-baseline justify-between">
+          <div className="flex items-baseline gap-2">
+            <span className="text-2xl font-bold" style={{ color: step.color }}>
+              {step.metric.value}
+            </span>
+            <span className="text-sm text-muted-foreground">
+              {step.metric.label}
+            </span>
+          </div>
+          <span className="text-xs font-semibold" style={{ color: step.color }}>
+            {step.progress}%
+          </span>
+        </div>
+        <div className="h-2 overflow-hidden rounded-full bg-black/5">
+          <motion.div
+            className="h-full rounded-full"
+            style={{ backgroundColor: step.color }}
+            initial={{ width: "0%" }}
+            whileInView={{ width: `${step.progress}%` }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function AIWorkflowVisual() {
+  const timelineData = STEPS.map((step) => ({
+    title: step.label,
+    color: step.color,
+    content: <StepContent step={step} />,
+  }));
+
   return (
-    <section className="relative py-24 overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#eef4ff] via-white to-[#d5e6ff] z-9">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-24 left-10 w-[520px] h-[520px] bg-primary/15 blur-3xl" />
-        <div className="absolute bottom-[-200px] right-[-120px] w-[620px] h-[620px] bg-primary/12 blur-3xl" />
+    <section
+      className="relative overflow-hidden py-20 pt-0"
+      style={{
+        background:
+          "linear-gradient(180deg, #eef4ff 0%, #ffffff 35%, #ffffff 65%, #d5e6ff 100%)",
+      }}
+    >
+      {/* Background blobs */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-24 left-10 h-[280px] w-[280px] rounded-full bg-primary/10 blur-3xl sm:h-[520px] sm:w-[520px]" />
+        <div className="absolute bottom-[-200px] right-[-120px] h-[320px] w-[320px] rounded-full bg-indigo-400/8 blur-3xl sm:h-[620px] sm:w-[620px]" />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">
-            <span className="text-xs font-semibold tracking-[0.25em] text-primary">
-              AI PIPELINE
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="pt-16 pb-4 text-center sm:pt-24 lg:pt-32"
+        >
+          <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5">
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-primary">
+              AI Pipeline
             </span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-            <span className="bg-linear-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-              From Traffic to Revenue
-            </span>
+          <h2 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl md:text-5xl">
+            From Traffic to <span className="text-primary">Revenue</span>
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto">
-            See how we turn cold traffic into closed deals
+          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground/80 sm:text-lg">
+            See how we turn cold traffic into closed deals — step by step
           </p>
-        </div>
+        </motion.div>
 
-        {/* Two-column grid with visual flow */}
-        <div className="max-w-5xl mx-auto relative">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-6 lg:gap-16">
-            {/* Left column - Acquisition */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="h-px flex-1 bg-primary/30 rounded-full" />
-                <span className="text-xs font-bold uppercase tracking-widest text-primary/80">
-                  Acquisition
-                </span>
-                <div className="h-px flex-1 bg-primary/30 rounded-full" />
-              </div>
-              {LEFT_STEPS.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.step}
-                    className="group relative flex items-start gap-4 p-5 rounded-2xl bg-white/90 border-2 border-border/60 shadow-sm hover:shadow-lg hover:shadow-primary/5 hover:border-primary/30 transition-all duration-300"
-                  >
-                    <div className="flex flex-col items-center shrink-0">
-                      <span className="text-[10px] font-bold text-primary/70 mb-1">
-                        {String(item.step).padStart(2, "0")}
-                      </span>
-                      <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary/30 to-primary/10 flex items-center justify-center group-hover:scale-105 transition-transform">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-foreground mb-1">
-                        {item.label}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {item.desc}
-                      </p>
-                      {item.step < 4 && (
-                        <div className="mt-2 flex items-center gap-1 text-primary/60">
-                          <div className="h-0.5 w-8 bg-primary/40 rounded-full" />
-                          <span className="text-[10px] font-medium">↓</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+        {/* Timeline */}
+        <Timeline data={timelineData} />
 
-            {/* Right column - Conversion */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="h-px flex-1 bg-primary/30 rounded-full" />
-                <span className="text-xs font-bold uppercase tracking-widest text-primary/80">
-                  Conversion
-                </span>
-                <div className="h-px flex-1 bg-primary/30 rounded-full" />
-              </div>
-              {RIGHT_STEPS.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.step}
-                    className="group relative flex items-start gap-4 p-5 rounded-2xl bg-white/90 border-2 border-border/60 shadow-sm hover:shadow-lg hover:shadow-primary/5 hover:border-primary/30 transition-all duration-300"
-                  >
-                    <div className="flex flex-col items-center shrink-0">
-                      <span className="text-[10px] font-bold text-primary/70 mb-1">
-                        {String(item.step).padStart(2, "0")}
-                      </span>
-                      <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary/30 to-primary/10 flex items-center justify-center group-hover:scale-105 transition-transform">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-foreground mb-1">
-                        {item.label}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {item.desc}
-                      </p>
-                      {item.step < 8 && (
-                        <div className="mt-2 flex items-center gap-1 text-primary/60">
-                          <div className="h-0.5 w-8 bg-primary/40 rounded-full" />
-                          <span className="text-[10px] font-medium">↓</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Center connector - visible on desktop, between columns */}
-          <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center pointer-events-none z-10">
-            <div className="w-12 h-12 rounded-full bg-white border-2 border-primary/40 shadow-lg flex items-center justify-center">
-              <ArrowRight className="h-5 w-5 text-primary" />
-            </div>
-            <span className="text-[9px] font-semibold text-primary/70 mt-1 uppercase tracking-wider">
-              Flow
-            </span>
-          </div>
-        </div>
-
-        {/* Visual flow bar - bottom */}
-        <div className="mt-12 max-w-3xl mx-auto">
-          <div className="flex items-center justify-center gap-2 overflow-x-auto py-3">
-            <span className="text-[10px] font-semibold text-muted-foreground shrink-0">Pipeline:</span>
-            <div className="flex items-center gap-2 flex-wrap justify-center">
-              {[...LEFT_STEPS, ...RIGHT_STEPS].map((s, i) => (
-                <span key={s.label} className="flex items-center gap-1.5">
-                  <span className="px-2 py-1 rounded-md bg-primary/10 text-[10px] font-medium text-primary">
-                    {s.step}
-                  </span>
-                  {i < 7 && (
-                    <span className="text-primary/40 text-xs hidden sm:inline">→</span>
-                  )}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* Bottom CTA */}
+        {/* <motion.div
+          className="pb-24 text-center lg:pb-32"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <Link
+            href="/get-quote"
+            className="inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:gap-3"
+          >
+            Start Your AI Pipeline
+            <ArrowRight className="h-5 w-5 transition-transform duration-300" />
+          </Link>
+        </motion.div> */}
       </div>
     </section>
   );

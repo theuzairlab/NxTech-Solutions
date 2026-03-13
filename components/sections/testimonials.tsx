@@ -19,11 +19,11 @@ type TestimonialsProps = {
 
 function TestimonialCard({ testimonial }: { testimonial: TestimonialData }) {
   return (
-    <div className="group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 shrink-0 w-full sm:w-[380px]">
+    <div className="group relative p-5 sm:p-8 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 shrink-0 w-[280px] sm:w-[380px]">
       <div className="absolute top-6 right-6 opacity-10">
         <Quote className="h-16 w-16 text-primary" />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300" />
       <div className="relative z-10">
         <div className="flex gap-1 mb-4">
           {[...Array(testimonial.rating)].map((_, i) => (
@@ -33,7 +33,7 @@ function TestimonialCard({ testimonial }: { testimonial: TestimonialData }) {
             />
           ))}
         </div>
-        <p className="text-muted-foreground mb-6 leading-relaxed text-lg">
+        <p className="text-muted-foreground mb-6 leading-relaxed text-sm sm:text-lg">
           "{testimonial.content}"
         </p>
         <div className="flex items-center gap-4">
@@ -64,7 +64,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
   const duplicated = [...testimonials, ...testimonials];
 
   return (
-    <section className="py-24 relative overflow-hidden -mt-32 pt-40 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-linear-to-b from-[#f5f5ff] via-white to-[#e6e6ff] z-6">
+    <section className="py-16 sm:py-24 relative overflow-hidden bg-linear-to-b from-[#f5f5ff] via-white to-[#e6e6ff]">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 left-1/3 w-[420px] h-[420px] bg-primary/12 blur-3xl" />
         <div className="absolute bottom-[-200px] right-[-120px] w-[520px] h-[520px] bg-primary/10 blur-3xl" />
@@ -76,8 +76,8 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur">
             <span className="text-xs font-semibold tracking-[0.25em] text-primary">TESTIMONIALS</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
-            <span className="bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+            <span className="bg-linear-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
               Client Testimonials
             </span>
           </h2>
@@ -87,9 +87,9 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
         </div>
 
         {/* CSS-only marquee - no RAF, offloads to compositor. Pause on hover. */}
-        <div className="mb-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] group/testimonial-top">
+        <div className="mb-6 overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] group/testimonial-top">
           <div
-            className="flex gap-6 w-max will-change-transform group-hover/testimonial-top:[animation-play-state:paused]"
+            className="flex gap-6 w-max will-change-transform group-hover/testimonial-top:paused"
             style={{ animation: "testimonial-scroll-left 45s linear infinite" }}
           >
             {duplicated.map((t, i) => (
@@ -97,9 +97,9 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
             ))}
           </div>
         </div>
-        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] group/testimonial-bottom">
+        <div className="overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] group/testimonial-bottom">
           <div
-            className="flex gap-6 w-max will-change-transform group-hover/testimonial-bottom:[animation-play-state:paused]"
+            className="flex gap-6 w-max will-change-transform group-hover/testimonial-bottom:paused"
             style={{ animation: "testimonial-scroll-right 45s linear infinite" }}
           >
             {duplicated.map((t, i) => (
