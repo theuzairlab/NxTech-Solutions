@@ -343,13 +343,13 @@ export function HeroSection() {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 min-h-0 p-4 sm:p-5 flex flex-col gap-4">
+                <div className="flex-1 min-h-0 p-4 sm:p-5 flex flex-col gap-4 min-w-[560px] sm:max-w-[420px] aspect-square md:max-w-[480px]">
                   {isContactTab ? (
                     /* 2-column grid: form left | stat cards right — mirrors dashboard layout */
-                    <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 md:grid-cols-2">
+                    <div className="grid min-h-0">
 
                       {/* LEFT — form */}
-                      <div className="flex flex-col gap-2 min-h-0">
+                      <div className="flex flex-col gap-2 min-h-0 overflow-y-auto overscroll-contain">
                         <div>
                           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                             Get in touch
@@ -359,7 +359,7 @@ export function HeroSection() {
                           </p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-2 flex-1">
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
                           <div className="space-y-1">
                             <label htmlFor="hero-name" className="text-[11px] font-medium text-white/80">
                               Name *
@@ -439,45 +439,7 @@ export function HeroSection() {
                       </div>
 
                       {/* RIGHT — stat cards (same column structure as dashboard) */}
-                      <div className="flex flex-col gap-3">
-                        {/* Card 1 */}
-                        <div className="rounded-2xl border border-white/12 bg-black/25 p-3 shadow-lg backdrop-blur-md">
-                          <p className="text-[11px] font-semibold text-white/80">Avg. pipeline growth</p>
-                          <p className="mt-1 text-3xl font-bold text-white leading-none">3.2x</p>
-                          <p className="mt-1 text-[10px] text-emerald-300">+210% vs last 90 days</p>
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="rounded-2xl border border-white/12 bg-black/25 p-3 shadow-lg backdrop-blur-md">
-                          <div className="flex items-center justify-between">
-                            <p className="text-[11px] font-semibold text-white/80">AI follow-up</p>
-                            <Zap className="h-4 w-4 text-primary" />
-                          </div>
-                          <p className="mt-1 text-3xl font-bold text-white leading-none">&lt; 30s</p>
-                          <p className="mt-1 text-[10px] text-white/60">Typical response time</p>
-                        </div>
-
-                        {/* Card 3 */}
-                        <div className="rounded-2xl border border-white/12 bg-black/25 p-3 shadow-lg backdrop-blur-md">
-                          <div className="flex items-center justify-between">
-                            <p className="text-[11px] font-semibold text-white/80">Clients served</p>
-                            <Users className="h-4 w-4 text-emerald-400" />
-                          </div>
-                          <p className="mt-1 text-3xl font-bold text-white leading-none">200+</p>
-                          <p className="mt-1 text-[10px] text-white/60">Across 12 industries</p>
-                        </div>
-
-                        {/* Card 4 — social proof tag */}
-                        <div className="rounded-2xl border border-white/12 bg-black/25 p-3 shadow-lg backdrop-blur-md">
-                          <div className="flex items-center gap-2">
-                            <Bot className="h-4 w-4 shrink-0 text-primary" />
-                            <p className="text-[11px] font-semibold text-white/80">24/7 Automation</p>
-                          </div>
-                          <p className="mt-1 text-[10px] text-white/60 leading-snug">
-                            AI runs your pipeline even while you sleep.
-                          </p>
-                        </div>
-                      </div>
+                      
                     </div>
                   ) : (
                     /* Dashboard tab: service slider with mirror/blur glass */
