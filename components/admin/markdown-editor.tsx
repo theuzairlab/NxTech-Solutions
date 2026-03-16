@@ -40,18 +40,26 @@ export function MarkdownEditor({
 }: MarkdownEditorProps) {
   const [showPreview, setShowPreview] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Auto-resize textarea to grow with content (so parent can scroll)
   useEffect(() => {
     const textarea = textareaRef.current;
+    const container = containerRef.current;
+    const prevScrollTop = container?.scrollTop ?? 0;
+
     if (textarea && !showPreview) {
       textarea.style.height = 'auto';
       textarea.style.height = `${Math.max(textarea.scrollHeight, 500)}px`;
     }
+
+    if (container) {
+      container.scrollTop = prevScrollTop;
+    }
   }, [value, showPreview]);
 
   const insertText = (before: string, after: string = "", placeholder: string = "") => {
-    const textarea = document.getElementById("markdown-content") as HTMLTextAreaElement;
+    const textarea = textareaRef.current;
     if (!textarea) return;
 
     const start = textarea.selectionStart;
@@ -62,30 +70,39 @@ export function MarkdownEditor({
     const newValue =
       value.substring(0, start) + before + textToInsert + after + value.substring(end);
 
+    const container = containerRef.current;
+    const prevScrollTop = container?.scrollTop ?? 0;
+
     onChange(newValue);
 
     // Set cursor position after inserted text
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       textarea.focus();
       const newCursorPos = start + before.length + textToInsert.length;
       textarea.setSelectionRange(newCursorPos, newCursorPos);
-    }, 0);
+      if (container) container.scrollTop = prevScrollTop;
+    });
   };
 
   const insertAtStart = (text: string) => {
-    const textarea = document.getElementById("markdown-content") as HTMLTextAreaElement;
+    const textarea = textareaRef.current;
     if (!textarea) return;
 
     const lines = value.split("\n");
     const cursorLine = value.substring(0, textarea.selectionStart).split("\n").length - 1;
     lines[cursorLine] = text + lines[cursorLine];
-    onChange(lines.join("\n"));
+    const newValue = lines.join("\n");
+    const container = containerRef.current;
+    const prevScrollTop = container?.scrollTop ?? 0;
 
-    setTimeout(() => {
+    onChange(newValue);
+
+    requestAnimationFrame(() => {
       textarea.focus();
       const newPos = textarea.selectionStart + text.length;
       textarea.setSelectionRange(newPos, newPos);
-    }, 0);
+      if (container) container.scrollTop = prevScrollTop;
+    });
   };
 
   const toolbarButtons = [
@@ -140,7 +157,7 @@ export function MarkdownEditor({
       icon: Code,
       label: "Code Block",
       onClick: () => {
-        const textarea = document.getElementById("markdown-content") as HTMLTextAreaElement;
+        const textarea = textareaRef.current;
         if (!textarea) return;
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
@@ -149,12 +166,16 @@ export function MarkdownEditor({
           ? `\`\`\`\n${selectedText}\n\`\`\``
           : "```\ncode here\n```";
         const newValue = value.substring(0, start) + codeBlock + value.substring(end);
+        const container = containerRef.current;
+        const prevScrollTop = container?.scrollTop ?? 0;
+
         onChange(newValue);
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           textarea.focus();
           const newPos = selectedText ? start + codeBlock.length : start + 4;
           textarea.setSelectionRange(newPos, newPos);
-        }, 0);
+          if (container) container.scrollTop = prevScrollTop;
+        });
       },
     },
     { separator: true },
@@ -172,16 +193,20 @@ export function MarkdownEditor({
       icon: Minus,
       label: "Horizontal Rule",
       onClick: () => {
-        const textarea = document.getElementById("markdown-content") as HTMLTextAreaElement;
+        const textarea = textareaRef.current;
         if (!textarea) return;
         const start = textarea.selectionStart;
         const newValue = value.substring(0, start) + "\n---\n" + value.substring(start);
+        const container = containerRef.current;
+        const prevScrollTop = container?.scrollTop ?? 0;
+
         onChange(newValue);
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           textarea.focus();
           const newPos = start + 5;
           textarea.setSelectionRange(newPos, newPos);
-        }, 0);
+          if (container) container.scrollTop = prevScrollTop;
+        });
       },
     },
   ];
@@ -193,7 +218,10 @@ export function MarkdownEditor({
           {label} {required && <span className="text-red-500">*</span>}
         </Label>
       )}
-      <div className="border border-border rounded-lg max-h-[800px] flex flex-col overflow-y-auto bg-background">
+      <div
+        ref={containerRef}
+        className="border border-border rounded-lg max-h-[800px] flex flex-col overflow-y-auto bg-background"
+      >
         {/* Toolbar - Sticky */}
         <div className="sticky top-0 z-20 flex items-center gap-1 p-2 bg-background border-b border-border flex-wrap shadow-sm">
           {toolbarButtons.map((btn, idx) => {
@@ -304,11 +332,19 @@ export function MarkdownEditor({
               required={required}
               value={value}
               onChange={(e) => {
+                const container = containerRef.current;
+                const prevScrollTop = container?.scrollTop ?? 0;
+
                 onChange(e.target.value);
+
                 // Auto-resize on change
                 const target = e.target;
                 target.style.height = 'auto';
                 target.style.height = `${Math.max(target.scrollHeight, 500)}px`;
+
+                if (container) {
+                  container.scrollTop = prevScrollTop;
+                }
               }}
               className="h-full overflow-hidden font-mono text-sm resize-none border-0 focus-visible:ring-0 rounded-none w-full bg-background"
               style={{ 
