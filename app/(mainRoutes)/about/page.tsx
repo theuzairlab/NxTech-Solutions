@@ -65,9 +65,9 @@ export default async function About() {
       <OurStory />
       <LeadershipTeam />
       <OurProcess />
-      <Achievements achievements={achievements} certifications={certifications} />
+      {/* <Achievements achievements={achievements} certifications={certifications} /> */}
       <CompanyCulture />
-      <CTABanner />
+      <CTABanner title={`Partner with Experts Who Turn Strategy Into Scalable Revenue Systems`} />
     </div>
   );
 }

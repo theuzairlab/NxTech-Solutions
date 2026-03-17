@@ -6,7 +6,9 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { CalendlyModal } from "@/components/ui/calendly-modal";
 import { WavyBackground } from "../ui/wavy-background";
 
-export function CTABanner() {
+const DEFAULT_TITLE = "Ready to Turn Your Business Into a Scalable AI Growth Engine?";
+
+export function CTABanner({ title = DEFAULT_TITLE }: { title?: string }) {
   const [showCalendlyModal, setShowCalendlyModal] = useState(false);
 
   return (
@@ -20,7 +22,7 @@ export function CTABanner() {
           speed="slow"
         >
           <h2 className="mb-6 text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
-            Ready to Turn Your Business Into a Scalable AI Growth Engine?
+            {title}
           </h2>
 
           <div className="flex justify-center">

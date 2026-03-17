@@ -10,7 +10,6 @@ import {
   CheckCircle2,
   Code2,
 } from "lucide-react";
-import Link from "next/link";
 import { motion, useScroll, useTransform } from "motion/react";
 
 const STEPS = [

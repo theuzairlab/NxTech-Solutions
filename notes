@@ -1,132 +1,76 @@
-"use client";
 
-import Image from "next/image";
-import { ArrowRight, MapPin, Ruler, Clock, Brain, Code, Megaphone, Smartphone } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+- about page our process
+- home page services make it visualise remove extra Images
+- services remove extra raita
+- fix contact page some issues
 
-const CORE_SERVICES = [
-  {
-    slug: "ai-automation-marketing",
-    title: "AI Marketing & Business Automation",
-    badge: "AI Marketing",
-    icon: <Brain className="w-6 h-6 text-primary" />,
-    description:
-      "We design AI-driven lead generation and follow-up systems that instantly respond, qualify, and book appointments automatically.",
-    details: [
-      { icon: MapPin, label: "AI Voice Calling", value: "Instant qualification" },
-      { icon: Ruler, label: "CRM Automation", value: "Seamless workflows" },
-      { icon: Clock, label: "Lead Scoring", value: "Smart prioritization" },
-    ],
-    image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2006&auto=format&fit=crop",
-    imagePosition: "left" as const,
-  },
-  {
-    slug: "web-development",
-    title: "Web Development",
-    badge: "Web Development",
-    icon: <Code className="w-6 h-6 text-primary" />,
-    description:
-      "High-performance websites engineered to convert visitors into leads and revenue. Conversion-focused UX, speed optimized, CRM integrated.",
-    details: [
-      { icon: MapPin, label: "Conversion UX", value: "Built to convert" },
-      { icon: Ruler, label: "Speed optimized", value: "Fast loading" },
-      { icon: Clock, label: "Analytics ready", value: "Data-driven" },
-    ],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-    imagePosition: "right" as const,
-  },
-  {
-    slug: "app-development",
-    title: "App Development",
-    badge: "App Development",
-    icon: <Smartphone className="w-6 h-6 text-primary" />,
-    description:
-      "Scalable mobile and web applications built for growth, performance, and seamless user experience.",
-    details: [
-      { icon: MapPin, label: "MVP Development", value: "Fast to market" },
-      { icon: Ruler, label: "SaaS Platforms", value: "Scalable architecture" },
-      { icon: Clock, label: "Payment Integration", value: "Revenue ready" },
-    ],
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop",
-    imagePosition: "left" as const,
-  },
-  {
-    slug: "digital-marketing",
-    title: "Digital Marketing",
-    badge: "Digital Marketing",
-    icon: <Megaphone className="w-6 h-6 text-primary" />,
-    description:
-      "Performance-driven paid advertising and funnel optimization designed to generate measurable ROI.",
-    details: [
-      { icon: MapPin, label: "Meta & Google Ads", value: "Paid acquisition" },
-      { icon: Ruler, label: "LinkedIn Ads", value: "B2B targeting" },
-      { icon: Clock, label: "Retargeting", value: "Win back visitors" },
-    ],
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format",
-    imagePosition: "right" as const,
-  },
-];
 
-export function CoreServicesGrid() {
-  return (
-    <section className="relative py-24 overflow-hidden bg-linear-to-b from-[#e7f9ff] via-white to-[#c9f2ff]">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-24 -left-16 w-96 h-96 bg-primary/15 blur-3xl" />
-        <div className="absolute -bottom-20 right-10 w-[480px] h-[480px] bg-primary/10 blur-3xl" />
-      </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 space-y-4">
-          <div className="h-px w-16 bg-primary/30 mx-auto mb-2" />
-          <p className="text-sm font-medium tracking-wider text-primary/80">
-            — Core Services
-          </p>
-          <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-            <span className="text-foreground">Our </span>
-            <span className="text-primary">Core Services</span>
-          </h2>
-          <p className="text-lg text-muted-foreground/90 max-w-2xl mx-auto">
-            Automation. Development. Performance Marketing.
-          </p>
-        </div>
 
-        <div className="space-y-12 sm:space-y-16 max-w-6xl mx-auto">
-          {CORE_SERVICES.map((service) => {
-            return (
-              <div key={service.slug}>
-                <div className="flex flex-col md:flex-row gap-8 border border-primary/10 rounded-xl p-6 bg-card/90">
-                  <div>
-                    <Image src={service.image} alt={service.title} width={500} height={500} />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      {service.icon}
-                      <span className="text-sm font-medium tracking-wider text-primary/80">{service.badge}</span>
-                    </div>
-                    <h3 className="text-2xl font-bold">{service.title}</h3>
-                    <p className="text-lg text-muted-foreground/90">{service.description}</p>
-                    <div className="flex items-center gap-2">
-                      {service.details.map((detail) => (
-                        <div key={detail.label} className="flex items-center gap-2">
-                          <detail.icon className="w-4 h-4 text-primary" />
-                          <span className="text-sm font-bold tracking-wider text-foreground">{detail.value}</span>
-                          <span className="text-sm font-medium tracking-wider text-muted-foreground/90">: {detail.label}</span>
+
+
+========================================
+
+{/* Vertical Timeline */}
+        <div className="relative">
+          {/* Vertical Dotted Line */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 hidden lg:block">
+            <div className="absolute inset-0 border-l-2 border-dashed border-primary/30"></div>
+          </div>
+
+          {/* Process Steps */}
+          <div className="space-y-12 lg:space-y-16">
+            {processSteps.map((process, index) => {
+              const Icon = process.icon;
+              const isEven = index % 2 === 0;
+              const isLast = index === processSteps.length - 1;
+
+              return (
+                <div key={index} className="relative">
+                  {/* Connection Point Circle */}
+                  <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-primary border-2 border-white shadow-lg z-10"></div>
+
+                  {/* Step Content */}
+                  <div className={`flex flex-col lg:flex-row items-center gap-6 lg:gap-8 ${isEven ? 'lg:flex-row-reverse' : ''}`}>
+                    {/* Step Number */}
+                    <div className={`w-full lg:w-1/2 flex ${isEven ? 'lg:justify-end' : 'lg:justify-start'}`}>
+                      <div className={isEven ? 'text-right lg:text-right' : 'text-right lg:text-left'}>
+                        <div className="text-3xl sm:text-7xl font-bold text-primary mb-2">
+                          STEP {process.step}
                         </div>
-                      ))}
+                      </div>
                     </div>
-                    <Link href={`/services/${service.slug}`} className="flex items-center">
-                      <span className="text-sm font-medium">Learn more</span>
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
 
-      </div>
-    </section>
-  );
-}
+                    {/* Step Card */}
+                    <div className={`w-full lg:w-1/2 ${isEven ? 'lg:pr-8' : 'lg:pl-8'}`}>
+                      <div className={`relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 bg-gradient-to-br ${process.color} shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300`}>
+                        {/* Content Layout */}
+                        <div className={`flex flex-col sm:flex-row items-center gap-6 ${isEven ? 'sm:flex-row-reverse' : ''}`}>
+                          {/* Icon Container */}
+                          <div className="flex-shrink-0">
+                            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                              <Icon className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
+                            </div>
+                          </div>
+
+                          {/* Text Content */}
+                          <div className="flex-1 text-center sm:text-left">
+                            <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                              {process.title}
+                            </h3>
+                            <p className="text-white/90 text-sm sm:text-base leading-relaxed">
+                              {process.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Spacer for last item */}
+                  {isLast && <div className="h-8"></div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>

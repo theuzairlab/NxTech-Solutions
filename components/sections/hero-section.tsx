@@ -2,7 +2,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { ParticlesBackground } from "@/components/ui/particles-background";
 
 const DASHBOARD_SLIDES = [
   {
@@ -202,18 +202,10 @@ export function HeroSection() {
   }, [activeTab, isDashboardPaused]);
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden">
-      {/* Background Image - hero.jpg for LCP optimization */}
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-background">
+      {/* Particle + grid background */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/hero3.jpg"
-          alt=""
-          fill
-          priority
-          fetchPriority="high"
-          className="object-cover object-center"
-          sizes="100vw"
-        />
+        <ParticlesBackground />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 pb-16 pt-24 sm:px-6 sm:pt-28 sm:pb-20 lg:py-28">
@@ -231,16 +223,16 @@ export function HeroSection() {
             className="flex-1 max-w-xl lg:max-w-2xl"
           >
 
-            <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl">
-            <span className="block">We Build</span>
-            <span className="block">AI Powered</span>
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl xl:text-6xl">
+              <span className="block">We Build</span>
+              <span className="block">AI Powered</span>
               <span className="block lg:inline">Growth Systems</span>
               <span className="mt-2 block text-primary">
                 That Turn Traffic Into Revenue
               </span>
             </h1>
 
-            <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
               {process.env.NEXT_PUBLIC_SITE_NAME} builds AI-powered systems that
               automate lead generation and convert prospects into paying
               clients.
@@ -258,17 +250,23 @@ export function HeroSection() {
                 onClick={() => setShowCalendlyModal(true)}
               >
                 Get Free Consultation
-                <ArrowRight size={36} className="bg-white relative left-2 text-primary/80 rounded-full size-10 transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight
+                  size={36}
+                  className="bg-white relative left-2 text-primary/80 rounded-full size-10 transition-transform group-hover:translate-x-0.5"
+                />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 asChild
-                className="cursor-pointer rounded-full border-2 border-primary/40 bg-transparent px-10 py-6 text-base sm:text-lg hover:border-primary hover:bg-primary/5"
+                className="cursor-pointer rounded-full border-2 border-primary/40 bg-white/80 hover:bg-white/90 hover:text-primary px-10 py-6 text-base sm:text-lg hover:border-primary "
               >
-                <Link href="/services" className="flex items-center text-white">
+                <Link href="/services" className="flex items-center text-primary">
                   Explore Services
-                  <ArrowRight size={36} className="bg-white relative left-2 text-primary/80 rounded-full size-10 transition-transform translate-x-1 -rotate-45 group-hover:translate-x-0.5" />
+                  <ArrowRight
+                    size={36}
+                    className="bg-primary/10 relative left-2 text-primary  rounded-full size-10 transition-transform translate-x-1 -rotate-45 group-hover:translate-x-0.5"
+                  />
                 </Link>
               </Button>
             </motion.div>
@@ -282,11 +280,11 @@ export function HeroSection() {
             className="mt-6 flex w-full justify-center lg:mt-0 lg:w-auto lg:justify-end"
           >
             <motion.div
-              className="relative mx-auto w-full max-w-[340px] rounded-3xl border border-white/15 bg-black/20 p-1.5 backdrop-blur-2xl sm:max-w-[420px] aspect-square md:max-w-[480px] lg:max-w-[560px]"
+              className="relative mx-auto w-full max-w-[340px] rounded-3xl border border-primary/15 bg-white/80 p-1.5 backdrop-blur-2xl sm:max-w-[420px] aspect-square md:max-w-[480px] lg:max-w-[560px]"
               style={{
                 maxWidth: "560px",
                 boxShadow:
-                  "0 25px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.1) inset",
+                  "0 25px 80px rgba(15,23,42,0.35), 0 0 0 1px rgba(148,163,184,0.3) inset",
               }}
               animate={{ y: [0, -10, 0] }}
               transition={{
@@ -301,11 +299,11 @@ export function HeroSection() {
               {/* <div className="pointer-events-none absolute -inset-px rounded-[28px] bg-linear-to-br from-primary/80 via-primary/50 to-transparent opacity-70 blur-sm" />
               <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-linear-to-t from-white/80 to-transparent" /> */}
 
-              <div className="relative h-full rounded-[22px] bg-black/35 backdrop-blur-xl text-white flex flex-col overflow-hidden">
+              <div className="relative h-full rounded-[22px] bg-white/95 backdrop-blur-xl text-foreground flex flex-col overflow-hidden">
                 {/* Tabs header */}
-                <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 backdrop-blur">
-                    <span className="text-[11px] font-medium text-white/90">
+                <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-primary/5 px-3 py-1 backdrop-blur">
+                    <span className="text-[11px] font-medium text-foreground/80">
                       After NxTechNova
                     </span>
                     <span className="inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
@@ -314,14 +312,14 @@ export function HeroSection() {
                     </span>
                   </div>
 
-                  <div className="flex gap-1 rounded-full bg-white/10 p-1 text-xs backdrop-blur">
+                  <div className="flex gap-1 rounded-full bg-slate-100 p-1 text-xs backdrop-blur">
                     <button
                       type="button"
                       onClick={() => setActiveTab("contact")}
                       className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 transition-colors ${
                         isContactTab
-                          ? "bg-white/15 text-white shadow-sm"
-                          : "text-white/70 hover:text-white"
+                          ? "bg-white text-primary shadow-sm"
+                          : "text-slate-500 hover:text-primary"
                       }`}
                     >
                       <MessageCircle className="h-3.5 w-3.5" />
@@ -332,8 +330,8 @@ export function HeroSection() {
                       onClick={() => setActiveTab("dashboard")}
                       className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 transition-colors ${
                         !isContactTab
-                          ? "bg-white/15 text-white shadow-sm"
-                          : "text-white/70 hover:text-white"
+                          ? "bg-white text-primary shadow-sm"
+                          : "text-slate-500 hover:text-primary"
                       }`}
                     >
                       <TrendingUp className="h-3.5 w-3.5" />
@@ -354,14 +352,17 @@ export function HeroSection() {
                           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                             Get in touch
                           </p>
-                          <p className="mt-0.5 text-[11px] text-white/60 leading-snug">
+                          <p className="mt-0.5 text-[11px] text-muted-foreground leading-snug">
                             Tell us your growth goals — we reply within 24 h.
                           </p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
                           <div className="space-y-1">
-                            <label htmlFor="hero-name" className="text-[11px] font-medium text-white/80">
+                            <label
+                              htmlFor="hero-name"
+                              className="text-[11px] font-medium text-foreground/80"
+                            >
                               Name *
                             </label>
                             <input
@@ -371,13 +372,16 @@ export function HeroSection() {
                               required
                               value={formData.name}
                               onChange={handleInputChange}
-                              className="h-9 w-full rounded-xl border border-white/12 bg-black/25 px-3 text-[13px] text-white placeholder:text-white/40 outline-none transition-shadow focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/40"
+                              className="h-9 w-full rounded-xl border border-slate-200 bg-white px-3 text-[13px] text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25"
                               placeholder="Jane Doe"
                             />
                           </div>
 
                           <div className="space-y-1">
-                            <label htmlFor="hero-email" className="text-[11px] font-medium text-white/80">
+                            <label
+                              htmlFor="hero-email"
+                              className="text-[11px] font-medium text-foreground/80"
+                            >
                               Work email *
                             </label>
                             <input
@@ -387,13 +391,16 @@ export function HeroSection() {
                               required
                               value={formData.email}
                               onChange={handleInputChange}
-                              className="h-9 w-full rounded-xl border border-white/12 bg-black/25 px-3 text-[13px] text-white placeholder:text-white/40 outline-none transition-shadow focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/40"
+                              className="h-9 w-full rounded-xl border border-slate-200 bg-white px-3 text-[13px] text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25"
                               placeholder="you@company.com"
                             />
                           </div>
 
                           <div className="flex flex-col flex-1 space-y-1 min-h-0">
-                            <label htmlFor="hero-message" className="text-[11px] font-medium text-white/80">
+                            <label
+                              htmlFor="hero-message"
+                              className="text-[11px] font-medium text-foreground/80"
+                            >
                               What to improve? *
                             </label>
                             <textarea
@@ -402,7 +409,7 @@ export function HeroSection() {
                               required
                               value={formData.message}
                               onChange={handleInputChange}
-                              className="flex-1 min-h-0 w-full resize-none rounded-xl border border-white/12 bg-black/25 px-3 py-2 text-[13px] text-white placeholder:text-white/40 outline-none transition-shadow focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/40"
+                              className="flex-1 min-h-0 w-full resize-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-[13px] text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25"
                               placeholder="Automate lead follow-up, qualify demos…"
                             />
                           </div>
@@ -430,7 +437,7 @@ export function HeroSection() {
                             <motion.p
                               initial={{ opacity: 0, y: 4 }}
                               animate={{ opacity: 1, y: 0 }}
-                              className="text-[11px] font-medium text-emerald-300"
+                              className="text-[11px] font-medium text-emerald-600"
                             >
                               Message received. We&apos;ll reach out shortly.
                             </motion.p>
@@ -458,7 +465,7 @@ export function HeroSection() {
                                     duration: 0.5,
                                     ease: [0.32, 0.72, 0, 1],
                                   }}
-                                  className="space-y-3 text-white"
+                                  className="space-y-3 text-foreground"
                                 >
                                   <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary/90">
                                     {slide.serviceTitle}
@@ -467,12 +474,12 @@ export function HeroSection() {
                                   <div className="grid gap-3">
                                     {/* Row 1 */}
                                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                                      <div className="rounded-2xl border border-white/12 bg-black/25 p-3 shadow-lg backdrop-blur-md">
+                                      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-lg backdrop-blur-md">
                                         <div className="flex items-center justify-between">
-                                          <p className="text-[11px] font-semibold text-white">
+                                          <p className="text-[11px] font-semibold text-foreground">
                                             Campaigns on Track
                                           </p>
-                                          <span className="rounded-xl border border-white/10 bg-white/5 p-1.5">
+                                          <span className="rounded-xl border border-primary/10 bg-primary/5 p-1.5">
                                             <BarChart3 className="h-4 w-4 text-primary" />
                                           </span>
                                         </div>
@@ -480,17 +487,17 @@ export function HeroSection() {
                                           {slide.campaigns.map((item) => (
                                             <div
                                               key={item.name}
-                                              className="flex items-center justify-between rounded-xl border border-white/10 bg-black/20 px-2.5 py-2"
+                                              className="flex items-center justify-between rounded-xl border border-white/10 bg-primary/5 px-2.5 py-2"
                                             >
                                               <div className="min-w-0">
-                                                <p className="truncate text-[12px] font-semibold text-white">
+                                                <p className="truncate text-[12px] font-semibold text-foreground">
                                                   {item.name}
                                                 </p>
-                                                <p className="truncate text-[10px] text-white/60">
+                                                <p className="truncate text-[10px] text-muted-foreground">
                                                   {item.status}
                                                 </p>
                                               </div>
-                                              <span className="shrink-0 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+                                              <span className="shrink-0 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
                                                 {item.change}
                                               </span>
                                             </div>
@@ -498,21 +505,21 @@ export function HeroSection() {
                                         </div>
                                       </div>
 
-                                      <div className="relative overflow-hidden rounded-2xl border border-white/12 bg-black/25 p-3 shadow-lg backdrop-blur-md">
+                                      <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-lg backdrop-blur-md">
                                         <div className="flex items-start justify-between gap-2">
                                           <div className="text-center w-full">
-                                            <p className="text-[11px] text-white/70">
+                                            <p className="text-[11px] text-muted-foreground">
                                               {slide.chart.label}
                                             </p>
-                                            <p className="mt-1 text-3xl font-bold text-white">
+                                            <p className="mt-1 text-3xl font-bold text-foreground">
                                               {slide.chart.value}
                                             </p>
-                                            <span className="mt-2 inline-flex items-center justify-center rounded-full bg-primary/25 px-3 py-1 text-[10px] font-semibold text-white">
+                                            <span className="mt-2 inline-flex items-center justify-center rounded-full bg-primary/10 px-3 py-1 text-[10px] font-semibold text-primary">
                                               {slide.chart.badge}
                                             </span>
                                           </div>
-                                          <span className="rounded-xl border border-white/10 bg-white/5 p-1.5">
-                                            <BarChart3 className="h-4 w-4 text-white/80" />
+                                          <span className="rounded-xl border border-primary/10 bg-primary/5 p-1.5">
+                                            <BarChart3 className="h-4 w-4 text-primary" />
                                           </span>
                                         </div>
                                         {/* Line chart */}
@@ -544,19 +551,19 @@ export function HeroSection() {
 
                                     {/* Row 2 */}
                                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                                      <div className="rounded-2xl border border-white/12 bg-black/25 p-3 shadow-lg backdrop-blur-md">
+                                      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-lg backdrop-blur-md">
                                         <div className="flex items-start justify-between">
-                                          <p className="text-[13px] font-semibold text-white/80">
+                                          <p className="text-[13px] font-semibold text-foreground">
                                             Improved Engagement
                                           </p>
-                                          <span className="rounded-xl border border-white/10 bg-white/5 p-2">
-                                            <Users className="h-4 w-4 text-white/80" />
+                                          <span className="rounded-xl border border-primary/10 bg-primary/5 p-2">
+                                            <Users className="h-4 w-4 text-primary" />
                                           </span>
                                         </div>
-                                        <p className="mt-2 text-4xl font-bold text-white">
+                                        <p className="mt-2 text-4xl font-bold text-foreground">
                                           {slide.engagement.value}
                                         </p>
-                                        <p className="mt-2 text-[12px] text-emerald-300">
+                                        <p className="mt-2 text-[12px] text-emerald-700">
                                           {slide.engagement.delta}
                                         </p>
                                       </div>
@@ -567,13 +574,13 @@ export function HeroSection() {
                                           return (
                                             <div
                                               key={t.label}
-                                              className={`rounded-2xl border border-white/12 bg-linear-to-b ${t.tone} p-3 shadow-lg backdrop-blur-md`}
+                                              className={`rounded-2xl border border-slate-200 bg-linear-to-b ${t.tone} p-3 shadow-lg backdrop-blur-md`}
                                             >
                                               <div className="flex h-full flex-col items-center justify-center gap-2">
-                                                <div className="rounded-2xl bg-white/10 p-2">
-                                                  <Icon className="h-6 w-6 text-white" />
+                                                <div className="rounded-2xl bg-white p-2">
+                                                  <Icon className="h-6 w-6 text-primary" />
                                                 </div>
-                                                <p className="text-[10px] font-semibold text-white/80 text-center">
+                                                <p className="text-[10px] font-semibold text-muted-foreground text-center">
                                                   {t.label}
                                                 </p>
                                               </div>
@@ -585,24 +592,24 @@ export function HeroSection() {
 
                                     {/* Row 3 */}
                                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                                      <div className="rounded-2xl border border-white/12 bg-black/25 p-3 shadow-lg backdrop-blur-md">
+                                      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-lg backdrop-blur-md">
                                         <div className="flex items-center gap-2">
-                                          <div className="h-9 w-9 rounded-2xl bg-white/10" />
+                                          <div className="h-9 w-9 rounded-2xl bg-primary/5" />
                                           <div className="min-w-0">
-                                            <p className="text-[12px] font-semibold text-white">
+                                            <p className="text-[12px] font-semibold text-foreground">
                                               {slide.followUp.title}
                                             </p>
-                                            <p className="text-[10px] text-white/60">
+                                            <p className="text-[10px] text-muted-foreground">
                                               AI reply · Instant follow‑up
                                             </p>
                                           </div>
                                         </div>
-                                        <p className="mt-3 text-[11px] text-white/80 leading-relaxed">
+                                        <p className="mt-3 text-[11px] text-muted-foreground leading-relaxed">
                                           {slide.followUp.message}
                                         </p>
                                       </div>
 
-                                      <div className="flex items-center justify-between rounded-2xl border border-white/12 bg-black/25 p-3 shadow-lg backdrop-blur-md">
+                                      <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-lg backdrop-blur-md">
                                         {[
                                           { label: "YouTube", short: "YT" },
                                           { label: "Meta", short: "M" },
@@ -611,7 +618,7 @@ export function HeroSection() {
                                         ].map((s) => (
                                           <div
                                             key={s.label}
-                                            className="h-10 w-10 rounded-2xl border border-white/12 bg-white/10 text-white/85 flex items-center justify-center text-[11px] font-semibold"
+                                            className="h-10 w-10 rounded-2xl border border-primary/15 bg-white text-primary flex items-center justify-center text-[11px] font-semibold"
                                             title={s.label}
                                           >
                                             {s.short}
@@ -632,7 +639,7 @@ export function HeroSection() {
                           <button
                             type="button"
                             onClick={goPrevSlide}
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white/80 backdrop-blur transition hover:bg-white/15 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-muted-foreground backdrop-blur transition hover:bg-primary/5 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                             aria-label="Previous slide"
                           >
                             <ChevronLeft className="h-4 w-4" />
@@ -661,7 +668,7 @@ export function HeroSection() {
                           <button
                             type="button"
                             onClick={goNextSlide}
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white/80 backdrop-blur transition hover:bg-white/15 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-muted-foreground backdrop-blur transition hover:bg-primary/5 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                             aria-label="Next slide"
                           >
                             <ChevronRight className="h-4 w-4" />
@@ -669,7 +676,7 @@ export function HeroSection() {
                         </div>
                         <Link
                           href={`/services/${DASHBOARD_SLIDES[dashboardSlide].slug}`}
-                          className="text-[11px] font-medium text-white/80 hover:underline"
+                          className="text-[11px] font-medium text-primary hover:underline"
                         >
                           Explore {DASHBOARD_SLIDES[dashboardSlide].serviceTitle}
                           <ArrowRight className="ml-0.5 inline h-3 w-3" />
