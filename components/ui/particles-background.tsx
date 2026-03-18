@@ -78,7 +78,7 @@ export function ParticlesBackground() {
 
       {/* Subtle grid overlay */}
       <div
-        className="absolute inset-0 z-9999 opacity-100 bg-size-[30px_30px] sm:bg-size-[40px_40px] md:bg-size-[50px_50px]"
+        className="absolute inset-0 z-99 opacity-30 bg-size-[30px_30px] sm:bg-size-[40px_40px] md:bg-size-[50px_50px]"
         style={{
           backgroundImage: `
             linear-gradient(to right, rgba(0, 206, 209, 0.22) 1px, transparent 1px),

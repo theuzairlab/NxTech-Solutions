@@ -89,7 +89,7 @@ export default async function Services() {
     <div className="w-full">
       <ServicesHero />
       <AllServices services={mainServices} />
-      <AdditionalServices services={additionalServices} />
+      {/* <AdditionalServices services={additionalServices} /> */}
       <ServicesIndustries />
       <ServicesPortfolio portfolios={portfolios} />
       <GetQuoteForm />

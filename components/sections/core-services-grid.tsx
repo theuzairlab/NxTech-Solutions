@@ -1,400 +1,102 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useEffect, useState, useCallback } from "react";
-import {
-  ArrowRight,
-  Bot,
-  Globe,
-  Smartphone,
-  BarChart3,
-  Check,
-  Zap,
-  TrendingUp,
-  Users,
-  Star,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, Bot, Globe, Smartphone, BarChart3 } from "lucide-react";
 import Link from "next/link";
-import { motion, useInView } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 /* ───────────────────────── service data ─────────────────────── */
 
 const SERVICES = [
   {
     id: "ai-automation-marketing",
-    tabLabel: "AI Automation",
-    tag: "Always-on Revenue Engine",
+    tabLabel: "AI AUTOMATION",
     title: "AI Marketing & Business Automation",
     description:
-      "Build a growth system where AI captures, qualifies, and follows up with leads around the clock — while your team stays focused on closing high-intent prospects.",
-    bullets: [
-      "AI voice calling for instant lead qualification",
-      "CRM automation that runs 24/7 follow-up sequences",
-      "Smart lead scoring and pipeline routing",
-    ],
-    metrics: [
-      { icon: Zap, value: "< 30s", label: "Response" },
-      { icon: TrendingUp, value: "3.2x", label: "Pipeline" },
-      { icon: Users, value: "24/7", label: "Coverage" },
-    ],
-    mainImage:
-      "/hero1.jpg",
-    visualTopLeft:
-      "/abc.png",
-    visualTopRight:
-      "/abc.png",
-    visualBottom:
-      "/abc1.png",
+      "Always-on systems that capture, qualify, and follow up with leads 24/7—so your team focuses on closing high-intent prospects.",
+    cta: "Explore Service",
+    href: "/services/ai-automation-marketing",
+    image: "/hero1.jpg",
     icon: Bot,
-    accentClass: "text-primary",
-    accentBg: "bg-primary/10",
-    accentBorder: "border-primary/20",
-    checkBg: "bg-primary",
+    accentColor: "#7c3aed",
+    buttonBg: "bg-primary",
   },
   {
     id: "web-development",
-    tabLabel: "Web Dev",
-    tag: "Conversion-Focused Digital HQ",
+    tabLabel: "WEB DEVELOPMENT",
     title: "Web Development",
     description:
-      "High-performance websites engineered to turn visitors into leads and revenue — speed optimised, CRM integrated, built for measurable conversion growth.",
-    bullets: [
-      "Conversion-first UX and landing page architecture",
-      "Core Web Vitals and PageSpeed optimisation",
-      "Analytics, CRM, and booking system integration",
-    ],
-    metrics: [
-      { icon: Star, value: "90+", label: "PageSpeed" },
-      { icon: TrendingUp, value: "CRO-led", label: "UX Focus" },
-      { icon: Zap, value: "2–6 wks", label: "Launch" },
-    ],
-    mainImage:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&h=900&fit=crop&q=80",
-    visualTopLeft:
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&h=400&fit=crop&q=80",
-    visualTopRight:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop&q=80",
-    visualBottom:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop&q=80",
+      "High-performance websites engineered to turn visitors into leads—fast, conversion-first, and integrated with your CRM and analytics stack.",
+    cta: "Explore Service",
+    href: "/services/web-development",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=900&fit=crop&q=80",
     icon: Globe,
-    accentClass: "text-indigo-600",
-    accentBg: "bg-indigo-500/10",
-    accentBorder: "border-indigo-300/25",
-    checkBg: "bg-indigo-500",
+    accentColor: "#6366f1",
+    buttonBg: "bg-indigo-500",
   },
   {
     id: "app-development",
-    tabLabel: "App Dev",
-    tag: "Product Experiences People Keep Using",
+    tabLabel: "APP DEVELOPMENT",
     title: "App Development",
     description:
-      "Design and engineer robust mobile and web applications with product-led UX, scalable architecture, and revenue-ready integrations from day one.",
-    bullets: [
-      "MVP to production roadmap — fast time to market",
-      "Scalable SaaS architecture and infrastructure",
-      "Payments, auth, push notifications, and analytics",
-    ],
-    metrics: [
-      { icon: Zap, value: "14 days", label: "First Sprint" },
-      { icon: Star, value: "Prod-ready", label: "Quality" },
-      { icon: Users, value: "iOS + Web", label: "Platforms" },
-    ],
-    mainImage:
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1400&h=900&fit=crop&q=80",
-    visualTopLeft:
-      "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=600&h=400&fit=crop&q=80",
-    visualTopRight:
-      "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=600&h=400&fit=crop&q=80",
-    visualBottom:
-      "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop&q=80",
+      "Design and build robust mobile + web apps with product-led UX, scalable architecture, and revenue-ready integrations from day one.",
+    cta: "Explore Service",
+    href: "/services/app-development",
+    image:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1600&h=900&fit=crop&q=80",
     icon: Smartphone,
-    accentClass: "text-violet-600",
-    accentBg: "bg-violet-500/10",
-    accentBorder: "border-violet-300/25",
-    checkBg: "bg-violet-500",
+    accentColor: "#8b5cf6",
+    buttonBg: "bg-violet-500",
   },
   {
     id: "digital-marketing",
-    tabLabel: "Digital Marketing",
-    tag: "Performance Media With Measurable ROI",
+    tabLabel: "DIGITAL MARKETING",
     title: "Digital Marketing",
     description:
-      "Scale demand with paid media, retargeting, and funnel optimisation tuned by daily data — so ad spend stays efficient and outcomes remain predictable.",
-    bullets: [
-      "Meta and Google Ads with daily optimisation",
-      "LinkedIn B2B targeting for high-value pipeline",
-      "Retargeting funnels that win back warm visitors",
-    ],
-    metrics: [
-      { icon: TrendingUp, value: "200%+", label: "Leads" },
-      { icon: Zap, value: "Daily", label: "Optimisation" },
-      { icon: Star, value: "E2E", label: "Attribution" },
-    ],
-    mainImage:
-      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1400&auto=format&fit=crop",
-    visualTopLeft:
-      "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=600&h=400&fit=crop&q=80",
-    visualTopRight:
-      "https://images.unsplash.com/photo-1493612276216-ee3925520721?w=600&h=400&fit=crop&q=80",
-    visualBottom:
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&h=400&fit=crop&q=80",
+      "Scale demand with paid media, retargeting, and funnel optimization tuned by daily data—so ad spend stays efficient and outcomes predictable.",
+    cta: "Explore Service",
+    href: "/services/digital-marketing",
+    image:
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop",
     icon: BarChart3,
-    accentClass: "text-amber-600",
-    accentBg: "bg-amber-500/10",
-    accentBorder: "border-amber-300/25",
-    checkBg: "bg-amber-500",
+    accentColor: "#f59e0b",
+    buttonBg: "bg-amber-500",
   },
 ] as const;
 
-type Service = (typeof SERVICES)[number];
+type ServiceId = (typeof SERVICES)[number]["id"];
 
-/* ───────── image collage (same for every service) ───────────── */
-/* Layout: main image center, visual top-left, visual top-right,  */
-/*         visual bottom-center — all overlapping the main image   */
-
-function ImageCollage({ service }: { service: Service }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-
-  return (
-    <div ref={ref} className="relative sm:h-[440px] lg:h-[480px]">
-      {/* Main large image */}
-      <div
-        className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl shadow-black/15 ring-1 ring-black/8 transition-transform duration-700 ease-out"
-        style={{ transform: inView ? "scale(1)" : "scale(0.96)" }}
-      >
-        <img
-          src={service.mainImage}
-          alt={service.title}
-          className="h-[220px] w-full object-cover sm:h-[300px] lg:h-full"
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-black/25 via-transparent to-transparent" />
-      </div>
-
-      {/* Visual — top-left overlap (desktop only) */}
-      <div
-        className="absolute -left-16 top-4 hidden w-32 overflow-hidden rounded-2xl border-4 border-white shadow-lg shadow-black/10 transition-all duration-600 ease-out sm:block"
-        style={{
-          transform: inView ? "translate(0,0)" : "translate(-16px,-8px)",
-          transitionDelay: "150ms",
-        }}
-      >
-        <img
-          src={service.visualTopLeft}
-          alt={`${service.title} visual`}
-          className="w-32"
-        />
-      </div>
-
-      {/* Visual — top-right overlap (desktop only) */}
-      <div
-        className="absolute hidden w-32 overflow-hidden rounded-2xl border-4 border-white shadow-lg shadow-black/10 transition-all duration-600 ease-out sm:block"
-        style={{
-          transform: inView ? "translate(0,0)" : "translate(16px,-8px)",
-          transitionDelay: "250ms",
-          top: "-30px",
-          right: "-30px"
-        }}
-      >
-        <img
-          src={service.visualTopRight}
-          alt={`${service.title} detail`}
-          className="w-32"
-        />
-      </div>
-
-      {/* Visual — bottom-center overlap (desktop only) */}
-      <div
-        className="absolute hidden  w-96 overflow-hidden rounded-2xl border-4 border-white shadow-lg shadow-black/10 transition-all duration-600 ease-out sm:block"
-        style={{
-          transform: inView ? "translateY(0)" : "translateY(16px)",
-          transitionDelay: "350ms",
-          bottom: "0rem",
-          left: "6rem"
-        }}
-      >
-        <img
-          src={service.visualBottom}
-          alt={`${service.title} feature`}
-          className="w-96 "
-        />
-      </div>
-    </div>
-  );
-}
-
-/* ─────────── service section (same layout for all 4) ────────── */
-
-function ServiceSection({
-  service,
-  sectionRef,
-}: {
-  service: Service;
-  sectionRef: (el: HTMLDivElement | null) => void;
-}) {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(contentRef, { once: true, margin: "-80px" });
-  const Icon = service.icon;
-
-  const stagger = (i: number): object => ({
-    initial: { opacity: 0, y: 22 },
-    animate: inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 },
-    transition: { duration: 0.5, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] },
-  });
-
-  return (
-    <div
-      id={`service-${service.id}`}
-      ref={sectionRef}
-      className="py-10 sm:py-16 lg:py-28"
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
-        {/* Service title bar */}
-        {/* <motion.div
-          className="mb-10 flex items-center gap-3"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
-        >
-          <div
-            className={`flex h-10 w-10 items-center justify-center rounded-xl ${service.accentBg} border ${service.accentBorder}`}
-          >
-            <Icon className={`h-5 w-5 ${service.accentClass}`} />
-          </div>
-          <h3 className="text-xl font-bold text-foreground sm:text-2xl">
-            {service.title}
-          </h3>
-        </motion.div> */}
-
-        {/* Two-column: image collage LEFT | content RIGHT */}
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* LEFT — image collage */}
-          <ImageCollage service={service} />
-
-          {/* RIGHT — content */}
-          <div ref={contentRef} className="space-y-6">
-            {/* Tag badge */}
-            <motion.span
-              {...stagger(0)}
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[13px] font-semibold ${service.accentBg} ${service.accentBorder} ${service.accentClass}`}
-            >
-              <Icon className="h-3.5 w-3.5" />
-              {service.tag}
-            </motion.span>
-
-            {/* Heading */}
-            <motion.h4
-              {...stagger(1)}
-              className="text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-[2.6rem]"
-            >
-              {service.title}
-            </motion.h4>
-
-            {/* Paragraph */}
-            <motion.p
-              {...stagger(2)}
-              className="max-w-lg text-base leading-relaxed text-muted-foreground"
-            >
-              {service.description}
-            </motion.p>
-
-            {/* Bullet points */}
-            <motion.ul {...stagger(3)} className="space-y-3">
-              {service.bullets.map((b) => (
-                <li key={b} className="flex items-start gap-3 text-sm">
-                  <span
-                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${service.checkBg}`}
-                  >
-                    <Check className="h-3 w-3 text-white" />
-                  </span>
-                  <span className="text-foreground/80">{b}</span>
-                </li>
-              ))}
-            </motion.ul>
-
-            {/* Metrics row */}
-            <motion.div {...stagger(4)} className="flex flex-wrap gap-3 pt-1">
-              {service.metrics.map((m) => {
-                const MIcon = m.icon;
-                return (
-                  <div
-                    key={m.label}
-                    className={`flex items-center gap-2 rounded-2xl border px-4 py-2.5 ${service.accentBg} ${service.accentBorder}`}
-                  >
-                    <MIcon className={`h-4 w-4 ${service.accentClass}`} />
-                    <div className="leading-none">
-                      <p className={`text-sm font-bold ${service.accentClass}`}>
-                        {m.value}
-                      </p>
-                      <p className="mt-0.5 text-[10px] text-muted-foreground">
-                        {m.label}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div {...stagger(5)}>
-              <Link
-                href={`/services/${service.id}`}
-                className="group inline-flex items-center gap-4 rounded-full bg-foreground px-2 py-2 text-sm font-semibold text-background shadow-sm transition-all duration-300 hover:bg-foreground/90 hover:gap-4"
-              >
-                Explore Service
-                <ArrowRight size={30} className="transition-transform text-white bg-primary p-1 rounded-full duration-300 group-hover:translate-x-1" />
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
-/* ───────────── main export ──────────────────────────────────── */
+/* ─────────────────────── component ─────────────────────────── */
 
 export function CoreServicesGrid() {
-  const [activeId, setActiveId] = useState<string>(SERVICES[0].id);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeId, setActiveId] = useState<ServiceId>("web-development");
+  const [isPaused, setIsPaused] = useState(false);
 
+  // Auto-rotate
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    SERVICES.forEach((service, i) => {
-      const el = sectionRefs.current[i];
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveId(service.id);
-        },
-        { threshold: 0.35 },
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
-
-  const handleTabClick = useCallback((id: string) => {
-    const el = document.getElementById(`service-${id}`);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
-
-  const setRef = useCallback(
-    (index: number) => (el: HTMLDivElement | null) => {
-      sectionRefs.current[index] = el;
-    },
-    [],
-  );
+    if (isPaused) return;
+    const idx = SERVICES.findIndex((s) => s.id === activeId);
+    const t = setInterval(() => {
+      setActiveId(SERVICES[(idx + 1) % SERVICES.length].id);
+    }, 5500);
+    return () => clearInterval(t);
+  }, [isPaused, activeId]);
 
   return (
-    <section className="bg-white">
-      {/* ══════ Screen 1 — Header + 4 small preview cards ══════ */}
-      <div className="pb-6 pt-16 sm:pt-24">
+    <section className="relative overflow-hidden">
+      {/* Ambient glows */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-44 top-[-20%] h-[520px] w-[520px] rounded-full bg-primary/18 blur-3xl" />
+        <div className="absolute right-[-18%] top-[-10%] h-[620px] w-[620px] rounded-full bg-primary/18 blur-3xl" />
+        <div className="absolute bottom-[-35%] left-[20%] h-[700px] w-[700px] rounded-full bg-primary/18 blur-3xl" />
+      </div>
+
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
-          className="container mx-auto px-4 sm:px-6 lg:px-8 xl:pl-28"
+          className="pb-6 "
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -407,74 +109,221 @@ export function CoreServicesGrid() {
               <span className="text-primary">Services</span>
             </div>
           </h2>
-          <p className="mt-4 max-w-2xl text-base text-muted-foreground/80 sm:text-lg">
+          <p className="max-w-2xl text-base text-muted-foreground/80 sm:text-lg">
             Automation. Development. Performance Marketing.
           </p>
         </motion.div>
 
-        {/* 4 small preview cards */}
-        <motion.div
-          className="container mx-auto mt-10 grid grid-cols-2 gap-3 px-4 sm:grid-cols-4 sm:gap-4 sm:px-6 lg:px-8 xl:pl-28"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+        {/* Accordion panels */}
+        <div
+          className="flex h-[520px] w-full gap-3 sm:h-[560px]"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
           {SERVICES.map((service) => {
+            const isActive = service.id === activeId;
             const Icon = service.icon;
+
             return (
-              <button
+              <motion.div
                 key={service.id}
-                type="button"
-                onClick={() => {
-                  const el = document.getElementById(`service-${service.id}`);
-                  if (el)
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
-                className="group flex flex-col items-center gap-3 rounded-2xl border border-border bg-white p-5 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md"
+                layout
+                onClick={() => setActiveId(service.id)}
+                animate={{ flex: isActive ? 5 : 1 }}
+                transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+                className="relative cursor-pointer overflow-hidden rounded-[28px] border border-white/10 bg-white/5 shadow-[0_20px_80px_rgba(0,0,0,0.4)]"
+                style={{ minWidth: 0 }}
               >
-                <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-2xl ${service.accentBg} border ${service.accentBorder} transition-transform duration-300 group-hover:scale-110`}
-                >
-                  <Icon className={`h-5 w-5 ${service.accentClass}`} />
+                {/* Background image — always rendered, fades in when active */}
+                <div className="absolute inset-0">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover transition-opacity duration-700"
+                    style={{ opacity: isActive ? 1 : 0.45 }}
+                    sizes="(max-width: 1280px) 100vw, 1280px"
+                    priority={isActive}
+                  />
+                  {/* Overlay: stronger on inactive */}
+                  <div
+                    className="absolute inset-0 transition-opacity duration-700"
+                    style={{
+                      background: isActive
+                        ? "linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.18) 100%)"
+                        : "linear-gradient(to bottom, rgba(8,9,20,0.68) 0%, rgba(8,9,20,0.55) 100%)",
+                    }}
+                  />
+                  {/* Bottom fade */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  {/* Accent colour tint at bottom on inactive */}
+                  {!isActive && (
+                    <div
+                      className="absolute bottom-0 left-0 right-0 h-1/3"
+                      style={{
+                        background: `linear-gradient(to top, ${service.accentColor}22, transparent)`,
+                      }}
+                    />
+                  )}
                 </div>
-                <p className="text-center text-sm font-semibold text-foreground">
-                  {service.tabLabel}
-                </p>
-              </button>
+
+                {/* ── INACTIVE STATE: vertical label ── */}
+                <AnimatePresence>
+                  {!isActive && (
+                    <motion.div
+                      key="label"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 flex flex-col items-center justify-end pb-10"
+                    >
+                      {/* Vertical text */}
+                      <span
+                        className="text-2xl font-bold uppercase tracking-[0.28em] text-white/85 whitespace-nowrap"
+                        style={{
+                          writingMode: "vertical-rl",
+                          transform: "rotate(180deg)",
+                        }}
+                      >
+                        {service.tabLabel}
+                      </span>
+
+                      <div
+                        className="mb-auto mt-8 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/30"
+                        style={{ color: service.accentColor }}
+                      >
+                        <Icon className="h-5 w-5" />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* ── ACTIVE STATE: full content ── */}
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.div
+                      key="content"
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{
+                        duration: 0.45,
+                        ease: "easeOut",
+                        delay: 0.18,
+                      }}
+                      className="absolute inset-0 z-20 flex flex-col justify-between p-8 sm:p-10"
+                    >
+                      {/* Top: nav arrows */}
+                      <div className="flex items-center justify-between">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const idx = SERVICES.findIndex(
+                              (s) => s.id === activeId,
+                            );
+                            setActiveId(
+                              SERVICES[
+                                (idx - 1 + SERVICES.length) % SERVICES.length
+                              ].id,
+                            );
+                          }}
+                          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-black/10 text-white/85 backdrop-blur transition hover:bg-black/55"
+                          aria-label="Previous"
+                        >
+                          ←
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const idx = SERVICES.findIndex(
+                              (s) => s.id === activeId,
+                            );
+                            setActiveId(
+                              SERVICES[(idx + 1) % SERVICES.length].id,
+                            );
+                          }}
+                          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-black/10 text-white/85 backdrop-blur transition hover:bg-black/55"
+                          aria-label="Next"
+                        >
+                          →
+                        </button>
+                      </div>
+
+                      {/* Bottom: text content */}
+                      <div className="flex flex-col gap-4 justify-center">
+                        <h3 className="text-7xl font-bold leading-none tracking-tight text-white">
+                          {service.title}
+                        </h3>
+                        {/* Thin horizontal rule like Geniusee */}
+                        <div
+                          className="mb-2 h-0.5 w-full max-w-lg opacity-80 rounded-full"
+                          style={{ background: service.accentColor }}
+                        />
+
+                        <p className="mt-4 text-sm leading-relaxed text-white/75 sm:text-base">
+                          {service.description}
+                        </p>
+
+                        <div className="mt-7">
+                          <Link
+                            href={service.href}
+                            className="inline-flex items-center justify-center group cursor-pointer px-4 py-2 rounded-full text-base sm:text-lg bg-primary hover:bg-primary/90 text-primary-foreground"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {service.cta}
+                            <ArrowRight
+                              size={36}
+                              className="bg-white relative left-2 text-primary/80 rounded-full size-10 transition-transform group-hover:translate-x-0.5"
+                            />
+                          </Link>
+                        </div>
+
+                        {/* Trust badges */}
+                        {/* <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 ">
+                          {[
+                            "Clutch ★★★★",
+                            "ISO 9001:2015",
+                            "ISO 27001:2013",
+                            "Forbes",
+                            "Tech Council",
+                          ].map((t) => (
+                            <span
+                              key={t}
+                              className="text-[11px] font-semibold uppercase tracking-wide"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div> */}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             );
           })}
-        </motion.div>
-      </div>
+        </div>
 
-      {/* ══════ Screen 2–5 — Full service sections ══════ */}
-      {SERVICES.map((service, index) => (
-        <ServiceSection
-          key={service.id}
-          service={service}
-          sectionRef={setRef(index)}
-        />
-      ))}
-
-      {/* ══════ Bottom CTA ══════ */}
-      <div className="py-20 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className="mb-6 text-muted-foreground">
-            Ready to see how these services work together?
-          </p>
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-semibold text-white shadow-md transition-all hover:bg-primary/90 hover:gap-3"
-          >
-            View All Services
-            <ArrowRight className="h-5 w-5" />
-          </Link>
-        </motion.div>
+        {/* Mobile dot/pill selectors */}
+        <div className="mt-5 flex items-center justify-center gap-2 md:hidden">
+          {SERVICES.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => setActiveId(s.id)}
+              className={`rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition ${
+                s.id === activeId
+                  ? "bg-white text-slate-900"
+                  : "border border-white/15 bg-white/5 text-white/75 hover:bg-white/10"
+              }`}
+            >
+              {s.tabLabel}
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
