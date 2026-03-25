@@ -98,10 +98,11 @@ export const FLOW_CONFIG: Record<CoreServiceKey, FlowConfig> = {
       "A structured process from strategy to launch, focused on conversion and speed.",
     howSteps: [
       { title: "Discovery", desc: "Goals, audiences, and conversion metrics are defined.", icon: Layout },
-      { title: "Design", desc: "UX flows and high‑fidelity mockups crafted for clarity.", icon: Layout },
-      { title: "Development", desc: "Clean code, integrations, and QA across devices.", icon: Zap },
-      { title: "CRO Optimization", desc: "A/B tests and on‑page tweaks based on data.", icon: BarChart3 },
-      { title: "Launch", desc: "Deploy with analytics, pixels, and CRM hooked in.", icon: Gauge },
+      { title: "Planning", desc: "A plan is created for the website including the structure, content, and design.", icon: Layout },
+      { title: "Wireframing", desc: "A wireframe is created for the website to ensure the structure is correct.", icon: Zap },
+      { title: "UI/UX Design", desc: "A design is created for the website to ensure the UI/UX is correct.", icon: BarChart3 },
+      { title: "Testing", desc: "The website is tested to ensure it is working correctly.", icon: Gauge },
+      { title: "Deployment (Launch) Maintenance", desc: "The website is deployed to the server and maintenance is performed to ensure the website is running smoothly.", icon: Gauge },
     ],
     leadTitle: "Lead Identification",
     leadSubtitle:
@@ -138,11 +139,12 @@ export const FLOW_CONFIG: Record<CoreServiceKey, FlowConfig> = {
     howSubtitle:
       "From idea to scalable product, shipped in clear, predictable phases.",
     howSteps: [
-      { title: "Product Strategy", desc: "Clarify users, jobs‑to‑be‑done, and core KPIs.", icon: Smartphone },
-      { title: "MVP Development", desc: "Ship the smallest version that delivers value.", icon: Rocket },
-      { title: "Tech Architecture", desc: "Design scalable, secure foundations for growth.", icon: Layers },
-      { title: "Admin Dashboard", desc: "Give your team control with internal tools.", icon: Layout },
-      { title: "Deployment", desc: "Launch to production and set up observability.", icon: BarChart3 },
+      { title: "Concept", desc: "A concept is created for the app to ensure the app is correct.", icon: Smartphone },
+      { title: "Design", desc: "A design is created for the app to ensure the UI/UX is correct.", icon: Rocket },
+      { title: "Development", desc: "The app is developed to ensure it is working correctly.", icon: Layers },
+      { title: "Test", desc: "The app is tested to ensure it is working correctly.", icon: Layout },
+      { title: "Launch", desc: "The app is launched to the public to ensure it is working correctly.", icon: BarChart3 },
+      { title: "Maintenance", desc: "The app is maintained to ensure it is working correctly.", icon: BarChart3 },
     ],
     leadTitle: "Lead / User Identification",
     leadSubtitle:
@@ -179,11 +181,12 @@ export const FLOW_CONFIG: Record<CoreServiceKey, FlowConfig> = {
     howSubtitle:
       "We align research, creative, funnels, and data into one performance loop.",
     howSteps: [
-      { title: "Market Research", desc: "Audience, competitors, and positioning analysis.", icon: Search },
-      { title: "Offer & Funnel", desc: "Landing pages and conversion copy crafted.", icon: Layout },
-      { title: "Campaign Setup", desc: "Meta, Google, and LinkedIn campaigns launched.", icon: Megaphone },
-      { title: "Testing & Optimization", desc: "Creative and audience tests run weekly.", icon: RefreshCw },
-      { title: "Scaling Strategy", desc: "Scale winners, cut losers, and protect ROAS.", icon: BarChart3 },
+      { title: "Plan", desc: "A plan is created for the marketing campaign to ensure the campaign is correct.", icon: Search },
+      { title: "Create", desc: "The marketing campaign is created to ensure it is working correctly.", icon: Layout },
+      { title: "Launch", desc: "The marketing campaign is launched to the public to ensure it is working correctly.", icon: Megaphone },
+      { title: "Analyze", desc: "The marketing campaign is analyzed to ensure it is working correctly.", icon: RefreshCw },
+      { title: "Improve", desc: "The marketing campaign is improved to ensure it is working correctly.", icon: BarChart3 },
+      { title: "Scale", desc: "The marketing campaign is scaled to ensure it is working correctly.", icon: BarChart3 },
     ],
     leadTitle: "Lead Identification",
     leadSubtitle:
