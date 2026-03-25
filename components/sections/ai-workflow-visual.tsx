@@ -1,105 +1,21 @@
 "use client";
 
-import {
-  TrafficCone,
-  FileText,
-  Database,
-  Phone,
-  Mail,
-  Tag,
-  Calendar,
-  CheckCircle,
-  ArrowRight,
-} from "lucide-react";
-import Link from "next/link";
 import { motion } from "motion/react";
+
+import type { CoreServiceId } from "@/lib/core-services-home-data";
+import {
+  CORE_ICON_MAP,
+  CORE_SERVICES_HOME_CONTENT,
+  type CoreAIWorkflowStep,
+} from "@/lib/core-services-home-data";
 import { Timeline } from "@/components/ui/timeline";
 
-const STEPS = [
-  {
-    step: 1,
-    label: "Traffic Generation",
-    desc: "Inbound visitors & targeted ad campaigns drive qualified prospects straight into your funnel.",
-    icon: TrafficCone,
-    phase: "Acquisition",
-    metric: { value: "10K+", label: "Monthly visitors" },
-    progress: 82,
-    color: "#00b4d8",
-  },
-  {
-    step: 2,
-    label: "Landing Page Capture",
-    desc: "High-converting pages with optimized forms and compelling CTAs capture lead information instantly.",
-    icon: FileText,
-    phase: "Acquisition",
-    metric: { value: "38%", label: "Conversion rate" },
-    progress: 68,
-    color: "#0891b2",
-  },
-  {
-    step: 3,
-    label: "CRM Integration",
-    desc: "Lead data flows into your centralized CRM — organized, tagged, and ready for AI processing.",
-    icon: Database,
-    phase: "Acquisition",
-    metric: { value: "< 2s", label: "Sync time" },
-    progress: 95,
-    color: "#6366f1",
-  },
-  {
-    step: 4,
-    label: "AI Qualification Call",
-    desc: "AI instantly calls and qualifies leads, filtering out tire-kickers and surfacing high-intent prospects.",
-    icon: Phone,
-    phase: "Acquisition",
-    metric: { value: "< 30s", label: "Response time" },
-    progress: 90,
-    color: "#7c3aed",
-  },
-  {
-    step: 5,
-    label: "Follow-up Automation",
-    desc: "Multi-channel sequences — email, SMS, and WhatsApp — nurture leads until they're sales-ready.",
-    icon: Mail,
-    phase: "Conversion",
-    metric: { value: "7x", label: "Touch points" },
-    progress: 75,
-    color: "#8b5cf6",
-  },
-  {
-    step: 6,
-    label: "Hot Lead Scoring",
-    desc: "AI scores and prioritizes every lead based on behavior, engagement, and buying signals.",
-    icon: Tag,
-    phase: "Conversion",
-    metric: { value: "95%", label: "Accuracy" },
-    progress: 95,
-    color: "#a855f7",
-  },
-  {
-    step: 7,
-    label: "Calendar Booking",
-    desc: "Qualified prospects self-schedule directly into your sales team's calendar — zero friction.",
-    icon: Calendar,
-    phase: "Conversion",
-    metric: { value: "24/7", label: "Availability" },
-    progress: 100,
-    color: "#059669",
-  },
-  {
-    step: 8,
-    label: "Sales Close",
-    desc: "Warm, pre-qualified appointments convert into paying clients at significantly higher close rates.",
-    icon: CheckCircle,
-    phase: "Conversion",
-    metric: { value: "3.2x", label: "ROI achieved" },
-    progress: 88,
-    color: "#10b981",
-  },
-] as const;
-
-function StepContent({ step }: { step: (typeof STEPS)[number] }) {
-  const Icon = step.icon;
+function StepContent({
+  step,
+}: {
+  step: CoreAIWorkflowStep;
+}) {
+  const Icon = CORE_ICON_MAP[step.iconKey];
 
   return (
     <div
@@ -154,6 +70,7 @@ function StepContent({ step }: { step: (typeof STEPS)[number] }) {
             {step.progress}%
           </span>
         </div>
+
         <div className="h-2 overflow-hidden rounded-full bg-black/5">
           <motion.div
             className="h-full rounded-full"
@@ -161,7 +78,11 @@ function StepContent({ step }: { step: (typeof STEPS)[number] }) {
             initial={{ width: "0%" }}
             whileInView={{ width: `${step.progress}%` }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+            transition={{
+              duration: 1,
+              ease: "easeOut",
+              delay: 0.3,
+            }}
           />
         </div>
       </div>
@@ -169,8 +90,14 @@ function StepContent({ step }: { step: (typeof STEPS)[number] }) {
   );
 }
 
-export function AIWorkflowVisual() {
-  const timelineData = STEPS.map((step) => ({
+export function AIWorkflowVisual({ serviceId }: { serviceId?: CoreServiceId }) {
+  const DEFAULT_SERVICE_ID: CoreServiceId = "ai-automation-marketing";
+  const resolvedServiceId = serviceId ?? DEFAULT_SERVICE_ID;
+
+  const content = CORE_SERVICES_HOME_CONTENT[resolvedServiceId].aiWorkflow;
+  const steps = content.steps;
+
+  const timelineData = steps.map((step) => ({
     title: step.label,
     color: step.color,
     content: <StepContent step={step} />,
@@ -201,37 +128,32 @@ export function AIWorkflowVisual() {
         >
           <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5">
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-primary">
-              AI Pipeline
+              {content.pill}
             </span>
           </div>
+
           <h2 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl md:text-5xl">
-            From Traffic to <span className="text-primary">Revenue</span>
+            {content.title.includes(" ") ? (
+              <>
+                {content.title.split(" ").slice(0, 2).join(" ")}{" "}
+                <span className="text-primary">
+                  {content.title.split(" ").slice(2).join(" ")}
+                </span>
+              </>
+            ) : (
+              content.title
+            )}
           </h2>
+
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground/80 sm:text-lg">
-            See how we turn cold traffic into closed deals — step by step
+            {content.subtitle}
           </p>
         </motion.div>
 
         {/* Timeline */}
         <Timeline data={timelineData} />
-
-        {/* Bottom CTA */}
-        {/* <motion.div
-          className="pb-24 text-center lg:pb-32"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <Link
-            href="/get-quote"
-            className="inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:gap-3"
-          >
-            Start Your AI Pipeline
-            <ArrowRight className="h-5 w-5 transition-transform duration-300" />
-          </Link>
-        </motion.div> */}
       </div>
     </section>
   );
 }
+

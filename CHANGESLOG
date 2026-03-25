@@ -1,3 +1,21 @@
+2026-03-25
+- Home page: Lift `activeServiceId` into `HomeCoreServices` and wire it into `CoreServicesGrid`, `HowWeBuild`, `AIWorkflowVisual`, and `CaseStudiesResults` so the content updates with the active carousel/service selection (no scroll jumping).
+- UI: Added a fixed right-side vertical core-services rail (`CoreServicesRightRailTabs`) that shows icons only, then expands to show labels on hover; hovering the rail pauses auto-advance.
+- Refactor: Introduced `lib/core-services-home-data.ts` as the single data source for all active-service-specific content used by the above sections.
+- UI/Content: `CaseStudiesResults` right-side dashboard now swaps the 4 main images, the auto-scrolling logo strip, and the social icon order based on `activeServiceId`.
+- Fix: `CoreServicesRightRailTabs` now uses a valid high z-index (`z-[9999]`) so it renders above homepage layers (rail was not visible due to invalid Tailwind z-index class).
+- Fix: Raised `CoreServicesRightRailTabs` z-index to `z-[10002]` to prevent it being covered by other fixed overlays (e.g. chat widgets).
+- Fix: Render `CoreServicesRightRailTabs` via a React portal to `document.body` to avoid being clipped/hidden by ancestor stacking/containing contexts; rail should now reliably appear on screen.
+- Home page: Connected `HeroSection` dashboard slider to the same `activeServiceId` state used by the core services; switching via hero slider/controls updates the below sections (and vice versa).
+- UI: Fixed right-rail hover labels by rendering a tooltip bubble outside the button (not clipped by overflow).
+- UX: Added a global pause signal so hovering the core-services/linked sections pauses the Hero dashboard auto-rotation as well (prevents service content from changing while the user is reading).
+- RevOps core service pages: Rebuilt the shared “Answer / Our Solution” section (`RevopsCoreProblemSolution`) to a scroll-reveal vertical curved SVG timeline (steps animate in one-by-one on scroll). Removed the big image-heavy solution grid for all four core services.
+- RevOps “Answer” timeline refinement: Updated desktop layout to true center-line alternating timeline (Step 1 left, Step 2 right, Step 3 left, Step 4 right), with a central animated curved SVG path + node markers and richer visual cards (animated icon pulse, progress bars, status chips) for a more premium look.
+- RevOps Problem cards: Made the 4 “Key Challenges” cards continuously animated (infinite float + tilt with per-card stagger and hover scale) across all core service pages.
+- Home page responsive: Reworked `CoreServicesGrid` on mobile to show a single active service card with prev/next and readable typography; desktop keeps the expanding panels. Updated `Timeline` mobile spacing so `AIWorkflowVisual` renders correctly on small screens.
+- UI: Updated right-side service rail to be collapsible with an arrow toggle and smooth width/opacity animations.
+- UI refinement: Right-side service rail now stays always open on desktop/tablet (previous behavior), while keeping the arrow-toggle collapse/expand interaction only on small screens.
+
 2026-03-16
 - Case Studies section redesign (case-studies-results.tsx): Rebuilt to match reference layout. Left column: Results badge, Case Studies headline, subtitle, primary CTA (See How We Did It), and compact industry results (Real Estate, Dental, SaaS with leads/revenue). Right column: dashboard sample inside dark rounded container (slate-800) with Before/After toggle; header shows "Before NxTech Nova" or "After NxTech Nova" with animated toggle switch. Before state: white cards for New Emails (campaign/lead issues with warning icons), Weekly Engagement (declining red line chart), Untracked leads / Poor AD Performance pills, Tracking Leads (red progress bar), Tasks (delayed items with red dots), Manual reporting pill. After state: Campaigns on Track (three items with checkmarks), High ROI & Leads (3.2K, ROI +92%, green upward line), Improved Engagement (210%, Up Everyday), Lead Follow-up quote, integration/social row (Ads, SEO, Email, YT, in, X). Uses AnimatePresence for toggle transition, motion for entrance animations. Bottom bullets and styling preserved. Zero lint errors.
 

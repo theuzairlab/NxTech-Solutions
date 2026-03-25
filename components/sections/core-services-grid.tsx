@@ -1,91 +1,59 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { ArrowRight, Bot, Globe, Smartphone, BarChart3 } from "lucide-react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowRight } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 
-/* ───────────────────────── service data ─────────────────────── */
+import type { CoreServiceId, CoreServiceMeta } from "@/lib/core-services-home-data";
+import {
+  CORE_ICON_MAP,
+  CORE_SERVICES,
+  type CoreServiceIconKey,
+} from "@/lib/core-services-home-data";
 
-const SERVICES = [
-  {
-    id: "ai-automation-marketing",
-    tabLabel: "AI AUTOMATION",
-    title: "AI Marketing & Business Automation",
-    description:
-      "Always-on systems that capture, qualify, and follow up with leads 24/7—so your team focuses on closing high-intent prospects.",
-    cta: "Explore Service",
-    href: "/services/ai-automation-marketing",
-    image: "/hero1.jpg",
-    icon: Bot,
-    accentColor: "#7c3aed",
-    buttonBg: "bg-primary",
-  },
-  {
-    id: "web-development",
-    tabLabel: "WEB DEVELOPMENT",
-    title: "Web Development",
-    description:
-      "High-performance websites engineered to turn visitors into leads—fast, conversion-first, and integrated with your CRM and analytics stack.",
-    cta: "Explore Service",
-    href: "/services/web-development",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=900&fit=crop&q=80",
-    icon: Globe,
-    accentColor: "#6366f1",
-    buttonBg: "bg-indigo-500",
-  },
-  {
-    id: "app-development",
-    tabLabel: "APP DEVELOPMENT",
-    title: "App Development",
-    description:
-      "Design and build robust mobile + web apps with product-led UX, scalable architecture, and revenue-ready integrations from day one.",
-    cta: "Explore Service",
-    href: "/services/app-development",
-    image:
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1600&h=900&fit=crop&q=80",
-    icon: Smartphone,
-    accentColor: "#8b5cf6",
-    buttonBg: "bg-violet-500",
-  },
-  {
-    id: "digital-marketing",
-    tabLabel: "DIGITAL MARKETING",
-    title: "Digital Marketing",
-    description:
-      "Scale demand with paid media, retargeting, and funnel optimization tuned by daily data—so ad spend stays efficient and outcomes predictable.",
-    cta: "Explore Service",
-    href: "/services/digital-marketing",
-    image:
-      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop",
-    icon: BarChart3,
-    accentColor: "#f59e0b",
-    buttonBg: "bg-amber-500",
-  },
-] as const;
+function getIcon(iconKey: CoreServiceIconKey) {
+  return CORE_ICON_MAP[iconKey];
+}
 
-type ServiceId = (typeof SERVICES)[number]["id"];
+export function CoreServicesGrid({
+  activeServiceId,
+  onActiveServiceIdChange,
+  paused,
+}: {
+  activeServiceId: CoreServiceId;
+  onActiveServiceIdChange: (id: CoreServiceId) => void;
+  paused?: boolean;
+}) {
+  const [isHoverPaused, setIsHoverPaused] = useState(false);
+  const shouldPause = !!paused || isHoverPaused;
 
-/* ─────────────────────── component ─────────────────────────── */
+  const activeIndex = useMemo(
+    () => Math.max(0, CORE_SERVICES.findIndex((s) => s.id === activeServiceId)),
+    [activeServiceId],
+  );
 
-export function CoreServicesGrid() {
-  const [activeId, setActiveId] = useState<ServiceId>("web-development");
-  const [isPaused, setIsPaused] = useState(false);
+  const prev = CORE_SERVICES[(activeIndex - 1 + CORE_SERVICES.length) % CORE_SERVICES.length];
+  const next = CORE_SERVICES[(activeIndex + 1) % CORE_SERVICES.length];
+  const active = CORE_SERVICES[activeIndex];
 
-  // Auto-rotate
   useEffect(() => {
-    if (isPaused) return;
-    const idx = SERVICES.findIndex((s) => s.id === activeId);
+    if (shouldPause) return;
     const t = setInterval(() => {
-      setActiveId(SERVICES[(idx + 1) % SERVICES.length].id);
+      const idx = CORE_SERVICES.findIndex((s) => s.id === activeServiceId);
+      const nextId = CORE_SERVICES[(idx + 1) % CORE_SERVICES.length].id;
+      onActiveServiceIdChange(nextId);
     }, 5500);
     return () => clearInterval(t);
-  }, [isPaused, activeId]);
+  }, [shouldPause, activeServiceId, onActiveServiceIdChange]);
 
   return (
-    <section className="relative overflow-hidden">
+    <section
+      className="relative overflow-hidden pb-12"
+      onMouseEnter={() => setIsHoverPaused(true)}
+      onMouseLeave={() => setIsHoverPaused(false)}
+    >
       {/* Ambient glows */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-44 top-[-20%] h-[520px] w-[520px] rounded-full bg-primary/18 blur-3xl" />
@@ -96,13 +64,13 @@ export function CoreServicesGrid() {
       <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          className="pb-6 "
+          className="pb-6"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl font-bold leading-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl">
+          <h2 className="text-4xl font-bold leading-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl">
             Our Core <br />
             <div className="flex items-center gap-2">
               <div className="h-px w-24 bg-primary/20 shrink-0 mt-2 sm:w-40 lg:w-64" />
@@ -114,27 +82,92 @@ export function CoreServicesGrid() {
           </p>
         </motion.div>
 
-        {/* Accordion panels */}
-        <div
-          className="flex h-[520px] w-full gap-3 sm:h-[560px]"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {SERVICES.map((service) => {
-            const isActive = service.id === activeId;
-            const Icon = service.icon;
+        {/* Mobile: single active card */}
+        <div className="md:hidden">
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 shadow-[0_20px_80px_rgba(0,0,0,0.25)]"
+          >
+            <div className="absolute inset-0">
+              <Image
+                src={active.image}
+                alt={active.title}
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgba(8,9,20,0.72) 0%, rgba(8,9,20,0.48) 55%, rgba(8,9,20,0.35) 100%)",
+                }}
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/55 via-transparent to-transparent" />
+            </div>
+
+            <div className="relative z-10 flex flex-col gap-4 p-5">
+              <div className="flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => onActiveServiceIdChange(prev.id)}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/50 bg-black/20 text-white/90 backdrop-blur transition hover:bg-black/45"
+                  aria-label="Previous"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onActiveServiceIdChange(next.id)}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/50 bg-black/20 text-white/90 backdrop-blur transition hover:bg-black/45"
+                  aria-label="Next"
+                >
+                  →
+                </button>
+              </div>
+
+              <h3 className="text-3xl font-bold leading-tight tracking-tight text-white">
+                {active.title}
+              </h3>
+              <div
+                className="h-0.5 w-full max-w-sm opacity-85 rounded-full"
+                style={{ background: active.accentColor }}
+              />
+              <p className="text-sm leading-relaxed text-white/80">
+                {active.description}
+              </p>
+
+              <Link
+                href={active.href}
+                className="inline-flex w-fit items-center justify-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+              >
+                Explore Service <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Desktop: accordion panels */}
+        <div className="hidden md:flex h-[520px] w-full gap-3 lg:h-[560px]">
+          {CORE_SERVICES.map((service: CoreServiceMeta) => {
+            const isActive = service.id === activeServiceId;
+            const Icon = getIcon(service.iconKey);
 
             return (
               <motion.div
                 key={service.id}
                 layout
-                onClick={() => setActiveId(service.id)}
+                onClick={() => onActiveServiceIdChange(service.id)}
                 animate={{ flex: isActive ? 5 : 1 }}
                 transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-                className="relative cursor-pointer overflow-hidden rounded-[28px] border border-white/10 bg-white/5 shadow-[0_20px_80px_rgba(0,0,0,0.4)]"
+                className="relative cursor-pointer overflow-hidden rounded-[28px] border border-white/10 bg-white/5"
                 style={{ minWidth: 0 }}
               >
-                {/* Background image — always rendered, fades in when active */}
+                {/* Background image */}
                 <div className="absolute inset-0">
                   <Image
                     src={service.image}
@@ -145,7 +178,8 @@ export function CoreServicesGrid() {
                     sizes="(max-width: 1280px) 100vw, 1280px"
                     priority={isActive}
                   />
-                  {/* Overlay: stronger on inactive */}
+
+                  {/* Overlay */}
                   <div
                     className="absolute inset-0 transition-opacity duration-700"
                     style={{
@@ -154,9 +188,9 @@ export function CoreServicesGrid() {
                         : "linear-gradient(to bottom, rgba(8,9,20,0.68) 0%, rgba(8,9,20,0.55) 100%)",
                     }}
                   />
-                  {/* Bottom fade */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  {/* Accent colour tint at bottom on inactive */}
+
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
+
                   {!isActive && (
                     <div
                       className="absolute bottom-0 left-0 right-0 h-1/3"
@@ -176,9 +210,9 @@ export function CoreServicesGrid() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="absolute inset-0 flex flex-col items-center justify-end pb-10"
+                      className="absolute inset-0 flex flex-col items-center justify-start pt-20"
+                      style={{ textAlign: "start", justifyContent: "start" }}
                     >
-                      {/* Vertical text */}
                       <span
                         className="text-2xl font-bold uppercase tracking-[0.28em] text-white/85 whitespace-nowrap"
                         style={{
@@ -220,14 +254,7 @@ export function CoreServicesGrid() {
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
-                            const idx = SERVICES.findIndex(
-                              (s) => s.id === activeId,
-                            );
-                            setActiveId(
-                              SERVICES[
-                                (idx - 1 + SERVICES.length) % SERVICES.length
-                              ].id,
-                            );
+                            onActiveServiceIdChange(prev.id);
                           }}
                           className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-black/10 text-white/85 backdrop-blur transition hover:bg-black/55"
                           aria-label="Previous"
@@ -238,12 +265,7 @@ export function CoreServicesGrid() {
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
-                            const idx = SERVICES.findIndex(
-                              (s) => s.id === activeId,
-                            );
-                            setActiveId(
-                              SERVICES[(idx + 1) % SERVICES.length].id,
-                            );
+                            onActiveServiceIdChange(next.id);
                           }}
                           className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-black/10 text-white/85 backdrop-blur transition hover:bg-black/55"
                           aria-label="Next"
@@ -257,7 +279,7 @@ export function CoreServicesGrid() {
                         <h3 className="text-7xl font-bold leading-none tracking-tight text-white">
                           {service.title}
                         </h3>
-                        {/* Thin horizontal rule like Geniusee */}
+
                         <div
                           className="mb-2 h-0.5 w-full max-w-lg opacity-80 rounded-full"
                           style={{ background: service.accentColor }}
@@ -273,31 +295,13 @@ export function CoreServicesGrid() {
                             className="inline-flex items-center justify-center group cursor-pointer px-4 py-2 rounded-full text-base sm:text-lg bg-primary hover:bg-primary/90 text-primary-foreground"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            {service.cta}
+                            Explore Service
                             <ArrowRight
                               size={36}
                               className="bg-white relative left-2 text-primary/80 rounded-full size-10 transition-transform group-hover:translate-x-0.5"
                             />
                           </Link>
                         </div>
-
-                        {/* Trust badges */}
-                        {/* <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 ">
-                          {[
-                            "Clutch ★★★★",
-                            "ISO 9001:2015",
-                            "ISO 27001:2013",
-                            "Forbes",
-                            "Tech Council",
-                          ].map((t) => (
-                            <span
-                              key={t}
-                              className="text-[11px] font-semibold uppercase tracking-wide"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div> */}
                       </div>
                     </motion.div>
                   )}
@@ -307,15 +311,15 @@ export function CoreServicesGrid() {
           })}
         </div>
 
-        {/* Mobile dot/pill selectors */}
-        <div className="mt-5 flex items-center justify-center gap-2 md:hidden">
-          {SERVICES.map((s) => (
+        {/* Mobile pill selectors */}
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-2 md:hidden">
+          {CORE_SERVICES.map((s) => (
             <button
               key={s.id}
               type="button"
-              onClick={() => setActiveId(s.id)}
+              onClick={() => onActiveServiceIdChange(s.id)}
               className={`rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition ${
-                s.id === activeId
+                s.id === activeServiceId
                   ? "bg-white text-slate-900"
                   : "border border-white/15 bg-white/5 text-white/75 hover:bg-white/10"
               }`}
@@ -328,3 +332,4 @@ export function CoreServicesGrid() {
     </section>
   );
 }
+

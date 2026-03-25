@@ -1,66 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ArrowRight,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Twitter,
-  Youtube,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 
+import type {
+  CoreServiceId,
+  CoreSocialIconKey,
+} from "@/lib/core-services-home-data";
+import {
+  CORE_SERVICES,
+  CORE_SERVICES_HOME_CONTENT,
+  CORE_SOCIAL_ICON_MAP,
+} from "@/lib/core-services-home-data";
+
 const CASE_STUDIES = [
-  {
-    industry: "Real Estate",
-    leadsIncrease: "180%",
-    revenueGrowth: "142%",
-    automationSaved: "15 hrs/week",
-  },
-  {
-    industry: "Dental",
-    leadsIncrease: "210%",
-    revenueGrowth: "95%",
-    automationSaved: "12 hrs/week",
-  },
-  {
-    industry: "SaaS",
-    leadsIncrease: "165%",
-    revenueGrowth: "118%",
-    automationSaved: "20 hrs/week",
-  },
+  { industry: "Real Estate", leadsIncrease: "180%", revenueGrowth: "142%", automationSaved: "15 hrs/week" },
+  { industry: "Dental", leadsIncrease: "210%", revenueGrowth: "95%", automationSaved: "12 hrs/week" },
+  { industry: "SaaS", leadsIncrease: "165%", revenueGrowth: "118%", automationSaved: "20 hrs/week" },
 ];
 
-const before = [
-  {
-    image: "/images/em.avif",
-    title: "Untracked leads",
-    rotate: -6,
-  },
-  {
-    image: "/images/engage.avif",
-    title: "Poor AD Performance",
-    rotate: 6,
-  },
-  {
-    image: "/images/tasks.avif",
-    title: "Delayed tasks",
-    rotate: -6,
-  },
-  {
-    image: "/images/tracking.avif",
-    title: "Manual reporting ",
-    rotate: 6,
-  },
-];
 const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "NxTech Nova";
 
-export function CaseStudiesResults() {
+export function CaseStudiesResults({ serviceId }: { serviceId?: CoreServiceId }) {
+  const DEFAULT_SERVICE_ID: CoreServiceId = "ai-automation-marketing";
+  const resolvedServiceId = serviceId ?? DEFAULT_SERVICE_ID;
+
+  const content = CORE_SERVICES_HOME_CONTENT[resolvedServiceId].caseStudies;
+  const service = CORE_SERVICES.find((s) => s.id === resolvedServiceId)!;
+  const after = content.after;
+
   const [isAfter, setIsAfter] = useState(false);
+
+  const before = useMemo(() => content.before, [content.before]);
 
   return (
     <section className="relative overflow-hidden bg-linear-to-b from-[#f5f5ff] via-white to-[#e6e6ff] py-16 pb-24 sm:py-24 sm:pb-32">
@@ -85,15 +62,18 @@ export function CaseStudiesResults() {
                   Results
                 </span>
               </div>
+
               <h2 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-7xl">
                 <span className="bg-linear-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-                  Case Studies
-                </span>
+                  {content.headline}
+                </span>{" "}
+                <span className="text-foreground/80">{service.tabLabel}</span>
               </h2>
+
               <p className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Our clients don&apos;t just get leads. They get qualified
-                opportunities with clear before and after results.
+                {content.description}
               </p>
+
               <div className="flex flex-wrap gap-4">
                 <Button
                   asChild
@@ -105,20 +85,20 @@ export function CaseStudiesResults() {
                     className="inline-flex items-center gap-2"
                   >
                     See How We Did It
-                    <ArrowRight className="h-8 w-8 relative left-3 bg-white text-primary size-10 rounded-full p-1" style={{ transform: 'rotate(-45deg)' }}/>
+                    <ArrowRight
+                      className="h-8 w-8 relative left-3 bg-white text-primary size-10 rounded-full p-1"
+                      style={{ transform: "rotate(-45deg)" }}
+                    />
                   </Link>
                 </Button>
               </div>
+
               {/* Compact results summary */}
               <div className="flex flex-wrap gap-6 pt-2 text-sm text-muted-foreground">
-                {CASE_STUDIES.slice(0, 3).map((cs) => (
+                {CASE_STUDIES.map((cs) => (
                   <div key={cs.industry} className="flex items-baseline gap-2">
-                    <span className="font-semibold text-foreground">
-                      {cs.industry}
-                    </span>
-                    <span className="text-primary">
-                      {cs.leadsIncrease} leads
-                    </span>
+                    <span className="font-semibold text-foreground">{cs.industry}</span>
+                    <span className="text-primary">{cs.leadsIncrease} leads</span>
                     <span>{cs.revenueGrowth} revenue</span>
                   </div>
                 ))}
@@ -143,15 +123,14 @@ export function CaseStudiesResults() {
                   >
                     {isAfter ? `After ${siteName}` : `Before ${siteName}`}
                   </span>
+
                   <button
                     type="button"
                     onClick={() => setIsAfter((p) => !p)}
                     className="relative h-7 w-12 rounded-full shadow-sm border-2 border-primary bg-slate-700 transition-colors"
                     aria-label="Toggle before / after"
                     style={{
-                      backgroundColor: isAfter
-                        ? "var(--primary)"
-                        : "var(--slate-700)",
+                      backgroundColor: isAfter ? "var(--primary)" : "var(--slate-700)",
                     }}
                   >
                     <motion.div
@@ -171,36 +150,40 @@ export function CaseStudiesResults() {
                   </button>
                 </div>
 
-                <div className="">
+                <div>
                   <AnimatePresence mode="wait">
                     {isAfter ? (
-                      <div className="">
+                      <div>
                         <div className="flex flex-row gap-2 pb-4 items-center justify-center">
-                          <Image
-                            src="/images/onTrack.avif"
-                            alt="On Track"
-                            width={100}
-                            height={90}
-                            className="shadow-lg rounded-lg w-full"
-                          />
-                          <Image
-                            src="/images/highROI.webp"
-                            alt="hight roi"
-                            width={200}
-                            height={200}
-                            className="shadow-lg rounded-lg"
-                          />
+                          <div className="relative h-32 sm:h-36 flex-1 overflow-hidden rounded-lg shadow-lg">
+                            <Image
+                              src={after.images.topLeft.src}
+                              alt={after.images.topLeft.alt}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <div className="relative h-32 sm:h-36 flex-1 overflow-hidden rounded-lg shadow-lg">
+                            <Image
+                              src={after.images.topRight.src}
+                              alt={after.images.topRight.alt}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
                         </div>
-                        <div className="flex flex-row gap-6 pb-4 items-center justify-center">
-                          <Image
-                            src="/images/impEngage.webp"
-                            alt="On Track"
-                            width={100}
-                            height={90}
-                            className="shadow-lg rounded-lg w-full"
-                          />
 
-                          <div className="relative overflow-hidden rounded-md border border-white/10 ">
+                        <div className="flex flex-row gap-6 pb-4 items-center justify-center">
+                          <div className="relative h-32 sm:h-36 flex-1 overflow-hidden rounded-lg shadow-lg">
+                            <Image
+                              src={after.images.midLeft.src}
+                              alt={after.images.midLeft.alt}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+
+                          <div className="relative overflow-hidden rounded-md border border-white/10">
                             <motion.div
                               className="flex w-max items-center gap-3 p-3"
                               animate={{ x: ["0%", "-50%"] }}
@@ -210,34 +193,7 @@ export function CaseStudiesResults() {
                                 ease: "linear",
                               }}
                             >
-                              {[
-                                { src: "/images/em.avif", alt: "Email" },
-                                {
-                                  src: "/images/engage.avif",
-                                  alt: "Engagement",
-                                },
-                                { src: "/images/tasks.avif", alt: "Tasks" },
-                                {
-                                  src: "/images/tracking.avif",
-                                  alt: "Tracking",
-                                },
-                                {
-                                  src: "/images/em.avif",
-                                  alt: "Email duplicate",
-                                },
-                                {
-                                  src: "/images/engage.avif",
-                                  alt: "Engagement duplicate",
-                                },
-                                {
-                                  src: "/images/tasks.avif",
-                                  alt: "Tasks duplicate",
-                                },
-                                {
-                                  src: "/images/tracking.avif",
-                                  alt: "Tracking duplicate",
-                                },
-                              ].map((logo, idx) => (
+                              {after.sliderLogos.map((logo, idx) => (
                                 <div
                                   key={`${logo.alt}-${idx}`}
                                   className="h-10 w-16 overflow-hidden"
@@ -254,65 +210,69 @@ export function CaseStudiesResults() {
                             </motion.div>
                           </div>
                         </div>
+
                         <div className="flex flex-row gap-2 pb-4 items-center justify-center">
-                          <Image
-                            src="/images/lead.avif"
-                            alt="On Track"
-                            width={100}
-                            height={90}
-                            className="shadow-lg rounded-lg w-full"
-                          />
+                          <div className="relative h-32 sm:h-36 flex-1 overflow-hidden rounded-lg shadow-lg">
+                            <Image
+                              src={after.images.bottomLeft.src}
+                              alt={after.images.bottomLeft.alt}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
                           <div className="flex flex-row gap-2">
-                            <Youtube className="w-7 h-7 bg-primary text-white size-10 rounded-md p-1" style={{ transform: 'rotate(6deg)' }}/>
-                            <Facebook className="w-7 h-7 bg-primary text-white size-10 rounded-md p-1" style={{ transform: 'rotate(-6deg)' }}/>
-                            <Instagram className="w-7 h-7 bg-primary text-white size-10 rounded-md p-1" style={{ transform: 'rotate(6deg)' }}/>
-                            <Linkedin className="w-7 h-7 bg-primary text-white size-10 rounded-md p-1" style={{ transform: 'rotate(-6deg)' }}/>
-                            <Twitter className="w-7 h-7 bg-primary text-white size-10 rounded-md p-1" style={{ transform: 'rotate(6deg)' }}/>
+                            {after.socialIcons.map((key: CoreSocialIconKey) => {
+                              const Icon = CORE_SOCIAL_ICON_MAP[key];
+                              const rotate =
+                                key === "Facebook" || key === "Linkedin"
+                                  ? -6
+                                  : 6;
+                              return (
+                                <Icon
+                                  key={key}
+                                  className="w-7 h-7 bg-primary text-white size-10 rounded-md p-1"
+                                  style={{
+                                    transform: `rotate(${rotate}deg)`,
+                                  }}
+                                />
+                              );
+                            })}
                           </div>
                         </div>
                       </div>
                     ) : (
                       <div className="relative w-full flex justify-center p-4 bg-card overflow-hidden rounded-xl">
                         <div className="grid grid-cols-2 gap-6 items-center justify-center">
-                          {/* Card 1: New Emails */}
-                          {before.map(
-                            (
-                              item: {
-                                image: string;
-                                title: string;
-                                rotate: number;
-                              },
-                              index: number,
-                            ) => (
-                              <motion.div
-                                key={index}
-                                className="flex flex-col items-center justify-center gap-2 -rotate-6"
-                                animate={{
-                                  rotate: [item.rotate, -2, item.rotate],
-                                  y: [0, -6, 0],
-                                }}
-                                transition={{
-                                  duration: 4,
-                                  repeat: Infinity,
-                                  ease: "easeInOut",
-                                  delay: 0,
-                                }}
-                              >
+                          {before.map((item, index) => (
+                            <motion.div
+                              key={index}
+                              className="flex flex-col items-center justify-center gap-2"
+                              animate={{
+                                rotate: [item.rotate, -2, item.rotate],
+                                y: [0, -6, 0],
+                              }}
+                              transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: 0,
+                              }}
+                            >
+                              <div className="relative h-32 sm:h-36 w-40 sm:w-52 overflow-hidden rounded-lg shadow-lg">
                                 <Image
                                   src={item.image}
                                   alt={item.title}
-                                  width={230}
-                                  height={200}
-                                  className="shadow-lg rounded-lg"
+                                  fill
+                                  className="object-cover"
                                 />
-                                <div className="flex flex-col items-center justify-center bg-primary/20 p-2 rounded-md">
-                                  <p className="text-black text-sm font-semibold">
-                                    {item.title}
-                                  </p>
-                                </div>
-                              </motion.div>
-                            ),
-                          )}
+                              </div>
+                              <div className="flex flex-col items-center justify-center bg-primary/20 p-2 rounded-md">
+                                <p className="text-black text-sm font-semibold">
+                                  {item.title}
+                                </p>
+                              </div>
+                            </motion.div>
+                          ))}
                         </div>
                       </div>
                     )}
@@ -322,42 +282,8 @@ export function CaseStudiesResults() {
             </motion.div>
           </div>
         </div>
-
-        {/* Bottom bullets + CTA */}
-        <motion.ul
-          className="mt-12 flex flex-wrap justify-center gap-4 text-sm text-muted-foreground"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { staggerChildren: 0.05, delayChildren: 0.1 },
-            },
-          }}
-        >
-          {[
-            "Increased booking rates",
-            "Faster response times",
-            "Higher close rates",
-            "Lower cost per acquisition",
-            "Automated follow-ups 24/7",
-          ].map((item) => (
-            <motion.li
-              key={item}
-              className="flex items-center gap-2 rounded-full border border-primary/15 bg-white/80 px-4 py-2 shadow-sm"
-              variants={{
-                hidden: { opacity: 0, y: 10 },
-                visible: { opacity: 1, y: 0 },
-              }}
-            >
-              <span className="text-primary">✔</span> {item}
-            </motion.li>
-          ))}
-        </motion.ul>
       </div>
     </section>
   );
 }
+

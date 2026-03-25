@@ -1,19 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { HeroSection } from "@/components/sections/hero-section";
-import { CoreServicesGrid } from "@/components/sections/core-services-grid";
 import { prisma } from "@/lib/prisma";
-const HowWeBuild = dynamic(() =>
-  import("@/components/sections/how-we-build").then((m) => ({ default: m.HowWeBuild }))
-);
-
-const AIWorkflowVisual = dynamic(() =>
-  import("@/components/sections/ai-workflow-visual").then((m) => ({ default: m.AIWorkflowVisual }))
-);
-
-const CaseStudiesResults = dynamic(() =>
-  import("@/components/sections/case-studies-results").then((m) => ({ default: m.CaseStudiesResults }))
-);
+import { HomeHeroAndCore } from "@/components/sections/home-hero-and-core";
 
 const IndustriesServeRevOps = dynamic(() =>
   import("@/components/sections/industries-serve-revops").then((m) => ({ default: m.IndustriesServeRevOps }))
@@ -54,11 +42,7 @@ export default async function Home() {
 
   return (
     <div className="w-full">
-      <HeroSection />
-      <CoreServicesGrid />
-      <HowWeBuild />
-      <AIWorkflowVisual />
-      <CaseStudiesResults />
+      <HomeHeroAndCore />
       <IndustriesServeRevOps />
       <Testimonials testimonials={testimonials} />
       <CTABanner />

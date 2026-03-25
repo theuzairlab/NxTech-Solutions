@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +20,7 @@ import {
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ParticlesBackground } from "@/components/ui/particles-background";
+import type { CoreServiceId } from "@/lib/core-services-home-data";
 
 const DASHBOARD_SLIDES = [
   {
@@ -118,7 +119,15 @@ const CalendlyModal = dynamic(
 
 type HeroTab = "contact" | "dashboard";
 
-export function HeroSection() {
+export function HeroSection({
+  activeServiceId,
+  onActiveServiceIdChange,
+  paused,
+}: {
+  activeServiceId?: CoreServiceId;
+  onActiveServiceIdChange?: (id: CoreServiceId) => void;
+  paused?: boolean;
+}) {
   const [showCalendlyModal, setShowCalendlyModal] = useState(false);
   const [activeTab, setActiveTab] = useState<HeroTab>("dashboard");
   const [formData, setFormData] = useState({
@@ -181,6 +190,12 @@ export function HeroSection() {
   };
 
   const isContactTab = activeTab === "contact";
+  const derivedSlide = useMemo(() => {
+    if (!activeServiceId) return 0;
+    const idx = DASHBOARD_SLIDES.findIndex((s) => s.slug === activeServiceId);
+    return idx >= 0 ? idx : 0;
+  }, [activeServiceId]);
+
   const [dashboardSlide, setDashboardSlide] = useState(0);
   const [isDashboardPaused, setIsDashboardPaused] = useState(false);
 
@@ -192,14 +207,29 @@ export function HeroSection() {
     setDashboardSlide((i) => (i - 1 + DASHBOARD_SLIDES.length) % DASHBOARD_SLIDES.length);
   };
 
+  // Sync internal slide with external activeServiceId (when controlled).
+  useEffect(() => {
+    if (!activeServiceId) return;
+    setDashboardSlide(derivedSlide);
+  }, [activeServiceId, derivedSlide]);
+
+  // When slide changes (auto / arrows / dots), update activeServiceId for the rest of home.
+  useEffect(() => {
+    if (!onActiveServiceIdChange) return;
+    const slug = DASHBOARD_SLIDES[dashboardSlide]?.slug;
+    if (!slug) return;
+    onActiveServiceIdChange(slug);
+  }, [dashboardSlide, onActiveServiceIdChange]);
+
   useEffect(() => {
     if (activeTab !== "dashboard") return;
     if (isDashboardPaused) return;
+    if (paused) return;
     const t = setInterval(() => {
       goNextSlide();
     }, 5500);
     return () => clearInterval(t);
-  }, [activeTab, isDashboardPaused]);
+  }, [activeTab, isDashboardPaused, paused]);
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-background">

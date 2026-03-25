@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ParticlesBackground } from "@/components/ui/particles-background";
 
 interface StatItem {
   value: string;
@@ -40,16 +41,10 @@ export function RevopsHero({
 }: RevopsHeroProps) {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
-      {/* Background using same hero image as homepage */}
+      
+
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/hero3.jpg"
-          alt=""
-          fill
-          priority
-          className="object-cover object-center"
-        />
-        {/* <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/60 to-black/80" /> */}
+        <ParticlesBackground />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 pb-16 pt-24 sm:px-6 sm:pt-28 sm:pb-20 lg:py-28">
@@ -68,12 +63,12 @@ export function RevopsHero({
           >
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-sm border border-white/20 mb-5">
               <Zap className="h-4 w-4 text-primary" />
-              <span className="text-xs font-semibold tracking-[0.18em] text-white/90 uppercase">
+              <span className="text-xs font-semibold tracking-[0.18em] text-foreground/90 uppercase">
                 {eyebrow}
               </span>
             </div>
 
-            <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl">
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl xl:text-6xl">
               {titleLines.map((line) => (
                 <span key={line} className="block">
                   {line}
@@ -82,7 +77,7 @@ export function RevopsHero({
               <span className="mt-2 block text-primary">{highlightLine}</span>
             </h1>
 
-            <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-foreground/80 sm:text-base md:text-lg">
               {description}
             </p>
 
@@ -106,11 +101,11 @@ export function RevopsHero({
                   size="lg"
                   variant="outline"
                   asChild
-                  className="cursor-pointer rounded-full border-2 border-primary bg-transparent px-10 py-6 text-base sm:text-lg hover:border-primary/40 hover:bg-primary/5"
+                  className="cursor-pointer rounded-full border-2 border-primary bg-transparent px-10 py-6 text-base hover:text-primary sm:text-lg hover:border-primary/40 hover:bg-primary/5 text-foreground"
                 >
-                  <Link href={secondaryCtaHref} className="flex items-center text-white">
+                  <Link href={secondaryCtaHref} className="flex items-center text-foreground">
                     {secondaryCtaLabel}
-                    <ArrowRight className="relative left-3 h-10 w-10 size-10 bg-primary text-white rounded-full p-1 -rotate-45" />
+                    <ArrowRight className="relative left-3 h-10 w-10 size-10 bg-primary text-foreground rounded-full p-1 -rotate-45" />
                   </Link>
                 </Button>
               )}
@@ -123,7 +118,7 @@ export function RevopsHero({
                     <p className="text-2xl sm:text-3xl font-bold text-primary">
                       {s.value}
                     </p>
-                    <p className="text-xs sm:text-sm text-white/70">{s.label}</p>
+                    <p className="text-xs sm:text-sm text-foreground/70">{s.label}</p>
                   </div>
                 ))}
               </div>
@@ -138,7 +133,7 @@ export function RevopsHero({
             className="mt-6 flex w-full justify-center lg:mt-0 lg:w-auto lg:justify-end"
           >
             <motion.div
-              className="relative mx-auto w-full max-w-[340px] sm:max-w-[380px] md:max-w-[400px] lg:max-w-[420px] rounded-3xl border border-white/15 bg-black/30 p-3 backdrop-blur-2xl shadow-2xl"
+              className="relative mx-auto w-full max-w-[340px] sm:max-w-[380px] md:max-w-[400px] lg:max-w-[420px] rounded-3xl border border-foreground/15 bg-background/30 p-3 backdrop-blur-2xl shadow-2xl"
               style={{ maxWidth: '480px' }}
               animate={{ y: [0, -10, 0] }}
               transition={{
