@@ -39,12 +39,15 @@ type BlogSummary = {
   authorRole: string;
   tags: string[];
   publishedAt: string | null;
+  scheduledFor: string | null;
   readTime: number;
   featured: boolean;
   isPublished: boolean;
   createdAt: string;
   updatedAt: string;
 };
+
+type PublishMode = "draft" | "publish_now" | "schedule";
 
 type BlogFormState = {
   slug: string;
@@ -56,8 +59,31 @@ type BlogFormState = {
   tags: string[];
   readTime: number;
   featured: boolean;
-  isPublished: boolean;
+  publishMode: PublishMode;
+  scheduledFor: string | null;
 };
+
+function toLocalDatetimeInputValue(dateIso: string | null): string {
+  if (!dateIso) return "";
+  const date = new Date(dateIso);
+  if (Number.isNaN(date.getTime())) return "";
+  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 16);
+}
+
+function toIsoFromLocalDatetime(value: string): string | null {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toISOString();
+}
+
+function resolveInitialPublishMode(initial?: BlogSummary): PublishMode {
+  if (!initial) return "draft";
+  if (initial.isPublished) return "publish_now";
+  if (initial.scheduledFor && new Date(initial.scheduledFor) > new Date()) return "schedule";
+  return "draft";
+}
 
 async function jsonFetch<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
@@ -264,13 +290,19 @@ export function BlogsManagement({
                     <div className="flex items-center gap-1.5">
                       <Calendar className="h-3.5 w-3.5" />
                       <span>
-                        {blog.publishedAt
+                        {blog.isPublished && blog.publishedAt
                           ? new Date(blog.publishedAt).toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "short",
                             day: "numeric",
                           })
-                          : "Not published"}
+                          : blog.scheduledFor
+                            ? `Scheduled: ${new Date(blog.scheduledFor).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                              })}`
+                            : "Draft"}
                       </span>
                     </div>
                     <span className="text-muted-foreground/60">•</span>
@@ -396,7 +428,8 @@ function BlogModal({
         tags: initial.tags || [],
         readTime: initial.readTime || 5,
         featured: initial.featured ?? false,
-        isPublished: initial.isPublished ?? false,
+        publishMode: resolveInitialPublishMode(initial),
+        scheduledFor: initial.scheduledFor || null,
       };
     }
     return {
@@ -409,7 +442,8 @@ function BlogModal({
       tags: [],
       readTime: 5,
       featured: false,
-      isPublished: false,
+      publishMode: "draft",
+      scheduledFor: null,
     };
   });
 
@@ -426,7 +460,8 @@ function BlogModal({
         tags: initial.tags || [],
         readTime: initial.readTime || 5,
         featured: initial.featured ?? false,
-        isPublished: initial.isPublished ?? false,
+        publishMode: resolveInitialPublishMode(initial),
+        scheduledFor: initial.scheduledFor || null,
       });
     } else {
       setForm({
@@ -439,7 +474,8 @@ function BlogModal({
         tags: [],
         readTime: 5,
         featured: false,
-        isPublished: false,
+        publishMode: "draft",
+        scheduledFor: null,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -506,10 +542,19 @@ function BlogModal({
     }
 
     try {
-      // Auto-set publishedAt to current date if publishing
-      const publishedAt = form.isPublished ? new Date().toISOString() : null;
+      if (form.publishMode === "schedule") {
+        const scheduledAtDate = form.scheduledFor ? new Date(form.scheduledFor) : null;
+        if (!scheduledAtDate || Number.isNaN(scheduledAtDate.getTime())) {
+          toast.error("Please provide a valid schedule date and time.");
+          return;
+        }
+        if (scheduledAtDate <= new Date()) {
+          toast.error("Schedule date/time must be in the future.");
+          return;
+        }
+      }
 
-      const payload: any = {
+      const payload = {
         slug: form.slug,
         title: form.title,
         excerpt: form.excerpt,
@@ -521,10 +566,13 @@ function BlogModal({
         authorAvatar: "",
         authorRole: "Company",
         tags: form.tags,
-        publishedAt: publishedAt,
+        schedulingMode: form.publishMode,
+        scheduledFor:
+          form.publishMode === "schedule"
+            ? toIsoFromLocalDatetime(form.scheduledFor || "")
+            : null,
         readTime: form.readTime,
         featured: form.featured,
-        isPublished: form.isPublished,
       };
 
       await onSubmit(payload);
@@ -707,21 +755,56 @@ function BlogModal({
                 Featured
               </Label>
             </div>
-            <div className="flex items-center gap-2">
-              <Switch
-                id="isPublished"
-                checked={form.isPublished}
-                onCheckedChange={(checked) => setForm((f) => ({ ...f, isPublished: checked }))}
-              />
-              <Label htmlFor="isPublished" className="cursor-pointer">
-                Published
-              </Label>
+            <div className="w-full max-w-[260px] space-y-1.5">
+              <Label htmlFor="publishMode">Publish Mode</Label>
+              <Select
+                value={form.publishMode}
+                onValueChange={(value: PublishMode) =>
+                  setForm((f) => ({
+                    ...f,
+                    publishMode: value,
+                    scheduledFor: value === "schedule" ? f.scheduledFor : null,
+                  }))
+                }
+              >
+                <SelectTrigger id="publishMode">
+                  <SelectValue placeholder="Choose mode" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="publish_now">Publish now</SelectItem>
+                  <SelectItem value="schedule">Schedule</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
+          {form.publishMode === "schedule" && (
+            <div className="space-y-1.5">
+              <Label htmlFor="scheduledFor">
+                Schedule Date & Time <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="scheduledFor"
+                type="datetime-local"
+                value={toLocalDatetimeInputValue(form.scheduledFor)}
+                onChange={(e) =>
+                  setForm((f) => ({
+                    ...f,
+                    scheduledFor: toIsoFromLocalDatetime(e.target.value),
+                  }))
+                }
+              />
+              <p className="text-xs text-muted-foreground">
+                Uses your local timezone and stores value in UTC.
+              </p>
+            </div>
+          )}
           <p className="text-xs text-muted-foreground">
-            {form.isPublished
-              ? "Publish date will be automatically set to the current date when you save."
-              : "Enable 'Published' to automatically set the publish date to today."}
+            {form.publishMode === "publish_now"
+              ? "This blog will be published immediately."
+              : form.publishMode === "schedule"
+                ? "This blog remains draft until the scheduled date/time."
+                : "This blog will remain as draft."}
           </p>
         </div>
 

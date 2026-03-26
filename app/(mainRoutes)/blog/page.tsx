@@ -20,10 +20,12 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function Blog() {
+  const now = new Date();
   const [blogs, categories] = await Promise.all([
     prisma.blog.findMany({
       where: {
         isPublished: true,
+        OR: [{ publishedAt: null }, { publishedAt: { lte: now } }],
       },
       orderBy: [
         { featured: "desc" },

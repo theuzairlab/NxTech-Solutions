@@ -8,6 +8,52 @@ interface RouteContext {
   params: Promise<{ id: string }>;
 }
 
+type PublishMode = "draft" | "publish_now" | "schedule";
+
+function resolvePublishingState(input: {
+  schedulingMode?: PublishMode;
+  isPublished?: boolean;
+  scheduledFor?: string | null;
+}) {
+  const now = new Date();
+
+  if (input.schedulingMode === "schedule") {
+    if (!input.scheduledFor) {
+      throw new Error("Scheduled date/time is required.");
+    }
+    const scheduleAt = new Date(input.scheduledFor);
+    if (Number.isNaN(scheduleAt.getTime())) {
+      throw new Error("Invalid scheduled date/time.");
+    }
+    if (scheduleAt <= now) {
+      throw new Error("Scheduled date/time must be in the future.");
+    }
+    return {
+      isPublished: false,
+      publishedAt: null as Date | null,
+      scheduledFor: scheduleAt,
+    };
+  }
+
+  if (input.schedulingMode === "publish_now") {
+    return {
+      isPublished: true,
+      publishedAt: now,
+      scheduledFor: null as Date | null,
+    };
+  }
+
+  if (input.schedulingMode === "draft") {
+    return {
+      isPublished: false,
+      publishedAt: null as Date | null,
+      scheduledFor: null as Date | null,
+    };
+  }
+
+  return null;
+}
+
 export async function PATCH(req: Request, { params }: RouteContext) {
   const { id } = await params;
   const session = await getServerSession(authConfig);
@@ -28,6 +74,8 @@ export async function PATCH(req: Request, { params }: RouteContext) {
     authorAvatar,
     authorRole,
     tags,
+    schedulingMode,
+    scheduledFor,
     publishedAt,
     readTime,
     featured,
@@ -39,12 +87,27 @@ export async function PATCH(req: Request, { params }: RouteContext) {
     where: { id },
     select: { slug: true, isPublished: true },
   });
+  if (!oldBlog) {
+    return new NextResponse("Blog not found", { status: 404 });
+  }
 
   // Calculate read time if content changed
   let calculatedReadTime = readTime;
   if (content) {
     const wordCount = content.split(/\s+/).length;
     calculatedReadTime = Math.ceil(wordCount / 200);
+  }
+
+  let resolvedPublishState: ReturnType<typeof resolvePublishingState>;
+  try {
+    resolvedPublishState = resolvePublishingState({
+      schedulingMode,
+      isPublished,
+      scheduledFor,
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Invalid publishing state.";
+    return new NextResponse(message, { status: 400 });
   }
 
   const updated = await prisma.blog.update({
@@ -61,10 +124,23 @@ export async function PATCH(req: Request, { params }: RouteContext) {
       authorAvatar,
       authorRole,
       tags,
-      publishedAt: publishedAt ? new Date(publishedAt) : null,
+      publishedAt:
+        resolvedPublishState?.publishedAt ??
+        (publishedAt !== undefined
+          ? publishedAt
+            ? new Date(publishedAt)
+            : null
+          : undefined),
+      scheduledFor:
+        resolvedPublishState?.scheduledFor ??
+        (scheduledFor !== undefined
+          ? scheduledFor
+            ? new Date(scheduledFor)
+            : null
+          : undefined),
       readTime: calculatedReadTime,
       featured,
-      isPublished,
+      isPublished: resolvedPublishState?.isPublished ?? isPublished,
     },
     select: {
       id: true,
@@ -87,6 +163,7 @@ export async function PATCH(req: Request, { params }: RouteContext) {
       authorRole: true,
       tags: true,
       publishedAt: true,
+      scheduledFor: true,
       readTime: true,
       featured: true,
       isPublished: true,

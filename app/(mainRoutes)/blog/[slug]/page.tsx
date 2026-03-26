@@ -9,9 +9,11 @@ import { BlogDetailPage } from "@/components/sections/blog-detail-page";
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
+  const now = new Date();
   const blogs = await prisma.blog.findMany({
     where: {
       isPublished: true,
+      OR: [{ publishedAt: null }, { publishedAt: { lte: now } }],
     },
     select: {
       slug: true,
@@ -29,8 +31,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }> 
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await prisma.blog.findUnique({
-    where: { slug, isPublished: true },
+  const now = new Date();
+  const post = await prisma.blog.findFirst({
+    where: {
+      slug,
+      isPublished: true,
+      OR: [{ publishedAt: null }, { publishedAt: { lte: now } }],
+    },
     select: {
       title: true,
       excerpt: true,
@@ -75,8 +82,13 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }> 
 }) {
   const { slug } = await params;
-  const post = await prisma.blog.findUnique({
-    where: { slug, isPublished: true },
+  const now = new Date();
+  const post = await prisma.blog.findFirst({
+    where: {
+      slug,
+      isPublished: true,
+      OR: [{ publishedAt: null }, { publishedAt: { lte: now } }],
+    },
     select: {
       id: true,
       slug: true,
@@ -109,6 +121,7 @@ export default async function BlogPostPage({
     where: {
       categoryId: post.categoryId || undefined,
       isPublished: true,
+      OR: [{ publishedAt: null }, { publishedAt: { lte: now } }],
       slug: { not: slug },
     },
     take: 3,

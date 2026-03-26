@@ -43,6 +43,7 @@ export default async function BlogsPage() {
         authorRole: true,
         tags: true,
         publishedAt: true,
+        scheduledFor: true,
         readTime: true,
         featured: true,
         isPublished: true,
@@ -80,6 +81,7 @@ export default async function BlogsPage() {
             initialBlogs={blogs.map((b: any) => ({
               ...b,
               publishedAt: b.publishedAt?.toISOString() || null,
+              scheduledFor: b.scheduledFor?.toISOString() || null,
               createdAt: b.createdAt.toISOString(),
               updatedAt: b.updatedAt.toISOString(),
             }))}

@@ -193,6 +193,7 @@ model Blog {
 
   tags        String[]
   publishedAt DateTime?
+  scheduledFor DateTime?
   readTime    Int
   featured    Boolean  @default(false)
   isPublished Boolean  @default(false)
