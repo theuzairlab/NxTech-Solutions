@@ -17,7 +17,7 @@ const CTABanner = dynamic(() =>
 
 export const metadata: Metadata = {
   title: `${process.env.NEXT_PUBLIC_SITE_NAME} - AI-Powered Growth Systems That Turn Traffic Into Revenue`,
-  description: `${process.env.NEXT_PUBLIC_SITE_NAME} helps service-based businesses automate lead generation, qualify prospects using AI, and convert them into booked appointments and paying clients. Automation. Development. Performance Marketing.`,
+  description: `${process.env.NEXT_PUBLIC_SITE_NAME} helps service-based businesses automate lead generation, qualify prospects using AI, and convert them into booked appointments and paying clients. Automation. Development. Performance Marketing. We are a team of experienced developers and marketers who are dedicated to helping businesses grow and succeed.`,
 };
 
 export const revalidate = 3600;
