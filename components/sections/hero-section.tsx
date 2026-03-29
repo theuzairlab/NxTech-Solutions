@@ -16,11 +16,14 @@ import {
   Smartphone,
   ChevronLeft,
   ChevronRight,
+  Check,
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { ParticlesBackground } from "@/components/ui/particles-background";
 import type { CoreServiceId } from "@/lib/core-services-home-data";
+import { CORE_SERVICES_HOME_CONTENT } from "@/lib/core-services-home-data";
 
 const DASHBOARD_SLIDES = [
   {
@@ -130,10 +133,13 @@ export function HeroSection({
 }) {
   const [showCalendlyModal, setShowCalendlyModal] = useState(false);
   const [activeTab, setActiveTab] = useState<HeroTab>("dashboard");
+  // Hero card before/after toggle — false = "After NxTechNova" (dashboard), true = "Before NxTechNova" (images)
+  const [showBefore, setShowBefore] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
+    selectedService: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -160,7 +166,9 @@ export function HeroSection({
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          subject: "Homepage Hero Contact",
+          subject: formData.selectedService
+            ? `Homepage Hero Contact — ${formData.selectedService}`
+            : "Homepage Hero Contact",
         }),
       });
 
@@ -174,6 +182,7 @@ export function HeroSection({
         name: "",
         email: "",
         message: "",
+        selectedService: "",
       });
 
       setTimeout(() => {
@@ -332,25 +341,40 @@ export function HeroSection({
               <div className="relative h-full rounded-[22px] bg-white/95 backdrop-blur-xl text-foreground flex flex-col overflow-hidden">
                 {/* Tabs header */}
                 <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-primary/5 px-3 py-1 backdrop-blur">
-                    <span className="text-[11px] font-medium text-foreground/80">
-                      After NxTechNova
-                    </span>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
+                  {/* Before / After toggle pill */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowBefore(true)}
+                      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium transition-all ${showBefore
+                        ? "bg-slate-700 text-white shadow-sm"
+                        : "bg-primary/5 text-foreground/60 hover:bg-slate-100"
+                        }`}
+                    >
+                      <span className="h-2 w-2 rounded-full bg-red-400 inline-block" />
+                      Before {process.env.NEXT_PUBLIC_SITE_NAME || "NxTechNova"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowBefore(false)}
+                      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium transition-all ${!showBefore
+                        ? "bg-primary text-white shadow-sm"
+                        : "bg-primary/5 text-foreground/60 hover:bg-primary/10"
+                        }`}
+                    >
                       <Zap className="h-3 w-3" />
-                      AI On
-                    </span>
+                      After {process.env.NEXT_PUBLIC_SITE_NAME || "NxTechNova"}
+                    </button>
                   </div>
 
                   <div className="flex gap-1 rounded-full bg-slate-100 p-1 text-xs backdrop-blur">
                     <button
                       type="button"
                       onClick={() => setActiveTab("contact")}
-                      className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 transition-colors ${
-                        isContactTab
-                          ? "bg-white text-primary shadow-sm"
-                          : "text-slate-500 hover:text-primary"
-                      }`}
+                      className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 transition-colors ${isContactTab
+                        ? "bg-white text-primary shadow-sm"
+                        : "text-slate-500 hover:text-primary"
+                        }`}
                     >
                       <MessageCircle className="h-3.5 w-3.5" />
                       <span>Contact</span>
@@ -358,11 +382,10 @@ export function HeroSection({
                     <button
                       type="button"
                       onClick={() => setActiveTab("dashboard")}
-                      className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 transition-colors ${
-                        !isContactTab
-                          ? "bg-white text-primary shadow-sm"
-                          : "text-slate-500 hover:text-primary"
-                      }`}
+                      className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 transition-colors ${!isContactTab
+                        ? "bg-white text-primary shadow-sm"
+                        : "text-slate-500 hover:text-primary"
+                        }`}
                     >
                       <TrendingUp className="h-3.5 w-3.5" />
                       <span>Dashboard</span>
@@ -371,115 +394,280 @@ export function HeroSection({
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 min-h-0 p-4 sm:p-5 flex flex-col gap-4 min-w-[560px] sm:max-w-[420px] aspect-square md:max-w-[480px]">
+                <div className="flex-1 min-h-0 p-4 sm:p-5 flex flex-col gap-4">
                   {isContactTab ? (
-                    /* 2-column grid: form left | stat cards right — mirrors dashboard layout */
-                    <div className="grid min-h-0">
+                    /* ── Modern Animated Contact Form ── */
+                    <AnimatePresence mode="wait">
+                      {isSubmitted ? (
+                        /* Success state */
+                        <motion.div
+                          key="success"
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.9 }}
+                          transition={{ duration: 0.4, ease: "easeOut" }}
+                          className="flex flex-col items-center justify-center gap-4 h-full py-8"
+                        >
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
+                            className="h-16 w-16 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center"
+                          >
+                            <svg className="h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                              <motion.path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M5 13l4 4L19 7"
+                                initial={{ pathLength: 0 }}
+                                animate={{ pathLength: 1 }}
+                                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+                              />
+                            </svg>
+                          </motion.div>
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.35 }}
+                            className="text-center"
+                          >
+                            <p className="text-[15px] font-bold text-foreground">Message received! 🎉</p>
+                            <p className="mt-1 text-[12px] text-muted-foreground">We&apos;ll reach out within 24 hours.</p>
+                          </motion.div>
+                        </motion.div>
+                      ) : (
+                        <motion.form
+                          key="form"
+                          onSubmit={handleSubmit}
+                          className="flex flex-col gap-3 min-h-0 overflow-y-auto overscroll-contain px-2 pb-4"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                        >
+                          {/* Header */}
+                          <motion.div
+                            initial={{ opacity: 0, y: -8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.35, delay: 0.05 }}
+                          >
+                            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">Get in touch</p>
+                            <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">Pick a service and tell us your goal — we reply in 24 h.</p>
+                          </motion.div>
 
-                      {/* LEFT — form */}
-                      <div className="flex flex-col gap-2 min-h-0 overflow-y-auto overscroll-contain">
-                        <div>
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-                            Get in touch
-                          </p>
-                          <p className="mt-0.5 text-[11px] text-muted-foreground leading-snug">
-                            Tell us your growth goals — we reply within 24 h.
-                          </p>
-                        </div>
+                          {/* Service selector chips */}
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.35, delay: 0.1 }}
+                          >
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground/50 mb-1.5">I&apos;m interested in</p>
+                            <div className="grid grid-cols-2 gap-1.5">
+                              {([
+                                { id: "AI Automation", icon: Bot, color: "text-violet-600", bg: "bg-violet-50 border-violet-200", activeBg: "bg-violet-600 border-violet-600" },
+                                { id: "Web Development", icon: Globe, color: "text-indigo-600", bg: "bg-indigo-50 border-indigo-200", activeBg: "bg-indigo-600 border-indigo-600" },
+                                { id: "App Development", icon: Smartphone, color: "text-fuchsia-600", bg: "bg-fuchsia-50 border-fuchsia-200", activeBg: "bg-fuchsia-600 border-fuchsia-600" },
+                                { id: "Digital Marketing", icon: BarChart3, color: "text-amber-600", bg: "bg-amber-50 border-amber-200", activeBg: "bg-amber-600 border-amber-600" },
+                              ] as const).map((svc) => {
+                                const Icon = svc.icon;
+                                const isActive = formData.selectedService === svc.id;
+                                return (
+                                  <motion.button
+                                    key={svc.id}
+                                    type="button"
+                                    onClick={() => setFormData((p) => ({ ...p, selectedService: isActive ? "" : svc.id }))}
+                                    whileTap={{ scale: 0.95 }}
+                                    whileHover={{ scale: 1.02 }}
+                                    className={`flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition-all ${svc.bg} ${svc.color} hover:shadow-sm`}
+                                  >
+                                    <Icon className="h-4 w-4 shrink-0" />
+                                    <span className="text-[11px] font-semibold leading-snug">{svc.id}</span>
+                                    {isActive && (
+                                      <Check className="h-4 w-4 shrink-0 ml-auto" />
+                                    )}
+                                  </motion.button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
 
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-                          <div className="space-y-1">
-                            <label
-                              htmlFor="hero-name"
-                              className="text-[11px] font-medium text-foreground/80"
-                            >
-                              Name *
-                            </label>
-                            <input
-                              id="hero-name"
-                              name="name"
-                              type="text"
-                              required
-                              value={formData.name}
-                              onChange={handleInputChange}
-                              className="h-9 w-full rounded-xl border border-slate-200 bg-white px-3 text-[13px] text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25"
-                              placeholder="Jane Doe"
-                            />
-                          </div>
+                          {/* Name + Email side by side */}
+                          <motion.div
+                            className="grid grid-cols-2 gap-2"
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.35, delay: 0.15 }}
+                          >
+                            <div className="group relative">
+                              <input
+                                id="hero-name"
+                                name="name"
+                                type="text"
+                                required
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                placeholder=" "
+                                className="peer h-12 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 pt-4 pb-1 text-[12px] text-foreground outline-none transition-all focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 placeholder-transparent"
+                              />
+                              <label
+                                htmlFor="hero-name"
+                                className="pointer-events-none absolute left-3 top-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary/70 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-[11px] peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[9px] peer-focus:font-semibold peer-focus:uppercase peer-focus:tracking-[0.12em] peer-focus:text-primary/70"
+                              >
+                                Name *
+                              </label>
+                            </div>
+                            <div className="group relative">
+                              <input
+                                id="hero-email"
+                                name="email"
+                                type="email"
+                                required
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                placeholder=" "
+                                className="peer h-12 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 pt-4 pb-1 text-[12px] text-foreground outline-none transition-all focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 placeholder-transparent"
+                              />
+                              <label
+                                htmlFor="hero-email"
+                                className="pointer-events-none absolute left-3 top-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary/70 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-[11px] peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[9px] peer-focus:font-semibold peer-focus:uppercase peer-focus:tracking-[0.12em] peer-focus:text-primary/70"
+                              >
+                                Email *
+                              </label>
+                            </div>
+                          </motion.div>
 
-                          <div className="space-y-1">
-                            <label
-                              htmlFor="hero-email"
-                              className="text-[11px] font-medium text-foreground/80"
-                            >
-                              Work email *
-                            </label>
-                            <input
-                              id="hero-email"
-                              name="email"
-                              type="email"
-                              required
-                              value={formData.email}
-                              onChange={handleInputChange}
-                              className="h-9 w-full rounded-xl border border-slate-200 bg-white px-3 text-[13px] text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25"
-                              placeholder="you@company.com"
-                            />
-                          </div>
-
-                          <div className="flex flex-col flex-1 space-y-1 min-h-0">
-                            <label
-                              htmlFor="hero-message"
-                              className="text-[11px] font-medium text-foreground/80"
-                            >
-                              What to improve? *
-                            </label>
+                          {/* Message textarea */}
+                          <motion.div
+                            className="group relative"
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.35, delay: 0.2 }}
+                          >
                             <textarea
                               id="hero-message"
                               name="message"
                               required
+                              rows={3}
                               value={formData.message}
                               onChange={handleInputChange}
-                              className="flex-1 min-h-0 w-full resize-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-[13px] text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25"
-                              placeholder="Automate lead follow-up, qualify demos…"
+                              placeholder=" "
+                              className="peer w-full resize-none rounded-xl border border-slate-200 bg-slate-50/80 px-3 pt-6 pb-2 text-[12px] text-foreground outline-none transition-all focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 placeholder-transparent"
                             />
-                          </div>
-
-                          <Button
-                            type="submit"
-                            size="sm"
-                            disabled={isSubmitting}
-                            className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-[13px] font-semibold text-primary-foreground shadow-md hover:bg-primary/90"
-                          >
-                            {isSubmitting ? (
-                              <>
-                                <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-primary-foreground/40 border-t-transparent" />
-                                Sending…
-                              </>
-                            ) : (
-                              <>
-                                <ArrowRight className="h-3.5 w-3.5" />
-                                Send message
-                              </>
-                            )}
-                          </Button>
-
-                          {isSubmitted && (
-                            <motion.p
-                              initial={{ opacity: 0, y: 4 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="text-[11px] font-medium text-emerald-600"
+                            <label
+                              htmlFor="hero-message"
+                              className="pointer-events-none absolute left-3 top-2 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary/70 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[11px] peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-2 peer-focus:text-[9px] peer-focus:font-semibold peer-focus:uppercase peer-focus:tracking-[0.12em] peer-focus:text-primary/70"
                             >
-                              Message received. We&apos;ll reach out shortly.
-                            </motion.p>
-                          )}
-                        </form>
-                      </div>
+                              What&apos;s your goal? *
+                            </label>
+                          </motion.div>
 
-                      {/* RIGHT — stat cards (same column structure as dashboard) */}
-                      
-                    </div>
+                          {/* Submit button */}
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.35, delay: 0.25 }}
+                          >
+                            <motion.button
+                              type="submit"
+                              disabled={isSubmitting}
+                              whileHover={isSubmitting ? {} : { scale: 1.01 }}
+                              whileTap={isSubmitting ? {} : { scale: 0.98 }}
+                              className="relative w-full overflow-hidden rounded-full py-1 text-[13px] font-bold text-white shadow-lg transition-all disabled:opacity-70"
+                              style={{
+                                background: "linear-gradient(135deg, var(--primary) 0%, oklch(0.55 0.18 220) 100%)",
+                              }}
+                            >
+                              {/* Animated shimmer */}
+                              {!isSubmitting && (
+                                <motion.div
+                                  className="pointer-events-none absolute inset-0 -skew-x-12 bg-white/10"
+                                  animate={{ x: ["-100%", "200%"] }}
+                                  transition={{ duration: 2.5, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
+                                />
+                              )}
+                              <span className="relative flex items-center justify-center gap-2 pl-6 pr-2">
+                                {isSubmitting ? (
+                                  <>
+                                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                                    Sending…
+                                  </>
+                                ) : (
+                                  <>
+                                    Send Message
+                                    {formData.selectedService && (
+                                      <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-medium">
+                                        {formData.selectedService}
+                                      </span>
+                                    )}
+
+                                    <ArrowRight
+                                      size={36}
+                                      className="bg-white ml-auto text-primary  rounded-full size-10 transition-transform translate-x-1 -rotate-45 group-hover:translate-x-0.5"
+                                    />
+                                  </>
+                                )}
+                              </span>
+                            </motion.button>
+                          </motion.div>
+                        </motion.form>
+                      )}
+                    </AnimatePresence>
+                  ) : showBefore ? (
+                    /* Before NxTechNova — animated floating case-study before-images */
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={`before-${DASHBOARD_SLIDES[dashboardSlide]?.slug}`}
+                        initial={{ opacity: 0, scale: 0.96 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.96 }}
+                        transition={{ duration: 0.45, ease: "easeOut" }}
+                        className="relative w-full flex-1 flex items-center justify-center bg-slate-50/60 rounded-2xl overflow-hidden"
+                      >
+                        {/* subtle noise label */}
+                        <div className="absolute top-3 left-3 z-10 rounded-full bg-slate-700/80 px-2.5 py-0.5 text-[10px] font-semibold text-white backdrop-blur">
+                          {DASHBOARD_SLIDES[dashboardSlide]?.serviceTitle} — Pain Points
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 items-center justify-center w-full">
+                          {CORE_SERVICES_HOME_CONTENT[
+                            (DASHBOARD_SLIDES[dashboardSlide]?.slug ?? "ai-automation-marketing") as CoreServiceId
+                          ]?.caseStudies.before.map((item, index) => (
+                            <motion.div
+                              key={`${item.title}-${index}`}
+                              className="flex flex-col items-center justify-center gap-2"
+                              animate={{
+                                rotate: [item.rotate, -item.rotate * 0.4, item.rotate],
+                                y: [0, index % 2 === 0 ? -8 : -5, 0],
+                              }}
+                              transition={{
+                                duration: 4 + index * 0.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: index * 0.3,
+                              }}
+                            >
+                              <div className="relative h-28 sm:h-32 w-36 sm:w-44 overflow-hidden rounded-xl shadow-xl border border-slate-200">
+                                <Image
+                                  src={item.image}
+                                  alt={item.title}
+                                  fill
+                                  className="object-cover"
+                                  unoptimized
+                                />
+                                {/* red overlay tint to signal "problem" */}
+                                <div className="absolute inset-0 bg-red-500/10" />
+                              </div>
+                              <div className="flex items-center gap-1.5 rounded-lg bg-red-50 border border-red-100 px-2.5 py-1">
+                                <span className="h-1.5 w-1.5 rounded-full bg-red-400 shrink-0" />
+                                <p className="text-[11px] font-semibold text-red-700 text-center leading-snug">
+                                  {item.title}
+                                </p>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
                   ) : (
-                    /* Dashboard tab: service slider with mirror/blur glass */
+                    /* After NxTechNova — Dashboard tab: service slider */
                     <div className="flex flex-col gap-3 min-h-0 flex-1">
                       <div className="relative min-h-0 flex-1 overflow-y-auto overscroll-contain pr-2">
                         <AnimatePresence mode="wait" initial={false}>
