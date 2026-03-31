@@ -265,6 +265,17 @@ export function HeroSection({
 
   const [dashboardSlide, setDashboardSlide] = useState(0);
   const [isDashboardPaused, setIsDashboardPaused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Track window size to disable performance-heavy auto-rotating tabs on Mobile GPUs (Lighthouse/Phones)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleResize = () => setIsMobile(window.innerWidth < 768);
+      handleResize(); // Set initial value
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
 
   const goNextSlide = () => {
     setDashboardSlide((i) => (i + 1) % DASHBOARD_SLIDES.length);
@@ -292,11 +303,13 @@ export function HeroSection({
     if (activeTab !== "dashboard") return;
     if (isDashboardPaused) return;
     if (paused) return;
+    if (isMobile) return; // Prevent 6s TBT loop on mobile
+
     const t = setInterval(() => {
       goNextSlide();
     }, 5500);
     return () => clearInterval(t);
-  }, [activeTab, isDashboardPaused, paused]);
+  }, [activeTab, isDashboardPaused, paused, isMobile]);
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-background">

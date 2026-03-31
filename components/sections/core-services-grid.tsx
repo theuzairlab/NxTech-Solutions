@@ -27,7 +27,19 @@ export function CoreServicesGrid({
   paused?: boolean;
 }) {
   const [isHoverPaused, setIsHoverPaused] = useState(false);
-  const shouldPause = !!paused || isHoverPaused;
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Track window size to disable performance-heavy auto-rotating tabs on Mobile GPUs
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleResize = () => setIsMobile(window.innerWidth < 768);
+      handleResize(); // Set initial value
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
+  const shouldPause = !!paused || isHoverPaused || isMobile;
 
   const activeIndex = useMemo(
     () => Math.max(0, CORE_SERVICES.findIndex((s) => s.id === activeServiceId)),
