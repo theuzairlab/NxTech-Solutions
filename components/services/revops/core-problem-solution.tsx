@@ -304,48 +304,28 @@ export function RevopsCoreProblemSolution({
           <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {config.problems.map((item, idx) => {
               const Icon = item.icon;
-              const floatY = idx % 2 === 0 ? [0, -8, 0, 6, 0] : [0, 7, 0, -7, 0];
-              const floatRotate =
-                idx % 2 === 0 ? [4, -2, 4, 1, 4] : [-4, 2, -4, -1, -4];
               return (
                 <motion.div
                   key={item.text}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
-                  animate={{
-                    rotate: floatRotate,
-                    y: floatY,
-                  }}
-                  style={{ willChange: "transform" }}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.99 }}
-                  transition={{
-                    opacity: { duration: 0.6, delay: idx * 0.12 },
-                    y: {
-                      duration: 4.8 + idx * 0.35,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      repeatType: "loop",
-                      delay: idx * 0.22,
-                    },
-                    rotate: {
-                      duration: 5.4 + idx * 0.3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      repeatType: "loop",
-                      delay: idx * 0.18,
-                    },
-                  }}
-                  className="flex h-full flex-col items-center justify-center rounded-2xl bg-white shadow-[0_18px_45px_rgba(15,23,42,0.09)] border border-slate-100 px-5 py-6 text-left"
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="group relative flex h-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-white shadow-[0_18px_45px_rgba(15,23,42,0.09)] border border-slate-100 px-5 py-6 text-left"
                 >
+                  {/* Top-to-bottom primary fill on hover */}
                   <div
-                    className="mb-4 inline-flex items-center justify-center rounded-xl bg-rose-50 p-4"
+                    className="pointer-events-none absolute inset-x-0 top-0 h-0 bg-primary transition-all duration-500 ease-out group-hover:h-full"
+                    aria-hidden="true"
+                  />
+
+                  <div
+                    className="relative mb-4 inline-flex items-center justify-center rounded-xl bg-rose-50 p-4 transition-colors duration-500 group-hover:bg-white/15"
                     style={{ transform: "rotate(6deg)" }}
                   >
-                    <Icon className="h-16 w-16 size-16 text-rose-500" />
+                    <Icon className="h-16 w-16 size-16 text-rose-500 transition-colors duration-500 group-hover:text-white" />
                   </div>
-                  <p className="text-center text-sm text-slate-900 font-medium leading-relaxed">
+                  <p className="relative text-center text-sm text-slate-900 font-medium leading-relaxed transition-colors duration-500 group-hover:text-white">
                     {item.text}
                   </p>
                 </motion.div>

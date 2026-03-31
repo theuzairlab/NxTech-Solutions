@@ -20,10 +20,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { ParticlesBackground } from "@/components/ui/particles-background";
 import type { CoreServiceId } from "@/lib/core-services-home-data";
-import { CORE_SERVICES_HOME_CONTENT } from "@/lib/core-services-home-data";
 
 const DASHBOARD_SLIDES = [
   {
@@ -46,6 +44,21 @@ const DASHBOARD_SLIDES = [
       message:
         "“Thanks for the proposal! We’d like to start with a 3‑month package. Looking forward to results.”",
     },
+    before: {
+      label: "Manual & Missed Leads",
+      metrics: [
+        { name: "Manual follow-ups", status: "Missed 70% of leads", change: "-70%" },
+        { name: "CRM data quality", status: "Outdated & siloed", change: "-48%" },
+        { name: "Response time", status: "24–72 hrs delay", change: "-92%" },
+      ],
+      chart: { label: "Leads Lost", value: "68%", badge: "No Automation" },
+      engagement: { value: "32%", delta: "Lead close rate" },
+      painPoints: [
+        { label: "No CRM", icon: Bot, tone: "from-red-500/20 to-red-500/5" },
+        { label: "Slow Reply", icon: Zap, tone: "from-orange-500/20 to-orange-500/5" },
+        { label: "Lost Data", icon: BarChart3, tone: "from-rose-500/20 to-rose-500/5" },
+      ],
+    },
   },
   {
     serviceTitle: "Web Development",
@@ -66,6 +79,21 @@ const DASHBOARD_SLIDES = [
       title: "Lead Follow-up",
       message:
         "“Love the new landing page. We’re seeing better leads and faster load times already.”",
+    },
+    before: {
+      label: "Slow & Broken Site",
+      metrics: [
+        { name: "Page load speed", status: "8–12s load time", change: "-85%" },
+        { name: "Bounce rate", status: "Visitors leaving fast", change: "+74%" },
+        { name: "Conversion rate", status: "No clear CTA", change: "-61%" },
+      ],
+      chart: { label: "Bounce Rate", value: "74%", badge: "No CRO" },
+      engagement: { value: "1.2%", delta: "Conversion rate" },
+      painPoints: [
+        { label: "Slow Load", icon: Globe, tone: "from-red-500/20 to-red-500/5" },
+        { label: "No SEO", icon: TrendingUp, tone: "from-orange-500/20 to-orange-500/5" },
+        { label: "Low CVR", icon: BarChart3, tone: "from-rose-500/20 to-rose-500/5" },
+      ],
     },
   },
   {
@@ -88,6 +116,21 @@ const DASHBOARD_SLIDES = [
       message:
         "“App is smooth—users are sticking around and the onboarding feels effortless.”",
     },
+    before: {
+      label: "App Crashes & Churn",
+      metrics: [
+        { name: "App crash rate", status: "Frequent failures", change: "-79%" },
+        { name: "User retention", status: "50% drop at Day 7", change: "-50%" },
+        { name: "Release cycle", status: "Months to ship", change: "-90%" },
+      ],
+      chart: { label: "Churn Rate", value: "52%", badge: "No Stability" },
+      engagement: { value: "28%", delta: "Day-30 retention" },
+      painPoints: [
+        { label: "Crashes", icon: Smartphone, tone: "from-red-500/20 to-red-500/5" },
+        { label: "Slow Ship", icon: Zap, tone: "from-orange-500/20 to-orange-500/5" },
+        { label: "High Churn", icon: BarChart3, tone: "from-rose-500/20 to-rose-500/5" },
+      ],
+    },
   },
   {
     serviceTitle: "Digital Marketing",
@@ -108,6 +151,21 @@ const DASHBOARD_SLIDES = [
       title: "Lead Follow-up",
       message:
         "“We want to start with a 3‑month package. Looking forward to results.”",
+    },
+    before: {
+      label: "Wasted Ad Spend",
+      metrics: [
+        { name: "Ad spend ROI", status: "Budget burned fast", change: "-88%" },
+        { name: "Email open rate", status: "Generic blasts", change: "-60%" },
+        { name: "Organic traffic", status: "No SEO strategy", change: "-72%" },
+      ],
+      chart: { label: "ROI", value: "0.4x", badge: "Wasted Budget" },
+      engagement: { value: "4%", delta: "Email open rate" },
+      painPoints: [
+        { label: "Low ROI", icon: TrendingUp, tone: "from-red-500/20 to-red-500/5" },
+        { label: "No SEO", icon: BarChart3, tone: "from-orange-500/20 to-orange-500/5" },
+        { label: "Spam Email", icon: MessageCircle, tone: "from-rose-500/20 to-rose-500/5" },
+      ],
     },
   },
 ] as const;
@@ -319,7 +377,7 @@ export function HeroSection({
             className="mt-6 flex w-full justify-center lg:mt-0 lg:w-auto lg:justify-end"
           >
             <motion.div
-              className="relative mx-auto w-full max-w-[340px] rounded-3xl border border-primary/15 bg-white/80 p-1.5 backdrop-blur-2xl sm:max-w-[420px] aspect-square md:max-w-[480px] lg:max-w-[560px]"
+              className="relative mx-auto w-full max-w-[340px] aspect-square rounded-3xl border border-primary/15 bg-white/80 p-1.5 backdrop-blur-2xl sm:max-w-[420px] md:max-w-[480px] lg:max-w-[560px] h-[540px] sm:h-[580px] lg:h-[620px] overflow-hidden"
               style={{
                 maxWidth: "560px",
                 boxShadow:
@@ -340,7 +398,7 @@ export function HeroSection({
 
               <div className="relative h-full rounded-[22px] bg-white/95 backdrop-blur-xl text-foreground flex flex-col overflow-hidden">
                 {/* Tabs header */}
-                <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
+                <div className="flex items-center justify-between gap-5 overflow-x-auto border-b border-slate-200 px-4 py-3">
                   {/* Before / After toggle pill */}
                   <div className="flex items-center gap-2">
                     <button
@@ -394,7 +452,7 @@ export function HeroSection({
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 min-h-0 p-4 sm:p-5 flex flex-col gap-4">
+                <div className="flex-1 min-h-0 overflow-hidden p-4 sm:p-5 flex flex-col gap-4">
                   {isContactTab ? (
                     /* ── Modern Animated Contact Form ── */
                     <AnimatePresence mode="wait">
@@ -612,57 +670,147 @@ export function HeroSection({
                       )}
                     </AnimatePresence>
                   ) : showBefore ? (
-                    /* Before NxTechNova — animated floating case-study before-images */
+                    /* Before NxTechNova — service-specific "before" dashboard with red/negative stats */
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={`before-${DASHBOARD_SLIDES[dashboardSlide]?.slug}`}
-                        initial={{ opacity: 0, scale: 0.96 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.96 }}
+                        initial={{ opacity: 0, x: -24 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 24 }}
                         transition={{ duration: 0.45, ease: "easeOut" }}
-                        className="relative w-full flex-1 flex items-center justify-center bg-slate-50/60 rounded-2xl overflow-hidden"
+                        className="flex flex-col gap-3 min-h-0 flex-1"
                       >
-                        {/* subtle noise label */}
-                        <div className="absolute top-3 left-3 z-10 rounded-full bg-slate-700/80 px-2.5 py-0.5 text-[10px] font-semibold text-white backdrop-blur">
-                          {DASHBOARD_SLIDES[dashboardSlide]?.serviceTitle} — Pain Points
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 items-center justify-center w-full">
-                          {CORE_SERVICES_HOME_CONTENT[
-                            (DASHBOARD_SLIDES[dashboardSlide]?.slug ?? "ai-automation-marketing") as CoreServiceId
-                          ]?.caseStudies.before.map((item, index) => (
-                            <motion.div
-                              key={`${item.title}-${index}`}
-                              className="flex flex-col items-center justify-center gap-2"
-                              animate={{
-                                rotate: [item.rotate, -item.rotate * 0.4, item.rotate],
-                                y: [0, index % 2 === 0 ? -8 : -5, 0],
-                              }}
-                              transition={{
-                                duration: 4 + index * 0.5,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: index * 0.3,
-                              }}
-                            >
-                              <div className="relative h-28 sm:h-32 w-36 sm:w-44 overflow-hidden rounded-xl shadow-xl border border-slate-200">
-                                <Image
-                                  src={item.image}
-                                  alt={item.title}
-                                  fill
-                                  className="object-cover"
-                                  unoptimized
+                        {/* Service label */}
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-red-500/90">
+                          {DASHBOARD_SLIDES[dashboardSlide]?.before.label}
+                        </p>
+
+                        <div className="grid gap-3 overflow-y-auto">
+                          {/* Row 1 */}
+                          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                            {/* Pain-point metrics card */}
+                            <div className="rounded-2xl border border-red-100 bg-red-50/60 p-3 shadow-lg backdrop-blur-md">
+                              <div className="flex items-center justify-between">
+                                <p className="text-[11px] font-semibold text-foreground">Pain Points</p>
+                                <span className="rounded-xl border border-red-200 bg-red-100 p-1.5">
+                                  <BarChart3 className="h-4 w-4 text-red-500" />
+                                </span>
+                              </div>
+                              <div className="mt-3 space-y-2.5">
+                                {DASHBOARD_SLIDES[dashboardSlide]?.before.metrics.map((item) => (
+                                  <div
+                                    key={item.name}
+                                    className="flex items-center justify-between rounded-xl border border-red-100 bg-white/70 px-2.5 py-2"
+                                  >
+                                    <div className="min-w-0">
+                                      <p className="truncate text-[12px] font-semibold text-foreground">{item.name}</p>
+                                      <p className="truncate text-[10px] text-muted-foreground">{item.status}</p>
+                                    </div>
+                                    <span className="shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-semibold text-red-600">
+                                      {item.change}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Chart / stat card — showing bad numbers */}
+                            <div className="relative overflow-hidden rounded-2xl border border-red-100 bg-red-50/60 p-3 shadow-lg backdrop-blur-md">
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="text-center w-full">
+                                  <p className="text-[11px] text-muted-foreground">
+                                    {DASHBOARD_SLIDES[dashboardSlide]?.before.chart.label}
+                                  </p>
+                                  <p className="mt-1 text-3xl font-bold text-red-600">
+                                    {DASHBOARD_SLIDES[dashboardSlide]?.before.chart.value}
+                                  </p>
+                                  <span className="mt-2 inline-flex items-center justify-center rounded-full bg-red-100 px-3 py-1 text-[10px] font-semibold text-red-600">
+                                    {DASHBOARD_SLIDES[dashboardSlide]?.before.chart.badge}
+                                  </span>
+                                </div>
+                                <span className="rounded-xl border border-red-200 bg-red-100 p-1.5">
+                                  <BarChart3 className="h-4 w-4 text-red-500" />
+                                </span>
+                              </div>
+                              {/* Declining line chart */}
+                              <svg viewBox="0 0 320 120" className="mt-3 h-[96px] w-full" aria-hidden="true">
+                                <defs>
+                                  <linearGradient id="nxBeforeChartFill" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="rgba(239,68,68,0.25)" />
+                                    <stop offset="100%" stopColor="rgba(239,68,68,0)" />
+                                  </linearGradient>
+                                </defs>
+                                <path
+                                  d="M0,30 C35,38 55,25 85,50 C115,75 140,60 165,80 C190,100 210,88 235,95 C260,102 285,98 320,110"
+                                  fill="none"
+                                  stroke="rgba(239,68,68,0.8)"
+                                  strokeWidth="3"
+                                  strokeLinecap="round"
                                 />
-                                {/* red overlay tint to signal "problem" */}
-                                <div className="absolute inset-0 bg-red-500/10" />
+                                <path
+                                  d="M0,30 C35,38 55,25 85,50 C115,75 140,60 165,80 C190,100 210,88 235,95 C260,102 285,98 320,110 L320,120 L0,120 Z"
+                                  fill="url(#nxBeforeChartFill)"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+
+                          {/* Row 2 */}
+                          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                            {/* Low engagement stat */}
+                            <div className="rounded-2xl border border-red-100 bg-red-50/60 p-3 shadow-lg backdrop-blur-md">
+                              <div className="flex items-start justify-between">
+                                <p className="text-[13px] font-semibold text-foreground">Poor Performance</p>
+                                <span className="rounded-xl border border-red-200 bg-red-100 p-2">
+                                  <Users className="h-4 w-4 text-red-500" />
+                                </span>
                               </div>
-                              <div className="flex items-center gap-1.5 rounded-lg bg-red-50 border border-red-100 px-2.5 py-1">
-                                <span className="h-1.5 w-1.5 rounded-full bg-red-400 shrink-0" />
-                                <p className="text-[11px] font-semibold text-red-700 text-center leading-snug">
-                                  {item.title}
-                                </p>
-                              </div>
-                            </motion.div>
-                          ))}
+                              <p className="mt-2 text-4xl font-bold text-red-600">
+                                {DASHBOARD_SLIDES[dashboardSlide]?.before.engagement.value}
+                              </p>
+                              <p className="mt-2 text-[12px] text-red-500">
+                                {DASHBOARD_SLIDES[dashboardSlide]?.before.engagement.delta}
+                              </p>
+                            </div>
+
+                            {/* Pain-point tool chips */}
+                            <div className="grid grid-cols-3 gap-3">
+                              {DASHBOARD_SLIDES[dashboardSlide]?.before.painPoints.map((t) => {
+                                const Icon = t.icon;
+                                return (
+                                  <div
+                                    key={t.label}
+                                    className={`rounded-2xl border border-red-100 bg-linear-to-b ${t.tone} p-3 shadow-lg backdrop-blur-md`}
+                                  >
+                                    <div className="flex h-full flex-col items-center justify-center gap-2">
+                                      <div className="rounded-2xl bg-white p-2">
+                                        <Icon className="h-6 w-6 text-red-500" />
+                                      </div>
+                                      <p className="text-[10px] font-semibold text-muted-foreground text-center">
+                                        {t.label}
+                                      </p>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          {/* Row 3 — CTA strip */}
+                          <div className="rounded-2xl border border-red-100 bg-red-50/40 px-4 py-3 shadow-sm flex items-center justify-between gap-3">
+                            <div>
+                              <p className="text-[12px] font-semibold text-foreground">Sound familiar?</p>
+                              <p className="text-[10px] text-muted-foreground leading-snug mt-0.5">Switch to After NxTechNova to see the transformation.</p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setShowBefore(false)}
+                              className="shrink-0 inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1.5 text-[10px] font-semibold text-white hover:bg-primary/90 transition-colors"
+                            >
+                              <Zap className="h-3 w-3" />
+                              See After
+                            </button>
+                          </div>
                         </div>
                       </motion.div>
                     </AnimatePresence>
@@ -808,42 +956,6 @@ export function HeroSection({
                                       </div>
                                     </div>
 
-                                    {/* Row 3 */}
-                                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                                      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-lg backdrop-blur-md">
-                                        <div className="flex items-center gap-2">
-                                          <div className="h-9 w-9 rounded-2xl bg-primary/5" />
-                                          <div className="min-w-0">
-                                            <p className="text-[12px] font-semibold text-foreground">
-                                              {slide.followUp.title}
-                                            </p>
-                                            <p className="text-[10px] text-muted-foreground">
-                                              AI reply · Instant follow‑up
-                                            </p>
-                                          </div>
-                                        </div>
-                                        <p className="mt-3 text-[11px] text-muted-foreground leading-relaxed">
-                                          {slide.followUp.message}
-                                        </p>
-                                      </div>
-
-                                      <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-lg backdrop-blur-md">
-                                        {[
-                                          { label: "YouTube", short: "YT" },
-                                          { label: "Meta", short: "M" },
-                                          { label: "LinkedIn", short: "in" },
-                                          { label: "X", short: "X" },
-                                        ].map((s) => (
-                                          <div
-                                            key={s.label}
-                                            className="h-10 w-10 rounded-2xl border border-primary/15 bg-white text-primary flex items-center justify-center text-[11px] font-semibold"
-                                            title={s.label}
-                                          >
-                                            {s.short}
-                                          </div>
-                                        ))}
-                                      </div>
-                                    </div>
                                   </div>
                                 </motion.div>
                               ),

@@ -76,7 +76,7 @@ export function DigitalMarketingPage() {
           { value: "ROI", label: "Driven" },
           { value: "Data", label: "Transparent" },
         ]}
-        rightImageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=675&fit=crop"
+        rightImageSrc="https://i.pinimg.com/736x/d5/bf/cf/d5bfcfbe3a81ae52264f4e64f705a7e9.jpg"
         rightImageAlt="Digital marketing analytics dashboard"
       />
 
@@ -84,7 +84,7 @@ export function DigitalMarketingPage() {
 
       <RevopsCoreHowItWorks service="digital-marketing" />
 
-      <CoreProcessSlider service="digital-marketing" />
+      {/* <CoreProcessSlider service="digital-marketing" /> */}
 
 
       {/* Inquiry Form */}
@@ -112,6 +112,8 @@ export function DigitalMarketingPage() {
       </section>
 
       <CoreServiceCTA service="digital-marketing" />
+
+      <CalendlyModal isOpen={showCalendly} onClose={() => setShowCalendly(false)} />
     </div>
   );
 }

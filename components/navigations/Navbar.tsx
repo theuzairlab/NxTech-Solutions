@@ -32,8 +32,6 @@ const CORE_SERVICES = [
   {
     id: "ai-automation-marketing",
     label: "AI Automation",
-    tagline: "Always-on lead capture & follow-up",
-    description: "24/7 AI systems that qualify prospects and book appointments automatically.",
     icon: Bot,
     href: "/services/ai-automation-marketing",
     gradient: "linear-gradient(135deg, #7c3aed, #9333ea)",
@@ -43,12 +41,16 @@ const CORE_SERVICES = [
     badgeBg: "#ede9fe",
     badgeColor: "#6d28d9",
     stat: { value: "+210%", label: "Leads" },
+    subServices: [
+      { label: "Workflow & Process Automation", href: "/services/workflow-process-automation" },
+      { label: "AI Chatbot Development", href: "/services/ai-chatbot-development" },
+      { label: "Automated CRM Management", href: "/services/automated-crm-management" },
+      { label: "Leads & Sales Automation", href: "/services/leads-sales-automation" },
+    ],
   },
   {
     id: "web-development",
     label: "Web Development",
-    tagline: "Conversion-first web experiences",
-    description: "High-performance sites engineered to turn visitors into paying clients.",
     icon: Globe,
     href: "/services/web-development",
     gradient: "linear-gradient(135deg, #4f46e5, #2563eb)",
@@ -58,12 +60,15 @@ const CORE_SERVICES = [
     badgeBg: "#e0e7ff",
     badgeColor: "#3730a3",
     stat: { value: "+165%", label: "Conversions" },
+    subServices: [
+      { label: "WordPress Development", href: "/services/wordpress-development" },
+      { label: "E-commerce Development", href: "/services/ecommerce-website-development" },
+      { label: "Custom Website Development", href: "/services/custom-website-development" },
+    ],
   },
   {
     id: "app-development",
     label: "App Development",
-    tagline: "Scalable mobile & web apps",
-    description: "Design and build revenue-ready apps with robust architecture from day one.",
     icon: Smartphone,
     href: "/services/app-development",
     gradient: "linear-gradient(135deg, #c026d3, #db2777)",
@@ -73,12 +78,15 @@ const CORE_SERVICES = [
     badgeBg: "#fae8ff",
     badgeColor: "#86198f",
     stat: { value: "+140%", label: "Retention" },
+    subServices: [
+      { label: "Android App Development", href: "/services/android-app-development" },
+      { label: "iOS App Development", href: "/services/ios-app-development" },
+      { label: "Custom App Development", href: "/services/custom-app-development" },
+    ],
   },
   {
     id: "digital-marketing",
     label: "Digital Marketing",
-    tagline: "ROI-driven paid & organic growth",
-    description: "Scale demand with paid media and funnel optimization tuned by daily data.",
     icon: BarChart3,
     href: "/services/digital-marketing",
     gradient: "linear-gradient(135deg, #f59e0b, #f97316)",
@@ -88,6 +96,13 @@ const CORE_SERVICES = [
     badgeBg: "#fef3c7",
     badgeColor: "#92400e",
     stat: { value: "+92%", label: "ROI" },
+    subServices: [
+      { label: "SEO", href: "/services/seo" },
+      { label: "Social Media Marketing", href: "/services/smm" },
+      { label: "PPC Advertising", href: "/services/ppc" },
+      { label: "Email Marketing", href: "/services/email-marketing" },
+      { label: "Content Marketing", href: "/services/content-marketing" },
+    ],
   },
 ] as const;
 
@@ -162,7 +177,7 @@ function ServicesDropdown({ visible }: { visible?: boolean }) {
           /* Positioning wrapper — separate from the animated element so Framer
              doesn't override the CSS left+translateX with its own transform */
           <div
-            className="absolute z-[9999] "
+            className="absolute z-9999 "
             style={{ left: "50%", top: "55px", transform: "translateX(-50%)", width: "560px" }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -207,47 +222,57 @@ function ServicesDropdown({ visible }: { visible?: boolean }) {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.2, delay: idx * 0.05, ease: "easeOut" }}
                     >
-                      <Link
-                        href={svc.href}
-                        className="group flex items-start gap-3 rounded-xl border p-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                      <div
+                        className="group flex flex-col items-start gap-2.5 rounded-xl border p-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
                         style={{ backgroundColor: svc.cardBg, borderColor: svc.cardBorder }}
                       >
-                        {/* Gradient icon box */}
-                        <div
-                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-sm"
-                          style={{ background: svc.gradient }}
-                        >
-                          <Icon className="h-5 w-5 text-white" />
-                        </div>
-
-                        {/* Text */}
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-start justify-between gap-1">
-                            <p className="text-[13px] font-bold leading-tight" style={{ color: svc.labelColor }}>
-                              {svc.label}
-                            </p>
-                            <span
-                              className="shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-bold"
-                              style={{ backgroundColor: svc.badgeBg, color: svc.badgeColor }}
-                            >
-                              {svc.stat.value}
-                            </span>
+                        {/* Header Link */}
+                        <Link href={svc.href} className="flex items-center gap-3 w-full group/head">
+                          {/* Gradient icon box */}
+                          <div
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-sm transition-transform group-hover/head:scale-105"
+                            style={{ background: svc.gradient }}
+                          >
+                            <Icon className="h-5 w-5 text-white" />
                           </div>
-                          <p className="mt-0.5 text-[10px] font-medium leading-snug" style={{ color: svc.labelColor, opacity: 0.65 }}>
-                            {svc.tagline}
-                          </p>
-                          <p className="mt-1 text-[11px] text-slate-400 leading-snug line-clamp-2">
-                            {svc.description}
-                          </p>
+
+                          {/* Text */}
+                          <div className="min-w-0 flex-1 flex flex-col">
+                            <div className="flex items-center justify-between gap-1 w-full">
+                              <p className="text-[13px] font-bold leading-tight group-hover/head:underline" style={{ color: svc.labelColor }}>
+                                {svc.label}
+                              </p>
+                              <span
+                                className="shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-bold"
+                                style={{ backgroundColor: svc.badgeBg, color: svc.badgeColor }}
+                              >
+                                {svc.stat.value}
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+
+                        {/* Sub-Services Links */}
+                        <div className="flex flex-col gap-1.5 w-full pl-[52px]">
+                          {svc.subServices.map((sub, i) => (
+                            <Link 
+                              key={i} 
+                              href={sub.href} 
+                              className="text-[11px] font-medium text-slate-500 hover:text-primary transition-colors flex items-center gap-1 w-fit group/sub"
+                            >
+                              <span className="opacity-40 transition-opacity group-hover/sub:opacity-100 group-hover/sub:translate-x-0.5 duration-200">›</span>
+                              <span className="group-hover/sub:translate-x-0.5 transition-transform duration-200 truncate">{sub.label}</span>
+                            </Link>
+                          ))}
                         </div>
-                      </Link>
+                      </div>
                     </motion.div>
                   );
                 })}
               </div>
 
               {/* Footer CTA */}
-              <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10 px-4 py-2.5">
+              <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-primary/20 bg-linear-to-r from-primary/5 to-primary/10 px-4 py-2.5">
                 <div className="min-w-0">
                   <p className="text-[12px] font-semibold text-foreground">Not sure which fits?</p>
                   <p className="text-[11px] text-slate-500">Get a free strategy call — we&apos;ll map the right solution.</p>
@@ -457,20 +482,33 @@ export function NavbarComponent({
           <p className="mb-2 px-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
             Core Services
           </p>
-          <div className="space-y-1">
+          <div className="space-y-4">
             {CORE_SERVICES.map((svc) => {
               const Icon = svc.icon;
               return (
-                <Link
-                  key={svc.id}
-                  href={svc.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white"
-                  style={{ color: svc.labelColor }}
-                >
-                  <Icon className="h-4 w-4 shrink-0" />
-                  <span className="text-[13px] font-semibold">{svc.label}</span>
-                </Link>
+                <div key={svc.id} className="flex flex-col gap-1">
+                  <Link
+                    href={svc.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-white"
+                    style={{ color: svc.labelColor }}
+                  >
+                    <Icon className="h-4 w-4 shrink-0" />
+                    <span className="text-[14px] font-bold">{svc.label}</span>
+                  </Link>
+                  <div className="flex flex-col gap-1 pl-10 pr-2">
+                    {svc.subServices.map((sub, idx) => (
+                      <Link
+                        key={idx}
+                        href={sub.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-[13px] font-medium text-slate-500 hover:text-primary py-1.5 transition-colors border-l-2 border-slate-200 pl-3"
+                      >
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               );
             })}
           </div>

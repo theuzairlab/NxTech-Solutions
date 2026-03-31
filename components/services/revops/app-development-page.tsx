@@ -32,7 +32,7 @@ export function AppDevelopmentPage() {
           { value: "MVP", label: "First" },
           { value: "Scalable", label: "Architecture" },
         ]}
-        rightImageSrc="https://images.unsplash.com/photo-1480694313141-fce5e697ee25?q=80&w=1200&auto=format"
+        rightImageSrc="https://i.pinimg.com/736x/2c/19/8a/2c198ae7548077a7a372107470b00bd5.jpg"
         rightImageAlt="App development workspace"
       />
 
@@ -40,7 +40,7 @@ export function AppDevelopmentPage() {
 
       <RevopsCoreHowItWorks service="app-development" />
 
-      <CoreProcessSlider service="app-development" />
+      {/* <CoreProcessSlider service="app-development" /> */}
 
       {/* Inquiry Form */}
       <section className="py-20 sm:py-24 bg-linear-to-b from-background to-primary/5">
@@ -67,6 +67,8 @@ export function AppDevelopmentPage() {
       </section>
 
       <CoreServiceCTA service="app-development" />
+
+      <CalendlyModal isOpen={showCalendly} onClose={() => setShowCalendly(false)} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ServicesHero } from "@/components/sections/services-hero";
-import { AllServices } from "@/components/sections/all-services";
+import { ServicesCatalog } from "@/components/sections/services-catalog";
 import { AdditionalServices } from "@/components/sections/additional-services";
 import { ServicesIndustries } from "@/components/sections/services-industries";
 import { ServicesPortfolio } from "@/components/sections/services-portfolio";
@@ -88,8 +88,7 @@ export default async function Services() {
   return (
     <div className="w-full">
       <ServicesHero />
-      <AllServices services={mainServices} />
-      {/* <AdditionalServices services={additionalServices} /> */}
+      <ServicesCatalog />
       <ServicesIndustries />
       <ServicesPortfolio portfolios={portfolios} />
       <GetQuoteForm />
@@ -97,4 +96,3 @@ export default async function Services() {
     </div>
   );
 }
-  

@@ -45,7 +45,7 @@ export function WebDevelopmentPage() {
         titleLines={["Websites Built to Convert,", "Not Just Look Good"]}
         highlightLine="High-Performance Web Experiences"
         description="High-performance websites engineered to turn visitors into leads and revenue."
-        primaryCtaLabel="Get Free Growth Plan"
+        primaryCtaLabel="Book Expert Call"
         onPrimaryClick={() => setShowCalendly(true)}
         secondaryCtaLabel="Explore All Services"
         secondaryCtaHref="/services"
@@ -54,7 +54,7 @@ export function WebDevelopmentPage() {
           { value: "100+", label: "Core Web Vitals" },
           { value: "CRM", label: "Ready" },
         ]}
-        rightImageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=675&fit=crop"
+        rightImageSrc="https://i.pinimg.com/1200x/bc/44/e7/bc44e7a24d9229593c08aacfa2e87f31.jpg"
         rightImageAlt="Web development dashboard"
       />
 
@@ -62,7 +62,7 @@ export function WebDevelopmentPage() {
 
       <RevopsCoreHowItWorks service="web-development" />
 
-      <CoreProcessSlider service="web-development" />
+      {/* <CoreProcessSlider service="web-development" /> */}
 
 
       {/* Inquiry Form */}
@@ -90,6 +90,8 @@ export function WebDevelopmentPage() {
       </section>
 
       <CoreServiceCTA service="web-development" />
+
+      <CalendlyModal isOpen={showCalendly} onClose={() => setShowCalendly(false)} />
     </div>
   );
 }

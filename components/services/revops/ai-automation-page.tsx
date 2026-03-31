@@ -50,7 +50,7 @@ export function AIAutomationPage() {
         titleLines={["AI Sales Systems That Convert"]}
         highlightLine="Cold Leads Into Hot Appointments"
         description="Automate lead response, qualification, and booking with AI-powered voice calling and CRM workflows."
-        primaryCtaLabel="Get Free AI Blueprint"
+        primaryCtaLabel="Book a Call"
         onPrimaryClick={() => setShowCalendly(true)}
         secondaryCtaLabel="Explore All Services"
         secondaryCtaHref="/services"
@@ -59,7 +59,7 @@ export function AIAutomationPage() {
           { value: "180%+", label: "Qualified Leads" },
           { value: "14 Days", label: "To Launch" },
         ]}
-        rightImageSrc="https://images.unsplash.com/photo-1551434678-e076c223a692?w=900&h=675&fit=crop"
+        rightImageSrc="https://i.pinimg.com/736x/7f/73/1d/7f731ddb6b9a1ba077d97104f573a328.jpg"
         rightImageAlt="AI automation workspace"
       />
 
@@ -69,9 +69,9 @@ export function AIAutomationPage() {
 
       <AIAutomationLeadIdentification />
 
-      <CoreProcessSlider service="ai-automation-marketing" />
+      {/* <CoreProcessSlider service="ai-automation-marketing" /> */}
 
-    
+
 
       {/* Inquiry Form */}
       <section className="py-20 sm:py-24 bg-linear-to-b from-background to-primary/5">
@@ -98,6 +98,8 @@ export function AIAutomationPage() {
       </section>
 
       <CoreServiceCTA service="ai-automation-marketing" />
+
+      <CalendlyModal isOpen={showCalendly} onClose={() => setShowCalendly(false)} />
     </div>
   );
 }
