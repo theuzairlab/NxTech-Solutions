@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/navigations/footer";
-import { Home, User, Mail, MessageCircle, BookA, Briefcase } from "lucide-react";
+import { Home, User, Mail, MessageCircle, BookA, Briefcase, FolderOpen } from "lucide-react";
 import { NavbarComponent } from "@/components/navigations/Navbar";
 import { LazyWidgets } from "@/components/ui/lazy-widgets-client";
 export const metadata: Metadata = {
@@ -14,33 +14,33 @@ export default function MainRoutesLayout({
   children: React.ReactNode;
 }>) {
 
-    const navItems = [
-        {
-          name: "Home",
-          link: "/",
-          icon: <Home className="h-4 w-4 text-muted-foreground" />,
-        },
-        {
-          name: "About",
-          link: "/about",
-          icon: <User className="h-4 w-4 text-muted-foreground" />,
-        },
-        {
-          name: "Services",
-          link: "/services",
-          icon: <Mail className="h-4 w-4 text-muted-foreground" />,
-        },
-        {
-          name: "Blogs",
-          link: "/blog",
-          icon: <BookA className="h-4 w-4 text-muted-foreground" />,
-        },
-        {
-          name: "Careers",
-          link: "/careers",
-          icon: <Briefcase className="h-4 w-4 text-muted-foreground" />,
-        },
-      ];
+  const navItems = [
+    {
+      name: "About",
+      link: "/about",
+      icon: <User className="h-4 w-4 text-muted-foreground" />,
+    },
+    {
+      name: "Services",
+      link: "/services",
+      icon: <Mail className="h-4 w-4 text-muted-foreground" />,
+    },
+    {
+      name: "Case Studies",
+      link: "/case-studies",
+      icon: <FolderOpen className="h-4 w-4 text-muted-foreground" />,
+    },
+    {
+      name: "Blogs",
+      link: "/blog",
+      icon: <BookA className="h-4 w-4 text-muted-foreground" />,
+    },
+    {
+      name: "Careers",
+      link: "/careers",
+      icon: <Briefcase className="h-4 w-4 text-muted-foreground" />,
+    },
+  ];
 
   return (
     <>

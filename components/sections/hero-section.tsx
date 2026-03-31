@@ -452,7 +452,7 @@ export function HeroSection({
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 min-h-0 overflow-hidden p-4 sm:p-5 flex flex-col gap-4">
+                <div className="flex-1 min-h-0 overflow-hidden p-4 sm:p-5 flex flex-col justify-center gap-4">
                   {isContactTab ? (
                     /* ── Modern Animated Contact Form ── */
                     <AnimatePresence mode="wait">
@@ -497,7 +497,7 @@ export function HeroSection({
                         <motion.form
                           key="form"
                           onSubmit={handleSubmit}
-                          className="flex flex-col gap-3 min-h-0 overflow-y-auto overscroll-contain px-2 pb-4"
+                          className="flex flex-col gap-4 min-h-0 px-2 pb-4"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
@@ -518,8 +518,8 @@ export function HeroSection({
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.35, delay: 0.1 }}
                           >
-                            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground/50 mb-1.5">I&apos;m interested in</p>
-                            <div className="grid grid-cols-2 gap-1.5">
+                            <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">I&apos;m interested in</p>
+                            <div className="grid grid-cols-2 gap-2.5">
                               {([
                                 { id: "AI Automation", icon: Bot, color: "text-violet-600", bg: "bg-violet-50 border-violet-200", activeBg: "bg-violet-600 border-violet-600" },
                                 { id: "Web Development", icon: Globe, color: "text-indigo-600", bg: "bg-indigo-50 border-indigo-200", activeBg: "bg-indigo-600 border-indigo-600" },
@@ -535,10 +535,10 @@ export function HeroSection({
                                     onClick={() => setFormData((p) => ({ ...p, selectedService: isActive ? "" : svc.id }))}
                                     whileTap={{ scale: 0.95 }}
                                     whileHover={{ scale: 1.02 }}
-                                    className={`flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition-all ${svc.bg} ${svc.color} hover:shadow-sm`}
+                                    className={`flex items-center gap-2 rounded-xl border px-3 py-3 text-left transition-all ${svc.bg} ${svc.color} hover:shadow-sm`}
                                   >
                                     <Icon className="h-4 w-4 shrink-0" />
-                                    <span className="text-[11px] font-semibold leading-snug">{svc.id}</span>
+                                    <span className="text-[12px] font-bold leading-snug">{svc.id}</span>
                                     {isActive && (
                                       <Check className="h-4 w-4 shrink-0 ml-auto" />
                                     )}
@@ -550,7 +550,7 @@ export function HeroSection({
 
                           {/* Name + Email side by side */}
                           <motion.div
-                            className="grid grid-cols-2 gap-2"
+                            className="grid grid-cols-2 gap-3"
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.35, delay: 0.15 }}
@@ -564,11 +564,11 @@ export function HeroSection({
                                 value={formData.name}
                                 onChange={handleInputChange}
                                 placeholder=" "
-                                className="peer h-12 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 pt-4 pb-1 text-[12px] text-foreground outline-none transition-all focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 placeholder-transparent"
+                                className="peer h-14 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 pt-5 pb-1 text-[13px] text-foreground outline-none transition-all focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 placeholder-transparent"
                               />
                               <label
                                 htmlFor="hero-name"
-                                className="pointer-events-none absolute left-3 top-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary/70 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-[11px] peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[9px] peer-focus:font-semibold peer-focus:uppercase peer-focus:tracking-[0.12em] peer-focus:text-primary/70"
+                                className="pointer-events-none absolute left-4 top-2 text-[10px] font-bold uppercase tracking-[0.1em] text-primary/70 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-[13px] peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-slate-500 peer-focus:top-2 peer-focus:text-[10px] peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-[0.1em] peer-focus:text-primary/70"
                               >
                                 Name *
                               </label>
@@ -582,11 +582,11 @@ export function HeroSection({
                                 value={formData.email}
                                 onChange={handleInputChange}
                                 placeholder=" "
-                                className="peer h-12 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 pt-4 pb-1 text-[12px] text-foreground outline-none transition-all focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 placeholder-transparent"
+                                className="peer h-14 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 pt-5 pb-1 text-[13px] text-foreground outline-none transition-all focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 placeholder-transparent"
                               />
                               <label
                                 htmlFor="hero-email"
-                                className="pointer-events-none absolute left-3 top-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary/70 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-[11px] peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[9px] peer-focus:font-semibold peer-focus:uppercase peer-focus:tracking-[0.12em] peer-focus:text-primary/70"
+                                className="pointer-events-none absolute left-4 top-2 text-[10px] font-bold uppercase tracking-[0.1em] text-primary/70 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-[13px] peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-slate-500 peer-focus:top-2 peer-focus:text-[10px] peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-[0.1em] peer-focus:text-primary/70"
                               >
                                 Email *
                               </label>
@@ -604,15 +604,15 @@ export function HeroSection({
                               id="hero-message"
                               name="message"
                               required
-                              rows={3}
+                              rows={4}
                               value={formData.message}
                               onChange={handleInputChange}
                               placeholder=" "
-                              className="peer w-full resize-none rounded-xl border border-slate-200 bg-slate-50/80 px-3 pt-6 pb-2 text-[12px] text-foreground outline-none transition-all focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 placeholder-transparent"
+                              className="peer w-full resize-none rounded-xl border border-slate-200 bg-slate-50/80 px-4 pt-7 pb-2 text-[13px] text-foreground outline-none transition-all focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 placeholder-transparent"
                             />
                             <label
                               htmlFor="hero-message"
-                              className="pointer-events-none absolute left-3 top-2 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary/70 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[11px] peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-2 peer-focus:text-[9px] peer-focus:font-semibold peer-focus:uppercase peer-focus:tracking-[0.12em] peer-focus:text-primary/70"
+                              className="pointer-events-none absolute left-4 top-2 text-[10px] font-bold uppercase tracking-[0.1em] text-primary/70 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-[13px] peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-slate-500 peer-focus:top-2 peer-focus:text-[10px] peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-[0.1em] peer-focus:text-primary/70"
                             >
                               What&apos;s your goal? *
                             </label>
@@ -623,13 +623,14 @@ export function HeroSection({
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.35, delay: 0.25 }}
+                            className="mt-1"
                           >
                             <motion.button
                               type="submit"
                               disabled={isSubmitting}
                               whileHover={isSubmitting ? {} : { scale: 1.01 }}
                               whileTap={isSubmitting ? {} : { scale: 0.98 }}
-                              className="relative w-full overflow-hidden rounded-full py-1 text-[13px] font-bold text-white shadow-lg transition-all disabled:opacity-70"
+                              className="relative w-full overflow-hidden rounded-full py-2 text-[14px] font-bold text-white shadow-lg transition-all disabled:opacity-70"
                               style={{
                                 background: "linear-gradient(135deg, var(--primary) 0%, oklch(0.55 0.18 220) 100%)",
                               }}

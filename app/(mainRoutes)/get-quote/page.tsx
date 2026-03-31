@@ -1,10 +1,60 @@
+"use client";
+
 import { GetQuoteForm } from "@/components/sections/get-quote-form";
+import { ParticlesBackground } from "@/components/ui/particles-background";
+import { motion } from "framer-motion";
 
 export default function GetQuote() {
   return (
-    <div className="mt-16">
-      <GetQuoteForm />
-    </div>
+    <main className="min-h-screen bg-background relative overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden flex flex-col items-center justify-center text-center px-4 min-h-[60vh]">
+        {/* Particles Background - Absolute positioned behind hero content */}
+        <div className="absolute inset-0 z-0">
+          <ParticlesBackground />
+        </div>
+        
+        <div className="relative z-10 max-w-4xl mx-auto space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/60 border border-primary/20 backdrop-blur-md shadow-sm"
+          >
+            <span className="text-sm font-bold tracking-[0.2em] text-primary uppercase">
+              Start Your Project
+            </span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm mb-6">
+              Let's Build Something <br className="hidden md:block"/>
+              <span className="bg-linear-to-r from-primary to-cyan-500 bg-clip-text text-transparent">Extraordinary</span>
+            </h1>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed border-b border-transparent"
+          >
+            Tell us about your goals. We'll craft a customized strategy and provide a detailed quote within 24 hours. No commitments required.
+          </motion.p>
+        </div>
+        
+        {/* Soft Fade Out into the form background */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent z-10 pointer-events-none" />
+      </section>
+
+      {/* Form Section */}
+      <div className="relative z-20 pb-20 -mt-10">
+        <GetQuoteForm />
+      </div>
+    </main>
   );
 }
-

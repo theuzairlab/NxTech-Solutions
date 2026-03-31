@@ -42,10 +42,10 @@ const CORE_SERVICES = [
     badgeColor: "#6d28d9",
     stat: { value: "+210%", label: "Leads" },
     subServices: [
-      { label: "Workflow & Process Automation", href: "/services/workflow-process-automation" },
-      { label: "AI Chatbot Development", href: "/services/ai-chatbot-development" },
-      { label: "Automated CRM Management", href: "/services/automated-crm-management" },
-      { label: "Leads & Sales Automation", href: "/services/leads-sales-automation" },
+      { label: "Workflow & Process Automation", href: "/services/ai-automation-marketing/workflow-process-automation" },
+      { label: "AI Chatbot Development", href: "/services/ai-automation-marketing/ai-chatbot-development" },
+      { label: "Automated CRM Management", href: "/services/ai-automation-marketing/automated-crm-management" },
+      { label: "Leads & Sales Automation", href: "/services/ai-automation-marketing/leads-sales-automation" },
     ],
   },
   {
@@ -61,9 +61,9 @@ const CORE_SERVICES = [
     badgeColor: "#3730a3",
     stat: { value: "+165%", label: "Conversions" },
     subServices: [
-      { label: "WordPress Development", href: "/services/wordpress-development" },
-      { label: "E-commerce Development", href: "/services/ecommerce-website-development" },
-      { label: "Custom Website Development", href: "/services/custom-website-development" },
+      { label: "WordPress Development", href: "/services/web-development/wordpress-development" },
+      { label: "E-commerce Development", href: "/services/web-development/ecommerce-website-development" },
+      { label: "Custom Website Development", href: "/services/web-development/custom-website-development" },
     ],
   },
   {
@@ -79,9 +79,9 @@ const CORE_SERVICES = [
     badgeColor: "#86198f",
     stat: { value: "+140%", label: "Retention" },
     subServices: [
-      { label: "Android App Development", href: "/services/android-app-development" },
-      { label: "iOS App Development", href: "/services/ios-app-development" },
-      { label: "Custom App Development", href: "/services/custom-app-development" },
+      { label: "Android App Development", href: "/services/app-development/android-app-development" },
+      { label: "iOS App Development", href: "/services/app-development/ios-app-development" },
+      { label: "Custom App Development", href: "/services/app-development/custom-app-development" },
     ],
   },
   {
@@ -97,11 +97,11 @@ const CORE_SERVICES = [
     badgeColor: "#92400e",
     stat: { value: "+92%", label: "ROI" },
     subServices: [
-      { label: "SEO", href: "/services/seo" },
-      { label: "Social Media Marketing", href: "/services/smm" },
-      { label: "PPC Advertising", href: "/services/ppc" },
-      { label: "Email Marketing", href: "/services/email-marketing" },
-      { label: "Content Marketing", href: "/services/content-marketing" },
+      { label: "SEO", href: "/services/digital-marketing/seo" },
+      { label: "Social Media Marketing", href: "/services/digital-marketing/smm" },
+      { label: "PPC Advertising", href: "/services/digital-marketing/ppc" },
+      { label: "Email Marketing", href: "/services/digital-marketing/email-marketing" },
+      { label: "Content Marketing", href: "/services/digital-marketing/content-marketing" },
     ],
   },
 ] as const;
@@ -202,13 +202,13 @@ function ServicesDropdown({ visible }: { visible?: boolean }) {
                     AI-powered growth systems
                   </span>
                 </div>
-                <Link
+                {/* <Link
                   href="/services"
                   className="flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline"
                 >
                   View all
                   <ArrowRight className="h-3 w-3" />
-                </Link>
+                </Link> */}
               </div>
 
               {/* Service cards — 2 columns */}
@@ -239,29 +239,23 @@ function ServicesDropdown({ visible }: { visible?: boolean }) {
                           {/* Text */}
                           <div className="min-w-0 flex-1 flex flex-col">
                             <div className="flex items-center justify-between gap-1 w-full">
-                              <p className="text-[13px] font-bold leading-tight group-hover/head:underline" style={{ color: svc.labelColor }}>
+                              <p className="text-base font-bold leading-tight group-hover/head:underline" style={{ color: svc.labelColor }}>
                                 {svc.label}
                               </p>
-                              <span
-                                className="shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-bold"
-                                style={{ backgroundColor: svc.badgeBg, color: svc.badgeColor }}
-                              >
-                                {svc.stat.value}
-                              </span>
                             </div>
                           </div>
                         </Link>
 
                         {/* Sub-Services Links */}
-                        <div className="flex flex-col gap-1.5 w-full pl-[52px]">
+                        <div className="flex flex-col gap-1.5 w-full pl-[5px]">
                           {svc.subServices.map((sub, i) => (
-                            <Link 
-                              key={i} 
-                              href={sub.href} 
-                              className="text-[11px] font-medium text-slate-500 hover:text-primary transition-colors flex items-center gap-1 w-fit group/sub"
+                            <Link
+                              key={i}
+                              href={sub.href}
+                              className="text-sm font-medium text-slate-500 hover:text-primary transition-colors flex items-center gap-1 w-fit group/sub"
                             >
                               <span className="opacity-40 transition-opacity group-hover/sub:opacity-100 group-hover/sub:translate-x-0.5 duration-200">›</span>
-                              <span className="group-hover/sub:translate-x-0.5 transition-transform duration-200 truncate">{sub.label}</span>
+                              <span className="group-hover/sub:translate-x-0.5 transition-transform duration-200 truncate ">{sub.label}</span>
                             </Link>
                           ))}
                         </div>
@@ -275,7 +269,7 @@ function ServicesDropdown({ visible }: { visible?: boolean }) {
               <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-primary/20 bg-linear-to-r from-primary/5 to-primary/10 px-4 py-2.5">
                 <div className="min-w-0">
                   <p className="text-[12px] font-semibold text-foreground">Not sure which fits?</p>
-                  <p className="text-[11px] text-slate-500">Get a free strategy call — we&apos;ll map the right solution.</p>
+                  <p className="text-[11px] text-slate-500">Explore all services to find the perfect solution for your business.</p>
                 </div>
                 <Button
                   size="lg"
@@ -283,8 +277,8 @@ function ServicesDropdown({ visible }: { visible?: boolean }) {
                   asChild
                   className="cursor-pointer text-white rounded-full border-2 border-primary/40 bg-primary hover:bg-primary/90 px-10 py-6 text-base sm:text-lg"
                 >
-                  <Link href="/get-quote" className="flex items-center">
-                    Get Free Consultation
+                  <Link href="/services" className="flex items-center">
+                    Explore All Services
                     <ArrowRight
                       size={36}
                       className="bg-white text-primary relative left-2 rounded-full size-10 transition-transform translate-x-1 -rotate-45 group-hover:translate-x-0.5"

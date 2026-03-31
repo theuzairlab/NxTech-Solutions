@@ -279,7 +279,7 @@ function ServiceCarousel({ service, index }: { service: MainService; index: numb
             return (
               <Link
                 key={sub.slug}
-                href={`/services/${sub.slug}`}
+                href={`/services/${service.slug}/${sub.slug}`}
                 className="group relative shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] h-[400px] rounded-4xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer block transform hover:-translate-y-1 snap-start"
               >
                 {/* 1. Background Gradient */}
@@ -382,7 +382,7 @@ export function ServicesCatalog() {
         </motion.div>
 
         {/* Iterate Main Services Blocks */}
-        <div className="space-y-32">
+        <div className="space-y-32 container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           {MAIN_SERVICES.map((service, serviceIdx) => (
             <ServiceCarousel key={service.id} service={service} index={serviceIdx} />
           ))}

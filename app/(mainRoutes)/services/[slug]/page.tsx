@@ -7,7 +7,7 @@ import {
   DigitalMarketingPage,
 } from "@/components/services/revops";
 import { SubServicePage } from "@/components/services/sub-services/sub-service-page";
-import { SUB_SERVICE_DATA, ALL_SUB_SERVICE_SLUGS } from "@/components/services/sub-services/sub-service-data";
+import { SUB_SERVICE_DATA } from "@/components/services/sub-services/sub-service-data";
 import { prisma } from "@/lib/prisma";
 import type { ServiceData } from "@/lib/services-data";
 
@@ -33,11 +33,10 @@ export async function generateStaticParams() {
     select: { slug: true },
   });
   const revopsSlugs = REVOPS_SLUGS.map((slug) => ({ slug }));
-  const subServiceSlugs = ALL_SUB_SERVICE_SLUGS.map((slug) => ({ slug }));
   const dbSlugs = dbServices
     .filter((s: typeof dbServices[0]) => !REVOPS_SLUGS.includes(s.slug as any))
     .map((s: typeof dbServices[0]) => ({ slug: s.slug }));
-  return [...revopsSlugs, ...subServiceSlugs, ...dbSlugs];
+  return [...revopsSlugs, ...dbSlugs];
 }
 
 const REVOPS_METADATA: Record<string, { title: string; description: string }> = {
@@ -70,14 +69,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
-  // Sub-service metadata
-  if (SUB_SERVICE_DATA[slug]) {
-    const sub = SUB_SERVICE_DATA[slug];
-    return {
-      title: `${sub.highlightLine} - ${process.env.NEXT_PUBLIC_SITE_NAME}`,
-      description: sub.description,
-    };
-  }
 
   const service = await prisma.service.findUnique({
     where: { slug, isActive: true },
@@ -103,10 +94,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     return <PageComponent />;
   }
 
-  // Sub-service pages (reusable component driven by static data)
-  if (SUB_SERVICE_DATA[slug]) {
-    return <SubServicePage slug={slug} />;
-  }
 
   // Database-driven services
   const service = await prisma.service.findUnique({
