@@ -383,12 +383,6 @@ export function HeroSection({
                 boxShadow:
                   "0 25px 80px rgba(15,23,42,0.35), 0 0 0 1px rgba(148,163,184,0.3) inset",
               }}
-              animate={{ y: [0, -10, 0] }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
               onMouseEnter={() => setIsDashboardPaused(true)}
               onMouseLeave={() => setIsDashboardPaused(false)}
             >
@@ -639,8 +633,9 @@ export function HeroSection({
                               {!isSubmitting && (
                                 <motion.div
                                   className="pointer-events-none absolute inset-0 -skew-x-12 bg-white/10"
-                                  animate={{ x: ["-100%", "200%"] }}
-                                  transition={{ duration: 2.5, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
+                                  initial={{ x: "-100%" }}
+                                  animate={{ x: "200%" }}
+                                  transition={{ duration: 2.5, ease: "linear", delay: 1 }}
                                 />
                               )}
                               <span className="relative flex items-center justify-center gap-2 pl-6 pr-2">

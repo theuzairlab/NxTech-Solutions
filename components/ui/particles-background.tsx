@@ -53,7 +53,31 @@ export function ParticlesBackground() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate();
+    const startAnimation = () => {
+      if (!animationFrameId) {
+        animate();
+      }
+    };
+
+    const stopAnimation = () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = 0;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      },
+      { threshold: 0, rootMargin: "200px" } // Provide a small buffer
+    );
+
+    if (canvas) observer.observe(canvas);
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -63,7 +87,8 @@ export function ParticlesBackground() {
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
+      stopAnimation();
     };
   }, []);
 
@@ -92,14 +117,12 @@ export function ParticlesBackground() {
         }}
       />
 
-      {/* Animated Gradient Orbs */}
+      {/* Animated Gradient Orbs - Performance Fixed */}
       <div
-        className="absolute top-10 left-4 sm:top-20 sm:left-10 w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 bg-primary/25 rounded-full blur-3xl animate-pulse z-40"
-        style={{ animation: "float 6s ease-in-out infinite" }}
+        className="absolute top-10 left-4 sm:top-20 sm:left-10 w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 bg-primary/20 rounded-full blur-3xl z-40"
       />
       <div
-        className="absolute bottom-10 right-4 sm:bottom-20 sm:right-10 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-primary/25 rounded-full blur-3xl animate-pulse z-40"
-        style={{ animation: "float 8s ease-in-out infinite reverse" }}
+        className="absolute bottom-10 right-4 sm:bottom-20 sm:right-10 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-primary/20 rounded-full blur-3xl z-40"
       />
     </>
   );
