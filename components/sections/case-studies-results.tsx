@@ -120,9 +120,8 @@ export function CaseStudiesResults({ serviceId }: { serviceId?: CoreServiceId })
                 {/* Dashboard header */}
                 <div className="mb-4 flex items-center justify-between">
                   <span
-                    className={`text-lg font-bold transition-colors ${
-                      isAfter ? "text-primary" : "text-slate-400"
-                    }`}
+                    className={`text-lg font-bold transition-colors ${isAfter ? "text-primary" : "text-slate-400"
+                      }`}
                   >
                     {isAfter ? `After ${siteName}` : `Before ${siteName}`}
                   </span>
@@ -156,91 +155,35 @@ export function CaseStudiesResults({ serviceId }: { serviceId?: CoreServiceId })
                 <div>
                   <AnimatePresence mode="wait">
                     {isAfter ? (
-                      <div>
-                        <div className="flex flex-row gap-2 pb-4 items-center justify-center">
-                          <div className="relative h-32 sm:h-36 flex-1 overflow-hidden rounded-lg shadow-lg">
-                            <Image
-                              src={after.images.topLeft.src}
-                              alt={after.images.topLeft.alt}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <div className="relative h-32 sm:h-36 flex-1 overflow-hidden rounded-lg shadow-lg">
-                            <Image
-                              src={after.images.topRight.src}
-                              alt={after.images.topRight.alt}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="flex flex-row gap-6 pb-4 items-center justify-center">
-                          <div className="relative h-32 sm:h-36 flex-1 overflow-hidden rounded-lg shadow-lg">
-                            <Image
-                              src={after.images.midLeft.src}
-                              alt={after.images.midLeft.alt}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-
-                          <div className="relative overflow-hidden rounded-md border border-white/10">
-                            <motion.div
-                              className="flex w-max items-center gap-3 p-3"
-                              animate={{ x: ["0%", "-50%"] }}
-                              transition={{
-                                duration: 18,
-                                repeat: Infinity,
-                                ease: "linear",
-                              }}
+                      <div className="relative w-full flex flex-col items-center justify-center p-4 bg-card overflow-hidden rounded-xl">
+                        <div className="grid grid-cols-2 gap-6 items-center justify-center">
+                          {[
+                            { img: after.images.topRight, title: "High ROI" },
+                            { img: after.images.topLeft, title: "On Track" },
+                            { img: after.images.midLeft, title: "Engagement" },
+                            { img: after.images.bottomLeft, title: "New Leads" },
+                          ].map((item, index) => (
+                            <div
+                              key={index}
+                              className="flex flex-col items-center justify-center gap-2"
                             >
-                              {after.sliderLogos.map((logo, idx) => (
-                                <div
-                                  key={`${logo.alt}-${idx}`}
-                                  className="h-10 w-16 overflow-hidden"
-                                >
-                                  <Image
-                                    src={logo.src}
-                                    alt={logo.alt}
-                                    width={120}
-                                    height={80}
-                                    className="h-full w-full object-cover"
-                                  />
-                                </div>
-                              ))}
-                            </motion.div>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-row gap-2 pb-4 items-center justify-center">
-                          <div className="relative h-32 sm:h-36 flex-1 overflow-hidden rounded-lg shadow-lg">
-                            <Image
-                              src={after.images.bottomLeft.src}
-                              alt={after.images.bottomLeft.alt}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            {after.socialIcons.map((key: CoreSocialIconKey) => {
-                              const Icon = CORE_SOCIAL_ICON_MAP[key];
-                              const rotate =
-                                key === "Facebook" || key === "Linkedin"
-                                  ? -6
-                                  : 6;
-                              return (
-                                <Icon
-                                  key={key}
-                                  className="w-7 h-7 bg-primary text-white size-10 rounded-md p-1"
-                                  style={{
-                                    transform: `rotate(${rotate}deg)`,
-                                  }}
+                              <div className="relative h-32 sm:h-36 w-auto max-w-[220px] overflow-hidden rounded-lg shadow-lg border-2 border-primary/10">
+                                <Image
+                                  src={item.img.src}
+                                  alt={item.img.alt}
+                                  width={500} // give a reasonable intrinsic size
+                                  height={300}
+                                  className="h-full w-auto object-contain"
                                 />
-                              );
-                            })}
-                          </div>
+                              </div>
+
+                              <div className="flex flex-col items-center justify-center bg-primary/10 p-2 rounded-md border border-primary/20">
+                                <p className="text-primary text-sm font-bold uppercase tracking-wider">
+                                  {item.title}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     ) : (
