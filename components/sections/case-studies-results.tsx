@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import {
   ArrowRight,
+  X,
+  CheckCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -36,6 +38,7 @@ export function CaseStudiesResults({ serviceId }: { serviceId?: CoreServiceId })
   const after = content.after;
 
   const [isAfter, setIsAfter] = useState(false);
+  const [selectedBeforeImage, setSelectedBeforeImage] = useState<typeof content.before[0] | null>(null);
 
   const before = useMemo(() => content.before, [content.before]);
 
@@ -246,7 +249,8 @@ export function CaseStudiesResults({ serviceId }: { serviceId?: CoreServiceId })
                           {before.map((item, index) => (
                             <motion.div
                               key={index}
-                              className="flex flex-col items-center justify-center gap-2"
+                              onClick={() => setSelectedBeforeImage(item)}
+                              className="group flex cursor-pointer flex-col items-center justify-center gap-2"
                               animate={{
                                 rotate: [item.rotate, -2, item.rotate],
                                 y: [0, -6, 0],
@@ -258,15 +262,20 @@ export function CaseStudiesResults({ serviceId }: { serviceId?: CoreServiceId })
                                 delay: 0,
                               }}
                             >
-                              <div className="relative h-32 sm:h-36 w-40 sm:w-52 overflow-hidden rounded-lg shadow-lg">
+                              <div className="relative h-32 sm:h-36 w-40 sm:w-52 overflow-hidden rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105">
                                 <Image
                                   src={item.image}
                                   alt={item.title}
                                   fill
                                   className="object-cover"
                                 />
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/20">
+                                  <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-black opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100">
+                                    View Details
+                                  </span>
+                                </div>
                               </div>
-                              <div className="flex flex-col items-center justify-center bg-primary/20 p-2 rounded-md">
+                              <div className="flex flex-col items-center justify-center bg-primary/20 p-2 rounded-md transition-colors duration-300 group-hover:bg-primary/30">
                                 <p className="text-black text-sm font-semibold">
                                   {item.title}
                                 </p>
@@ -283,6 +292,71 @@ export function CaseStudiesResults({ serviceId }: { serviceId?: CoreServiceId })
           </div>
         </div>
       </div>
+      <AnimatePresence>
+        {selectedBeforeImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+            onClick={() => setSelectedBeforeImage(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl"
+            >
+              <button
+                onClick={() => setSelectedBeforeImage(null)}
+                className="absolute right-4 top-4 z-10 rounded-full bg-black/20 p-2 text-white shadow backdrop-blur-md transition-colors hover:bg-black/40"
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <div className="relative h-48 w-full sm:h-64">
+                <Image
+                  src={selectedBeforeImage.image}
+                  alt={selectedBeforeImage.title}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-2xl font-bold text-white">{selectedBeforeImage.title}</h3>
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-red-500">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-red-600">
+                        <X className="h-4 w-4" />
+                      </span>
+                      The Problem
+                    </h4>
+                    <p className="mt-2 text-sm text-slate-600 sm:text-base">
+                      {selectedBeforeImage.problem}
+                    </p>
+                  </div>
+                  <div className="h-px w-full bg-slate-100" />
+                  <div>
+                    <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-emerald-500">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                        <CheckCircle className="h-4 w-4" />
+                      </span>
+                      Our Solution
+                    </h4>
+                    <p className="mt-2 text-sm text-slate-600 sm:text-base">
+                      {selectedBeforeImage.solution}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -3,6 +3,7 @@ import { Footer } from "@/components/navigations/footer";
 import { Home, User, Mail, MessageCircle, BookA, Briefcase, FolderOpen } from "lucide-react";
 import { NavbarComponent } from "@/components/navigations/Navbar";
 import { LazyWidgets } from "@/components/ui/lazy-widgets-client";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_SITE_NAME + " - Empowering Businesses with IT, Marketing & AI Solutions",
   description: process.env.NEXT_PUBLIC_SITE_NAME + " delivers cutting-edge digital solutions that drive revenue, automate operations, and scale your business. IT Services, Digital Marketing, AI Agents, Lead Generation & more.",
@@ -50,6 +51,7 @@ export default function MainRoutesLayout({
         <LazyWidgets />
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 }

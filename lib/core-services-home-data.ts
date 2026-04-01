@@ -201,7 +201,7 @@ export type CoreCaseStudiesContent = {
   pill: string;
   headline: string;
   description: string;
-  before: { image: string; title: string; rotate: number }[];
+  before: { image: string; title: string; rotate: number; problem: string; solution: string }[];
   after: {
     images: {
       topLeft: { src: string; alt: string };
@@ -496,28 +496,28 @@ const buildCaseStudies = (
 ): CoreCaseStudiesContent => {
   const beforeByService: Record<CoreServiceId, CoreCaseStudiesContent["before"]> = {
     "ai-automation-marketing": [
-      { image: "/images/em.avif", title: "Untracked leads", rotate: -6 },
-      { image: "/images/engage.avif", title: "Poor follow-up", rotate: 6 },
-      { image: "/images/tasks.avif", title: "Delayed tasks", rotate: -6 },
-      { image: "/images/tracking.avif", title: "Manual reporting", rotate: 6 },
+      { image: "/images/em.avif", title: "Untracked leads", rotate: -6, problem: "Leads from various sources often slipped through the cracks due to disconnected systems.", solution: "Implemented centralized automated tracking ensuring every single lead is instantly captured in the CRM." },
+      { image: "/images/engage.avif", title: "Poor follow-up", rotate: 6, problem: "Manual outreach meant delayed responses, losing hot prospects to faster competitors.", solution: "Deployed 24/7 AI nurture sequences that engage and follow up within 5 minutes of inquiry." },
+      { image: "/images/tasks.avif", title: "Delayed tasks", rotate: -6, problem: "Sales teams spent hours on data entry, significantly delaying actual selling and client calls.", solution: "Automated administrative workflows and task assignments, reducing operational burden by 85%." },
+      { image: "/images/tracking.avif", title: "Manual reporting", rotate: 6, problem: "Compiling weekly reports took days, leaving management reactive rather than proactive.", solution: "Integrated unified real-time tracking dashboards for instant and accurate performance visibility." },
     ],
     "web-development": [
-      { image: "/images/web/before01.png", title: "No clear attribution", rotate: -6 },
-      { image: "/images/web/before02.png", title: "Low conversion pages", rotate: 6 },
-      { image: "/images/web/before03.png", title: "Slow load & drop-off", rotate: -6 },
-      { image: "/images/web/before04.png", title: "Broken CRM capture", rotate: 6 },
+      { image: "/images/web/before01.png", title: "No clear attribution", rotate: -6, problem: "Inability to accurately trace which channels and campaigns were driving the most valuable traffic.", solution: "Set up end-to-end analytics with strict UTM tracking and CRM conversion syncing." },
+      { image: "/images/web/before02.png", title: "Low conversion pages", rotate: 6, problem: "Visitors were bouncing rapidly due to unclear messaging and unoptimized landing page layouts.", solution: "Redesigned landing pages with conversion-first UX, compelling CTAs, and optimized user journeys." },
+      { image: "/images/web/before03.png", title: "Slow load & drop-off", rotate: -6, problem: "High drop-off rates due to sluggish page load times negatively impacting user experience.", solution: "Re-architected the frontend leveraging a modern stack and edge caching for sub-second load speeds." },
+      { image: "/images/web/before04.png", title: "Broken CRM capture", rotate: 6, problem: "Form submissions frequently failed to map correctly into the sales database, losing active leads.", solution: "Built robust API integrations guaranteeing 100% accurate data flow from forms straight to the CRM." },
     ],
     "app-development": [
-      { image: "/images/app/before01.png", title: "Payment integration issues", rotate: -6 },
-      { image: "/images/app/before02.png", title: "Missing performance insights", rotate: 6 },
-      { image: "/images/app/before03.png", title: "Unscalable flows", rotate: -6 },
-      { image: "/images/app/before.png", title: "Slow release cycle", rotate: 6 },
+      { image: "/images/app/before01.png", title: "Payment integration issues", rotate: -6, problem: "Friction during the checkout process caused high cart abandonment and failed transactions.", solution: "Integrated a seamless, secure, and globally scalable payment gateway customized for their product." },
+      { image: "/images/app/before02.png", title: "Missing performance insights", rotate: 6, problem: "Lack of app analytics meant product decisions were based on guesswork rather than actual user behavior.", solution: "Empowered the team with granular in-app analytics and continuous user engagement monitoring." },
+      { image: "/images/app/before03.png", title: "Unscalable flows", rotate: -6, problem: "As user counts grew, the app's backend struggled, leading to crashes and slow data retrieval.", solution: "Rebuilt the architecture on scalable cloud infrastructure to handle 10x concurrent users effortlessly." },
+      { image: "/images/app/before.png", title: "Slow release cycle", rotate: 6, problem: "Deploying simple updates took weeks due to manual testing and unoptimized codebases.", solution: "Established an automated CI/CD pipeline cutting release times down from weeks to just hours." },
     ],
     "digital-marketing": [
-      { image: "/images/engage.avif", title: "Weak retargeting", rotate: -6 },
-      { image: "/images/tasks.avif", title: "High CAC & waste", rotate: 6 },
-      { image: "/images/tracking.avif", title: "Lead leakage", rotate: -6 },
-      { image: "/images/em.avif", title: "Inefficient campaigns", rotate: 6 },
+      { image: "/images/engage.avif", title: "Weak retargeting", rotate: -6, problem: "Failing to re-engage past website visitors resulted in leaving a massive amount of revenue on the table.", solution: "Launched aggressive, multi-channel dynamic retargeting to bring high-intent users back into the funnel." },
+      { image: "/images/tasks.avif", title: "High CAC & waste", rotate: 6, problem: "Ad spend was heavily wasted on unqualified audiences, driving up Customer Acquisition Costs.", solution: "Refined audience targeting using lookalike models and strict negative keywords to maximize ROAS." },
+      { image: "/images/tracking.avif", title: "Lead leakage", rotate: -6, problem: "Prospects were abandoning forms mid-way because of friction and lack of immediate value proposition.", solution: "Streamlined the capture process with conversational forms and immediate value-driven lead magnets." },
+      { image: "/images/em.avif", title: "Inefficient campaigns", rotate: 6, problem: "Running generic ads with identical messaging to different audience segments yielded subpar results.", solution: "Implemented granular A/B testing frameworks and personalized ad creatives for specific user segments." },
     ],
   };
 

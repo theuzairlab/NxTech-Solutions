@@ -80,7 +80,7 @@
     @apply border-border outline-ring/50;
   }
   html {
-    scroll-behavior: smooth;
+    /* Next.js works better with instant jumps for navigation. Smoother scrolling is handled per-component or via specifically triggered behavior. */
   }
   body {
     @apply bg-background text-foreground;

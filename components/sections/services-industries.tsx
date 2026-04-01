@@ -1,6 +1,10 @@
-import Image from "next/image";
-import { CheckCircle2, AlertCircle, Lightbulb, FileText } from "lucide-react";
+"use client";
+
+import { CheckCircle2, AlertCircle, Lightbulb, FileText, ArrowRight, Zap, Target, Layers } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { motion, AnimatePresence } from "motion/react";
+import { useState, useEffect } from "react";
 
 type IndustryData = {
   id: string;
@@ -17,177 +21,141 @@ type IndustryData = {
   } | null;
 };
 
-export async function ServicesIndustries() {
-  const industries = await prisma.industry.findMany({
-    where: {
-      isActive: true,
-    },
-    orderBy: [
-      { displayOrder: "asc" },
-      { createdAt: "asc" },
-    ],
-    select: {
-      id: true,
-      name: true,
-      image: true,
-      services: true,
-    },
-  });
-
-  // Transform database data to match component structure
-  const transformedIndustries: IndustryData[] = industries.map((industry) => {
-    const services = industry.services as any;
-    return {
-      id: industry.id,
-      name: industry.name,
-      image: industry.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
-      services: services || {
-        painPoints: [],
-        solutions: [],
-        caseStudy: { title: "", result: "", description: "" },
-      },
-    };
-  });
+// Client component wrapper for animation logic
+function IndustryCard({ industry }: { industry: IndustryData }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const painPoints = industry.services?.painPoints || [];
+  const solutions = industry.services?.solutions || [];
+  const caseStudy = industry.services?.caseStudy || { title: "", result: "", description: "" };
 
   return (
-    <section id="industries" className="relative py-24 overflow-hidden rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[150px] bg-gradient-to-b from-[#f0f9ff] via-white to-[#e0f2fe] z-6">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-24 right-1/4 w-[520px] h-[520px] bg-primary/12 blur-3xl" />
-        <div className="absolute -bottom-20 left-10 w-[480px] h-[480px] bg-primary/10 blur-3xl" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:140px_140px] opacity-60" />
+    <motion.div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="group relative flex h-[480px] flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10"
+    >
+      {/* Premium Header - No Image */}
+      <div className="relative h-24 w-full overflow-hidden sm:h-28">
+        <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-transparent to-transparent" />
+        <div className="absolute top-6 left-6 flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm border border-slate-100 transition-transform group-hover:scale-110">
+            <Layers className="h-6 w-6 text-primary" />
+          </div>
+          <h3 className="text-2xl font-bold tracking-tight text-slate-800">
+            {industry.name}
+          </h3>
+        </div>
+      </div>
+
+      {/* Card Content Area */}
+      <div className="relative flex-1 p-6 sm:p-8">
+        <AnimatePresence mode="wait">
+          {!isHovered ? (
+            <motion.div
+              key="pain-points"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-2">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-100 text-[10px] font-black text-red-600">!</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-red-500/80">Critical Pain Points</span>
+              </div>
+              <ul className="space-y-4">
+                {painPoints.slice(0, 3).map((point, idx) => (
+                  <li key={idx} className="flex gap-3">
+                    <div className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
+                    <p className="text-sm font-medium leading-relaxed text-slate-600">{point}</p>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 flex items-center justify-center pt-4">
+                <div className="flex animate-bounce flex-col items-center gap-1 opacity-40">
+                  <span className="text-[9px] font-bold uppercase tracking-tighter">Hover to see our solution</span>
+                  <ArrowRight className="h-3 w-3 rotate-90" />
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="solutions"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-2">
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
+                  <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Strategic Solutions</span>
+              </div>
+              <ul className="space-y-4">
+                {solutions.slice(0, 3).map((solution, idx) => (
+                  <li key={idx} className="flex gap-3">
+                    <Zap className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <p className="text-sm font-bold leading-relaxed text-slate-700">{solution}</p>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Case Study Footer - Always Visible */}
+      {caseStudy.title && (
+        <div className="bg-slate-50 p-6 border-t border-slate-100">
+          <div className="flex items-center gap-2 mb-3">
+            <Target className="h-4 w-4 text-primary" />
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Proven ROI</span>
+          </div>
+          <p className="text-xs font-bold text-slate-800 line-clamp-1 mb-1">{caseStudy.title}</p>
+          <p className="text-[10px] text-primary font-black uppercase tracking-tight">{caseStudy.result}</p>
+        </div>
+      )}
+      
+      {/* Decorative Gradient Overlay on Hover */}
+      <div className={`absolute inset-0 bg-linear-to-br from-primary/5 to-transparent transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
+    </motion.div>
+  );
+}
+
+export function ServicesIndustries({ industries }: { industries: IndustryData[] }) {
+  return (
+    <section id="industries" className="relative py-24 overflow-hidden bg-slate-50/50">
+      <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute -top-24 right-1/4 w-[520px] h-[520px] bg-primary/10 blur-3xl rounded-full" />
+        <div className="absolute -bottom-20 left-10 w-[480px] h-[480px] bg-primary/5 blur-3xl rounded-full" />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
-            <span className="text-xs font-semibold tracking-[0.25em] text-primary">INDUSTRIES</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-slate-100">
+            <span className="text-xs font-black tracking-[0.3em] text-primary uppercase">MARKET EXPERTISE</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-              Industries We Serve
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black mb-4 tracking-tight">
+            <span className="bg-linear-to-r from-slate-900 via-primary to-primary bg-clip-text text-transparent">
+              Targeted Impact. <br className="hidden md:block" /> Every Industry.
             </span>
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Tailored solutions addressing specific industry challenges
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+            Eliminating operational bottlenecks with data-backed digital strategies.
           </p>
         </div>
 
-        {transformedIndustries.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">No industries available at the moment.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-            {transformedIndustries.map((industry) => {
-              const painPoints = industry.services?.painPoints || [];
-              const solutions = industry.services?.solutions || [];
-              const caseStudy = industry.services?.caseStudy || { title: "", result: "", description: "" };
-
-              return (
-                <div
-                  key={industry.id}
-                  className="group relative overflow-hidden rounded-2xl bg-white border-2 border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 flex flex-col h-full"
-                >
-                  {/* Image Section with Overlay */}
-                  <div className="relative h-64 overflow-hidden">
-                    <Image
-                      src={industry.image}
-                      alt={industry.name}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    {/* Dark Overlay for better text contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20 group-hover:from-black/90 group-hover:via-black/60 transition-all duration-500" />
-                    
-                    {/* Industry Name Badge */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                      <h3 className="text-2xl font-bold text-white mb-0 group-hover:text-primary-foreground transition-colors duration-300 drop-shadow-lg">
-                        {industry.name}
-                      </h3>
-                    </div>
-
-                    {/* Hover Accent Line */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/80 to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="relative p-6 bg-white flex-1 flex flex-col">
-                    {/* Pain Points */}
-                    {painPoints.length > 0 && (
-                      <div className="mb-5">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="p-1.5 rounded-lg bg-red-50 group-hover:bg-red-100 transition-colors">
-                            <AlertCircle className="h-4 w-4 text-red-600" />
-                          </div>
-                          <h4 className="text-sm font-bold text-foreground uppercase tracking-wide">Pain Points</h4>
-                        </div>
-                        <ul className="space-y-2">
-                          {painPoints.slice(0, 3).map((point, idx) => (
-                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2 group-hover:text-foreground transition-colors">
-                              <span className="text-red-500 mt-1 font-bold">•</span>
-                              <span className="leading-relaxed">{point}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Solutions */}
-                    {solutions.length > 0 && (
-                      <div className="mb-5">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="p-1.5 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                            <Lightbulb className="h-4 w-4 text-primary" />
-                          </div>
-                          <h4 className="text-sm font-bold text-foreground uppercase tracking-wide">Our Solutions</h4>
-                        </div>
-                        <ul className="space-y-2">
-                          {solutions.slice(0, 3).map((solution, idx) => (
-                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2 group-hover:text-foreground transition-colors">
-                              <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                              <span className="leading-relaxed">{solution}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Case Study */}
-                    {caseStudy.title && (
-                      <div className="pt-4 mt-auto border-t-2 border-border/50 group-hover:border-primary/30 transition-colors">
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className="p-1.5 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                            <FileText className="h-4 w-4 text-primary" />
-                          </div>
-                          <h4 className="text-sm font-bold text-foreground uppercase tracking-wide">Case Study</h4>
-                        </div>
-                        <p className="text-sm font-semibold text-primary mb-1 group-hover:text-primary/90 transition-colors">{caseStudy.title}</p>
-                        {caseStudy.result && (
-                          <p className="text-xs text-muted-foreground leading-relaxed group-hover:text-foreground/80 transition-colors">{caseStudy.result}</p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Hover Glow Effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 rounded-2xl" />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {/* <div className="text-center">
-          <Button size="lg" variant="outline" className="border-2 border-primary/30 hover:bg-primary/10 text-primary hover:text-primary hover:border-primary/50">
-            Explore All Industries
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </div> */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {industries.map((ind) => (
+            <IndustryCard key={ind.id} industry={ind} />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+
 

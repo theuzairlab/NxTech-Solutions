@@ -89,8 +89,6 @@ export default async function Services() {
     <div className="w-full">
       <ServicesHero />
       <ServicesCatalog />
-      <ServicesIndustries />
-      <ServicesPortfolio portfolios={portfolios} />
       <GetQuoteForm />
       <CTABanner />
     </div>

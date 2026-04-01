@@ -5,6 +5,7 @@ import "./globals.css";
 import { AuthSessionProvider } from "@/components/providers/session-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { PageLoader } from "@/components/ui/page-loader";
+import { NavigationScrollReset } from "@/components/ui/navigation-scroll-reset";
 
 const GTM_ID = "GTM-PK589K8Z";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
         <GTMDelayed />
         {/* <PageLoader /> */}
         <AuthSessionProvider>
+          <NavigationScrollReset />
           {children}
           <Toaster richColors closeButton />
         </AuthSessionProvider>

@@ -1,7 +1,7 @@
 
 
 Next Tasks — NxTechNova Website
-
+30-March-2026
 [✅] Fix the size shrinking bug on the homepage hero section right side - dashboard panel
 [✅] Change the animated small images in the "Before NxTechNova" state of the homepage hero section right - side dashboard
 [✅] Remove the infinite loop floating / tilting animations from the Key Challenges cards on all service detail pages
@@ -13,11 +13,23 @@ Next Tasks — NxTechNova Website
 [✅] Develop sub - service pages — content needed for each page
 
 
-
-[] Fix website performance issues and slow loading speed
+31-March-2026
+[✅] Fix website performance issues and slow loading speed - up to 50% + improvement in performance the other is because of animations
 [✅] Redesign the Industries We Serve section with a new look
 [✅] Improve the Get a Quote form with a visual step - by - step design
 [✅] Develop a new dedicated Case Studies page showcasing completed projects and client work
 [✅] moved sub-services pages to main services then sub services pages like from services/ai-chatbot-development to services/ai-automation/ai-chatbot-development 
 [✅] aligned contect form in hero section right side dashboard sample
 [✅] changed services dropdown cta to "Explore Services" in navbar
+
+
+01-April-2026 
+[✅] Make the images in the Case Studies section (Home page) clickable, opening a popup with detailed information.
+[✅] Implement a sticky “Back to Top” button that is visible across all pages (not just in the footer).
+[✅] Remove Industries and Case Studies sections from the Main Services page and move them to the Case Studies page.
+[✅] Enhance the Industries and Case Studies cards with improved visuals and hover animations, and remove static images.
+[✅] On the Main Services page, replace manual horizontal scrolling with auto-scrolling sub-service cards, followed by normal page scroll.
+[✅] Create a dedicated FAQ page and add its link to the footer.
+[✅] Fix the redirect issue: when navigating to a page, it should land directly at the top and trigger animations properly (currently animations do not appear on redirect, only on manual scroll).
+
+[] Replace images with videos in the Services page hero sections.

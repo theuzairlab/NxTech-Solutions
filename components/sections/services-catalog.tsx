@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import Link from "next/link";
 import { useRef } from "react";
 import {
@@ -200,153 +199,134 @@ const MAIN_SERVICES: MainService[] = [
   },
 ];
 
+import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
+import { useState, useEffect } from "react";
+
 function ServiceCarousel({ service, index }: { service: MainService; index: number }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const ServiceIcon = service.icon;
+  const [scrollRange, setScrollRange] = useState(0);
 
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -360, behavior: "smooth" });
-    }
-  };
+  // Horizontal Scroll Logic
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
 
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 360, behavior: "smooth" });
-    }
-  };
+  useEffect(() => {
+    const calculateScrollRange = () => {
+      if (contentRef.current) {
+        setScrollRange(contentRef.current.scrollWidth - contentRef.current.offsetWidth);
+      }
+    };
+
+    calculateScrollRange();
+    window.addEventListener("resize", calculateScrollRange);
+    return () => window.removeEventListener("resize", calculateScrollRange);
+  }, []);
+
+  // Use the transform, but we will apply it only conditionally in style
+  const x = useTransform(scrollYProgress, [0.1, 0.9], [0, -scrollRange]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.6, delay: index * 0.05 }}
-    >
-      {/* Main Service Header Layer */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 border-b border-primary/10 pb-6">
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-4 mb-4">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-primary/10 border border-primary/20 shrink-0">
-              <ServiceIcon className="w-7 h-7 text-primary" />
+    <div ref={targetRef} className="relative h-auto py-12 lg:h-[250vh] lg:py-0">
+      {/* Sticky Container (Desktop) / Flow Container (Mobile) */}
+      <div className="relative h-auto flex flex-col justify-center overflow-visible lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.6, delay: index * 0.05 }}
+          className="container mx-auto px-4 sm:px-6 lg:px-8"
+        >
+          {/* Main Service Header Layer */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-primary/10 pb-8 mb-10 text-center sm:text-left">
+            <div className="max-w-2xl px-2 sm:px-0">
+              <div className="inline-flex items-center gap-4 mb-4 justify-center sm:justify-start">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center bg-primary/10 border border-primary/20 shrink-0">
+                  <ServiceIcon className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                </div>
+                <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-foreground tracking-tight leading-tight">
+                  {service.label}
+                </h2>
+              </div>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed pl-1 max-w-[90%] mx-auto sm:mx-0">
+                {service.description}
+              </p>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
-              {service.label}
-            </h2>
-          </div>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed pl-1">
-            {service.description}
-          </p>
-        </div>
 
-        {/* Navigation & Link */}
-        <div className="flex flex-col sm:flex-row items-center gap-4">
-          <div className="hidden sm:flex items-center gap-2">
-            <button
-              onClick={scrollLeft}
-              className="w-12 h-12 rounded-full border border-primary/20 bg-white flex items-center justify-center text-primary hover:bg-primary/5 transition-colors shadow-sm cursor-pointer hover:shadow-md"
-              aria-label="Previous"
+            <Link
+              href={`/services/${service.slug}`}
+              className="inline-flex items-center gap-2 font-bold text-primary hover:text-primary/80 transition-all group bg-white/50 px-8 py-3.5 rounded-full border border-primary/15 hover:bg-white shadow-sm hover:shadow-md w-max mx-auto lg:mx-0"
             >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={scrollRight}
-              className="w-12 h-12 rounded-full border border-primary/20 bg-white flex items-center justify-center text-primary hover:bg-primary/5 transition-colors shadow-sm cursor-pointer hover:shadow-md"
-              aria-label="Next"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+              Explore {service.label}
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
-          <Link
-            href={`/services/${service.slug}`}
-            className="inline-flex items-center gap-2 font-semibold text-primary hover:text-primary/80 transition-colors group mb-2 sm:mb-0 bg-white/50 px-5 py-2.5 rounded-full border border-primary/15 hover:bg-white"
-          >
-            Explore {service.label}
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
+
+          <div className="relative">
+            {/* 
+              Desktop: motion.div with horizontal translation based on scroll.
+              Mobile: motion.div with standard overflow scroll.
+            */}
+            <motion.div
+              ref={contentRef}
+              style={{ x: typeof window !== 'undefined' && window.innerWidth >= 1024 ? x : 0 }}
+              className="flex gap-6 sm:gap-10 overflow-x-auto lg:overflow-visible pb-12 lg:pb-0 px-4 sm:px-0 hide-scrollbar snap-x snap-mandatory -mx-4 lg:mx-0"
+            >
+              {service.subServices.map((sub) => {
+                const SubIcon = sub.icon;
+                return (
+                  <Link
+                    key={sub.slug}
+                    href={`/services/${service.slug}/${sub.slug}`}
+                    className="group relative shrink-0 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer block transform snap-center lg:snap-start w-[290px] h-[400px] sm:w-[350px] sm:h-[450px] lg:w-[420px] lg:h-[500px] rounded-[2rem] sm:rounded-[2.5rem]"
+                  >
+                    {/* 1. Background Gradient */}
+                    <div
+                      className={`absolute inset-0 bg-linear-to-br ${sub.gradient} transition-transform duration-700 group-hover:scale-110`}
+                    />
+
+                    {/* 2. Abstract Decorative Background Elements */}
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white/10 blur-3xl group-hover:scale-150 transition-transform duration-700 delay-75" />
+                    <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-black/10 blur-2xl group-hover:scale-150 transition-transform duration-700 delay-100" />
+
+                    {/* 3. NORMAL STATE */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-8 sm:p-12 text-center transition-all duration-500 ease-in-out group-hover:-translate-y-24 group-hover:opacity-0 group-hover:blur-sm z-10">
+                      <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center shadow-inner mb-6 sm:mb-10 border border-white/30 transition-transform duration-500">
+                        <SubIcon className="w-8 h-8 sm:w-12 sm:h-12 text-white" strokeWidth={2} />
+                      </div>
+                      <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-xl">
+                        {sub.label}
+                      </h3>
+                    </div>
+
+                    {/* 4. HOVER STATE */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-between p-8 sm:p-12 text-center translate-y-24 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-20">
+                      <div className="mt-2 w-full">
+                        <h3 className="text-xl sm:text-3xl font-black text-white tracking-tight drop-shadow-xl">
+                          {sub.label}
+                        </h3>
+                        <div className="w-12 sm:w-16 h-1.5 bg-white/40 mx-auto mt-6 rounded-full" />
+                      </div>
+
+                      <p className="text-white/95 text-sm sm:text-lg leading-relaxed my-auto drop-shadow-md font-semibold">
+                        {sub.description}
+                      </p>
+
+                      <div className="bg-white text-slate-900 rounded-full px-8 sm:px-12 py-3.5 sm:py-4 text-xs sm:text-sm font-black shadow-2xl flex items-center gap-2 sm:gap-3 hover:bg-slate-50 transition-all w-max mx-auto group/btn hover:scale-105 active:scale-95">
+                        LEARN MORE
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-primary transition-transform group-hover/btn:translate-x-1.5" />
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
-
-      {/* Sub-Services Horizontally Scrolling Carousel */}
-      <div className="relative">
-        <div
-          ref={scrollRef}
-          className="flex overflow-x-auto gap-6 sm:gap-8 pb-10 pt-4 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x snap-mandatory"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        >
-          {service.subServices.map((sub) => {
-            const SubIcon = sub.icon;
-            return (
-              <Link
-                key={sub.slug}
-                href={`/services/${service.slug}/${sub.slug}`}
-                className="group relative shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] h-[400px] rounded-4xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer block transform hover:-translate-y-1 snap-start"
-              >
-                {/* 1. Background Gradient */}
-                <div
-                  className={`absolute inset-0 bg-linear-to-br ${sub.gradient} transition-transform duration-700 group-hover:scale-110`}
-                />
-
-                {/* 2. Abstract Decorative Background Elements (Visible on base and hover) */}
-                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white/10 blur-3xl group-hover:scale-150 transition-transform duration-700 delay-75" />
-                <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-black/10 blur-2xl group-hover:scale-150 transition-transform duration-700 delay-100" />
-
-                {/* 3. NORMAL STATE (Centered Icon + Title -> Fades away and goes up on hover) */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-500 ease-in-out group-hover:-translate-y-24 group-hover:opacity-0 group-hover:blur-sm z-10">
-                  <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center shadow-inner mb-6 border border-white/30 transition-transform duration-500">
-                    <SubIcon className="w-10 h-10 text-white" strokeWidth={2} />
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-wide leading-tight drop-shadow-md">
-                    {sub.label}
-                  </h3>
-                </div>
-
-                {/* 4. HOVER STATE (Details -> Comes up from bottom and fades in on hover) */}
-                <div className="absolute inset-0 flex flex-col items-center justify-between p-8 text-center translate-y-24 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-20">
-                  {/* Title slides to top of card inner */}
-                  <div className="mt-2 w-full">
-                    <h3 className="text-2xl font-extrabold text-white tracking-wide drop-shadow-md">
-                      {sub.label}
-                    </h3>
-                    {/* Subtle separator */}
-                    <div className="w-12 h-1 bg-white/30 mx-auto mt-4 rounded-full" />
-                  </div>
-
-                  {/* Description text center-bottom */}
-                  <p className="text-white/95 text-base leading-relaxed my-auto drop-shadow-sm font-medium">
-                    {sub.description}
-                  </p>
-
-                  {/* CTA button bottom locked */}
-                  <div className="bg-white text-slate-900 rounded-full px-8 py-3.5 text-sm font-bold shadow-xl flex items-center gap-2 hover:bg-slate-50 transition-colors w-max mx-auto group/btn">
-                    Learn More
-                    <ChevronRight className="w-4 h-4 text-primary transition-transform group-hover/btn:translate-x-1" />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Mobile Nav Arrows  */}
-      <div className="flex sm:hidden justify-center items-center gap-4 mt-2 mb-8">
-        <button
-          onClick={scrollLeft}
-          className="w-12 h-12 rounded-full border border-primary/20 bg-white flex items-center justify-center text-primary shadow-sm cursor-pointer hover:bg-primary/5"
-          aria-label="Previous"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={scrollRight}
-          className="w-12 h-12 rounded-full border border-primary/20 bg-white flex items-center justify-center text-primary shadow-sm cursor-pointer hover:bg-primary/5"
-          aria-label="Next"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -382,7 +362,7 @@ export function ServicesCatalog() {
         </motion.div>
 
         {/* Iterate Main Services Blocks */}
-        <div className="space-y-32 container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           {MAIN_SERVICES.map((service, serviceIdx) => (
             <ServiceCarousel key={service.id} service={service} index={serviceIdx} />
           ))}

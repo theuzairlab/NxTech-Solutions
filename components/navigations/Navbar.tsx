@@ -63,7 +63,7 @@ const CORE_SERVICES = [
     subServices: [
       { label: "WordPress Development", href: "/services/web-development/wordpress-development" },
       { label: "E-commerce Development", href: "/services/web-development/ecommerce-website-development" },
-      { label: "Custom Website Development", href: "/services/web-development/custom-website-development" },
+      { label: "Custom Software & Website Development", href: "/services/web-development/custom-website-development" },
     ],
   },
   {
@@ -255,7 +255,7 @@ function ServicesDropdown({ visible }: { visible?: boolean }) {
                               className="text-sm font-medium text-slate-500 hover:text-primary transition-colors flex items-center gap-1 w-fit group/sub"
                             >
                               <span className="opacity-40 transition-opacity group-hover/sub:opacity-100 group-hover/sub:translate-x-0.5 duration-200">›</span>
-                              <span className="group-hover/sub:translate-x-0.5 transition-transform duration-200 truncate ">{sub.label}</span>
+                              <span className="group-hover/sub:translate-x-0.5 transition-transform duration-200">{sub.label}</span>
                             </Link>
                           ))}
                         </div>

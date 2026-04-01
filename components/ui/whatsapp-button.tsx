@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { MessageCircle, X } from "lucide-react";
+import { X } from "lucide-react";
+import { IconBrandWhatsapp } from "@tabler/icons-react";
 
 export function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,7 +15,7 @@ export function WhatsAppButton() {
     return () => clearTimeout(timer);
   }, []);
 
-  const whatsappNumber = process.env.NEXT_PUBLIC_USER_PHONE|| "";// Replace with your WhatsApp Business number
+  const whatsappNumber = process.env.NEXT_PUBLIC_USER_PHONE || "";// Replace with your WhatsApp Business number
   const message = encodeURIComponent("Hello! I'd like to learn more about your services.");
 
   return (
@@ -51,7 +52,7 @@ export function WhatsAppButton() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#20BA5A] text-white font-semibold py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base"
               >
-                <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                <IconBrandWhatsapp className="h-4 w-4 sm:h-5 sm:w-5" />
                 Open WhatsApp
               </a>
             </motion.div>
@@ -63,7 +64,7 @@ export function WhatsAppButton() {
               className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#25D366] hover:bg-[#20BA5A] text-white shadow-2xl flex items-center justify-center transition-colors"
               aria-label="Open WhatsApp chat"
             >
-              <MessageCircle className="h-7 w-7 sm:h-8 sm:w-8" />
+              <IconBrandWhatsapp className="h-7 w-7 sm:h-8 sm:w-8" />
             </motion.button>
           )}
         </motion.div>
