@@ -31,5 +31,6 @@ Next Tasks — NxTechNova Website
 [✅] On the Main Services page, replace manual horizontal scrolling with auto-scrolling sub-service cards, followed by normal page scroll.
 [✅] Create a dedicated FAQ page and add its link to the footer.
 [✅] Fix the redirect issue: when navigating to a page, it should land directly at the top and trigger animations properly (currently animations do not appear on redirect, only on manual scroll).
+[✅] Modernized Case Studies “After” tab with improved layout and fixed image scaling.
 
 [] Replace images with videos in the Services page hero sections.

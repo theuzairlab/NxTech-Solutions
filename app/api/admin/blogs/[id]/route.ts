@@ -26,7 +26,11 @@ function resolvePublishingState(input: {
       throw new Error("Invalid scheduled date/time.");
     }
     if (scheduleAt <= now) {
-      throw new Error("Scheduled date/time must be in the future.");
+      return {
+        isPublished: true,
+        publishedAt: scheduleAt,
+        scheduledFor: null as Date | null,
+      };
     }
     return {
       isPublished: false,

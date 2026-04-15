@@ -548,10 +548,6 @@ function BlogModal({
           toast.error("Please provide a valid schedule date and time.");
           return;
         }
-        if (scheduledAtDate <= new Date()) {
-          toast.error("Schedule date/time must be in the future.");
-          return;
-        }
       }
 
       const payload = {
@@ -801,9 +797,18 @@ function BlogModal({
           )}
           <p className="text-xs text-muted-foreground">
             {form.publishMode === "publish_now"
-              ? "This blog will be published immediately."
+              ? "Publishes immediately using the current time as the published date."
               : form.publishMode === "schedule"
-                ? "This blog remains draft until the scheduled date/time."
+                ? (() => {
+                    const d = form.scheduledFor ? new Date(form.scheduledFor) : null;
+                    const valid = d && !Number.isNaN(d.getTime());
+                    if (!valid) {
+                      return "Choose a date and time. Future times stay as draft until then; past or present times publish immediately with that timestamp (backdating).";
+                    }
+                    return d! > new Date()
+                      ? "This blog stays as draft until the scheduled date/time."
+                      : "Publishes immediately with this date/time as the published timestamp (backdating).";
+                  })()
                 : "This blog will remain as draft."}
           </p>
         </div>

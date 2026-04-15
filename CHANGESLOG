@@ -1,3 +1,6 @@
+2026-04-15
+- Admin blogs: Schedule mode now accepts past or present date/times; those publish immediately with `publishedAt` set to the chosen time (backdating). Future times still stay draft until that moment. Removed client/API validation that required scheduled times to be strictly in the future. Clarified helper copy for Publish now vs Schedule.
+
 2026-03-25
 - Home page: Lift `activeServiceId` into `HomeCoreServices` and wire it into `CoreServicesGrid`, `HowWeBuild`, `AIWorkflowVisual`, and `CaseStudiesResults` so the content updates with the active carousel/service selection (no scroll jumping).
 - UI: Added a fixed right-side vertical core-services rail (`CoreServicesRightRailTabs`) that shows icons only, then expands to show labels on hover; hovering the rail pauses auto-advance.

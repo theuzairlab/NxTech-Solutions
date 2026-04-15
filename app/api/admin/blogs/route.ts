@@ -24,8 +24,13 @@ function resolvePublishingState(input: {
     if (Number.isNaN(scheduleAt.getTime())) {
       throw new Error("Invalid scheduled date/time.");
     }
+    // Past or present: publish immediately with that timestamp (backdating).
     if (scheduleAt <= now) {
-      throw new Error("Scheduled date/time must be in the future.");
+      return {
+        isPublished: true,
+        publishedAt: scheduleAt,
+        scheduledFor: null as Date | null,
+      };
     }
     return {
       isPublished: false,
