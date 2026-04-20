@@ -9,9 +9,12 @@ import { HowWeBuild } from "@/components/sections/how-we-build";
 import { AIWorkflowVisual } from "@/components/sections/ai-workflow-visual";
 import { CaseStudiesResults } from "@/components/sections/case-studies-results";
 import { CoreServicesRightRailTabs } from "@/components/sections/core-services-right-rail-tabs";
+import { HeroSection } from "./hero-section";
 
 export function HomeCoreServices() {
-  const [activeServiceId, setActiveServiceId] = useState<CoreServiceId>(CORE_SERVICES[0].id);
+  const [activeServiceId, setActiveServiceId] = useState<CoreServiceId>(
+    CORE_SERVICES[0].id,
+  );
   const [isPaused, setIsPaused] = useState(false);
 
   return (
@@ -77,10 +80,15 @@ export function HomeCoreServicesControlled({
         paused={isPaused}
       />
 
+      <HeroSection
+        activeServiceId={activeServiceId}
+        onActiveServiceIdChange={onActiveServiceIdChange}
+        paused={isPaused}
+      />
+
       <HowWeBuild serviceId={activeServiceId} />
       <AIWorkflowVisual serviceId={activeServiceId} />
       <CaseStudiesResults serviceId={activeServiceId} />
     </div>
   );
 }
-

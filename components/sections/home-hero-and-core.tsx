@@ -15,11 +15,6 @@ export function HomeHeroAndCore() {
 
   return (
     <>
-      <HeroSection
-        activeServiceId={activeServiceId}
-        onActiveServiceIdChange={setActiveServiceId}
-        paused={isGlobalPaused}
-      />
       <HomeCoreServicesControlled
         activeServiceId={activeServiceId}
         onActiveServiceIdChange={setActiveServiceId}

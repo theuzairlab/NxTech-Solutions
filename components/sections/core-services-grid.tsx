@@ -6,7 +6,10 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
-import type { CoreServiceId, CoreServiceMeta } from "@/lib/core-services-home-data";
+import type {
+  CoreServiceId,
+  CoreServiceMeta,
+} from "@/lib/core-services-home-data";
 import {
   CORE_ICON_MAP,
   CORE_SERVICES,
@@ -42,11 +45,18 @@ export function CoreServicesGrid({
   const shouldPause = !!paused || isHoverPaused || isMobile;
 
   const activeIndex = useMemo(
-    () => Math.max(0, CORE_SERVICES.findIndex((s) => s.id === activeServiceId)),
+    () =>
+      Math.max(
+        0,
+        CORE_SERVICES.findIndex((s) => s.id === activeServiceId),
+      ),
     [activeServiceId],
   );
 
-  const prev = CORE_SERVICES[(activeIndex - 1 + CORE_SERVICES.length) % CORE_SERVICES.length];
+  const prev =
+    CORE_SERVICES[
+      (activeIndex - 1 + CORE_SERVICES.length) % CORE_SERVICES.length
+    ];
   const next = CORE_SERVICES[(activeIndex + 1) % CORE_SERVICES.length];
   const active = CORE_SERVICES[activeIndex];
 
@@ -73,7 +83,7 @@ export function CoreServicesGrid({
         <div className="absolute bottom-[-35%] left-[20%] h-[700px] w-[700px] rounded-full bg-primary/18 blur-3xl" />
       </div>
 
-      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16">
         {/* Header */}
         <motion.div
           className="pb-6"
@@ -83,11 +93,7 @@ export function CoreServicesGrid({
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl font-bold leading-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl">
-            Our Core <br />
-            <div className="flex items-center gap-2">
-              <div className="h-px w-24 bg-primary/20 shrink-0 mt-2 sm:w-40 lg:w-64" />
-              <span className="text-primary">Services</span>
-            </div>
+            Our Core <span className="text-primary">Services</span>
           </h2>
           <p className="max-w-2xl text-base text-muted-foreground/80 sm:text-lg">
             Automation. Development. Performance Marketing.
@@ -344,4 +350,3 @@ export function CoreServicesGrid({
     </section>
   );
 }
-

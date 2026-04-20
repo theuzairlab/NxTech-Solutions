@@ -34,3 +34,20 @@ Next Tasks — NxTechNova Website
 [✅] Modernized Case Studies “After” tab with improved layout and fixed image scaling.
 
 [] Replace images with videos in the Services page hero sections.
+
+
+
+15-April-2026
+[✅] Removed strict future datetime validation, allowing users to publish blogs with past dates
+[✅] ⁠Fixed blog post datetime handling to support scheduling and publishing of past-dated blogs (Nxtechnova)
+
+
+16-April-2026
+[✅] reseached about Nxtechnova domain security issue and trying to fix from vercel site 
+[✅] fixed blog post bugs that not publishes blogs issue accurs - NxTechNova
+
+
+20-April-2026
+[✅] interchanged hero section postion with core services 
+[✅] make hero section left side content dynamic that changes with active services
+[✅] shipted images/assets from project folder to cloude storage - NxtFlight

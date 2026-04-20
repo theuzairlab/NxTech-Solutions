@@ -27,6 +27,12 @@ const DASHBOARD_SLIDES = [
   {
     serviceTitle: "AI Marketing & Business Automation",
     slug: "ai-automation-marketing",
+    heroLeft: {
+      blocks: ["We Build", "AI Powered", "Growth Systems"],
+      accent: "That Turn Traffic Into Revenue",
+      paragraph:
+        "{{brand}} builds AI-powered systems that automate lead generation and convert prospects into paying clients.",
+    },
     campaigns: [
       { name: "AI lead follow-up", status: "24/7 automation", change: "+98%" },
       { name: "CRM sequences", status: "Qualified pipeline", change: "+45%" },
@@ -63,6 +69,12 @@ const DASHBOARD_SLIDES = [
   {
     serviceTitle: "Web Development",
     slug: "web-development",
+    heroLeft: {
+      blocks: ["We Build", "Conversion-Ready", "Websites & Funnels"],
+      accent: "That Turn Visitors Into Revenue",
+      paragraph:
+        "{{brand}} engineers fast, accessible sites and landing pages—Core Web Vitals, SEO, and integrations that turn traffic into qualified pipeline.",
+    },
     campaigns: [
       { name: "Landing pages", status: "Conversion-optimized", change: "+52%" },
       { name: "Core Web Vitals", status: "All green", change: "+38%" },
@@ -99,6 +111,12 @@ const DASHBOARD_SLIDES = [
   {
     serviceTitle: "App Development",
     slug: "app-development",
+    heroLeft: {
+      blocks: ["We Build", "Mobile & Cloud", "Apps & SaaS Platforms"],
+      accent: "That Ship Fast and Scale With You",
+      paragraph:
+        "{{brand}} delivers MVPs through production: native and cross-platform apps with reliable releases, payments, and infrastructure your users can trust.",
+    },
     campaigns: [
       { name: "MVP launch", status: "On schedule", change: "+12w" },
       { name: "SaaS stack", status: "Scalable architecture", change: "Live" },
@@ -135,6 +153,12 @@ const DASHBOARD_SLIDES = [
   {
     serviceTitle: "Digital Marketing",
     slug: "digital-marketing",
+    heroLeft: {
+      blocks: ["We Build", "Performance", "Marketing & Acquisition"],
+      accent: "That Turn Spend Into Measurable Revenue",
+      paragraph:
+        "{{brand}} runs paid search, social, and nurture campaigns optimized for ROI—so every impression moves prospects closer to a sale.",
+    },
     campaigns: [
       { name: "Social media ads", status: "Optimizing creative", change: "+34%" },
       { name: "Email nurture", status: "High intent leads", change: "+21%" },
@@ -311,6 +335,9 @@ export function HeroSection({
     return () => clearInterval(t);
   }, [activeTab, isDashboardPaused, paused, isMobile]);
 
+  const siteBrand = process.env.NEXT_PUBLIC_SITE_NAME || "NxTechNova";
+  const activeHeroLeft = DASHBOARD_SLIDES[dashboardSlide].heroLeft;
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-background">
       {/* Particle + grid background */}
@@ -332,21 +359,37 @@ export function HeroSection({
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
             className="flex-1 max-w-xl lg:max-w-2xl"
           >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={dashboardSlide}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+              >
+                <h1 className="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl xl:text-6xl">
+                  {activeHeroLeft.blocks.map((line, i) => (
+                    <span
+                      key={`${dashboardSlide}-${i}`}
+                      className={
+                        i === activeHeroLeft.blocks.length - 1
+                          ? "block lg:inline"
+                          : "block"
+                      }
+                    >
+                      {line}
+                    </span>
+                  ))}
+                  <span className="mt-2 block text-primary">
+                    {activeHeroLeft.accent}
+                  </span>
+                </h1>
 
-            <h1 className="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl xl:text-6xl">
-              <span className="block">We Build</span>
-              <span className="block">AI Powered</span>
-              <span className="block lg:inline">Growth Systems</span>
-              <span className="mt-2 block text-primary">
-                That Turn Traffic Into Revenue
-              </span>
-            </h1>
-
-            <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
-              {process.env.NEXT_PUBLIC_SITE_NAME} builds AI-powered systems that
-              automate lead generation and convert prospects into paying
-              clients.
-            </p>
+                <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
+                  {activeHeroLeft.paragraph.replace(/\{\{brand\}\}/g, siteBrand)}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
