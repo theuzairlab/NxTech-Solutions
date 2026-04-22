@@ -83,7 +83,7 @@ export function CoreServicesGrid({
         <div className="absolute bottom-[-35%] left-[20%] h-[700px] w-[700px] rounded-full bg-primary/18 blur-3xl" />
       </div>
 
-      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16">
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20">
         {/* Header */}
         <motion.div
           className="pb-6"
@@ -330,7 +330,7 @@ export function CoreServicesGrid({
         </div>
 
         {/* Mobile pill selectors */}
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2 md:hidden">
+        <div className="mt-5 grid grid-cols-2 items-center justify-center gap-2 md:hidden">
           {CORE_SERVICES.map((s) => (
             <button
               key={s.id}
@@ -338,8 +338,8 @@ export function CoreServicesGrid({
               onClick={() => onActiveServiceIdChange(s.id)}
               className={`rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition ${
                 s.id === activeServiceId
-                  ? "bg-white text-slate-900"
-                  : "border border-white/15 bg-white/5 text-white/75 hover:bg-white/10"
+                  ? "bg-primary text-primary-foreground"
+                  : "border border-primary/15 bg-primary/5 text-primary/75 hover:bg-primary/10"
               }`}
             >
               {s.tabLabel}

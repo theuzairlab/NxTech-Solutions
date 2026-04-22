@@ -51,3 +51,13 @@ Next Tasks — NxTechNova Website
 [✅] interchanged hero section postion with core services 
 [✅] make hero section left side content dynamic that changes with active services
 [✅] shipted images/assets from project folder to cloude storage - NxtFlight
+
+21-April-2026
+[✅] Improved website performance and overall UI/UX professionalism
+[✅] Resolved cloud storage integration issues
+[✅] Successfully integrated cloud storage with the NxtFlight backend system
+
+
+22-April-2026
+[] 
+[] 
