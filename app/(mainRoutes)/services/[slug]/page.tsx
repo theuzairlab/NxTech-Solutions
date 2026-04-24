@@ -41,20 +41,20 @@ export async function generateStaticParams() {
 
 const REVOPS_METADATA: Record<string, { title: string; description: string }> = {
   "ai-automation-marketing": {
-    title: "AI Marketing & Business Automation",
-    description: "AI-driven lead generation and follow-up systems that instantly respond, qualify, and book appointments automatically.",
+    title: "AI-Powered Marketing Solutions | 10x Your Efficiency",
+    description: "Future-proof your brand with machine learning. We optimize ad spend and content for maximum ROI. Try our AI Content Strategy for 30% Off this month!",
   },
   "web-development": {
-    title: "Web Development",
-    description: "High-performance websites engineered to convert visitors into leads and revenue.",
+    title: "On Demand Web Development & Design | Fast, Secure & Scalable",
+    description: "We build websites that work as hard as you do. Next.js, React, and PHP experts. 20% Discount on all Custom Web Projects for New Clients!",
   },
   "app-development": {
-    title: "App Development",
-    description: "Scalable mobile and web applications built for growth, performance, and seamless user experience.",
+    title: "Mobile App Development Agency | iOS & Android Solutions",
+    description: "Turn your vision into a world-class app. From Ecommerce to Custom Tools, we build for all platforms. Get a Free App Prototype Consultation Now!",
   },
   "digital-marketing": {
-    title: "Digital Marketing",
-    description: "Performance-driven paid advertising and funnel optimization designed to generate measurable ROI.",
+    title: "Full-Service Digital Marketing Agency | ROI-Driven Strategies",
+    description: "From startups to established firms, we handle your complete digital presence. Data-backed growth for any industry. Claim Your Free Performance Report Today!",
   },
 };
 
@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (REVOPS_METADATA[slug]) {
     const meta = REVOPS_METADATA[slug];
     return {
-      title: `${meta.title} - ${process.env.NEXT_PUBLIC_SITE_NAME}`,
+      title: { absolute: meta.title },
       description: meta.description,
     };
   }

@@ -36,6 +36,8 @@ export interface SubServiceData {
   title: string;
   highlightLine: string;
   description: string;
+  metaTitle?: string;
+  metaDescription?: string;
   heroImageSrc: string;
   heroImageAlt: string;
   features: SubServiceFeature[];
@@ -56,6 +58,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Workflow & Process Automation",
     description:
       "Automate multi-step business workflows across CRM, email, notifications, and internal ops — so your team focuses on high-value work, not busywork.",
+    metaTitle: "Business Process Automation | Save 40+ Hours Every Week",
+    metaDescription: "Stop wasting time on repetitive tasks. We automate your workflows so you can focus on scaling. See how much you can save with a Workflow Audit.",
     heroImageSrc:
       "https://i.pinimg.com/736x/19/84/80/1984807c45900dadb88c1e43d2816467.jpg",
     heroImageAlt: "Workflow automation dashboard",
@@ -122,6 +126,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "AI Chatbot Development",
     description:
       "Deploy intelligent AI chatbots that answer questions, qualify leads, and book appointments automatically — on your website, WhatsApp, or any channel.",
+    metaTitle: "Custom AI Chatbot Development | 24/7 Automated Support",
+    metaDescription: "Build a smart AI bot trained on your data. Automate leads and customer service instantly. Get your first AI Bot integrated with a 14-day Free Trial!",
     heroImageSrc:
       "https://i.pinimg.com/736x/e2/8c/20/e28c2018de95d120a8abce86262e8dab.jpg",
     heroImageAlt: "AI chatbot interface",
@@ -188,6 +194,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Automated CRM Management",
     description:
       "Eliminate manual data entry and keep your CRM accurate, up-to-date, and actionable — automatically. From lead capture to deal close, every step is tracked.",
+    metaTitle: "Automated CRM Solutions | Never Lose a Lead Again",
+    metaDescription: "We set up CRMs that sell for you. Automated follow-ups, lead scoring, and zero data entry. Free CRM Setup Guide included with every consultation.",
     heroImageSrc:
       "https://i.pinimg.com/1200x/d6/01/e3/d601e39071ecc38c2fb782dc1d73929a.jpg",
     heroImageAlt: "CRM dashboard",
@@ -254,6 +262,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Leads & Sales Automation",
     description:
       "AI-driven systems that instantly contact new leads, qualify them through conversations, score their intent, and book meetings — all without a human needing to lift a finger.",
+    metaTitle: "Sales Automation Agency | Automate Your Entire Pipeline",
+    metaDescription: "Close deals faster with automated proposals and order tracking. High-performance sales tech for any niche. Free Sales Funnel Audit for First 10 Signups!",
     heroImageSrc:
       "https://i.pinimg.com/1200x/c5/93/99/c59399c94e777710163f3ed0695d858d.jpg",
     heroImageAlt: "Sales automation pipeline",
@@ -321,6 +331,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Search Engine Optimization",
     description:
       "Data-driven SEO that builds long-term organic traffic — from technical audits and on-page optimization to link building and content strategy.",
+    metaTitle: "Authority SEO Services | Dominate Your Search Niche",
+    metaDescription: "Rank #1 and stay there. Technical SEO, Content, and High-Tier Backlinks. Get a Free Technical SEO Audit Report of your Top 3 Competitors!",
     heroImageSrc:
       "https://i.pinimg.com/736x/4d/0c/82/4d0c82eb021115981eae3d879eb6c154.jpg",
     heroImageAlt: "SEO analytics dashboard",
@@ -387,6 +399,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Social Media Marketing",
     description:
       "Strategic social media management and content creation that grows your audience, builds trust, and drives consistent engagement across every platform.",
+    metaTitle: "Social Media Growth Agency | Build a Viral Brand Presence",
+    metaDescription: "Engaging content and strategic ads for any platform. We grow your community and your sales. Buy 2 Months of Management, Get the 3rd Month 50% OFF!",
     heroImageSrc:
       "https://i.pinimg.com/1200x/03/75/e5/0375e52f2d1e9df339ed8cfbb981ccff.jpg",
     heroImageAlt: "Social media content strategy",
@@ -453,6 +467,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Pay-Per-Click Advertising",
     description:
       "ROI-focused Google, Meta, and LinkedIn ad campaigns that drive qualified clicks, optimize CPL, and scale what's working — fast.",
+    metaTitle: "Professional PPC Management | Instant Leads & High ROI",
+    metaDescription: "Stop burning cash on ads. We build high-converting Google & Meta Ad campaigns. We optimize until you see a positive ROI. Start Today!",
     heroImageSrc:
       "https://i.pinimg.com/1200x/35/9c/d9/359cd90148c2062143bbac564fbd9945.jpg",
     heroImageAlt: "PPC advertising dashboard",
@@ -519,6 +535,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Email Marketing",
     description:
       "Strategic email campaigns, sequences, and automation that keep your brand top-of-mind and convert subscribers into paying clients.",
+    metaTitle: "Automated Email Marketing | High-Conversion Sales Funnels",
+    metaDescription: "Smart email sequences that turn cold subscribers into loyal fans. 5 Free High-Converting Email Templates with every strategy call!",
     heroImageSrc:
       "https://i.pinimg.com/1200x/50/ce/95/50ce95cdcc26caf8b66c01411f3e47fa.jpg",
     heroImageAlt: "Email marketing campaign",
@@ -585,6 +603,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Content Marketing",
     description:
       "Strategic content that builds authority, drives organic traffic, and educates your audience — ultimately turning readers into leads and clients.",
+    metaTitle: "Premium Content Marketing | Articles & Blogs That Rank",
+    metaDescription: "Expert storytelling combined with SEO precision. We write content that builds trust. Order 5 Blogs, Get the 6th One Absolutely FREE!",
     heroImageSrc:
       "https://i.pinimg.com/736x/7f/c4/26/7fc426ab864baa0c5e5a73c5e4e17376.jpg",
     heroImageAlt: "Content marketing strategy",
@@ -652,6 +672,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "WordPress Development",
     description:
       "Fast, secure, and fully custom WordPress websites designed to convert visitors — with CMSs your team can actually use without developer help.",
+    metaTitle: "Expert WordPress Development | Fast & SEO-Friendly Sites",
+    metaDescription: "Custom themes, plugin development, and speed optimization. Get a Free Speed Audit & Security Check with every WordPress project!",
     heroImageSrc:
       "https://images.unsplash.com/photo-1547658719-da2b51169166?w=900&h=675&fit=crop",
     heroImageAlt: "WordPress website development",
@@ -718,6 +740,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "E-commerce Website Development",
     description:
       "High-converting online stores built on WooCommerce, Shopify, or custom stacks — with fast checkout, smart product discovery, and full payment integration.",
+    metaTitle: "Scalable E-commerce Development | Sell More Online",
+    metaDescription: "Powerful online stores designed for high conversion and automated management. Free Payment Gateway Integration for all new E-com builds!",
     heroImageSrc:
       "https://i.pinimg.com/736x/3b/f1/6a/3bf16a32dd08d61a7c485118baa1f4ca.jpg",
     heroImageAlt: "E-commerce store development",
@@ -784,6 +808,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Custom Website Development",
     description:
       "Fully bespoke web experiences built from scratch with Next.js, React, or your preferred stack — when templates and themes simply can't do what you need.",
+    metaTitle: "Bespoke Web Application Development | Unique Digital Tech",
+    metaDescription: "No templates. Just pure, custom-coded excellence tailored to your business goals. Get a Free Technical Blueprint for your custom idea!",
     heroImageSrc:
       "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&h=675&fit=crop",
     heroImageAlt: "Custom web development",
@@ -851,6 +877,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Android App Development",
     description:
       "Native and cross-platform Android applications built for performance, scalability, and a seamless Google Play Store launch.",
+    metaTitle: "Expert Android App Development | High-Performance Mobile Tech",
+    metaDescription: "Build a stable, scalable Android app for any industry. Native & Hybrid solutions optimized for the Play Store. Get a Free App UI/UX Audit + 1 Month Post-Launch Support!",
     heroImageSrc:
       "https://i.pinimg.com/736x/7b/e0/3d/7be03d03e4c567ed9cff6c702e08a2c5.jpg",
     heroImageAlt: "Android app development",
@@ -917,6 +945,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "iOS App Development",
     description:
       "Premium iOS applications for iPhone and iPad — built with Swift or React Native, designed for App Store approval, and engineered for Apple's high standards.",
+    metaTitle: "Premium iOS App Development | Swift & UIKit Experts",
+    metaDescription: "High-end iPhone & iPad apps with seamless performance and top-tier security. We bring your vision to the App Store. 15% Off on iOS Development for First-Time Clients!",
     heroImageSrc:
       "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=900&h=675&fit=crop",
     heroImageAlt: "iOS app development",
@@ -983,6 +1013,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     highlightLine: "Custom App Development",
     description:
       "End-to-end custom application development — web apps, SaaS platforms, dashboards, and internal tools built precisely to your specification.",
+    metaTitle: "Custom Mobile App Development | Unique Solutions for ANY Idea",
+    metaDescription: "No templates, just pure custom-coded excellence. Tailor-made apps for startups & enterprises. Get a Free Technical Blueprint & MVP Roadmap. Book Now!",
     heroImageSrc:
       "https://i.pinimg.com/736x/74/c5/a7/74c5a7396b6b09e8d0e7514ed6a824d0.jpg",
     heroImageAlt: "Custom application development",

@@ -31,8 +31,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   return {
-    title: `${sub.highlightLine} - ${process.env.NEXT_PUBLIC_SITE_NAME}`,
-    description: sub.description,
+    title: { absolute: sub.metaTitle || `${sub.highlightLine} - ${process.env.NEXT_PUBLIC_SITE_NAME}` },
+    description: sub.metaDescription || sub.description,
   };
 }
 

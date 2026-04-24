@@ -59,5 +59,8 @@ Next Tasks — NxTechNova Website
 
 
 22-April-2026
-[] 
-[] 
+[✅] improved UI of Nxtechnova
+[✅] Resolved Nxtechnova domain issue
+[✅] Removed investment managment and events from NxtFlight
+
+
