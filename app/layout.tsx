@@ -6,6 +6,8 @@ import { AuthSessionProvider } from "@/components/providers/session-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { PageLoader } from "@/components/ui/page-loader";
 import { NavigationScrollReset } from "@/components/ui/navigation-scroll-reset";
+import { JsonLd } from "@/components/ui/json-ld";
+import { SITE_NAVIGATION_SCHEMA } from "@/lib/seo/page-schemas";
 
 const GTM_ID = "GTM-PK589K8Z";
 
@@ -62,6 +64,7 @@ export default function RootLayout({
         <GTMDelayed />
         {/* <PageLoader /> */}
         <AuthSessionProvider>
+          <JsonLd schema={SITE_NAVIGATION_SCHEMA} />
           <NavigationScrollReset />
           {children}
           <Toaster richColors closeButton />

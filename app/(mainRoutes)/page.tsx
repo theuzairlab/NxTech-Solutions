@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { prisma } from "@/lib/prisma";
 import { HomeHeroAndCore } from "@/components/sections/home-hero-and-core";
+import { JsonLd } from "@/components/ui/json-ld";
+import { HOMEPAGE_SCHEMA, SEARCH_BOX_SCHEMA } from "@/lib/seo/page-schemas";
 
 const IndustriesServeRevOps = dynamic(() =>
   import("@/components/sections/industries-serve-revops").then((m) => ({ default: m.IndustriesServeRevOps }))
@@ -44,6 +46,8 @@ export default async function Home() {
 
   return (
     <div className="w-full">
+      <JsonLd schema={HOMEPAGE_SCHEMA} />
+      <JsonLd schema={SEARCH_BOX_SCHEMA} />
       <HomeHeroAndCore />
       <IndustriesServeRevOps />
       <Testimonials testimonials={testimonials} />

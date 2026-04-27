@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { BlogHero } from "@/components/sections/blog-hero";
 import { BlogPosts } from "@/components/sections/blog-posts";
 import { prisma } from "@/lib/prisma";
+import { JsonLd } from "@/components/ui/json-ld";
+import { BLOG_LISTING_SCHEMA } from "@/lib/seo/page-schemas";
 
 export const metadata: Metadata = {
   title: "Blog - " + process.env.NEXT_PUBLIC_SITE_NAME + " - IT, AI, Marketing & Business Insights",
@@ -83,6 +85,7 @@ export default async function Blog() {
 
   return (
     <>
+      <JsonLd schema={BLOG_LISTING_SCHEMA} />
       <BlogHero />
       <BlogPosts initialPosts={blogPosts} initialCategories={blogCategories} />
     </>

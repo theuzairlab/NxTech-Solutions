@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/ui/json-ld";
+import { TERMS_SCHEMA } from "@/lib/seo/page-schemas";
 
 export const metadata: Metadata = {
   title: "Terms of Service - " + process.env.NEXT_PUBLIC_SITE_NAME,
@@ -8,6 +10,7 @@ export const metadata: Metadata = {
 export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd schema={TERMS_SCHEMA} />
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden pt-32 rounded-b-[50px] sm:rounded-b-[100px] md:rounded-b-[200px] bg-linear-to-b from-primary via-primary/95 to-primary/90 z-5">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-size-[40px_40px] opacity-30" />

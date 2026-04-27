@@ -4,6 +4,8 @@ import { ServicesPortfolio } from "@/components/sections/services-portfolio";
 import { CaseStudiesHero } from "@/components/sections/case-studies-hero";
 import { Metadata } from "next";
 import { CTABanner } from "@/components/sections/cta-banner";
+import { JsonLd } from "@/components/ui/json-ld";
+import { CASE_STUDIES_SCHEMA } from "@/lib/seo/page-schemas";
 
 export const metadata: Metadata = {
   title: "Case Studies & Results",
@@ -68,6 +70,7 @@ export default async function CaseStudiesPage() {
 
   return (
     <main className="min-h-screen bg-background relative overflow-hidden">
+      <JsonLd schema={CASE_STUDIES_SCHEMA} />
       <CaseStudiesHero />
       <ServicesPortfolio portfolios={portfolios} />
       <ServicesIndustries industries={transformedIndustries} />

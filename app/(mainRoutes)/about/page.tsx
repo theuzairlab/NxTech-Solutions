@@ -8,6 +8,8 @@ import { Achievements } from "@/components/sections/achievements";
 import { CompanyCulture } from "@/components/sections/company-culture";
 import { CTABanner } from "@/components/sections/cta-banner";
 import { prisma } from "@/lib/prisma";
+import { JsonLd } from "@/components/ui/json-ld";
+import { ABOUT_SCHEMA } from "@/lib/seo/page-schemas";
 
 export const metadata: Metadata = {
   title: "About Us - " + process.env.NEXT_PUBLIC_SITE_NAME,
@@ -60,6 +62,7 @@ export default async function About() {
 
   return (
     <div className="w-full">
+      <JsonLd schema={ABOUT_SCHEMA} />
       <AboutHero />
       <CompanyIntro />
       <OurStory />

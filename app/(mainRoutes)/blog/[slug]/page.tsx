@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { BlogDetailPage } from "@/components/sections/blog-detail-page";
+import { JsonLd } from "@/components/ui/json-ld";
+import { BLOG_SCHEMAS } from "@/lib/seo/blog-schemas";
 
 // ISR: Revalidate every hour (3600 seconds)
 // Pages can also be revalidated on-demand when admin makes changes
@@ -186,6 +188,11 @@ export default async function BlogPostPage({
     featured: p.featured,
   }));
 
-  return <BlogDetailPage post={transformedPost} relatedPosts={transformedRelatedPosts} />;
+  return (
+    <>
+      {BLOG_SCHEMAS[slug] && <JsonLd schema={BLOG_SCHEMAS[slug]} />}
+      <BlogDetailPage post={transformedPost} relatedPosts={transformedRelatedPosts} />
+    </>
+  );
 }
 

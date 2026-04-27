@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { SubServicePage } from "@/components/services/sub-services/sub-service-page";
 import { SUB_SERVICE_DATA, ALL_SUB_SERVICE_SLUGS } from "@/components/services/sub-services/sub-service-data";
+import { JsonLd } from "@/components/ui/json-ld";
+import { SERVICE_SCHEMAS } from "@/lib/seo/service-schemas";
 
 export const revalidate = 60;
 
@@ -46,5 +48,13 @@ export default async function NestedSubServicePage({ params }: { params: Promise
     notFound();
   }
 
-  return <SubServicePage slug={subService} />;
+  const schemaKey = `${mainService}/${subService}`;
+  const schema = SERVICE_SCHEMAS[schemaKey];
+
+  return (
+    <>
+      {schema && <JsonLd schema={schema} />}
+      <SubServicePage slug={subService} />
+    </>
+  );
 }

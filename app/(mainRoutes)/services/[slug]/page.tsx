@@ -9,6 +9,8 @@ import {
 import { SubServicePage } from "@/components/services/sub-services/sub-service-page";
 import { SUB_SERVICE_DATA } from "@/components/services/sub-services/sub-service-data";
 import { prisma } from "@/lib/prisma";
+import { JsonLd } from "@/components/ui/json-ld";
+import { SERVICE_SCHEMAS } from "@/lib/seo/service-schemas";
 import type { ServiceData } from "@/lib/services-data";
 
 const REVOPS_SLUGS = [
@@ -91,7 +93,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   // RevOps service pages (hardcoded)
   if (slug in REVOPS_PAGES) {
     const PageComponent = REVOPS_PAGES[slug as keyof typeof REVOPS_PAGES];
-    return <PageComponent />;
+    return (
+      <>
+        {SERVICE_SCHEMAS[slug] && <JsonLd schema={SERVICE_SCHEMAS[slug]} />}
+        <PageComponent />
+      </>
+    );
   }
 
 
@@ -120,6 +127,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     cta: (service.cta as any) || { text: "Get Started", link: "/contact" },
   };
 
-  return <ServiceDetailPage service={fullServiceData} />;
+  return (
+    <>
+      {SERVICE_SCHEMAS[slug] && <JsonLd schema={SERVICE_SCHEMAS[slug]} />}
+      <ServiceDetailPage service={fullServiceData} />
+    </>
+  );
 }
 
