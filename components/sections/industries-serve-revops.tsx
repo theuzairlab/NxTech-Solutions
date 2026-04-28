@@ -16,42 +16,42 @@ const INDUSTRIES = [
   {
     name: "Real Estate",
     description:
-      "Automate lead follow-up, CRM workflows, and booking systems with AI-powered growth solutions tailored for agents and brokerages.",
+      "Automate lead follow-up, booking, and sales visibility with AI Automation built for agents, teams, and brokerages that need speed.",
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
     icon: Building2,
   },
   {
     name: "Dental",
     description:
-      "Complete AI-driven patient scheduling, recall campaigns, and practice growth automation for dental clinics.",
+      "Build patient growth systems with scheduling, recall, nurture, and conversion support designed for busy clinics and dental teams.",
     image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=600&fit=crop",
     icon: HeartPulse,
   },
   {
     name: "SaaS",
     description:
-      "Scale your product with conversion-optimized funnels, CRM integration, and AI-powered sales pipelines.",
+      "Scale your product with sharper funnels, cleaner reporting, and connected systems across App Development and demand generation.",
     image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
     icon: Laptop,
   },
   {
     name: "Coaches",
     description:
-      "Automate client onboarding, booking, and follow-up with AI systems that turn traffic into booked calls.",
+      "Turn traffic into booked calls with automation, nurturing, and conversion systems that reduce manual follow-up and missed opportunities.",
     image: "https://images.unsplash.com/photo-1712253600732-baa27bf3c012?w=800&h=600&fit=crop",
     icon: Users,
   },
   {
     name: "E-commerce",
     description:
-      "Conversion-focused storefronts, abandoned cart flows, and performance marketing that drives measurable ROI.",
+      "Grow online sales through Ecommerce Development, lifecycle automation, and performance campaigns built for conversion.",
     image: "https://images.unsplash.com/photo-1688561807440-8a57dfa77ee3?w=800&h=600&fit=crop",
     icon: ShoppingCart,
   },
   {
     name: "Local Businesses",
     description:
-      "Local SEO, booking systems, and AI follow-up that help you capture and convert more local leads.",
+      "Capture and convert more local demand with SEO, booking systems, and faster AI-driven follow-up.",
     image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop",
     icon: Store,
   },
@@ -75,8 +75,7 @@ export function IndustriesServeRevOps() {
           </div>
         </h1>
         <p className="mt-4 max-w-2xl text-base text-muted-foreground md:text-lg">
-          Proven expertise across sectors like real estate, dental, SaaS,
-          coaches, e-commerce, and local businesses.
+          Proven experience across real estate, dental, SaaS, coaching, e-commerce, and local service brands that need sharper systems and stronger revenue execution.
         </p>
       </div>
 

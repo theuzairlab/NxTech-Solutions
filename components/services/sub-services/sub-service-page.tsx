@@ -101,7 +101,7 @@ export function SubServicePage({ slug }: SubServicePageProps) {
                 // onClick={() => setShowCalendly(true)}
                 >
                   <Link href="/get-quote" className="flex items-center justify-between">
-                    Book a Free Call
+                    [[Book a Free SEO Call]]
                     <ArrowRight className="relative left-2 h-10 w-10 size-10 bg-white text-primary rounded-full p-1 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </Button>
@@ -157,14 +157,14 @@ export function SubServicePage({ slug }: SubServicePageProps) {
             className="text-center mb-16"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] uppercase text-primary mb-6">
-              What&apos;s Included
+              What’s Included
             </span>
             <h2 className="text-3xl sm:text-5xl font-bold text-foreground">
               Everything You Need,{" "}
               <span className="text-primary">Nothing You Don&apos;t</span>
             </h2>
             <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-              A complete, done-for-you service covering every component to get you real results.
+              {data.featuresDescription || "A complete done-for-you build designed to remove repetitive steps and connect the systems your team already uses."}
             </p>
           </motion.div>
 
@@ -218,7 +218,7 @@ export function SubServicePage({ slug }: SubServicePageProps) {
                 <span className="text-primary">Actually Get</span>
               </h2>
               <p className="mt-4 text-base sm:text-lg text-muted-foreground">
-                Real, measurable results — not just deliverables. Here&apos;s what our clients experience after working with us.
+                {data.outcomesDescription || "You do not just get automations built. You get a cleaner operating system with fewer delays, better execution, and more control across your workflows."}
               </p>
 
               <Button
@@ -226,7 +226,7 @@ export function SubServicePage({ slug }: SubServicePageProps) {
                 className="mt-8 group cursor-pointer px-10 py-6 rounded-full text-base bg-primary hover:bg-primary/90 text-primary-foreground"
                 onClick={() => setShowCalendly(true)}
               >
-                Start Getting Results
+                Start Seeing the Difference
                 <ArrowRight className="relative left-2 h-10 w-10 size-10 bg-white text-primary rounded-full p-1 transition-transform group-hover:translate-x-0.5" />
               </Button>
             </motion.div>
@@ -275,7 +275,7 @@ export function SubServicePage({ slug }: SubServicePageProps) {
               {data.ctaHeading}
             </h2>
             <p className="mb-8 text-base sm:text-lg text-white/80 max-w-2xl mx-auto">
-              Book a free 30-minute strategy call. We&apos;ll audit your current setup and show you exactly where we can help.
+              {data.ctaDescription || "Book a free 30-minute strategy call and we will review your current process, identify bottlenecks, and show where our services can save time and scale execution."}
             </p>
             <Button
               size="lg"

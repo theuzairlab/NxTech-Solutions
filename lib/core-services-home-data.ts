@@ -100,10 +100,10 @@ export type CoreServiceMeta = {
 export const CORE_SERVICES: CoreServiceMeta[] = [
   {
     id: "ai-automation-marketing",
-    tabLabel: "AI AUTOMATION",
+    tabLabel: "AI MARKETING",
     title: "AI Marketing & Business Automation",
     description:
-      "Always-on systems that capture, qualify, and follow up with leads 24/7—so your team focuses on closing high-intent prospects.",
+      "Always-on systems powered by AI Chatbot Development, CRM Management, and Leads & Sales Automation—so your team spends less time chasing and more time closing.",
     href: "/services/ai-automation-marketing",
     image: "/hero1.jpg",
     iconKey: "Bot",
@@ -117,7 +117,7 @@ export const CORE_SERVICES: CoreServiceMeta[] = [
     tabLabel: "WEB DEVELOPMENT",
     title: "Web Development",
     description:
-      "High-performance websites engineered to turn visitors into leads—fast, conversion-first, and integrated with your CRM and analytics stack.",
+      "High-performance websites built with Custom Software & Website Development, WordPress Development, and Ecommerce Development to turn attention into measurable enquiries and sales.",
     href: "/services/web-development",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=900&fit=crop&q=80",
@@ -132,7 +132,7 @@ export const CORE_SERVICES: CoreServiceMeta[] = [
     tabLabel: "APP DEVELOPMENT",
     title: "App Development",
     description:
-      "Design and build robust mobile + web apps with product-led UX, scalable architecture, and revenue-ready integrations from day one.",
+      "Design and build robust products with Android App Development, iOS App Development, and Custom App Development planned for adoption, retention, and growth from day one.",
     href: "/services/app-development",
     image:
       "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1600&h=900&fit=crop&q=80",
@@ -147,7 +147,7 @@ export const CORE_SERVICES: CoreServiceMeta[] = [
     tabLabel: "DIGITAL MARKETING",
     title: "Digital Marketing",
     description:
-      "Scale demand with paid media, retargeting, and funnel optimization tuned by daily data—so ad spend stays efficient and outcomes predictable.",
+      "Scale demand with SEO, PPC Advertising, Email Marketing, and Content Marketing tuned by real-time data—so spend stays efficient and revenue stays easier to forecast.",
     href: "/services/digital-marketing",
     image:
       "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop",
@@ -234,7 +234,7 @@ const buildHowWeBuildSteps = (
       description:
         "We audit your funnel, identify bottlenecks, and map a data-backed action plan tailored to your business goals.",
       iconKey: "Search" as const,
-      deliverables: ["Growth audit report", "Opportunity map", "90-day roadmap"],
+      deliverables: ["UX audit report", "User flow map", "Build roadmap"],
       stat: { value: "14d", label: "Timeline" },
       accent: "text-primary",
       accentBg: "bg-primary",
@@ -248,7 +248,7 @@ const buildHowWeBuildSteps = (
       description:
         "We architect the right revenue system—CRM flows, automation logic, and the tech stack that keeps everything scalable.",
       iconKey: "Code2" as const,
-      deliverables: ["System blueprint", "CRM & automation plan", "Tech stack spec"],
+      deliverables: ["System blueprint", "CRM & analytics plan", "Tech stack spec"],
       stat: { value: "48h", label: "Turnaround" },
       accent: "text-indigo-600",
       accentBg: "bg-indigo-500",
@@ -262,7 +262,7 @@ const buildHowWeBuildSteps = (
       description:
         "We build production-ready solutions and deploy integrations so your system starts capturing and converting leads.",
       iconKey: "Wrench" as const,
-      deliverables: ["Live systems deployed", "Automations active", "Quality-tested"],
+      deliverables: ["Live systems deployed", "Tracking active", "Quality-tested"],
       stat: { value: "4 wks", label: "To launch" },
       accent: "text-violet-600",
       accentBg: "bg-violet-500",
@@ -276,7 +276,7 @@ const buildHowWeBuildSteps = (
       description:
         "We continuously optimize performance with A/B testing, funnel tuning, and scaling what works to maximize ROI.",
       iconKey: "TrendingUp" as const,
-      deliverables: ["Performance reports", "Scaling playbook", "Ongoing optimization"],
+      deliverables: ["Performance reports", "CRO playbook", "Ongoing optimization"],
       stat: { value: "3.2x", label: "ROI target" },
       accent: "text-emerald-600",
       accentBg: "bg-emerald-500",
@@ -288,36 +288,36 @@ const buildHowWeBuildSteps = (
 
   if (service === "ai-automation-marketing") {
     return [
-      { ...base[0], title: "Lead Capture & Qualification", description: "We align your AI follow-up goals, audit lead sources, and define what qualifies as sales-ready." },
-      { ...base[1], title: "AI Workflow Architecture", description: "We design voice/email/CRM automation logic—so lead data is routed to the right next step automatically." },
-      { ...base[2], title: "Deploy 24/7 Automations", description: "We build production-ready automations with smart routing and instant qualification for inbound leads." },
-      { ...base[3], title: "Optimize for Pipeline Growth", description: "We refine scoring, targeting, and sequences—so conversion improves as traffic scales." },
+      { ...base[0], title: "Lead Capture & Qualification", description: "We review your channels, define sales-ready intent, and map where Leads & Sales Automation should respond first for faster conversion." },
+      { ...base[1], title: "AI Workflow Architecture", description: "We design Workflow & Process Automation logic across email, chat, forms, and CRM—so every lead moves to the right next action without delay." },
+      { ...base[2], title: "Deploy 24/7 Automations", description: "We deploy live automations, routing rules, and AI Chatbot Development that qualify enquiries instantly and keep response time low." },
+      { ...base[3], title: "Optimize for Pipeline Growth", description: "We improve scoring, follow-up, and messaging so pipeline quality rises as traffic grows and your acquisition cost stays healthier." },
     ] as CoreHowWeBuildStep[];
   }
 
   if (service === "web-development") {
     return [
-      { ...base[0], title: "Landing Strategy & UX Audit", description: "We audit conversion gaps, analyze content flow, and define a high-intent landing structure for your market." },
-      { ...base[1], title: "Performance-first Architecture", description: "We build a scalable website foundation with CRM integration points and measurable conversion events." },
-      { ...base[2], title: "Build & Launch Websites", description: "We deliver fast, responsive pages with analytics + CRM-connected forms so visitors become leads." },
-      { ...base[3], title: "CRO & Speed Optimization", description: "We optimize Core Web Vitals and conversion funnels with A/B testing to increase booking rates." },
+      { ...base[0], title: "Landing Strategy & UX Audit", description: "We audit friction points, review user flow, and define a higher-intent website structure aligned with your offer, audience, and buying journey." },
+      { ...base[1], title: "Performance-first Architecture", description: "We create a scalable foundation with tracking, CRM touchpoints, and search-friendly structure using Custom Software & Website Development where needed." },
+      { ...base[2], title: "Build & Launch Websites", description: "We launch fast, responsive pages using WordPress Development or Ecommerce Development so visitors can convert without friction." },
+      { ...base[3], title: "CRO & Speed Optimization", description: "We improve Core Web Vitals, tighten page flow, and test conversion elements so more qualified users take action faster." },
     ] as CoreHowWeBuildStep[];
   }
 
   if (service === "app-development") {
     return [
-      { ...base[0], title: "Product Discovery Sprint", description: "We define requirements, user journeys, and the MVP scope that delivers value quickly." },
-      { ...base[1], title: "Scalable App Architecture", description: "We map architecture, integrations, and infrastructure so performance stays strong as usage grows." },
-      { ...base[2], title: "Ship Build-ready Features", description: "We implement and deploy the app with quality gates, test automation, and a revenue-ready data model." },
-      { ...base[3], title: "Retention & Release Optimization", description: "We refine UX, performance, and release cadence—so your app improves continuously." },
+      { ...base[0], title: "Product Discovery Sprint", description: "We define product goals, user journeys, and the MVP scope that brings your idea to market with less waste and better clarity." },
+      { ...base[1], title: "Scalable App Architecture", description: "We map architecture, infrastructure, and integrations so your app stays fast, stable, and easier to extend as demand increases." },
+      { ...base[2], title: "Ship Build-ready Features", description: "We build, test, and deploy features through Custom App Development with clean release processes and revenue-ready integrations." },
+      { ...base[3], title: "Retention & Release Optimization", description: "We improve UX, speed, and release cadence so the product keeps getting stronger after launch instead of slowing down." },
     ] as CoreHowWeBuildStep[];
   }
 
   return [
-    { ...base[0], title: "Campaign Audit & Targeting", description: "We audit media performance, identify audience gaps, and define a measurable acquisition strategy." },
-    { ...base[1], title: "Funnel & Measurement Architecture", description: "We set up analytics, attribution, and CRM touchpoints so conversions are trackable end-to-end." },
-    { ...base[2], title: "Optimize & Automate Media", description: "We deploy optimization loops and retargeting flows so spend stays efficient and outcomes improve." },
-    { ...base[3], title: "Scale ROI with Testing", description: "We expand what works using experimentation, creative tuning, and funnel optimization." },
+    { ...base[0], title: "Campaign Audit & Targeting", description: "We review current performance, audience quality, and channel waste to define a stronger acquisition plan with clearer goals." },
+    { ...base[1], title: "Funnel & Measurement Architecture", description: "We connect attribution, reporting, and CRM touchpoints so every enquiry, click, and booking is easier to measure across channels." },
+    { ...base[2], title: "Optimize & Automate Media", description: "We deploy campaigns, retargeting, and automated follow-up through Email Marketing and Social Media Marketing so momentum does not die after the first click." },
+    { ...base[3], title: "Scale ROI with Testing", description: "We scale what proves profitable with tighter creative, landing-page testing, and better channel allocation anchored by PPC Advertising and SEO." },
   ] as CoreHowWeBuildStep[];
 };
 
@@ -395,24 +395,24 @@ const buildAIWorkflowSteps = (
   const templates: Record<CoreServiceId, { labels: string[]; descs: string[] }> = {
     "ai-automation-marketing": {
       labels: [
-        "Traffic Generation",
+        "Intent Traffic",
         "Landing Page Capture",
         "CRM Integration",
-        "AI Qualification Call",
+        "AI Qualification Layer",
         "Follow-up Automation",
         "Hot Lead Scoring",
         "Calendar Booking",
         "Sales Close",
       ],
       descs: [
-        "Inbound visitors and targeted campaigns funnel qualified prospects into your automation.",
-        "High-converting pages with optimized forms capture lead intent instantly.",
-        "Lead data syncs into your CRM so AI can act on accurate information.",
-        "AI qualifies leads in seconds and filters out tire-kickers automatically.",
-        "Nurture sequences keep follow-ups running across channels until sales-ready.",
-        "Lead scoring prioritizes prospects based on behavior and buying signals.",
-        "Qualified prospects book directly—reducing friction and boosting conversion.",
-        "Pre-qualified appointments convert into paying clients at higher rates.",
+        "Paid, organic, referral, and direct traffic feed qualified demand into your automation layer.",
+        "Conversion-first pages and forms capture intent clearly and reduce wasted traffic.",
+        "Clean sync into CRM Management keeps lead data accurate, usable, and ready for immediate action.",
+        "AI qualifies inbound leads in seconds, filters weak fits, and pushes stronger prospects forward automatically.",
+        "Automated voice, email, and chat sequences keep follow-up moving until the lead is ready to buy.",
+        "Smart scoring ranks prospects by urgency, intent, and engagement so your team knows who to call first.",
+        "Qualified leads book directly into calendars through Leads & Sales Automation, reducing delay and manual back-and-forth.",
+        "Pre-qualified conversations arrive warmer, faster, and more likely to convert into revenue.",
       ],
     },
     "web-development": {
@@ -427,14 +427,14 @@ const buildAIWorkflowSteps = (
         "Revenue Outcomes",
       ],
       descs: [
-        "Conversion-first experiences turn traffic into qualified pipeline opportunities.",
-        "Optimized pages capture lead details with compelling CTAs and forms.",
-        "CRM integration and analytics events connect every submission to reporting.",
-        "Fast UX + instant routing improves response times for high-intent users.",
-        "Automated messaging nurtures leads with relevant next steps.",
-        "CRO-driven scoring ranks leads by engagement and conversion signals.",
-        "Booked calls and CRM updates keep sales moving without manual follow-up.",
-        "Measured outcomes show higher conversions and predictable pipeline growth.",
+        "Conversion-first pages turn website traffic into real enquiries, forms, and booked intent.",
+        "Clear CTAs, strong structure, and persuasive page flow increase lead capture with less friction.",
+        "Every form submission connects to reporting and CRM, giving your team cleaner visibility across the funnel.",
+        "Faster UX and instant routing help high-intent users move from click to response without delay.",
+        "Automated next-step messaging keeps the conversation moving after form submission or enquiry.",
+        "Behaviour and engagement signals help rank the leads most likely to convert first.",
+        "Booked calls, live sync, and workflow triggers keep sales moving without extra admin work.",
+        "Cleaner data and stronger UX make pipeline growth more measurable and easier to scale.",
       ],
     },
     "app-development": {
@@ -449,14 +449,14 @@ const buildAIWorkflowSteps = (
         "Continuous Growth",
       ],
       descs: [
-        "We define the user journey so your app captures value quickly from the start.",
-        "MVP flows collect requirements and activate users with minimal friction.",
-        "Integrations connect your stack so data stays consistent across systems.",
-        "AI-assisted onboarding guides users and triggers next actions automatically.",
-        "Retention workflows keep users engaged and moving through the product lifecycle.",
-        "Segmentation prioritizes the right users based on behavior and engagement.",
-        "Scheduling, alerts, and CRM updates streamline communication and next steps.",
-        "Optimization loops improve performance and increase long-term value.",
+        "User journeys are shaped early so the product starts delivering value faster after launch.",
+        "MVP flows are built to reduce friction and move users into key actions faster.",
+        "Product, CRM, payment, and notification systems stay connected so data remains consistent.",
+        "Smart onboarding guides users clearly and triggers next actions at the right moment.",
+        "Lifecycle workflows keep users engaged, informed, and moving deeper into the product.",
+        "Segmentation highlights the users most likely to activate, upgrade, or return.",
+        "Alerts, reminders, and synced updates keep communication timely and easier to manage.",
+        "Release cycles, testing, and product learning keep performance improving after version one.",
       ],
     },
     "digital-marketing": {
@@ -471,14 +471,14 @@ const buildAIWorkflowSteps = (
         "ROI Scaling",
       ],
       descs: [
-        "Paid media and retargeting generate demand with consistent lead flow.",
-        "Conversion-optimized pages and forms capture leads at higher rates.",
-        "Analytics and CRM sync enable reliable attribution and routing.",
-        "Fast response improves lead pickup and reduces drop-off after campaigns.",
-        "Automated sequences nurture leads until they are sales-ready.",
-        "Scoring ranks leads based on engagement and channel quality signals.",
-        "Booking optimization drives qualified prospects into calendars instantly.",
-        "Testing and optimization scale ROI while keeping CPA efficient.",
+        "Search, social, and retargeting campaigns generate qualified demand with more control over spend.",
+        "Better offers, sharper messaging, and cleaner forms increase conversion across paid traffic.",
+        "Attribution and CRM sync make lead source, quality, and follow-up easier to track end to end.",
+        "Faster response protects campaign momentum and reduces drop-off after the first click or form fill.",
+        "Retargeting and nurture flows keep prospects warm until they are ready to speak or buy.",
+        "Channel quality, intent, and engagement signals help prioritize the best revenue opportunities.",
+        "Booking improvements reduce friction and move qualified prospects into calendars faster.",
+        "Testing, reporting, and funnel refinement scale return while helping keep acquisition cost efficient.",
       ],
     },
   };
@@ -496,28 +496,28 @@ const buildCaseStudies = (
 ): CoreCaseStudiesContent => {
   const beforeByService: Record<CoreServiceId, CoreCaseStudiesContent["before"]> = {
     "ai-automation-marketing": [
-      { image: "/images/em.avif", title: "Untracked leads", rotate: -6, problem: "Leads from various sources often slipped through the cracks due to disconnected systems.", solution: "Implemented centralized automated tracking ensuring every single lead is instantly captured in the CRM." },
-      { image: "/images/engage.avif", title: "Poor follow-up", rotate: 6, problem: "Manual outreach meant delayed responses, losing hot prospects to faster competitors.", solution: "Deployed 24/7 AI nurture sequences that engage and follow up within 5 minutes of inquiry." },
-      { image: "/images/tasks.avif", title: "Delayed tasks", rotate: -6, problem: "Sales teams spent hours on data entry, significantly delaying actual selling and client calls.", solution: "Automated administrative workflows and task assignments, reducing operational burden by 85%." },
-      { image: "/images/tracking.avif", title: "Manual reporting", rotate: 6, problem: "Compiling weekly reports took days, leaving management reactive rather than proactive.", solution: "Integrated unified real-time tracking dashboards for instant and accurate performance visibility." },
+      { image: "/images/em.avif", title: "Untracked leads", rotate: -6, problem: "Leads from ads, forms, calls, and chat were scattered across tools, which made fast follow-up almost impossible.", solution: "We built centralized CRM Management so every lead is captured, tagged, and routed in real time." },
+      { image: "/images/engage.avif", title: "Poor follow-up", rotate: 6, problem: "Slow manual outreach meant high-intent leads cooled off before sales had a chance to respond.", solution: "We launched always-on sequences with Leads & Sales Automation to respond, nurture, and move leads forward faster." },
+      { image: "/images/tasks.avif", title: "Delayed tasks", rotate: -6, problem: "Sales time was being wasted on repetitive admin instead of live selling and booked conversations.", solution: "We streamlined admin through Workflow & Process Automation, reducing busywork and improving speed across the team." },
+      { image: "/images/tracking.avif", title: "Manual reporting", rotate: 6, problem: "Reporting delays made decision-making slower and kept leadership reacting instead of planning ahead.", solution: "We connected data into real-time dashboards so leaders could see performance, lead quality, and bottlenecks without waiting days." },
     ],
     "web-development": [
-      { image: "/images/web/before01.png", title: "No clear attribution", rotate: -6, problem: "Inability to accurately trace which channels and campaigns were driving the most valuable traffic.", solution: "Set up end-to-end analytics with strict UTM tracking and CRM conversion syncing." },
-      { image: "/images/web/before02.png", title: "Low conversion pages", rotate: 6, problem: "Visitors were bouncing rapidly due to unclear messaging and unoptimized landing page layouts.", solution: "Redesigned landing pages with conversion-first UX, compelling CTAs, and optimized user journeys." },
+      { image: "/images/web/before01.png", title: "No clear attribution", rotate: -6, problem: "Traffic was coming in, but the team could not clearly see which pages and channels were bringing the best enquiries.", solution: "We implemented end-to-end tracking, CRM sync, and cleaner event measurement for better reporting and decisions." },
+      { image: "/images/web/before02.png", title: "Low conversion pages", rotate: 6, problem: "Weak structure and unclear messaging caused visitors to leave before taking action.", solution: "We rebuilt page flow, tightened calls to action, and improved the UX through Web Development focused on conversion." },
       { image: "/images/web/before03.png", title: "Slow load & drop-off", rotate: -6, problem: "High drop-off rates due to sluggish page load times negatively impacting user experience.", solution: "Re-architected the frontend leveraging a modern stack and edge caching for sub-second load speeds." },
-      { image: "/images/web/before04.png", title: "Broken CRM capture", rotate: 6, problem: "Form submissions frequently failed to map correctly into the sales database, losing active leads.", solution: "Built robust API integrations guaranteeing 100% accurate data flow from forms straight to the CRM." },
+      { image: "/images/web/before04.png", title: "Broken CRM capture", rotate: 6, problem: "Forms were collecting interest, but data was not passing cleanly into the sales system.", solution: "We fixed form logic, field mapping, and integrations so every submission reached the right destination without loss." },
     ],
     "app-development": [
-      { image: "/images/app/before01.png", title: "Payment integration issues", rotate: -6, problem: "Friction during the checkout process caused high cart abandonment and failed transactions.", solution: "Integrated a seamless, secure, and globally scalable payment gateway customized for their product." },
-      { image: "/images/app/before02.png", title: "Missing performance insights", rotate: 6, problem: "Lack of app analytics meant product decisions were based on guesswork rather than actual user behavior.", solution: "Empowered the team with granular in-app analytics and continuous user engagement monitoring." },
-      { image: "/images/app/before03.png", title: "Unscalable flows", rotate: -6, problem: "As user counts grew, the app's backend struggled, leading to crashes and slow data retrieval.", solution: "Rebuilt the architecture on scalable cloud infrastructure to handle 10x concurrent users effortlessly." },
-      { image: "/images/app/before.png", title: "Slow release cycle", rotate: 6, problem: "Deploying simple updates took weeks due to manual testing and unoptimized codebases.", solution: "Established an automated CI/CD pipeline cutting release times down from weeks to just hours." },
+      { image: "/images/app/before01.png", title: "Payment integration issues", rotate: -6, problem: "Payment drop-off was hurting conversion and creating trust issues at a critical stage.", solution: "We implemented stable payment logic through Custom App Development so checkout became smoother and easier to trust." },
+      { image: "/images/app/before02.png", title: "Missing performance insights", rotate: 6, problem: "Product decisions were being made without enough user behaviour data or release feedback.", solution: "We connected in-app analytics, event tracking, and retention signals so product decisions could be made with evidence." },
+      { image: "/images/app/before03.png", title: "Unscalable flows", rotate: -6, problem: "Growth exposed technical limits, slowing down delivery and harming user experience.", solution: "We rebuilt the stack with Custom Software & Website Development for stronger scale and cleaner performance." },
+      { image: "/images/app/before.png", title: "Slow release cycle", rotate: 6, problem: "Small updates were taking too long because the release process was too manual.", solution: "We streamlined testing and release flow so the team could ship improvements faster with less risk." },
     ],
     "digital-marketing": [
-      { image: "/images/engage.avif", title: "Weak retargeting", rotate: -6, problem: "Failing to re-engage past website visitors resulted in leaving a massive amount of revenue on the table.", solution: "Launched aggressive, multi-channel dynamic retargeting to bring high-intent users back into the funnel." },
-      { image: "/images/tasks.avif", title: "High CAC & waste", rotate: 6, problem: "Ad spend was heavily wasted on unqualified audiences, driving up Customer Acquisition Costs.", solution: "Refined audience targeting using lookalike models and strict negative keywords to maximize ROAS." },
-      { image: "/images/tracking.avif", title: "Lead leakage", rotate: -6, problem: "Prospects were abandoning forms mid-way because of friction and lack of immediate value proposition.", solution: "Streamlined the capture process with conversational forms and immediate value-driven lead magnets." },
-      { image: "/images/em.avif", title: "Inefficient campaigns", rotate: 6, problem: "Running generic ads with identical messaging to different audience segments yielded subpar results.", solution: "Implemented granular A/B testing frameworks and personalized ad creatives for specific user segments." },
+      { image: "/images/engage.avif", title: "Weak retargeting", rotate: -6, problem: "Interested users were leaving the funnel without any smart system pulling them back in.", solution: "We launched retargeting across paid and owned channels to recover higher-intent users already familiar with the brand." },
+      { image: "/images/tasks.avif", title: "High CAC & waste", rotate: 6, problem: "Weak targeting and broad audience selection were pushing acquisition cost too high.", solution: "We refined channel targeting and campaign structure through PPC Advertising so spend moved toward better-fit users." },
+      { image: "/images/tracking.avif", title: "Lead leakage", rotate: -6, problem: "Traffic was arriving, but weak page flow and delayed follow-up were causing leads to drop.", solution: "We improved landing experience and post-click messaging using Content Marketing and tighter conversion logic." },
+      { image: "/images/em.avif", title: "Inefficient campaigns", rotate: 6, problem: "The same creative was being shown to different buyer groups, which kept performance average.", solution: "We segmented messaging, tested offers, and improved channel performance across Social Media Marketing, Email Marketing, and paid acquisition." },
     ],
   };
 
@@ -605,7 +605,7 @@ const buildCaseStudies = (
     pill: meta.tabLabel,
     headline: "Case Studies",
     description:
-      "Our clients don&apos;t just get leads. They get qualified opportunities with clear before and after results.",
+      "Our clients do not just get more leads. They get faster response time, better qualification, and cleaner pipeline visibility from first contact to close.",
     before: beforeByService[service],
     after: afterByService[service],
   };
@@ -615,13 +615,13 @@ export const CORE_SERVICES_HOME_CONTENT: CoreServicesHomeContent = {
   "ai-automation-marketing": {
     howWeBuild: {
       headline: "How We Build",
-      subHeadline: "Growth systems that turn conversations into pipeline — with AI automation at the center.",
+      subHeadline: "Revenue systems that turn attention into pipeline—with automation, qualification, and follow-up working together from day one.",
       steps: buildHowWeBuildSteps("ai-automation-marketing"),
     },
     aiWorkflow: {
       pill: "AI Pipeline",
       title: "From Traffic to Revenue",
-      subtitle: "See how AI automation captures, qualifies, and follows up with leads step by step.",
+      subtitle: "See how AI Automation captures, qualifies, and follows up with leads step by step until they become booked opportunities.",
       steps: buildAIWorkflowSteps("ai-automation-marketing"),
     },
     caseStudies: buildCaseStudies("ai-automation-marketing"),
@@ -629,13 +629,13 @@ export const CORE_SERVICES_HOME_CONTENT: CoreServicesHomeContent = {
   "web-development": {
     howWeBuild: {
       headline: "How We Build",
-      subHeadline: "Conversion-first web experiences that turn visitors into qualified leads.",
+      subHeadline: "Conversion-first websites that turn visits into leads, enquiries, demos, and booked conversations.",
       steps: buildHowWeBuildSteps("web-development"),
     },
     aiWorkflow: {
       pill: "Conversion Workflow",
       title: "From Visit to Lead",
-      subtitle: "See how web performance + CRM integration create a seamless lead capture flow.",
+      subtitle: "See how site performance, conversion UX, and CRM sync create a cleaner path from first visit to qualified lead.",
       steps: buildAIWorkflowSteps("web-development"),
     },
     caseStudies: buildCaseStudies("web-development"),
@@ -643,13 +643,13 @@ export const CORE_SERVICES_HOME_CONTENT: CoreServicesHomeContent = {
   "app-development": {
     howWeBuild: {
       headline: "How We Build",
-      subHeadline: "Scalable apps with production-ready architecture and revenue-ready integrations.",
+      subHeadline: "Scalable apps with stable architecture, strong UX, and launch-ready systems built for real growth.",
       steps: buildHowWeBuildSteps("app-development"),
     },
     aiWorkflow: {
       pill: "Product Automation",
       title: "From Onboarding to Growth",
-      subtitle: "See how app flows and automation increase activation, retention, and revenue outcomes.",
+      subtitle: "See how app UX, automation, and product logic improve activation, retention, and revenue outcomes over time.",
       steps: buildAIWorkflowSteps("app-development"),
     },
     caseStudies: buildCaseStudies("app-development"),
@@ -657,13 +657,13 @@ export const CORE_SERVICES_HOME_CONTENT: CoreServicesHomeContent = {
   "digital-marketing": {
     howWeBuild: {
       headline: "How We Build",
-      subHeadline: "Measured marketing systems that scale demand and pipeline ROI.",
+      subHeadline: "Measured marketing systems that grow demand, improve conversion quality, and protect return on spend.",
       steps: buildHowWeBuildSteps("digital-marketing"),
     },
     aiWorkflow: {
       pill: "Performance Pipeline",
       title: "From Campaign to Revenue",
-      subtitle: "See how daily optimization and automation keep lead flow predictable.",
+      subtitle: "See how daily optimization, reporting, and automation keep lead flow steadier and more profitable.",
       steps: buildAIWorkflowSteps("digital-marketing"),
     },
     caseStudies: buildCaseStudies("digital-marketing"),

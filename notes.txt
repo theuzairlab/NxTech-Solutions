@@ -70,4 +70,12 @@ Next Tasks — NxTechNova Website
 
 
 27-April-2026
-[ ]  
+[✅] added JSON-LD scripting code to all pages
+[✅] corrected several mismatched URLs in JSON-LD code
+[✅] Fixed JSON-LD syntax errors in the source files
+[✅] Implemented slug-based lookup systems for dynamic Service and Blog routes
+
+28-April-2026
+[✅] Replaced all website content with Tawasim-provided content 
+[✅] Fixed all the bugs and UI/UX issues on the website
+

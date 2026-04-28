@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "https://nxtechnova.com",
   ),
   title: {
-    default: `${process.env.NEXT_PUBLIC_SITE_NAME || "NxTechNova"} - AI-Powered Growth Systems`,
+    default: `${process.env.NEXT_PUBLIC_SITE_NAME || "NxTechNova"} - AI Automation Built to Capture, Qualify, and Book`,
     template: `%s | ${process.env.NEXT_PUBLIC_SITE_NAME || "NxTechNova"}`,
   },
   description:

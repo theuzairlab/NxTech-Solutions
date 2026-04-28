@@ -64,12 +64,12 @@ export const FLOW_CONFIG: Record<CoreServiceKey, FlowConfig> = {
     howSubtitle:
       "From lead capture to booked calls, your funnel is automated end‑to‑end.",
     howSteps: [
-      { title: "Lead Captured", desc: "Form, chat, or inbound source hits your CRM.", icon: Database },
-      { title: "Instant AI Call", desc: "AI calls the lead in seconds to start the conversation.", icon: Phone },
-      { title: "Smart Qualification", desc: "Questions map to your ICP, budget, and timing.", icon: Target },
-      { title: "Lead Scoring", desc: "Engagement and answers update lead score in real time.", icon: BarChart3 },
-      { title: "Calendar Booking", desc: "Qualified leads pick a time straight on your calendar.", icon: Calendar },
-      { title: "Sales Notification", desc: "Your team gets context and call notes instantly.", icon: Bell },
+      { title: "Lead Captured", desc: "A lead enters through your form, ad, chat, or inbound source and is logged instantly.", icon: Database },
+      { title: "Instant AI Call", desc: "The system starts contact immediately using your response rules and campaign logic.", icon: Phone },
+      { title: "Smart Qualification", desc: "Each reply is checked against fit, urgency, budget, and service need.", icon: Target },
+      { title: "Lead Scoring", desc: "Scoring adjusts live so your team sees lead quality before the call.", icon: BarChart3 },
+      { title: "Calendar Booking", desc: "Best-fit leads move straight to booking without waiting on manual follow-up.", icon: Calendar },
+      { title: "Sales Notification", desc: "Your team receives the lead score, notes, and next-step context in real time.", icon: Bell },
     ],
     caseStudy: {
       beforeTitle: "Manual follow-ups",
@@ -95,14 +95,14 @@ export const FLOW_CONFIG: Record<CoreServiceKey, FlowConfig> = {
   "web-development": {
     howTitle: "How It Works",
     howSubtitle:
-      "A structured process from strategy to launch, focused on conversion and speed.",
+      "From planning to launch, every phase is structured to improve clarity, speed, usability, and long-term conversion performance.",
     howSteps: [
-      { title: "Discovery", desc: "Goals, audiences, and conversion metrics are defined.", icon: Layout },
-      { title: "Planning", desc: "A plan is created for the website including the structure, content, and design.", icon: Layout },
-      { title: "Wireframing", desc: "A wireframe is created for the website to ensure the structure is correct.", icon: Zap },
-      { title: "UI/UX Design", desc: "A design is created for the website to ensure the UI/UX is correct.", icon: BarChart3 },
-      { title: "Testing", desc: "The website is tested to ensure it is working correctly.", icon: Gauge },
-      { title: "Deployment (Launch) Maintenance", desc: "The website is deployed to the server and maintenance is performed to ensure the website is running smoothly.", icon: Gauge },
+      { title: "Discovery", desc: "Business goals, user intent, and success metrics are defined before design or development begins.", icon: Layout },
+      { title: "Planning", desc: "We map the site structure, content flow, and technical scope to match the right build path from day one.", icon: Layout },
+      { title: "Wireframing", desc: "Wireframes shape the user journey early so key pages, content blocks, and actions are placed with purpose.", icon: Zap },
+      { title: "UI/UX Design", desc: "Design is refined for trust, clarity, and responsiveness, whether the project needs WordPress Development, Ecommerce Development, or Custom Software & Website Development.", icon: BarChart3 },
+      { title: "Testing", desc: "We test layout, speed, forms, links, events, and device behaviour to reduce issues before launch.", icon: Gauge },
+      { title: "Deployment, Launch & Maintenance", desc: "The site goes live with the right setup, then ongoing updates and improvements keep performance stable as traffic grows.", icon: Gauge },
     ],
     leadTitle: "Lead Identification",
     leadSubtitle:
@@ -137,14 +137,14 @@ export const FLOW_CONFIG: Record<CoreServiceKey, FlowConfig> = {
   "app-development": {
     howTitle: "How It Works",
     howSubtitle:
-      "From idea to scalable product, shipped in clear, predictable phases.",
+      "From concept to release, every phase is structured to keep scope, speed, quality, and decision-making aligned across product, design, and engineering.",
     howSteps: [
-      { title: "Concept", desc: "A concept is created for the app to ensure the app is correct.", icon: Smartphone },
-      { title: "Design", desc: "A design is created for the app to ensure the UI/UX is correct.", icon: Rocket },
-      { title: "Development", desc: "The app is developed to ensure it is working correctly.", icon: Layers },
-      { title: "Test", desc: "The app is tested to ensure it is working correctly.", icon: Layout },
-      { title: "Launch", desc: "The app is launched to the public to ensure it is working correctly.", icon: BarChart3 },
-      { title: "Maintenance", desc: "The app is maintained to ensure it is working correctly.", icon: BarChart3 },
+      { title: "Strategy", desc: "We define the product vision, user flows, technical scope, and MVP priorities so the build starts with clarity instead of guesswork.", icon: Smartphone },
+      { title: "UX/UI Design", desc: "Wireframes and interface systems are created to improve usability, reduce friction, and shape a consistent product experience across screens.", icon: Rocket },
+      { title: "Engineering", desc: "Frontend, backend, APIs, integrations, and admin logic are built in planned sprints with performance and maintainability in mind.", icon: Layers },
+      { title: "QA & Validation", desc: "We test critical flows, device behavior, edge cases, and release readiness to catch issues before users ever see them.", icon: Layout },
+      { title: "Launch & Deployment", desc: "We handle production release, store submission, tracking setup, and rollout support so launch is controlled, measurable, and stable.", icon: BarChart3 },
+      { title: "Support & Growth", desc: "After launch, we improve speed, fix issues, expand features, and guide the roadmap using real product and user data.", icon: BarChart3 },
     ],
     leadTitle: "Lead / User Identification",
     leadSubtitle:

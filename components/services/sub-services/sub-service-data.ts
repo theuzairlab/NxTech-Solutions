@@ -43,6 +43,9 @@ export interface SubServiceData {
   features: SubServiceFeature[];
   outcomes: string[];
   stats: SubServiceStat[];
+  featuresDescription?: string;
+  outcomesDescription?: string;
+  ctaDescription?: string;
   ctaHeading: string;
   ctaButton: string;
 }
@@ -53,11 +56,11 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     slug: "workflow-process-automation",
     parentSlug: "ai-automation-marketing",
     parentLabel: "AI Marketing",
-    eyebrow: "AI Marketing · Workflow Automation",
-    title: "Eliminate Repetitive Tasks With",
+    eyebrow: "AI Marketing · Workflow & Process Automation",
+    title: "Remove Manual Bottlenecks With",
     highlightLine: "Workflow & Process Automation",
     description:
-      "Automate multi-step business workflows across CRM, email, notifications, and internal ops — so your team focuses on high-value work, not busywork.",
+      "Our Workflow & Process Automation service builds business automation workflow systems across CRM, email, approvals, reporting, and internal operations — so your team spends less time on repeat admin and more time on work that drives revenue.",
     metaTitle: "Business Process Automation | Save 40+ Hours Every Week",
     metaDescription: "Stop wasting time on repetitive tasks. We automate your workflows so you can focus on scaling. See how much you can save with a Workflow Audit.",
     heroImageSrc:
@@ -68,52 +71,56 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: Bot,
         title: "Multi-Step Workflow Builder",
         description:
-          "Design complex if/then automation flows visually — triggers, conditions, delays, and actions across any tool.",
+          "We map and build workflow automation systems with triggers, branches, delays, actions, and fallback logic so processes run cleanly from start to finish.",
       },
       {
         icon: Database,
         title: "Cross-Platform Integration",
         description:
-          "Connect your CRM, email, Slack, Sheets, billing, and support tools into one unified automated pipeline.",
+          "We connect CRM, email, Slack, Sheets, billing, forms, and support tools into one working flow, using ai workflow automation services that reduce handoff friction.",
       },
       {
         icon: TrendingUp,
         title: "Error Detection & Alerts",
         description:
-          "Automatic monitoring catches failed steps and alerts your team in real-time before a lead or task slips through.",
+          "Monitoring rules track failures, delays, and broken actions in real time, so your team can act before a customer, lead, or task is lost.",
       },
       {
         icon: MessageSquare,
         title: "Approval & Notification Flows",
         description:
-          "Automate internal approvals, handoff notifications, and status updates so nothing blocks your pipeline.",
+          "We automate approvals, team alerts, status changes, and internal routing so work keeps moving without manual follow-up or missed messages.",
       },
       {
         icon: FileText,
         title: "Document & Report Automation",
         description:
-          "Auto-generate proposals, reports, and invoices from templates — triggered by deals, form fills, or schedules.",
+          "From proposals to invoices and scheduled reports, we create document workflow automation that generates output automatically from live data.",
       },
       {
         icon: Layers,
         title: "Ongoing Optimization",
         description:
-          "We monitor workflow performance and iterate — improving throughput and fixing edge cases as your business scales.",
+          "We review performance, fix edge cases, and refine logic over time so your enterprise workflow automation keeps pace as operations grow.",
       },
     ],
     outcomes: [
-      "Cut manual task time by up to 80%",
-      "Zero leads or tasks fall through the cracks",
-      "Faster deal cycles with automated handoffs",
-      "Consistent process execution at any scale",
-      "Real-time visibility into every workflow",
+      "Reduce manual workload by up to 80%",
+      "Stop leads, approvals, and tasks from slipping between teams",
+      "Speed up delivery and sales movement with automated handoffs",
+      "Keep execution consistent as volume, staff, and systems grow",
+      "See workflow status, errors, and throughput in real time",
     ],
     stats: [
       { value: "80%", label: "Time Saved" },
       { value: "24/7", label: "Running" },
       { value: "2 Wks", label: "To Deploy" },
     ],
-    ctaHeading: "Ready to Stop Doing Work a Machine Can Do?",
+    
+    featuresDescription: "A complete done-for-you build designed to create working workflow automation services, remove repetitive steps, and connect the systems your team already uses.",
+    outcomesDescription: "You do not just get automations built. You get a cleaner operating system with fewer delays, better execution, and more control across your workflows.",
+    ctaDescription: "Book a free 30-minute strategy call and we will review your current process, identify bottlenecks, and show where Workflow & Process Automation can save time, reduce errors, and scale execution.",
+    ctaHeading: "Ready to Replace Repetition With Reliable Automation?",
     ctaButton: "Book a Workflow Audit",
   },
 
@@ -121,11 +128,11 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     slug: "ai-chatbot-development",
     parentSlug: "ai-automation-marketing",
     parentLabel: "AI Marketing",
-    eyebrow: "AI Marketing · Chatbot Development",
-    title: "Convert Visitors Into Leads With",
+    eyebrow: "AI Marketing · AI Chatbot Development",
+    title: "Turn Conversations Into Qualified Pipeline With",
     highlightLine: "AI Chatbot Development",
     description:
-      "Deploy intelligent AI chatbots that answer questions, qualify leads, and book appointments automatically — on your website, WhatsApp, or any channel.",
+      "AI Chatbot Development helps you answer faster, qualify better, and book more meetings automatically across your website, WhatsApp, and connected channels — without adding headcount or slowing down your sales team.",
     metaTitle: "Custom AI Chatbot Development | 24/7 Automated Support",
     metaDescription: "Build a smart AI bot trained on your data. Automate leads and customer service instantly. Get your first AI Bot integrated with a 14-day Free Trial!",
     heroImageSrc:
@@ -136,52 +143,56 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: MessageSquare,
         title: "Custom Conversation Flows",
         description:
-          "Scripted + AI-powered conversations tailored to your offer, tone, and qualification criteria.",
+          "We create tailored chatbot flows around your offer, brand voice, and qualification rules so every conversation feels relevant, consistent, and built to move buyers forward.",
       },
       {
         icon: Bot,
         title: "Lead Qualification Engine",
         description:
-          "Chatbot asks the right questions, scores intent, and routes hot leads directly to your sales team or calendar.",
+          "Your bot asks the right pre-sales questions, identifies buyer intent, and routes ready-to-buy prospects into your team, calendar, or Leads & Sales Automation workflow.",
       },
       {
         icon: Globe,
         title: "Multi-Channel Deployment",
         description:
-          "Deploy on your website, WhatsApp, Facebook Messenger, and Instagram from a single bot configuration.",
+          "Launch from one connected setup across your website, WhatsApp, and other customer touchpoints, giving you faster response coverage without creating channel-by-channel operational chaos.",
       },
       {
         icon: Database,
         title: "CRM & Calendar Integration",
         description:
-          "Captured leads sync instantly to your CRM and qualified prospects get booked straight to your calendar.",
+          "Every qualified lead can sync directly into your CRM Management system while high-intent prospects move straight into your calendar for faster follow-up and cleaner pipeline visibility.",
       },
       {
         icon: TrendingUp,
         title: "Analytics & Improvement",
         description:
-          "Track conversation completion rates, drop-offs, and lead quality — iterate to improve over time.",
+          "Track completion rates, handoff points, drop-offs, and booking quality so your team can keep improving performance and measuring your chatbot’s impact against real business outcomes.",
       },
       {
         icon: Layers,
-        title: "Handoff to Human Agent",
+        title: "Smart Handoff to Human Support",
         description:
-          "Intelligent escalation to a live agent when complex questions arise — with full context passed through.",
+          "When a conversation needs a person, the chatbot escalates instantly with full context passed through, protecting the customer experience while reducing friction for support and sales teams.",
       },
     ],
     outcomes: [
-      "24/7 lead capture without extra headcount",
-      "40%+ increase in qualified bookings",
-      "Faster response than any human team",
-      "Consistent brand voice across all conversations",
-      "Instant CRM sync for every captured lead",
+      "24/7 lead capture without increasing internal headcount",
+      "More qualified meetings from the same traffic and ad spend",
+      "Near-instant first response across high-intent conversations",
+      "Consistent messaging across every chat touchpoint",
+      "Cleaner handoff into CRM Management and better follow-up speed",
     ],
     stats: [
       { value: "24/7", label: "Active" },
-      { value: "40%+", label: "More Bookings" },
+      { value: "40%+", label: "More Qualified Meetings" },
       { value: "< 2s", label: "Response Time" },
     ],
-    ctaHeading: "Ready for a Chatbot That Actually Books Meetings?",
+    
+    featuresDescription: "A complete, done-for-you service covering every component needed to get a reliable, high-converting chatbot live.",
+    outcomesDescription: "Strong chatbot performance comes from better logic, better routing, better follow-up, and better measurement — not from adding another widget that talks but does not move pipeline.",
+    ctaDescription: "Book a free 30-minute strategy call and we’ll review your current setup, identify missed conversion points, and show you how AI Chatbot Development, CRM Management, and Leads & Sales Automation can work together.",
+    ctaHeading: "Ready for an AI Chatbot That Actually Books Meetings?",
     ctaButton: "Book a Demo",
   },
 
@@ -190,10 +201,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "ai-automation-marketing",
     parentLabel: "AI Marketing",
     eyebrow: "AI Marketing · CRM Automation",
-    title: "Keep Your Pipeline Clean With",
+    title: "Keep Your Sales Data Clean With",
     highlightLine: "Automated CRM Management",
     description:
-      "Eliminate manual data entry and keep your CRM accurate, up-to-date, and actionable — automatically. From lead capture to deal close, every step is tracked.",
+      "Our crm automation services remove manual admin and keep your CRM accurate, current, and usable automatically. From first lead capture to closed revenue, every update is tracked.",
     metaTitle: "Automated CRM Solutions | Never Lose a Lead Again",
     metaDescription: "We set up CRMs that sell for you. Automated follow-ups, lead scoring, and zero data entry. Free CRM Setup Guide included with every consultation.",
     heroImageSrc:
@@ -202,39 +213,39 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     features: [
       {
         icon: Database,
-        title: "Auto Lead Creation & Enrichment",
+        title: "Lead Capture, Creation & Enrichment",
         description:
-          "New leads from any source are auto-created in your CRM with enriched data — company, role, LinkedIn, and more.",
+          "New leads from forms, ads, calls, or inboxes are created automatically with enriched data, cleaner fields, and better sales context.",
       },
       {
         icon: TrendingUp,
         title: "Pipeline Stage Automation",
         description:
-          "Deals move automatically through pipeline stages based on email opens, calls, meetings, and activity signals.",
+          "Deals move through stages automatically using business automation workflow rules triggered by calls, meetings, emails, and real sales activity.",
       },
       {
         icon: Bot,
-        title: "AI-Powered Follow-Up Sequences",
+        title: "Smart Follow-Up Sequences",
         description:
-          "Automated follow-up emails and tasks fire based on deal age, no-contact windows, and prospect behavior.",
+          "Emails and tasks fire automatically through connected sales automation agency logic based on deal age, silence windows, and prospect behaviour.",
       },
       {
         icon: MessageSquare,
         title: "Task & Reminder Automation",
         description:
-          "Reps get automatic task reminders for calls, proposals, and check-ins — no deal goes cold from neglect.",
+          "Reps receive automatic reminders for calls, proposals, and check-ins, so no deal stalls because someone missed the next action.",
       },
       {
         icon: FileText,
         title: "Reporting & Forecasting",
         description:
-          "Automated weekly pipeline reports and revenue forecasts delivered to your inbox without manual exports.",
+          "Weekly pipeline reports and revenue forecasts are delivered automatically, giving leadership clear numbers without manual exports or spreadsheet chasing.",
       },
       {
         icon: Layers,
         title: "Multi-Tool CRM Sync",
         description:
-          "Keep HubSpot, Salesforce, Pipedrive, or any CRM in sync with your email, calendar, and billing systems.",
+          "Keep HubSpot, Salesforce, Pipedrive, or other CRMs synced with email, calendar, billing, and connected ai workflow automation services across your stack.",
       },
     ],
     outcomes: [
@@ -245,10 +256,14 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       "Reps spend time selling, not admin",
     ],
     stats: [
-      { value: "95%", label: "Data Accuracy" },
+      { value: "95%", label: "Cleaner CRM Data" },
       { value: "3×", label: "Faster Follow-Up" },
-      { value: "14 Days", label: "Implementation" },
+      { value: "14 Days", label: "Typical Setup" },
     ],
+    
+    featuresDescription: "A complete done-for-you build designed to create an automated CRM system, remove manual entry, and give you clean data you can trust.",
+    outcomesDescription: "You do not just get a software setup. You get a cleaner operating system with fewer delays, better execution, and more control across your sales process.",
+    ctaDescription: "Book a free 30-minute strategy call. We’ll review your current setup, find the gaps, and show where smarter automation can improve performance fast.",
     ctaHeading: "Ready for a CRM That Runs Itself?",
     ctaButton: "Get CRM Automation Demo",
   },
@@ -258,10 +273,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "ai-automation-marketing",
     parentLabel: "AI Marketing",
     eyebrow: "AI Marketing · Sales Automation",
-    title: "Turn Cold Leads Into Booked Meetings With",
+    title: "[Turn New Leads Into Qualified Sales Calls With]",
     highlightLine: "Leads & Sales Automation",
     description:
-      "AI-driven systems that instantly contact new leads, qualify them through conversations, score their intent, and book meetings — all without a human needing to lift a finger.",
+      "[Our sales automation service builds an ai sales automation system that responds in seconds, qualifies leads through real conversations, ranks intent, and books meetings automatically. Connected with CRM Management, AI Chatbot Development, and Workflow & Process Automation, it helps you scale sales process automation without adding manual work.]",
     metaTitle: "Sales Automation Agency | Automate Your Entire Pipeline",
     metaDescription: "Close deals faster with automated proposals and order tracking. High-performance sales tech for any niche. Free Sales Funnel Audit for First 10 Signups!",
     heroImageSrc:
@@ -272,37 +287,37 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: Bot,
         title: "Instant AI Lead Response",
         description:
-          "AI contacts new leads within seconds via call, SMS, or email — before your competitors even see the form.",
+          "[New leads are contacted in seconds through an outbound ai sales agent using call, SMS, email, or chat, helping you win attention while intent is still high.]",
       },
       {
         icon: TrendingUp,
         title: "Intent-Based Lead Scoring",
         description:
-          "Behavior, budget signals, call duration, and engagement are scored automatically to rank your hottest leads.",
+          "[We build automated crm logic that scores leads using engagement, source quality, replies, budget fit, and buying signals so your team sees who matters first.]",
       },
       {
         icon: MessageSquare,
         title: "Qualification Conversation Flows",
         description:
-          "Custom scripts qualify leads using your ICP, pricing, and offer — routing only the right ones to your team.",
+          "[Custom qualification flows ask the right questions around fit, need, location, timeline, and budget so only relevant prospects move deeper into your sales automation system.]",
       },
       {
         icon: Database,
         title: "Auto Calendar Booking",
         description:
-          "Qualified leads are sent directly to your sales rep's calendar with confirmation emails and reminders.",
+          "[Qualified prospects are routed straight into rep calendars with automated confirmations, reminders, and handoff steps built through crm automation services.]",
       },
       {
         icon: FileText,
         title: "Re-Engagement Campaigns",
         description:
-          "Dormant leads are automatically re-engaged at the right time with personalized follow-up sequences.",
+          "[Cold or inactive leads re-enter personalized follow-up flows at the right moment, giving your sales process automation setup more chances to convert missed demand.]",
       },
       {
         icon: Layers,
         title: "Sales Performance Dashboard",
         description:
-          "Real-time view of lead flow, response rates, booking rates, and revenue attribution across all channels.",
+          "[A live dashboard tracks lead flow, response speed, booking rates, pipeline movement, and your ai marketing roi so every decision stays measurable.]",
       },
     ],
     outcomes: [
@@ -317,8 +332,12 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "180%", label: "More Meetings" },
       { value: "14 Days", label: "To Go Live" },
     ],
-    ctaHeading: "Ready to Fill Your Calendar With Qualified Leads?",
-    ctaButton: "Book a Strategy Call",
+    
+    featuresDescription: "A complete, done-for-you build covering every component to get a working sales automation system live and driving revenue.",
+    outcomesDescription: "You do not just get a software setup. You get a connected sales engine with fewer delays, better follow-up, and more control across your pipeline.",
+    ctaDescription: "Book a free 30-minute strategy call and we’ll review your current pipeline, find the leaks, and show how a custom sales automation agency system can help your team close more deals with less effort.",
+    ctaHeading: "[Ready to Fill Your Calendar With Qualified Leads?]",
+    ctaButton: "[Book a Strategy Call]",
   },
 
   // ── Digital Marketing ─────────────────────────────────────────────────────
@@ -327,10 +346,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "digital-marketing",
     parentLabel: "Digital Marketing",
     eyebrow: "Digital Marketing · SEO",
-    title: "Rank Higher and Drive Revenue With",
+    title: "Rank Smarter and Drive Revenue With",
     highlightLine: "Search Engine Optimization",
     description:
-      "Data-driven SEO that builds long-term organic traffic — from technical audits and on-page optimization to link building and content strategy.",
+      "Search Engine Optimization is the process of improving technical structure, page relevance, content depth, and authority so your website earns better rankings and more qualified traffic. Our approach helps businesses comparing seo services near me https://www.nxtechnova.com/services/digital-marketing/seo turn search visibility into steady leads and revenue.",
     metaTitle: "Authority SEO Services | Dominate Your Search Niche",
     metaDescription: "Rank #1 and stay there. Technical SEO, Content, and High-Tier Backlinks. Get a Free Technical SEO Audit Report of your Top 3 Competitors!",
     heroImageSrc:
@@ -341,52 +360,56 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: Search,
         title: "Technical SEO Audit",
         description:
-          "Full crawl of site speed, Core Web Vitals, schema markup, indexability, and mobile-friendliness.",
+          "Full technical review of speed, Core Web Vitals, schema, crawl depth, indexation, and the issues that hold back seo company near me https://www.nxtechnova.com/services/digital-marketing/seo performance.",
       },
       {
         icon: FileText,
         title: "Keyword & Intent Research",
         description:
-          "Map high-value keywords to buyer intent stages — awareness, consideration, and conversion.",
+          "High-value keyword mapping tied to awareness, consideration, and conversion so small business marketing services near me https://www.nxtechnova.com/services/digital-marketing campaigns attract the right traffic.",
       },
       {
         icon: Globe,
         title: "On-Page Optimization",
         description:
-          "Title tags, meta descriptions, headers, content structure, and internal linking optimized for rank.",
+          "Titles, meta descriptions, headers, page structure, and internal links refined to improve rank, relevance, and website design and seo near me https://www.nxtechnova.com/services/web-development performance.",
       },
       {
         icon: TrendingUp,
         title: "Link Building",
         description:
-          "High-quality backlink acquisition through outreach, digital PR, and strategic partnerships.",
+          "Authority growth through quality link acquisition, outreach, digital PR, and partnerships that strengthen trust signals and search visibility.",
       },
       {
         icon: BarChart3,
         title: "Content Strategy",
         description:
-          "Topic cluster planning, blog production, and landing page optimization aligned to search demand.",
+          "Topic clusters, landing page planning, and conversion-focused content aligned to search demand and content marketing services near me https://www.nxtechnova.com/services/digital-marketing/content-marketing goals.",
       },
       {
         icon: Layers,
         title: "Monthly Reporting",
         description:
-          "Clear rank tracking, traffic analytics, and ROI attribution delivered every month.",
+          "Clear monthly reporting on rankings, traffic, lead quality, and ROI so digital marketing firms near me https://www.nxtechnova.com/services/digital-marketing decisions stay grounded in results.",
       },
     ],
     outcomes: [
-      "First-page rankings for target keywords",
-      "Consistent organic traffic growth month over month",
-      "Lower cost-per-acquisition vs paid ads",
-      "Increased domain authority and brand trust",
-      "More qualified leads from search",
+      "First-page visibility for high-intent commercial searches",
+      "Steady month-over-month growth in qualified organic traffic",
+      "Lower acquisition costs compared with short-term paid traffic",
+      "Stronger authority, trust, and search credibility over time",
+      "More sales-ready leads coming directly from search intent",
     ],
     stats: [
-      { value: "3–6", label: "Months to Results" },
-      { value: "200%+", label: "Organic Growth" },
+      { value: "3–6", label: "Months to Measurable Lift" },
+      { value: "200%+", label: "Organic Traffic Growth" },
       { value: "60+", label: "DA Clients" },
     ],
-    ctaHeading: "Ready to Own Page 1 for Your Best Keywords?",
+    
+    featuresDescription: "A complete, done-for-you build covering every component needed to get your website ranking higher and driving organic leads.",
+    outcomesDescription: "You do not just get higher rankings. You get a stronger foundation with better search visibility, more organic traffic, and a measurable increase in quality leads.",
+    ctaDescription: "An SEO audit shows the technical, content, and authority gaps that stop growth. In one focused strategy call, we review your setup, prioritize the fastest wins, and show how specialized seo experts near me can improve traffic, leads, and conversion quality.",
+    ctaHeading: "Ready to Turn Rankings Into Revenue?",
     ctaButton: "Get Free SEO Audit",
   },
 
@@ -454,6 +477,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "30+", label: "Posts/Month" },
       { value: "All", label: "Major Platforms" },
     ],
+    
+    featuresDescription: "A complete done-for-you service covering every component needed to build a strong, engaging social media presence.",
+    outcomesDescription: "You do not just get posts scheduled. You get a growing community, higher engagement, and a stronger brand presence that builds trust and drives inbound interest.",
+    ctaDescription: "Book a free 30-minute strategy call. We’ll review your current social presence, identify engagement gaps, and show how a better Social Media Marketing strategy can build a stronger audience and drive more inbound interest.",
     ctaHeading: "Ready to Build a Social Presence That Converts?",
     ctaButton: "Get Social Media Strategy",
   },
@@ -522,6 +549,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "-40%", label: "CPL Reduction" },
       { value: "7 Days", label: "Campaign Launch" },
     ],
+    
+    featuresDescription: "A complete, done-for-you service covering every component needed to run profitable, high-converting ad campaigns.",
+    outcomesDescription: "You do not just get ads running. You get a measurable acquisition channel with lower cost-per-lead, better targeting, and more control over your revenue growth.",
+    ctaDescription: "Book a free 30-minute strategy call. We’ll review your current ad performance, identify wasted spend, and show how a tighter PPC Advertising strategy can lower your CPL and increase revenue.",
     ctaHeading: "Ready to Turn Ad Spend Into Predictable Revenue?",
     ctaButton: "Get Free PPC Audit",
   },
@@ -534,7 +565,7 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     title: "Nurture Leads Into Customers With",
     highlightLine: "Email Marketing",
     description:
-      "Strategic email campaigns, sequences, and automation that keep your brand top-of-mind and convert subscribers into paying clients.",
+      "Work with email marketing experts who build lifecycle email marketing, automated email marketing, and data driven email marketing systems that keep your brand visible, nurture intent, and turn subscribers into paying customers with measurable growth. Email Marketing https://www.nxtechnova.com/services/digital-marketing/email-marketing",
     metaTitle: "Automated Email Marketing | High-Conversion Sales Funnels",
     metaDescription: "Smart email sequences that turn cold subscribers into loyal fans. 5 Free High-Converting Email Templates with every strategy call!",
     heroImageSrc:
@@ -590,6 +621,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "35%+", label: "Open Rates" },
       { value: "1 Wk", label: "Launch Time" },
     ],
+    
+    featuresDescription: "A complete, done-for-you service covering every component needed to build high-converting email sequences and campaigns.",
+    outcomesDescription: "You do not just get emails sent. You get an automated revenue channel with higher open rates, better engagement, and consistent conversions from your list.",
+    ctaDescription: "Book a free 30-minute strategy call. We’ll review your current email performance, identify nurture gaps, and show how a stronger Email Marketing strategy can turn more subscribers into paying customers.",
     ctaHeading: "Ready to Make Your Email List a Revenue Machine?",
     ctaButton: "Get Email Marketing Plan",
   },
@@ -650,7 +685,7 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       "Sustainable organic traffic growth",
       "Position as a thought leader in your industry",
       "More inbound leads from content",
-      "Lower cost per acquisition vs paid ads",
+      "Lower acquisition costs compared with short-term paid traffic",
       "Content that works for you 24/7",
     ],
     stats: [
@@ -658,6 +693,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "6 Mo", label: "To Scale" },
       { value: "4–8", label: "Posts/Month" },
     ],
+    
+    featuresDescription: "A complete done-for-you service covering every component needed to build a strong content engine that drives traffic and trust.",
+    outcomesDescription: "You do not just get articles written. You get a growing content library with better search visibility, stronger brand authority, and more inbound leads over time.",
+    ctaDescription: "Book a free 30-minute strategy call. We’ll review your current content, search visibility, conversion paths, and distribution gaps, then show how Content Marketing, SEO, Email Marketing, and AI Automation can turn your traffic into measurable growth.",
     ctaHeading: "Ready to Build Content That Ranks and Converts?",
     ctaButton: "Get Content Strategy",
   },
@@ -727,6 +766,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "100", label: "PageSpeed Score" },
       { value: "SSL", label: "Secured" },
     ],
+    
+    featuresDescription: "A complete done-for-you build designed to deliver a fast, secure, and fully custom WordPress website your team can actually manage.",
+    outcomesDescription: "You do not just get a theme installed. You get a high-performance website with fast load times, clean code, and a foundation built to rank and convert.",
+    ctaDescription: "Book a free 30-minute strategy call and we’ll review your current setup, identify performance and conversion gaps, and show you how our WordPress Development service can improve speed, usability, SEO structure, and growth readiness.",
     ctaHeading: "Ready for a WordPress Site That Actually Performs?",
     ctaButton: "Get Free Consultation",
   },
@@ -736,10 +779,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "web-development",
     parentLabel: "Web Development",
     eyebrow: "Web Development · E-commerce",
-    title: "Sell More Online With",
+    title: "Launch Faster and Sell More With",
     highlightLine: "E-commerce Website Development",
     description:
-      "High-converting online stores built on WooCommerce, Shopify, or custom stacks — with fast checkout, smart product discovery, and full payment integration.",
+      "An ecommerce website development company should do more than launch pages. We build WooCommerce, Shopify, and custom stacks with faster checkout, smarter product discovery, and full payment integration so your store converts cleanly across every device.",
     metaTitle: "Scalable E-commerce Development | Sell More Online",
     metaDescription: "Powerful online stores designed for high conversion and automated management. Free Payment Gateway Integration for all new E-com builds!",
     heroImageSrc:
@@ -750,64 +793,68 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: ShoppingCart,
         title: "Store Architecture & UX Design",
         description:
-          "Product navigation, category pages, filters, and checkout flows optimized for maximum conversion.",
+          "Product navigation, category structure, filters, search, and checkout flows shaped like strong ecommerce web design builds so shoppers find products faster and move through the funnel with less friction.",
       },
       {
         icon: Code2,
         title: "Payment Gateway Integration",
         description:
-          "Stripe, PayPal, Razorpay, or local gateways — configured with secure checkout and auto-receipts.",
+          "Stripe, PayPal, Razorpay, and local gateways configured for secure checkout, tax logic, shipping rules, receipts, and dependable order capture from day one.",
       },
       {
         icon: Database,
         title: "Inventory & Order Management",
         description:
-          "Real-time inventory tracking, order management dashboard, and automated fulfillment notifications.",
+          "Real-time inventory sync, order dashboards, and fulfilment alerts connected to workflow automation services so operations stay accurate as order volume increases.",
       },
       {
         icon: TrendingUp,
         title: "Conversion Rate Optimization",
         description:
-          "Upsell/cross-sell widgets, abandoned cart recovery, reviews, and trust signals built in.",
+          "Upsell blocks, cross-sell logic, cart recovery, reviews, trust signals, and ai chatbot ecommerce journeys built in to increase conversion rate and reduce hesitation before purchase.",
       },
       {
         icon: Search,
         title: "SEO & Product Schema",
         description:
-          "Rich product schema, fast load times, and SEO-optimized product pages to rank in Google Shopping.",
+          "Rich product schema, fast load times, crawl-ready architecture, and ecommerce seo services built into product and category pages to improve rankings and visibility in search.",
       },
       {
         icon: Smartphone,
         title: "Mobile Shopping Experience",
         description:
-          "Fast, thumb-friendly mobile UX that converts — with one-tap checkout and mobile payment support.",
+          "Fast mobile UX, thumb-friendly navigation, one-tap checkout, and payment support designed for shoppers who buy on the move and expect speed at every step.",
       },
     ],
     outcomes: [
       "Higher conversion rate and average order value",
-      "Smooth checkout with minimal abandonment",
-      "Full inventory and order visibility",
-      "Ranking product pages in search",
-      "Scalable store that handles traffic spikes",
+      "Smoother checkout with lower abandonment",
+      "Clear inventory and order visibility",
+      "Stronger product page visibility in search",
+      "Scalable store built for traffic spikes",
     ],
     stats: [
       { value: "4–8", label: "Weeks to Launch" },
       { value: "+35%", label: "CVR Increase" },
       { value: "Multi", label: "Payment Options" },
     ],
-    ctaHeading: "Ready to Build a Store That Sells While You Sleep?",
+    
+    featuresDescription: "A complete done-for-you build designed to launch a fast, high-converting online store with seamless inventory and payment integration.",
+    outcomesDescription: "The strongest stores balance design, speed, operations, and growth. That means cleaner merchandising, dependable checkout, easier catalog management, and a build that can expand into shopify marketing agency, ai marketing agency, and small business automation initiatives when needed.",
+    ctaDescription: "Book a free 30-minute strategy call. We will review your current setup, identify conversion blockers, and show where stronger ecommerce website development services, ecommerce seo services, or workflow automation services can create the fastest lift.",
+    ctaHeading: "Ready to Launch a Store That Sells Every Day?",
     ctaButton: "Get E-commerce Consultation",
   },
 
-  "custom-website-development": {
-    slug: "custom-website-development",
+  "custom website development": {
+    slug: "custom website development",
     parentSlug: "web-development",
     parentLabel: "Web Development",
-    eyebrow: "Web Development · Custom",
-    title: "Unlimited Possibilities With",
-    highlightLine: "Custom Website Development",
+    eyebrow: "Web Development · Custom Software",
+    title: "Built for What Templates Can’t Handle",
+    highlightLine: "custom website development",
     description:
-      "Fully bespoke web experiences built from scratch with Next.js, React, or your preferred stack — when templates and themes simply can't do what you need.",
+      "Our custom website development service delivers fully bespoke websites and platforms engineered around your business logic, user journeys, and growth goals — using Next.js, React, or the right stack for the job when off-the-shelf themes cannot support the experience you need.",
     metaTitle: "Bespoke Web Application Development | Unique Digital Tech",
     metaDescription: "No templates. Just pure, custom-coded excellence tailored to your business goals. Get a Free Technical Blueprint for your custom idea!",
     heroImageSrc:
@@ -818,52 +865,52 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: Code2,
         title: "Bespoke Frontend Development",
         description:
-          "Custom-built React / Next.js frontends with pixel-perfect design implementation and smooth animations.",
+          "Custom React and Next.js frontends built with precision, polished interaction, and conversion-focused UX — ideal when you need more than a typical theme or a generic website development company near me.",
       },
       {
         icon: Database,
         title: "API & Backend Integration",
         description:
-          "REST APIs, GraphQL, and third-party integrations — Stripe, Auth, CRM, and anything else you need.",
+          "Secure integrations across REST APIs, GraphQL, payments, auth, data layers, and third-party tools — including expansion into crm automation services, sales automation agency, and custom business workflows.",
       },
       {
         icon: TrendingUp,
         title: "Performance Engineering",
         description:
-          "SSR, ISR, edge caching, and CDN configuration for sub-second load times globally.",
+          "Server-side rendering, smart caching, asset optimization, and CDN delivery engineered for speed, stability, and modern seo and web development performance standards.",
       },
       {
         icon: Globe,
         title: "CMS Integration",
         description:
-          "Headless CMS (Sanity, Contentful, Strapi) setup so your team can manage content without dev help.",
+          "Headless CMS setup with flexible editing workflows so your team can manage landing pages, case studies, and updates without developer reliance — especially useful when paired with ongoing content marketing service execution.",
       },
       {
         icon: Layers,
         title: "Scalable Architecture",
         description:
-          "Built to handle growth — modular codebase, CI/CD pipelines, and cloud-native deployment.",
+          "Growth-ready architecture with modular code, CI/CD pipelines, cloud deployment, and clean foundations for future custom software development services, portal features, and advanced product expansion.",
       },
       {
         icon: Smartphone,
         title: "Accessibility & QA",
         description:
-          "WCAG compliance, cross-browser testing, and device QA before every launch.",
+          "Accessibility-first development, cross-browser testing, responsive QA, and release checks across devices so your build launches stable, usable, and ready for real traffic from day one.",
       },
     ],
     outcomes: [
-      "Exactly what you envisioned — not a compromise",
-      "Performance scores in the top percentile",
-      "Fully maintainable and extendable codebase",
-      "No vendor lock-in or template constraints",
-      "Seamless integrations with any tool",
+      "Exactly what your business needs — not a workaround",
+      "Performance built for speed, stability, and scale",
+      "Clean code your team can maintain and extend",
+      "Full ownership with no theme or platform limits",
+      "Connected systems across data, CRM, sales, and ops",
     ],
     stats: [
       { value: "6–12", label: "Weeks Build" },
       { value: "100%", label: "Custom Code" },
       { value: "99.9%", label: "Uptime SLA" },
     ],
-    ctaHeading: "Ready to Build Your Dream Website From Scratch?",
+    ctaHeading: "Ready to Build a Platform That Fits the Way You Work?",
     ctaButton: "Start Custom Project",
   },
 
@@ -932,6 +979,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "3B+", label: "Android Users" },
       { value: "99%", label: "Crash-Free" },
     ],
+    
+    featuresDescription: "A complete done-for-you build covering every component needed to launch a high-performance, crash-free Android app to the Play Store.",
+    outcomesDescription: "Scalable architecture built for long-term growth.",
+    ctaDescription: "Book a free 30-minute strategy call. We'll audit your current setup and show you exactly where we can help.",
     ctaHeading: "Ready to Ship Your Android App?",
     ctaButton: "Get App Development Estimate",
   },
@@ -1000,6 +1051,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "1B+", label: "iPhone Users" },
       { value: "4.8★", label: "Avg App Rating" },
     ],
+    
+    featuresDescription: "A complete done-for-you build covering every component needed to launch a high-performance, crash-free iOS app to the App Store.",
+    outcomesDescription: "A roadmap built for stability, retention, and App Store growth.",
+    ctaDescription: "Book a free 30-minute strategy call. We'll audit your current setup and show you exactly where we can help.",
     ctaHeading: "Ready to Launch Your iOS App?",
     ctaButton: "Get iOS Project Estimate",
   },
@@ -1068,6 +1123,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "MVP", label: "First Approach" },
       { value: "100%", label: "Your Ownership" },
     ],
+    
+    featuresDescription: "A complete done-for-you build covering every component needed to launch a scalable, cross-platform app tailored to your exact business needs.",
+    outcomesDescription: "A roadmap ready for custom android mobile app design and development or custom ios mobile app design and development as you grow.",
+    ctaDescription: "Book a free 30-minute strategy call. We’ll audit your current setup and show you exactly where we can help.",
     ctaHeading: "Ready to Build the App You've Been Imagining?",
     ctaButton: "Start Custom App Project",
   },

@@ -158,7 +158,7 @@ const MAIN_SERVICES: MainService[] = [
         gradient: gradients.cyan,
       },
       {
-        label: "Custom Website Development",
+        label: "custom website development",
         slug: "custom-website-development",
         icon: Code2,
         description: "Bespoke Next.js / React builds with zero template constraints.",

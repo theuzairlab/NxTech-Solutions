@@ -12,15 +12,15 @@ const CTA_COPY: Record<
   { heading: string; button: string }
 > = {
   "ai-automation-marketing": {
-    heading: "Ready to Automate Your Sales Pipeline 24/7?",
+    heading: "Ready to Turn Faster Response Into More Booked Sales Calls?",
     button: "Get AI Automation Blueprint",
   },
   "web-development": {
-    heading: "Ready for a Website Built to Convert?",
+    heading: "Ready for Web Development Built to Drive Leads?",
     button: "Get Web Growth Plan",
   },
   "app-development": {
-    heading: "Ready to Ship Your Next App Faster?",
+    heading: "Ready to Ship With a custom app development company That Can Take You From Idea to Scale?",
     button: "Get App Strategy Call",
   },
   "digital-marketing": {

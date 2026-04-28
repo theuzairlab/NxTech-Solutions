@@ -28,10 +28,10 @@ const DASHBOARD_SLIDES = [
     serviceTitle: "AI Marketing & Business Automation",
     slug: "ai-automation-marketing",
     heroLeft: {
-      blocks: ["We Build", "AI Powered", "Growth Systems"],
-      accent: "That Turn Traffic Into Revenue",
+      blocks: ["We Build", "AI Marketing Systems &", "Revenue Funnels"],
+      accent: "That Turn Traffic Into Qualified Pipeline",
       paragraph:
-        "{{brand}} builds AI-powered systems that automate lead generation and convert prospects into paying clients.",
+        "NxTechNova combines AI Marketing, Workflow & Process Automation, and CRM Management to capture, qualify, and route leads faster—so every campaign turns more attention into sales-ready demand.",
     },
     campaigns: [
       { name: "AI lead follow-up", status: "24/7 automation", change: "+98%" },
@@ -70,10 +70,10 @@ const DASHBOARD_SLIDES = [
     serviceTitle: "Web Development",
     slug: "web-development",
     heroLeft: {
-      blocks: ["We Build", "Conversion-Ready", "Websites & Funnels"],
+      blocks: ["We Build", "High-Performance", "Websites & Funnels"],
       accent: "That Turn Visitors Into Revenue",
       paragraph:
-        "{{brand}} engineers fast, accessible sites and landing pages—Core Web Vitals, SEO, and integrations that turn traffic into qualified pipeline.",
+        "NxTechNova delivers Web Development, WordPress Development, and Ecommerce Development built for speed, search visibility, and lead flow—giving your brand a stronger digital front door and better conversion performance.",
     },
     campaigns: [
       { name: "Landing pages", status: "Conversion-optimized", change: "+52%" },
@@ -112,10 +112,10 @@ const DASHBOARD_SLIDES = [
     serviceTitle: "App Development",
     slug: "app-development",
     heroLeft: {
-      blocks: ["We Build", "Mobile & Cloud", "Apps & SaaS Platforms"],
-      accent: "That Ship Fast and Scale With You",
+      blocks: ["We Build", "Mobile Apps,", "SaaS Products & Platforms"],
+      accent: "That Launch Fast and Scale Cleanly",
       paragraph:
-        "{{brand}} delivers MVPs through production: native and cross-platform apps with reliable releases, payments, and infrastructure your users can trust.",
+        "NxTechNova ships App Development, Android App Development, iOS App Development, and Custom App Development with product-led UX, stable architecture, and launch-ready integrations your users and team can rely on.",
     },
     campaigns: [
       { name: "MVP launch", status: "On schedule", change: "+12w" },
@@ -154,10 +154,10 @@ const DASHBOARD_SLIDES = [
     serviceTitle: "Digital Marketing",
     slug: "digital-marketing",
     heroLeft: {
-      blocks: ["We Build", "Performance", "Marketing & Acquisition"],
-      accent: "That Turn Spend Into Measurable Revenue",
+      blocks: ["We Build", "Performance", "Marketing Systems"],
+      accent: "That Turn Budget Into Measurable Revenue",
       paragraph:
-        "{{brand}} runs paid search, social, and nurture campaigns optimized for ROI—so every impression moves prospects closer to a sale.",
+        "NxTechNova runs Digital Marketing, SEO, PPC Advertising, Email Marketing, and Social Media Marketing with sharper targeting, cleaner reporting, and better revenue accountability from click to close.",
     },
     campaigns: [
       { name: "Social media ads", status: "Optimizing creative", change: "+34%" },

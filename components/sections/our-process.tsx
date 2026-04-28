@@ -30,7 +30,7 @@ const STEPS = [
   },
   {
     step: 3,
-    title: "Execution & Implementation",
+    title: "Execution & Typical Setup",
     description:
       "We implement with speed and quality—shipping production-ready work in iterative sprints.",
     icon: Rocket,

@@ -183,7 +183,7 @@ export const SERVICE_SCHEMAS: Record<string, any> = {
           "itemListElement": [
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "WordPress Development" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "E-commerce Website Development" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Website Development" } }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "custom website development" } }
           ]
         }
       },
@@ -992,7 +992,7 @@ export const SERVICE_SCHEMAS: Record<string, any> = {
     "@graph": [
       {
         "@type": "Service",
-        "name": "Custom Website Development",
+        "name": "custom website development",
         "serviceType": "Bespoke Web Solutions",
         "provider": {
           "@type": "Organization",
@@ -1047,7 +1047,7 @@ export const SERVICE_SCHEMAS: Record<string, any> = {
         "@type": "WebPage",
         "@id": "https://www.nxtechnova.com/services/web-development/custom-website-development/#webpage",
         "url": "https://www.nxtechnova.com/services/web-development/custom-website-development",
-        "name": "Custom Website Development | NxTech Nova",
+        "name": "custom website development | NxTech Nova",
         "isPartOf": { "@id": "https://www.nxtechnova.com/#website" },
         "breadcrumb": {
           "@type": "BreadcrumbList",
@@ -1055,7 +1055,7 @@ export const SERVICE_SCHEMAS: Record<string, any> = {
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.nxtechnova.com" },
             { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.nxtechnova.com/services" },
             { "@type": "ListItem", "position": 3, "name": "Web Development", "item": "https://www.nxtechnova.com/services/web-development" },
-            { "@type": "ListItem", "position": 4, "name": "Custom Website Development", "item": "https://www.nxtechnova.com/services/web-development/custom-website-development" }
+            { "@type": "ListItem", "position": 4, "name": "custom website development", "item": "https://www.nxtechnova.com/services/web-development/custom-website-development" }
           ]
         }
       }

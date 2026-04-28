@@ -46,10 +46,10 @@ export function AIAutomationPage() {
   return (
     <div className="w-full">
       <RevopsHero
-        eyebrow="AI-Powered Growth"
-        titleLines={["AI Sales Systems That Convert"]}
-        highlightLine="Cold Leads Into Hot Appointments"
-        description="Automate lead response, qualification, and booking with AI-powered voice calling and CRM workflows."
+        eyebrow="AI Automation Built to Capture, Qualify, and Book"
+        titleLines={["AI Sales Automation Systems That Turn New Leads Into Sales Calls"]}
+        highlightLine="From Slow Follow-Ups to Booked Meetings on Autopilot"
+        description="Our Ai Automation system responds to new leads in seconds, runs sales process automation, updates your automated crm, and books qualified meetings without manual chasing. You stop losing demand to delays, missed calls, and scattered handoffs."
         primaryCtaLabel="Book a Call"
         onPrimaryClick={() => setShowCalendly(true)}
         secondaryCtaLabel="Explore All Services"

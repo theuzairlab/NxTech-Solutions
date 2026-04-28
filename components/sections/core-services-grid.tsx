@@ -96,7 +96,7 @@ export function CoreServicesGrid({
             Our Core <span className="text-primary">Services</span>
           </h2>
           <p className="max-w-2xl text-base text-muted-foreground/80 sm:text-lg">
-            Automation. Development. Performance Marketing.
+            AI Growth. Build. Scale. Authority.
           </p>
         </motion.div>
 

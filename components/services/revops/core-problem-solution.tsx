@@ -65,129 +65,129 @@ const CORE_CONFIG: Record<
   "ai-automation-marketing": {
     problemTitle: `Key Challenges <span class='text-primary'>Sales & Marketing </span>Teams Face`,
     problemSubtitle:
-      "Slow manual follow-ups, unqualified leads, and missed calls create revenue leaks every single day.",
+      "Slow replies, weak qualification, and missed inbound demand create silent pipeline loss every day. Most teams do not have a traffic problem. They have a response and routing problem that business automation workflow is built to fix.",
     problems: [
-      { icon: Clock, text: "Leads ignored for hours or days" },
-      { icon: XCircle, text: "Slow response times hurt conversions" },
-      { icon: Zap, text: "Manual follow-ups eating your team’s time" },
+      { icon: Clock, text: "New enquiries sit untouched while buying intent fades" },
+      { icon: XCircle, text: "Reply delays reduce contact rates, trust, and booked calls" },
+      { icon: Zap, text: "Reps waste hours on repetitive tasks that should be automated" },
       {
         icon: Target,
-        text: "No qualification system to prioritize hot leads",
+        text: "Without scoring, high-intent buyers get buried in the same queue",
       },
     ],
     solutionKicker: "AI Sales System",
     solutionTitle: "Our Solution",
     solutionSubtitle:
-      "Always-on AI that calls leads, qualifies them, scores intent, and books meetings for your team.",
+      "An automated sales system answers new enquiries instantly, applies qualification logic, updates your CRM, and routes the right prospects to the right next step. This gives your team faster response speed, cleaner handoffs, and more sales conversations without adding manual workload.",
     solutions: [
       {
         icon: Zap,
         title: "Instant AI Response",
-        desc: "AI calls or messages new leads within seconds, 24/7 — no wait, no missed opportunities.",
+        desc: "Your outbound ai sales agent reaches out within seconds by call or message, so every new lead is engaged while interest is still high.",
         image:
           "https://plus.unsplash.com/premium_photo-1725985758385-d5462d6e7f50?q=80&w=2070&auto=format",
       },
       {
         icon: BarChart3,
         title: "Smart Lead Scoring",
-        desc: "Behavior, budget, and engagement signals are scored automatically so reps focus on hot deals.",
+        desc: "Intent signals, budget fit, and engagement patterns feed your crm automation services, so your team speaks to priority leads first.",
         image: "https://i.pinimg.com/736x/68/95/ff/6895ffdad693a8a3cab37ac3da402b49.jpg"
       },
       {
         icon: Target,
         title: "Qualification Playbooks",
-        desc: "Custom question flows qualify leads using your ICP, offers, and sales scripts.",
+        desc: "We build tailored scripts and decision paths around your offer, market, and buyer profile, supported by ai workflow automation services that keep qualification consistent.",
         image: "https://i.pinimg.com/736x/30/dc/1d/30dc1dde835c2745f138802cd08db66a.jpg"
       },
       {
         icon: Clock,
         title: "Auto Calendar Booking",
-        desc: "Qualified leads are routed straight to your calendar with reminders and follow-ups handled.",
+        desc: "Once a lead meets your criteria, the system triggers automate sales actions, books the meeting, and sends reminders without back-and-forth.",
         image: "https://i.pinimg.com/1200x/6d/f1/68/6df168b32d32bb72478e337ecb489154.jpg"
       },
     ],
   },
   "web-development": {
-    problemTitle: "Key Challenges Web & Funnel Teams Face",
+    problemTitle: "Key Challenges Modern Web Teams Still Face",
     problemSubtitle:
-      "Sites look pretty but don’t convert. Load times, UX, and tracking issues quietly kill revenue.",
+      "Many sites look polished but fail where it matters. Slow pages, weak structure, and missing data make growth harder, even when traffic is coming in.",
     problems: [
-      { icon: XCircle, text: "Visitors bounce without converting" },
-      { icon: Gauge, text: "Slow load times hurt SEO and UX" },
-      { icon: Layout, text: "Confusing layouts and poor mobile experience" },
+      { icon: XCircle, text: "Visitors leave before taking action because the offer, layout, or CTA path lacks clarity." },
+      { icon: Gauge, text: "Slow performance damages user experience and weakens SEO, especially on mobile." },
+      { icon: Layout, text: "Confusing page flow and weak mobile responsiveness create friction that reduces trust and conversions." },
       {
         icon: BarChart3,
-        text: "No proper CRM, analytics, or funnel tracking",
+        text: "No clean connection to CRM Management, analytics, or tracking means leads are missed and decisions stay unclear.",
       },
     ],
-    solutionKicker: "Conversion-First Web",
+    solutionKicker: "Conversion-First Web Development",
     solutionTitle: "Our Solution",
     solutionSubtitle:
-      "High-performance websites built from day one to load fast, tell a clear story, and capture leads.",
+      "A conversion-first website is a fast, structured, trackable build designed to guide users to one action, support search visibility, and capture better leads from day one.",
     solutions: [
       {
         icon: Layout,
         title: "Conversion UX",
-        desc: "Page structure, messaging, and CTAs designed to guide visitors toward one clear action.",
+        desc: "Page hierarchy, messaging, and CTA placement are built to move users toward a single next step with less confusion and more intent.",
         image: "https://i.pinimg.com/1200x/49/7f/21/497f21faf68f42223c4576f0c4452fd3.jpg"
       },
       {
         icon: Gauge,
         title: "Speed Engineering",
-        desc: "Core Web Vitals–friendly builds with optimized assets, caching, and CDN setup.",
+        desc: "Fast-loading builds with lean code, compressed assets, caching, and delivery improvements for stronger performance across devices.",
         image: "https://i.pinimg.com/1200x/a1/48/79/a14879f46aa6412897a68e10aec2a93e.jpg"
       },
       {
         icon: BarChart3,
         title: "Analytics & CRM Ready",
-        desc: "Pixel, tag, and CRM integrations wired in so every lead and event is tracked.",
+        desc: "Pixels, tags, forms, and Leads & Sales Automation systems are connected so every lead source and action is measurable.",
         image: "https://i.pinimg.com/736x/84/cf/a3/84cfa3cef26963983f010b61bfba28c8.jpg"
       },
       {
         icon: Zap,
-        title: "Test & Improve",
-        desc: "Room for A/B tests, landing page variations, and rapid iteration as you scale.",
+        title: "Test, Learn, Improve",
+        desc: "The build is ready for landing page tests, content updates, and growth changes without forcing a full redesign every time you scale.",
         image: "https://i.pinimg.com/736x/28/35/64/283564374c6f107252f90d80086d4db3.jpg"
       },
     ],
   },
   "app-development": {
-    problemTitle: "Key Challenges Product & Engineering Teams Face",
+    problemTitle: "Why App Projects Stall Before They Scale",
     problemSubtitle:
-      "Big app ideas get stuck in endless planning, technical debt, and slow launches.",
+      "App development is the structured process of planning, designing, building, testing, launching, and improving a digital product. The strongest app teams validate demand early, reduce technical risk before scale, and use post-launch data to guide new releases, features, and monetization decisions.",
     problems: [
-      { icon: Smartphone, text: "MVPs take too long to ship" },
-      { icon: Layers, text: "Architecture doesn’t scale as users grow" },
-      { icon: Rocket, text: "No clear roadmap from MVP to v2/v3" },
+      { icon: Smartphone, text: "MVPs take too long because scope grows before validation" },
+      { icon: Layers, text: "Early architecture breaks once traffic, features, and data increase" },
+      { icon: Rocket, text: "No phased roadmap from launch validation to v2 and v3" },
       {
         icon: BarChart3,
-        text: "Limited visibility into product usage and performance",
+        text: "Weak analytics make product decisions slower and more expensive",
       },
     ],
-    solutionKicker: "Product-Driven Builds",
+    solutionKicker: "Product-Led Builds for Launch, Scale, and Control",
     solutionTitle: "Our Solution",
     solutionSubtitle:
-      "End-to-end product development from MVP to scalable SaaS platforms and dashboards.",
+      "End-to-end delivery from MVP to scalable products, dashboards, and internal tools—backed by custom web app development services, AI Chatbot Development, CRM Management, and Workflow & Process Automation where growth needs more than code.",
     solutions: [
       {
         icon: Rocket,
-        title: "MVP First",
-        desc: "Lean builds focused on validating core value with real users in weeks, not years.",
+        title: "Validate the MVP First",
+        desc: "Lean product builds focused on proving demand, testing core journeys, and getting real user feedback in weeks instead of wasting months on unnecessary features.",
       },
       {
         icon: Layers,
         title: "Scalable Architecture",
-        desc: "Cloud-native, modular stack ready for new features, teams, and traffic spikes.",
+        desc: "Cloud-ready, modular systems built to support feature growth, expanding teams, third-party integrations, and traffic spikes without forcing expensive rebuilds later.",
       },
       {
         icon: Layout,
-        title: "Admin & Analytics",
-        desc: "Internal dashboards and controls so your team can operate and iterate quickly.",
+        title: "Admin, Analytics & Control",
+        desc: "Internal dashboards, event tracking, and operating controls give your team better visibility, faster decisions, and cleaner iteration after the first release.",
       },
       {
         icon: Smartphone,
         title: "Cross-Platform Experience",
-        desc: "Consistent UX across web and mobile with performance baked in.",
+        desc: "Consistent user experience across web and mobile, with release-ready performance and room for Leads & Sales Automation as the product matures.",
       },
     ],
   },

@@ -17,32 +17,32 @@ const LEAD_ITEMS = [
   {
     icon: MousePointer2,
     title: "Behavior Tracking",
-    desc: "See which pages, funnels, and assets each lead interacts with before and after they opt in.",
+    desc: "Activity updates lead priority in real time",
   },
   {
     icon: Mail,
     title: "Email Opens",
-    desc: "Track open, click, and reply behavior so your AI agent knows who is engaged.",
+    desc: "Open behaviour strengthens intent scoring",
   },
   {
     icon: PhoneCall,
     title: "Call Duration",
-    desc: "Use call length and outcomes as scoring inputs to surface sales‑ready conversations.",
+    desc: "Conversation depth improves qualification confidence",
   },
   {
     icon: DollarSign,
     title: "Budget Selection",
-    desc: "Capture budget ranges and readiness right inside the flow to qualify in or out instantly.",
+    desc: "Budget fit helps route serious buyers faster",
   },
   {
     icon: Globe2,
     title: "Website Visits",
-    desc: "Identify return visitors, high‑intent paths, and key product pages viewed before booking.",
+    desc: "Return visits show active buying intent",
   },
   {
     icon: FileText,
     title: "Form Answers",
-    desc: "Score free‑text and structured answers to route VIP opportunities to the right rep.",
+    desc: "Answers shape scoring, routing, and urgency",
   },
 ] as const;
 
@@ -59,12 +59,11 @@ export function AIAutomationLeadIdentification() {
               </span>
             </div>
             <h2 className="mt-4 text-3xl sm:text-4xl font-bold leading-tight text-foreground">
-              See Your <span className="text-primary">Best Leads</span> Before
-              They Talk To Sales
+              Know Which <span className="text-primary">Leads Matter</span>{" "}
+              Before Sales Even Steps In
             </h2>
             <p className="mt-3 max-w-xl text-sm sm:text-base text-muted-foreground">
-              Our scoring model tracks multiple signals. When the score exceeds
-              threshold → instant sales alert.
+              Our sales automation system tracks behaviour, engagement, and qualification signals across every touchpoint. When a lead crosses your threshold, the right rep gets an instant alert with full context, so follow-up happens at the right moment.
             </p>
 
             <div className="mt-8 relative max-w-md overflow-hidden">
@@ -103,7 +102,7 @@ export function AIAutomationLeadIdentification() {
                     </h3>
                     <div className=" flex items-center gap-1 text-md text-primary">
                       <CheckCircle2 className="h-3 w-3" />
-                      <span>Feeds your central lead score</span>
+                      <span>Activity updates lead priority in real time</span>
                     </div>
                   </div>
                 </motion.div>
