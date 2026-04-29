@@ -19,18 +19,18 @@ export function AppDevelopmentPage() {
   return (
     <div className="w-full">
       <RevopsHero
-        eyebrow="Mobile & Web Apps"
-        titleLines={["Build Scalable Apps That Drive", "Engagement & Revenue"]}
-        highlightLine="From MVP to Full-Scale Product"
-        description="Mobile and web applications built for growth, performance, and seamless user experience."
-        primaryCtaLabel="Get Free Consultation"
+        eyebrow="App Development · Mobile & Web"
+        titleLines={["Build With a Custom App Development", "Company That Launches Faster and Scales Smarter"]}
+        highlightLine="From MVP Validation to Full-Scale Product Growth"
+        description="Mobile and web products designed, built, and launched for growth, speed, and seamless UX—combining Custom App Development, Android App Development, iOS App Development, and Web Development in one delivery team."
+        primaryCtaLabel="Get Free App Strategy Call"
         onPrimaryClick={() => setShowCalendly(true)}
-        secondaryCtaLabel="Explore All Services"
+        secondaryCtaLabel="Explore App Development"
         secondaryCtaHref="/services"
         stats={[
-          { value: "8–16", label: "Weeks Timeline" },
-          { value: "MVP", label: "First" },
-          { value: "Scalable", label: "Architecture" },
+          { value: "8–16", label: "Weeks to Launch" },
+          { value: "MVP", label: "Validation First" },
+          { value: "Scalable", label: "Cloud Architecture" },
         ]}
         rightImageSrc="https://i.pinimg.com/736x/2c/19/8a/2c198ae7548077a7a372107470b00bd5.jpg"
         rightImageAlt="App development workspace"

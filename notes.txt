@@ -79,3 +79,7 @@ Next Tasks — NxTechNova Website
 [✅] Replaced all website content with Tawasim-provided content 
 [✅] Fixed all the bugs and UI/UX issues on the website
 
+29-April-2026
+[✅] updated some missing old content with new 
+[✅] created new sections in servcies/sub-services pages
+[✅] Fixed UI for small screens responsivenes

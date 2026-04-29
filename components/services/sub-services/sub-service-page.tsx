@@ -96,14 +96,13 @@ export function SubServicePage({ slug }: SubServicePageProps) {
                 <Button
                   size="lg"
                   variant="outline"
-                  asChild
+                  onClick={() => setShowCalendly(true)}
                   className="group cursor-pointer px-10 py-6 rounded-full text-base sm:text-lg bg-primary hover:bg-primary/90 text-primary-foreground"
-                // onClick={() => setShowCalendly(true)}
                 >
-                  <Link href="/get-quote" className="flex items-center justify-between">
-                    [[Book a Free SEO Call]]
+                  <span className="flex items-center justify-between">
+                    {data.ctaButton ?? "Book a Free Call"}
                     <ArrowRight className="relative left-2 h-10 w-10 size-10 bg-white text-primary rounded-full p-1 transition-transform group-hover:translate-x-0.5" />
-                  </Link>
+                  </span>
                 </Button>
                 <Button
                   size="lg"
@@ -260,6 +259,83 @@ export function SubServicePage({ slug }: SubServicePageProps) {
           </div>
         </div>
       </section>
+
+      {/* ── Definition Section (optional) ────────────────────────────── */}
+      {data.definitionSection && (
+        <section className="py-14 sm:py-16 bg-primary/5">
+          <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6 }}
+              className="rounded-2xl border border-primary/20 bg-white p-8 sm:p-10 shadow-sm"
+            >
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
+                {data.definitionSection.heading}
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                {data.definitionSection.body}
+              </p>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Strategic / Authority Section (optional) ──────────────────── */}
+      {data.strategicSection && (
+        <section className="py-20 sm:py-24 bg-background">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+                {data.strategicSection.heading}
+              </h2>
+              {data.strategicSection.body && (
+                <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
+                  {data.strategicSection.body}
+                </p>
+              )}
+            </motion.div>
+
+            {data.strategicSection.items && data.strategicSection.items.length > 0 && (
+              <div className={`grid grid-cols-1 gap-6 ${
+                data.strategicSection.items.length === 3
+                  ? "sm:grid-cols-3"
+                  : data.strategicSection.items.length === 4
+                  ? "sm:grid-cols-2 lg:grid-cols-4"
+                  : "sm:grid-cols-2"
+              }`}>
+                {data.strategicSection.items.map((item, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5, delay: idx * 0.08 }}
+                    className="group relative overflow-hidden rounded-2xl border border-slate-100 bg-white p-6 shadow-[0_8px_30px_rgba(15,23,42,0.08)] hover:shadow-[0_12px_40px_rgba(15,23,42,0.14)] transition-shadow duration-300"
+                  >
+                    <div className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-primary/60 via-sky-400/60 to-emerald-400/60" />
+                    {item.title && (
+                      <h3 className="text-base font-semibold text-foreground mb-2">
+                        {item.title}
+                      </h3>
+                    )}
+                    <p className={`text-sm text-muted-foreground leading-relaxed ${!item.title ? "font-medium text-foreground/80" : ""}`}>
+                      {item.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ── CTA Banner ────────────────────────────────────────────────── */}
       <section className="relative z-1 overflow-hidden py-20 bg-accent-foreground">

@@ -91,18 +91,11 @@ export function HowWeBuild({
           </p>
         </div>
 
-        <div className="relative space-y-6 border-l-2 border-primary/20 pl-6">
+        <div className="space-y-6">
           {steps.map((step) => {
             const Icon = CORE_ICON_MAP[step.iconKey];
             return (
-              <div key={step.step} className="relative">
-                <div
-                  className="absolute -left-[31px] top-0 flex h-8 w-8 items-center justify-center rounded-full border-2 bg-white text-xs font-bold"
-                  style={{ borderColor: step.color, color: step.color }}
-                >
-                  {step.step}
-                </div>
-
+              <div key={step.step}>
                 <div
                   className={`rounded-2xl border bg-white p-5 shadow-md ${step.accentBorder}`}
                 >

@@ -38,9 +38,10 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         {data.map((item, index) => (
           <div
             key={index}
-            className="flex justify-start pt-10 md:pt-40 md:gap-10"
+            className="flex justify-start pt-8 md:pt-40 md:gap-10"
           >
-            <div className="sticky flex flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
+            {/* Left dot + label — hidden on mobile, visible md+ */}
+            <div className="hidden md:flex sticky flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
               <div
                 className="h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-full bg-white shadow-sm flex items-center justify-center ml-2 sm:ml-3"
               >
@@ -59,20 +60,18 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               </h3>
             </div>
 
-            <div className="relative pl-14 pr-2 sm:pl-20 sm:pr-4 md:pl-4 w-full">
-              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-muted-foreground/40">
-                {item.title}
-              </h3>
+            <div className="relative w-full px-0 md:pl-4 md:pr-0">
               {item.content}
             </div>
           </div>
         ))}
+        {/* Vertical line — hidden on mobile */}
         <div
           style={{
             height: height + "px",
-            left: "22px",
+            left: "32px",
           }}
-          className="absolute top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-0% via-border to-transparent to-99% mask-[linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] sm:left-[30px]"
+          className="hidden md:block absolute top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-0% via-border to-transparent to-99% mask-[linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] sm:left-[30px]"
         >
           <motion.div
             style={{

@@ -28,6 +28,22 @@ export interface SubServiceStat {
   label: string;
 }
 
+export interface SubServiceDefinitionSection {
+  heading: string;
+  body: string;
+}
+
+export interface SubServiceStrategicItem {
+  title?: string;
+  description: string;
+}
+
+export interface SubServiceStrategicSection {
+  heading: string;
+  body?: string;
+  items?: SubServiceStrategicItem[];
+}
+
 export interface SubServiceData {
   slug: string;
   parentSlug: string;
@@ -45,6 +61,10 @@ export interface SubServiceData {
   stats: SubServiceStat[];
   featuresDescription?: string;
   outcomesDescription?: string;
+  /** Slim snippet/definition block rendered between features and outcomes */
+  definitionSection?: SubServiceDefinitionSection;
+  /** Authority/strategic section rendered between outcomes and CTA */
+  strategicSection?: SubServiceStrategicSection;
   ctaDescription?: string;
   ctaHeading: string;
   ctaButton: string;
@@ -408,6 +428,28 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     
     featuresDescription: "A complete, done-for-you build covering every component needed to get your website ranking higher and driving organic leads.",
     outcomesDescription: "You do not just get higher rankings. You get a stronger foundation with better search visibility, more organic traffic, and a measurable increase in quality leads.",
+    strategicSection: {
+      heading: "Connected Growth Stack",
+      body: "SEO compounds faster when it works alongside Content Marketing, PPC Advertising, Email Marketing, and Social Media Marketing under one performance strategy.",
+      items: [
+        {
+          title: "Technical Foundation",
+          description: "For brands rebuilding weak sites, Web Development and Custom Website Development remove the technical friction that limits SEO gains.",
+        },
+        {
+          title: "CMS and Commerce SEO",
+          description: "If your growth depends on CMS or store performance, WordPress Development and Ecommerce Development help SEO land on faster, cleaner pages.",
+        },
+        {
+          title: "AI and Process Support",
+          description: "Teams scaling content and lead handling can pair SEO with AI automation and Workflow & Process Automation for faster execution.",
+        },
+        {
+          title: "Lead Capture and Nurture",
+          description: "Traffic performs better when follow-up systems are in place, including AI Chatbot Development, CRM Management, and Leads & Sales Automation.",
+        },
+      ],
+    },
     ctaDescription: "An SEO audit shows the technical, content, and authority gaps that stop growth. In one focused strategy call, we review your setup, prioritize the fastest wins, and show how specialized seo experts near me can improve traffic, leads, and conversion quality.",
     ctaHeading: "Ready to Turn Rankings Into Revenue?",
     ctaButton: "Get Free SEO Audit",
@@ -418,10 +460,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "digital-marketing",
     parentLabel: "Digital Marketing",
     eyebrow: "Digital Marketing · Social Media",
-    title: "Build a Brand Audience With",
+    title: "Turn Social Attention Into",
     highlightLine: "Social Media Marketing",
     description:
-      "Strategic social media management and content creation that grows your audience, builds trust, and drives consistent engagement across every platform.",
+      "Social media marketing services built around strategy, creative, and consistent publishing to grow audience trust, increase engagement, and turn every platform into a stronger source of qualified leads.",
     metaTitle: "Social Media Growth Agency | Build a Viral Brand Presence",
     metaDescription: "Engaging content and strategic ads for any platform. We grow your community and your sales. Buy 2 Months of Management, Get the 3rd Month 50% OFF!",
     heroImageSrc:
@@ -432,56 +474,70 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: Share2,
         title: "Platform Strategy",
         description:
-          "Custom strategy for Instagram, LinkedIn, TikTok, X, and Facebook based on your audience and goals.",
+          "Custom platform plans for Instagram, LinkedIn, TikTok, X, and Facebook based on audience intent, offer positioning, campaign goals, and the role of SEO, PPC, and Content Marketing.",
       },
       {
         icon: FileText,
         title: "Content Creation",
         description:
-          "Scroll-stopping graphics, captions, reels, and carousels planned, designed, and scheduled for you.",
+          "Scroll-stopping graphics, captions, reels, carousels, and post concepts planned, produced, and scheduled for you with messaging aligned to Content Marketing and broader Digital Marketing execution.",
       },
       {
         icon: TrendingUp,
         title: "Community Management",
         description:
-          "Daily engagement — responding to comments, DMs, and mentions to build a loyal, active community.",
+          "Daily engagement across comments, direct messages, and brand mentions to build a responsive community, protect brand perception, and support faster customer journeys with AI Chatbot Development where automation makes sense.",
       },
       {
         icon: Search,
         title: "Hashtag & Trend Research",
         description:
-          "Data-backed hashtag selection and trend-jacking to maximize organic reach on each post.",
+          "Data-backed hashtag selection, trend tracking, topic timing, and platform-specific distribution choices designed to improve organic reach, discoverability, and post relevance without relying on random posting or short-term spikes.",
       },
       {
         icon: Bot,
         title: "Influencer Collaboration",
         description:
-          "Identify and coordinate with micro and macro influencers that align with your brand and budget.",
+          "Identify, vet, and coordinate with micro and macro influencers that match your audience, credibility goals, commercial positioning, and budget so partnerships feel aligned, useful, and more likely to drive action.",
       },
       {
         icon: Layers,
         title: "Performance Analytics",
         description:
-          "Monthly reports on reach, engagement, follower growth, and content performance with actionable insights.",
+          "Monthly reporting on reach, engagement, follower quality, clicks, enquiries, and content performance with practical next steps so decisions stay tied to business outcomes, not vanity metrics alone.",
       },
     ],
     outcomes: [
-      "Consistent posting schedule across all platforms",
-      "Growing follower count and engagement rate",
-      "Stronger brand recognition and trust",
-      "More inbound leads from social channels",
-      "Content that educates, entertains, and converts",
+      "Consistent publishing across your highest-value social channels",
+      "Better follower quality and stronger engagement signals",
+      "Higher brand recall, authority, and audience trust",
+      "More inbound enquiries and warmer social leads",
+      "Content that informs, engages, and moves prospects to action",
     ],
     stats: [
-      { value: "10×", label: "Engagement Boost" },
+      { value: "3–5×", label: "Engagement Lift" },
       { value: "30+", label: "Posts/Month" },
-      { value: "All", label: "Major Platforms" },
+      { value: "All", label: "Core Platforms" },
     ],
     
-    featuresDescription: "A complete done-for-you service covering every component needed to build a strong, engaging social media presence.",
-    outcomesDescription: "You do not just get posts scheduled. You get a growing community, higher engagement, and a stronger brand presence that builds trust and drives inbound interest.",
-    ctaDescription: "Book a free 30-minute strategy call. We’ll review your current social presence, identify engagement gaps, and show how a better Social Media Marketing strategy can build a stronger audience and drive more inbound interest.",
-    ctaHeading: "Ready to Build a Social Presence That Converts?",
+    featuresDescription: "Social media marketing combines channel planning, content creation, publishing, engagement, and reporting into one system to keep your brand visible, relevant, and conversion-ready across the platforms your audience uses most.",
+    outcomesDescription: "Clear business outcomes, not just activity. This service is built to improve visibility, strengthen audience quality, increase response rates, and create a more reliable flow of leads from social channels.",
+    strategicSection: {
+      heading: "Why This Service Performs",
+      items: [
+        {
+          description: "Clear channel strategy that gives each platform a defined role in awareness, trust, and lead generation.",
+        },
+        {
+          description: "Creative built for how people actually consume content, not generic posting calendars.",
+        },
+        {
+          description: "Reporting that shows what content drives engagement quality, clicks, enquiries, and growth.",
+        },
+      ],
+    },
+    ctaDescription: "Book a free 30-minute strategy call. We'll review your current channels, content gaps, response flow, and growth opportunities, then show you how Social Media Marketing, SEO, PPC Advertising, Email Marketing, and Content Marketing can work together more effectively.",
+    ctaHeading: "Ready to Build a Social Presence That Sells?",
     ctaButton: "Get Social Media Strategy",
   },
 
@@ -553,6 +609,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     featuresDescription: "A complete, done-for-you service covering every component needed to run profitable, high-converting ad campaigns.",
     outcomesDescription: "You do not just get ads running. You get a measurable acquisition channel with lower cost-per-lead, better targeting, and more control over your revenue growth.",
     ctaDescription: "Book a free 30-minute strategy call. We’ll review your current ad performance, identify wasted spend, and show how a tighter PPC Advertising strategy can lower your CPL and increase revenue.",
+    strategicSection: {
+      heading: "Why This PPC System Performs Better",
+      body: "Most PPC pages talk about clicks. This one is built around search intent, negative keyword control, landing-page alignment, first-party tracking, and disciplined scaling. It also works alongside SEO, Social Media Marketing, Email Marketing, and Content Marketing for stronger full-funnel performance.",
+    },
     ctaHeading: "Ready to Turn Ad Spend Into Predictable Revenue?",
     ctaButton: "Get Free PPC Audit",
   },
@@ -562,7 +622,7 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "digital-marketing",
     parentLabel: "Digital Marketing",
     eyebrow: "Digital Marketing · Email",
-    title: "Nurture Leads Into Customers With",
+    title: "Turn Subscribers Into Revenue With",
     highlightLine: "Email Marketing",
     description:
       "Work with email marketing experts who build lifecycle email marketing, automated email marketing, and data driven email marketing systems that keep your brand visible, nurture intent, and turn subscribers into paying customers with measurable growth. Email Marketing https://www.nxtechnova.com/services/digital-marketing/email-marketing",
@@ -574,58 +634,62 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     features: [
       {
         icon: Mail,
-        title: "Welcome & Onboarding Sequences",
+        title: "Welcome & Lifecycle Email Marketing",
         description:
-          "Automated email sequences that educate, build trust, and move new subscribers toward their first purchase.",
+          "We build welcome journeys and lifecycle email marketing sequences that educate new leads, build trust fast, and move subscribers toward action without manual follow-up.",
       },
       {
         icon: Bot,
-        title: "Behavioral Trigger Emails",
+        title: "Behavioral Trigger Automation",
         description:
-          "Emails that fire based on user behavior — page visits, downloads, cart abandonment, or inactivity.",
+          "We create automated email marketing triggers around page views, form actions, downloads, inactivity, and buying signals using workflow automation and sales automation support.",
       },
       {
         icon: FileText,
-        title: "Newsletter & Campaign Management",
+        title: "Newsletter and Email Marketing Management",
         description:
-          "Monthly or weekly branded newsletters and promotional campaigns that drive clicks and revenue.",
+          "From weekly newsletters to launch campaigns, we handle email calendars, campaign sends, creative direction, and copywriting that drives clicks and revenue.",
       },
       {
         icon: TrendingUp,
-        title: "List Segmentation & Personalization",
+        title: "Segmentation, Personalization & CRM Logic",
         description:
-          "Segment your list by behavior, industry, stage, or source — and send hyper-relevant messages to each group.",
+          "We map your email marketing customer journey by source, stage, interest, and behavior so each subscriber gets relevant messaging backed by automated CRM.",
       },
       {
         icon: Database,
-        title: "List Health & Deliverability",
+        title: "List Health, Hygiene & Deliverability",
         description:
-          "Regular list cleaning, domain warm-up, and deliverability monitoring to keep your emails out of spam.",
+          "We protect list quality through cleaning, suppression logic, warm-up management, and ongoing monitoring so your email marketing performs in the inbox instead of disappearing into spam.",
       },
       {
         icon: Layers,
-        title: "A/B Testing & Optimization",
+        title: "Testing, Reporting & Optimization",
         description:
-          "Subject line, send time, CTA, and content testing to continuously improve open and click rates.",
+          "We test subject lines, timing, offers, CTAs, and structure, then turn results into clear email marketing reporting and analytics so every send gets smarter.",
       },
     ],
     outcomes: [
-      "Higher open rates and click-through rates",
-      "Automated sequence that nurtures on autopilot",
-      "More revenue from your existing email list",
-      "Better list health and inbox placement",
-      "Consistent communication without extra effort",
+      "Higher open rates, stronger click-through rates, and sharper message-to-offer alignment",
+      "Automated sequences that nurture leads around the clock with less manual chasing",
+      "More revenue from your current list through better timing, targeting, and offer positioning",
+      "Better list health, stronger inbox placement, and more reliable deliverability over time",
+      "Consistent customer communication without extra strain on your sales or marketing team",
     ],
     stats: [
-      { value: "42×", label: "ROI Potential" },
-      { value: "35%+", label: "Open Rates" },
-      { value: "1 Wk", label: "Launch Time" },
+      { value: "42×", label: "Revenue Potential" },
+      { value: "35%+", label: "Open Rate Growth" },
+      { value: "1 Wk", label: "Launch Window" },
     ],
     
-    featuresDescription: "A complete, done-for-you service covering every component needed to build high-converting email sequences and campaigns.",
-    outcomesDescription: "You do not just get emails sent. You get an automated revenue channel with higher open rates, better engagement, and consistent conversions from your list.",
-    ctaDescription: "Book a free 30-minute strategy call. We’ll review your current email performance, identify nurture gaps, and show how a stronger Email Marketing strategy can turn more subscribers into paying customers.",
-    ctaHeading: "Ready to Make Your Email List a Revenue Machine?",
+    featuresDescription: "A complete, done-for-you service built by an email marketing consultant to improve performance, automate follow-up, and support stronger email marketing conversion across your funnel.",
+    outcomesDescription: "Real, measurable improvements shaped around retention email marketing, lead generation email marketing, and stronger campaign performance — not just more sends sitting in your platform.",
+    definitionSection: {
+      heading: "What Is Email Marketing?",
+      body: "Email marketing is a permission-based channel that uses segmentation, automation, testing, and message sequencing to move leads through the customer journey. A strong setup improves conversions, supports retention, and turns subscriber attention into measurable business growth.",
+    },
+    ctaDescription: "Book a free 30-minute strategy call and get an email marketing audit from our team. We'll review your setup, identify missed revenue opportunities, and show where Email Marketing, Content Marketing, and CRM can lift results.",
+    ctaHeading: "Ready to Turn Your Email List Into Consistent Revenue?",
     ctaButton: "Get Email Marketing Plan",
   },
 
@@ -633,11 +697,11 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     slug: "content-marketing",
     parentSlug: "digital-marketing",
     parentLabel: "Digital Marketing",
-    eyebrow: "Digital Marketing · Content",
-    title: "Attract & Convert With",
+    eyebrow: "Digital Marketing · Content Marketing",
+    title: "Build Authority & Convert With",
     highlightLine: "Content Marketing",
     description:
-      "Strategic content that builds authority, drives organic traffic, and educates your audience — ultimately turning readers into leads and clients.",
+      "Content Marketing built around search intent, buyer education, and conversion strategy that grows organic traffic, strengthens authority, and turns readers into qualified leads. Supported by SEO, extended through Email Marketing, and amplified with Social Media Marketing.",
     metaTitle: "Premium Content Marketing | Articles & Blogs That Rank",
     metaDescription: "Expert storytelling combined with SEO precision. We write content that builds trust. Order 5 Blogs, Get the 6th One Absolutely FREE!",
     heroImageSrc:
@@ -648,56 +712,74 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: FileText,
         title: "Content Strategy & Planning",
         description:
-          "Keyword-driven content calendars built around your audience's pain points and decision journey.",
+          "Research-led content plans built around buyer intent, search demand, and the topics your audience needs before they are ready to convert.",
       },
       {
         icon: Search,
         title: "SEO Blog Writing",
         description:
-          "Long-form, well-researched articles optimized for search intent and designed to rank and convert.",
+          "Long-form articles written to support SEO, match commercial search intent, and move readers from problem-aware traffic to qualified opportunities.",
       },
       {
         icon: Globe,
         title: "Pillar Pages & Topic Clusters",
         description:
-          "Authority content hubs that dominate entire topic areas and signal expertise to search engines.",
+          "Authority-building content hubs structured to strengthen relevance, improve internal linking, and give search engines a clear map of your expertise.",
       },
       {
         icon: TrendingUp,
         title: "Lead Magnet Creation",
         description:
-          "E-books, guides, checklists, and templates that capture emails and nurture prospects.",
+          "Downloadable assets designed to capture demand and feed Email Marketing sequences that nurture prospects into sales-ready leads.",
       },
       {
         icon: Share2,
         title: "Content Distribution",
         description:
-          "Repurpose and distribute content across social, email, and partner channels for maximum reach.",
+          "Strategic repurposing across Social Media Marketing, email, and campaign support for PPC Advertising so every asset delivers more than one result.",
       },
       {
         icon: Layers,
         title: "Performance Tracking",
         description:
-          "Monthly reports on traffic, time-on-page, leads generated, and content ROI.",
+          "Clear reporting on traffic, rankings, engagement, leads, and content-attributed ROI, with support from AI Automation and Workflow & Process Automation where speed and accuracy matter.",
       },
     ],
     outcomes: [
-      "Sustainable organic traffic growth",
-      "Position as a thought leader in your industry",
-      "More inbound leads from content",
-      "Lower acquisition costs compared with short-term paid traffic",
-      "Content that works for you 24/7",
+      "Compounding organic traffic growth with stronger intent alignment",
+      "Stronger authority and market trust in your category",
+      "More inbound leads from content built around buyer decisions",
+      "Lower acquisition costs as content reduces paid dependency",
+      "Content assets that attract, educate, and convert around the clock",
     ],
     stats: [
-      { value: "3×", label: "More Leads" },
-      { value: "6 Mo", label: "To Scale" },
-      { value: "4–8", label: "Posts/Month" },
+      { value: "3×", label: "More Qualified Leads" },
+      { value: "6 Mo", label: "To Compound" },
+      { value: "4–8", label: "Assets/Month" },
     ],
     
-    featuresDescription: "A complete done-for-you service covering every component needed to build a strong content engine that drives traffic and trust.",
-    outcomesDescription: "You do not just get articles written. You get a growing content library with better search visibility, stronger brand authority, and more inbound leads over time.",
+    featuresDescription: "A complete, done-for-you Content Marketing system built to plan, create, distribute, and measure content that supports SEO, improves lead quality, and gives your business a repeatable growth engine.",
+    outcomesDescription: "Real results, not just published assets. You get a content system that builds visibility, improves trust, supports conversion, and keeps producing value long after each piece goes live.",
+    strategicSection: {
+      heading: "Why This Service Compounds",
+      body: "Content marketing is a compounding growth system that combines search visibility, editorial authority, and conversion assets to bring in qualified traffic over time. Instead of renting attention, you build owned content that ranks, nurtures, and supports sales across every stage of the funnel.",
+      items: [
+        {
+          title: "Search-Led Planning",
+          description: "Every topic is chosen to match demand, intent, and business value rather than vanity traffic.",
+        },
+        {
+          title: "Conversion-Focused Structure",
+          description: "Every asset is written to educate first, then move readers toward a clear next step.",
+        },
+        {
+          title: "Cross-Channel Leverage",
+          description: "Strong content performs longer when it is connected to SEO, Email Marketing, Social Media Marketing, and AI Chatbot Development.",
+        },
+      ],
+    },
     ctaDescription: "Book a free 30-minute strategy call. We’ll review your current content, search visibility, conversion paths, and distribution gaps, then show how Content Marketing, SEO, Email Marketing, and AI Automation can turn your traffic into measurable growth.",
-    ctaHeading: "Ready to Build Content That Ranks and Converts?",
+    ctaHeading: "Ready to Launch Content That Builds Traffic and Revenue?",
     ctaButton: "Get Content Strategy",
   },
 
@@ -707,10 +789,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "web-development",
     parentLabel: "Web Development",
     eyebrow: "Web Development · WordPress",
-    title: "Professional Sites Built on",
-    highlightLine: "WordPress Development",
+    title: "Custom WordPress Website",
+    highlightLine: "Design and Development",
     description:
-      "Fast, secure, and fully custom WordPress websites designed to convert visitors — with CMSs your team can actually use without developer help.",
+      "WordPress website design and development is the process of planning, designing, coding, and optimizing a site for speed, visibility, and conversions. Our service delivers secure, editable builds with custom functionality, clean structure, and admin workflows your team can manage confidently.",
     metaTitle: "Expert WordPress Development | Fast & SEO-Friendly Sites",
     metaDescription: "Custom themes, plugin development, and speed optimization. Get a Free Speed Audit & Security Check with every WordPress project!",
     heroImageSrc:
@@ -721,56 +803,78 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: Globe,
         title: "Custom Theme Development",
         description:
-          "Pixel-perfect custom themes built from scratch — no bloated page builders, no template limitations.",
+          "Pixel-perfect custom WordPress website development built around your brand, UX, and conversion goals—without bloated builders, rigid templates, or code that limits performance.",
       },
       {
         icon: Code2,
         title: "Plugin Development & Integration",
         description:
-          "Custom plugins for any functionality plus integration with your CRM, payment gateway, and tools.",
+          "Custom plugins, API connections, and integration support for CRMs, payment gateways, booking systems, and CRM Management workflows.",
       },
       {
         icon: TrendingUp,
         title: "SEO-Optimized Architecture",
         description:
-          "Clean semantic markup, schema, fast load times, and proper heading structure baked in from the start.",
+          "Clean semantic markup, schema, internal structure, and fast-loading templates aligned with SEO from the first line of code.",
       },
       {
         icon: Smartphone,
         title: "Responsive & Mobile-First",
         description:
-          "Every site looks and performs perfectly on phones, tablets, and desktops.",
+          "Every page is designed mobile-first so your site looks polished, loads quickly, and converts clearly across phones, tablets, and desktops.",
       },
       {
         icon: Database,
         title: "CMS & Training",
         description:
-          "You get full control to edit pages, add posts, and manage content without touching any code.",
+          "You get a clean editor experience, reusable content blocks, and practical training so your team can update pages, publish posts, and manage content without touching code.",
       },
       {
         icon: Layers,
         title: "Security & Maintenance",
         description:
-          "SSL, firewall, backups, updates, and uptime monitoring — so your site stays fast and safe.",
+          "SSL, hardening, backups, updates, and monitoring keep your site protected and stable, with expansion paths into Workflow & Process Automation when your operations grow.",
       },
     ],
     outcomes: [
-      "A website your team can manage independently",
-      "Fast load times and top Core Web Vitals scores",
-      "SEO-ready from day one",
-      "Secure, backed-up, and maintained",
-      "Scalable to grow with your business",
+      "A site your team can edit, expand, and publish on without bottlenecks",
+      "Fast load times built to support strong Core Web Vitals performance",
+      "Launch-ready structure aligned with SEO and long-term content growth",
+      "A secure, backed-up environment with dependable maintenance coverage",
+      "A flexible platform that can scale into Ecommerce, Leads & Sales Automation, or Custom Software Development",
     ],
     stats: [
       { value: "3–5", label: "Weeks to Launch" },
-      { value: "100", label: "PageSpeed Score" },
+      { value: "100", label: "PageSpeed Focus" },
       { value: "SSL", label: "Secured" },
     ],
     
-    featuresDescription: "A complete done-for-you build designed to deliver a fast, secure, and fully custom WordPress website your team can actually manage.",
-    outcomesDescription: "You do not just get a theme installed. You get a high-performance website with fast load times, clean code, and a foundation built to rank and convert.",
+    featuresDescription: "A complete wordpress website design and development service covering strategy, build, launch, integrations, and post-launch stability—so you get a site that performs, ranks well, and supports growth without unnecessary complexity.",
+    outcomesDescription: "Real business impact, not just pages and plugins. This service is built to improve usability, speed, search readiness, and the day-to-day efficiency of managing your website.",
     ctaDescription: "Book a free 30-minute strategy call and we’ll review your current setup, identify performance and conversion gaps, and show you how our WordPress Development service can improve speed, usability, SEO structure, and growth readiness.",
-    ctaHeading: "Ready for a WordPress Site That Actually Performs?",
+    strategicSection: {
+      heading: "Why This WordPress Build Outperforms Standard Setups",
+      body: "Most WordPress sites underperform because design, speed, SEO, and integrations are treated as separate tasks. We build them as one system—so your site is easier to manage, less likely to break, and better prepared for traffic, leads, and future expansion.",
+      items: [
+        {
+          title: "Cleaner Codebase",
+          description: "Built for maintainability, not short-term patches or builder clutter.",
+        },
+        {
+          title: "Better Editing Experience",
+          description: "Structured content blocks help your team update pages without layout issues.",
+        },
+        {
+          title: "Smarter Growth Paths",
+          description: "Add AI Chatbot Development or connected workflows when your site needs more than static pages.",
+        },
+        {
+          title: "Built for Business Use",
+          description: "Ideal for service brands, campaigns, lead generation, and WordPress ecommerce development.",
+        },
+      ],
+    },
+    ctaHeading: "Ready for WordPress Website Design and Development That Delivers?",
     ctaButton: "Get Free Consultation",
   },
 
@@ -842,12 +946,30 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     featuresDescription: "A complete done-for-you build designed to launch a fast, high-converting online store with seamless inventory and payment integration.",
     outcomesDescription: "The strongest stores balance design, speed, operations, and growth. That means cleaner merchandising, dependable checkout, easier catalog management, and a build that can expand into shopify marketing agency, ai marketing agency, and small business automation initiatives when needed.",
     ctaDescription: "Book a free 30-minute strategy call. We will review your current setup, identify conversion blockers, and show where stronger ecommerce website development services, ecommerce seo services, or workflow automation services can create the fastest lift.",
+    definitionSection: {
+      heading: "What This Service Covers",
+      body: "E-commerce website development is the process of building a store that lets customers browse products, search inventory, pay securely, and manage orders across devices. A strong build combines UX, platform setup, integrations, and conversion systems so traffic turns into measurable revenue.",
+    },
+    strategicSection: {
+      heading: "Why Brands Choose This Build",
+      body: "The strongest stores balance design, speed, operations, and growth. That means cleaner merchandising, dependable checkout, easier catalog management, and a build that can expand into Shopify marketing, AI automation, and small business automation initiatives when needed.",
+      items: [
+        {
+          title: "Platform Fit",
+          description: "WooCommerce works well for content-led brands needing flexible WordPress ecommerce. Shopify suits fast-moving retail teams wanting simpler store management. Custom builds are best for brands needing advanced logic or deeper system integrations.",
+        },
+        {
+          title: "Built for Growth Beyond Launch",
+          description: "Your store connects directly with the channels that drive revenue — PPC, email, content marketing, CRM, and sales process automation so the store keeps improving after go-live.",
+        },
+      ],
+    },
     ctaHeading: "Ready to Launch a Store That Sells Every Day?",
     ctaButton: "Get E-commerce Consultation",
   },
 
-  "custom website development": {
-    slug: "custom website development",
+  "custom-website-development": {
+    slug: "custom-website-development",
     parentSlug: "web-development",
     parentLabel: "Web Development",
     eyebrow: "Web Development · Custom Software",
@@ -910,6 +1032,32 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "100%", label: "Custom Code" },
       { value: "99.9%", label: "Uptime SLA" },
     ],
+    definitionSection: {
+      heading: "What Custom Website Development Means",
+      body: "Custom website development is the process of designing and engineering a website around your exact business model, integrations, and performance goals instead of forcing your workflow into a template. It gives you cleaner code, better scalability, stronger UX, and complete control over future features.",
+    },
+    strategicSection: {
+      heading: "Why Businesses Choose Custom",
+      body: "The right custom build removes the friction that slows teams down. When you need advanced workflows, user roles, third-party integrations, or tailored customer journeys, a bespoke platform gives you the flexibility templates cannot.",
+      items: [
+        {
+          title: "Complex Business Logic",
+          description: "Custom rules, gated experiences, booking flows, calculators, dashboards, and role-based functionality designed around how your business actually operates.",
+        },
+        {
+          title: "System Connectivity",
+          description: "Reliable connections across payments, internal tools, support systems, and workflow automation so your website works like part of the business, not a disconnected front end.",
+        },
+        {
+          title: "AI and Support Expansion",
+          description: "Launch with a strong foundation for future AI Chatbot Development, smarter support flows, lead capture, and sales automation without rebuilding from scratch.",
+        },
+        {
+          title: "Future App Readiness",
+          description: "Build the web layer now and expand later with a trusted custom app development company when your roadmap includes customer apps, internal tools, or mobile product extensions.",
+        },
+      ],
+    },
     ctaHeading: "Ready to Build a Platform That Fits the Way You Work?",
     ctaButton: "Start Custom Project",
   },
@@ -920,10 +1068,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "app-development",
     parentLabel: "App Development",
     eyebrow: "App Development · Android",
-    title: "Reach 3 Billion Users With",
+    title: "Launch Faster With",
     highlightLine: "Android App Development",
     description:
-      "Native and cross-platform Android applications built for performance, scalability, and a seamless Google Play Store launch.",
+      "Custom android app development services built for speed, scale, and a smoother Google Play launch. Android app development is the process of designing, building, testing, and releasing apps that perform reliably across devices, OS versions, and real user demand.",
     metaTitle: "Expert Android App Development | High-Performance Mobile Tech",
     metaDescription: "Build a stable, scalable Android app for any industry. Native & Hybrid solutions optimized for the Play Store. Get a Free App UI/UX Audit + 1 Month Post-Launch Support!",
     heroImageSrc:
@@ -932,47 +1080,47 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     features: [
       {
         icon: Smartphone,
-        title: "Native & React Native Development",
+        title: "Native & Cross-Platform Development",
         description:
-          "Native Kotlin/Java or cross-platform React Native — whichever fits your timeline and budget best.",
+          "Native Kotlin or Java builds, plus React Native app development services when speed, budget, and cross-platform app development matter to your roadmap.",
       },
       {
         icon: Code2,
         title: "Custom UI/UX Design",
         description:
-          "Material Design-compliant, pixel-perfect interfaces that feel native and delight users.",
+          "Material Design-led interfaces built for clarity, retention, and smooth interactions across Android phones, tablets, and modern device sizes.",
       },
       {
         icon: Database,
-        title: "Backend & API Integration",
+        title: "Backend, API & Automation Integration",
         description:
-          "Full backend setup with Node.js, Firebase, or your existing API — with real-time data sync.",
+          "Backend delivery with Node.js, Firebase, or existing APIs, plus Workflow & Process Automation, AI Chatbot Development, and CRM Management when the product needs smarter operations.",
       },
       {
         icon: TrendingUp,
         title: "Google Play Store Launch",
         description:
-          "Complete ASO, store listing optimization, and launch support for maximum visibility and downloads.",
+          "Store listing strategy, release handling, policy checks, and launch support designed to improve approvals, visibility, downloads, and day-one momentum.",
       },
       {
         icon: Bot,
-        title: "Push Notifications & Analytics",
+        title: "Push Notifications & Product Analytics",
         description:
-          "Automated push notifications, in-app events, and analytics to track user behavior and retention.",
+          "Behavior-based messaging, event tracking, and analytics setup that help your team measure engagement, improve retention, and guide smarter feature decisions.",
       },
       {
         icon: Layers,
         title: "Ongoing Maintenance & Updates",
         description:
-          "Post-launch bug fixes, OS compatibility updates, and feature iterations as your user base grows.",
+          "Post-launch fixes, Android version updates, performance tuning, and feature releases that keep your app stable as users, traffic, and expectations grow.",
       },
     ],
     outcomes: [
-      "Smooth, crash-free app on all Android devices",
-      "Published on Google Play with optimized listing",
-      "Fast load times and offline capability",
-      "High user retention and engagement",
-      "Scalable to millions of users",
+      "Smooth, reliable app performance across Android devices",
+      "Published on Google Play with launch-ready assets",
+      "Fast load times with offline-ready core flows",
+      "Higher retention through better UX and tracking",
+      "Scalable architecture built for long-term growth",
     ],
     stats: [
       { value: "8–14", label: "Weeks to Launch" },
@@ -980,10 +1128,28 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "99%", label: "Crash-Free" },
     ],
     
-    featuresDescription: "A complete done-for-you build covering every component needed to launch a high-performance, crash-free Android app to the Play Store.",
-    outcomesDescription: "Scalable architecture built for long-term growth.",
-    ctaDescription: "Book a free 30-minute strategy call. We'll audit your current setup and show you exactly where we can help.",
-    ctaHeading: "Ready to Ship Your Android App?",
+    featuresDescription: "A complete, done-for-you Android delivery service covering product planning, design, development, QA, launch, and post-release support.",
+    outcomesDescription: "Real results, not just shipped features. You get a stronger product foundation, cleaner releases, better user experience, and a clearer path to growth.",
+    ctaDescription: "Book a free 30-minute strategy call. We'll review your product scope, architecture, launch blockers, and the fastest path forward.",
+    strategicSection: {
+      heading: "Why This Android Build Performs Better",
+      body: "Android app development is not only about shipping code. The strongest delivery teams reduce launch risk, improve retention, support scale, and create cleaner release processes.",
+      items: [
+        {
+          description: "Release-ready architecture from the first build",
+        },
+        {
+          description: "Device testing across screen sizes and Android versions",
+        },
+        {
+          description: "Retention tracking built into the product, not added later",
+        },
+        {
+          description: "Scalable foundations for future iOS App Development, Custom App Development, or Web Development",
+        },
+      ],
+    },
+    ctaHeading: "Ready to Launch Your Android App?",
     ctaButton: "Get App Development Estimate",
   },
 
@@ -992,10 +1158,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "app-development",
     parentLabel: "App Development",
     eyebrow: "App Development · iOS",
-    title: "Launch on Apple With",
+    title: "Build for Apple With",
     highlightLine: "iOS App Development",
     description:
-      "Premium iOS applications for iPhone and iPad — built with Swift or React Native, designed for App Store approval, and engineered for Apple's high standards.",
+      "Choose an iOS app development company that builds premium iPhone and iPad products in Swift or React Native, engineered for App Store approval, scalable growth, secure integrations, and the performance standards Apple users expect.",
     metaTitle: "Premium iOS App Development | Swift & UIKit Experts",
     metaDescription: "High-end iPhone & iPad apps with seamless performance and top-tier security. We bring your vision to the App Store. 15% Off on iOS Development for First-Time Clients!",
     heroImageSrc:
@@ -1006,45 +1172,45 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: Apple,
         title: "Swift & React Native Development",
         description:
-          "Native Swift for maximum performance or React Native for cross-platform efficiency — you choose.",
+          "Native Swift for Apple-first speed, or a flexible build path when your roadmap later expands into Android App Development.",
       },
       {
         icon: Code2,
         title: "Human Interface Guidelines Design",
         description:
-          "Interfaces built to Apple's HIG standards — intuitive, beautiful, and ready for App Store review.",
+          "Interfaces built around Apple's HIG standards for clarity, motion, accessibility, and a premium feel that supports clean review approval and stronger user trust from the first session.",
       },
       {
         icon: Database,
         title: "iCloud & API Integration",
         description:
-          "iCloud sync, Sign in with Apple, Keychain, and any third-party API your app needs.",
+          "iCloud sync, Sign in with Apple, Keychain, payments, maps, and third-party APIs integrated cleanly, with Web Development support when your product also needs an admin dashboard or customer portal.",
       },
       {
         icon: TrendingUp,
         title: "App Store Launch & ASO",
         description:
-          "Optimized App Store listing, screenshots, preview video, and keyword strategy for max discoverability.",
+          "Store-ready listing copy, screenshots, preview assets, and launch support aligned with SEO principles to improve discoverability, conversion, and visibility inside the App Store.",
       },
       {
         icon: Bot,
         title: "Push Notifications & In-App Purchases",
         description:
-          "APNs push notifications, StoreKit in-app purchases, and subscription billing configured correctly.",
+          "APNs notifications, StoreKit purchases, and subscription billing configured correctly, giving your app a stronger retention and revenue base from day one without costly rebuilds later.",
       },
       {
         icon: Layers,
         title: "TestFlight QA & Ongoing Updates",
         description:
-          "Rigorous TestFlight testing before launch, plus post-launch updates for every new iOS version.",
+          "Structured TestFlight testing, release hardening, and post-launch updates that keep your build stable, compatible, and ready for future expansion.",
       },
     ],
     outcomes: [
-      "App Store approved first time",
-      "Premium feel that matches Apple's quality bar",
-      "Fast, fluid performance on all iOS devices",
-      "High ratings and positive reviews",
-      "Monetization-ready from day one",
+      "Higher odds of App Store approval on the first submission",
+      "A polished experience that matches Apple's premium quality bar",
+      "Fast, fluid performance across modern iPhone and iPad devices",
+      "Stronger ratings, better retention, and more positive reviews",
+      "Subscriptions, purchases, and analytics ready from day one",
     ],
     stats: [
       { value: "8–14", label: "Weeks to Launch" },
@@ -1052,10 +1218,28 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
       { value: "4.8★", label: "Avg App Rating" },
     ],
     
-    featuresDescription: "A complete done-for-you build covering every component needed to launch a high-performance, crash-free iOS app to the App Store.",
-    outcomesDescription: "A roadmap built for stability, retention, and App Store growth.",
-    ctaDescription: "Book a free 30-minute strategy call. We'll audit your current setup and show you exactly where we can help.",
-    ctaHeading: "Ready to Launch Your iOS App?",
+    featuresDescription: "iOS app development services cover strategy, UX, engineering, QA, App Store submission, and lifecycle updates for iPhone and iPad apps.",
+    outcomesDescription: "What you get from a professional iOS app development company is a launch-ready product backed by performance engineering, App Store compliance, monetization setup, and post-launch support.",
+    ctaDescription: "Book a free 30-minute strategy call. We'll review your product, roadmap, and launch blockers, then show you where iOS app development services and App Development can move the project forward fastest.",
+    strategicSection: {
+      heading: "Why Teams Choose This Service",
+      body: "Apple-focused delivery with review readiness, performance discipline, and post-launch continuity built into the build process from the start.",
+      items: [
+        {
+          title: "App Store Readiness",
+          description: "Privacy flows, permissions, compliance checks, and submission packaging handled before launch so your release path is clearer and faster.",
+        },
+        {
+          title: "Scalable Product Foundation",
+          description: "A clean architecture ready for future Android App Development, companion Web Development, and deeper custom app development support.",
+        },
+        {
+          title: "Launch Continuity",
+          description: "TestFlight, version monitoring, and ongoing release updates planned so your app keeps performing after day one, not just at launch.",
+        },
+      ],
+    },
+    ctaHeading: "Ready to Build and Launch Your iOS App?",
     ctaButton: "Get iOS Project Estimate",
   },
 
@@ -1064,10 +1248,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "app-development",
     parentLabel: "App Development",
     eyebrow: "App Development · Custom",
-    title: "Build Exactly What You Need With",
+    title: "Build Faster, Smarter, and Around Your Operations",
     highlightLine: "Custom App Development",
     description:
-      "End-to-end custom application development — web apps, SaaS platforms, dashboards, and internal tools built precisely to your specification.",
+      "Custom application development for businesses that need secure web apps, SaaS platforms, dashboards, and internal tools built around real workflows, users, data, and long-term growth.",
     metaTitle: "Custom Mobile App Development | Unique Solutions for ANY Idea",
     metaDescription: "No templates, just pure custom-coded excellence. Tailor-made apps for startups & enterprises. Get a Free Technical Blueprint & MVP Roadmap. Book Now!",
     heroImageSrc:
@@ -1078,56 +1262,71 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: Code2,
         title: "SaaS & Web Application Builds",
         description:
-          "Full-stack SaaS platforms with user auth, billing, dashboards, and multi-tenant architecture.",
+          "Full-stack SaaS products and web app development builds with user auth, billing, dashboards, and multi-tenant architecture designed for scale.",
       },
       {
         icon: Layers,
         title: "Internal Tools & Dashboards",
         description:
-          "Custom admin panels, reporting dashboards, and internal ops tools tailored to your workflows.",
+          "Custom admin panels, reporting views, and internal systems connected to CRM automation and decision-making workflows built around your team.",
       },
       {
         icon: Database,
         title: "Database & Backend Architecture",
         description:
-          "Scalable databases, REST/GraphQL APIs, and cloud infrastructure designed for reliability and growth.",
+          "Scalable databases, secure APIs, and backend systems built through custom software development for performance, stability, and future product expansion.",
       },
       {
         icon: Bot,
         title: "AI & Automation Integration",
         description:
-          "Embed AI features — chatbots, recommendation engines, prediction models — directly into your app.",
+          "Embed custom AI chatbot development, smart recommendations, and AI workflow automation directly into your product experience.",
       },
       {
         icon: TrendingUp,
         title: "Third-Party Integrations",
         description:
-          "Connect to Stripe, Twilio, Salesforce, HubSpot, or any API your business relies on.",
+          "Connect Stripe, Twilio, Salesforce, HubSpot, ERPs, and sales tools with clean API implementation and sales automation consulting where it improves operations.",
       },
       {
         icon: Globe,
         title: "Cloud Deployment & DevOps",
         description:
-          "AWS, GCP, or Vercel deployment with CI/CD pipelines, auto-scaling, and monitoring built in.",
+          "AWS, GCP, or Vercel deployment with CI/CD, monitoring, scaling rules, and release workflows handled by a proven app development team.",
       },
     ],
     outcomes: [
-      "A product built exactly to your requirements",
-      "Scalable to support millions of users",
-      "Clean, documented, maintainable codebase",
-      "Full ownership — your IP, your code",
-      "Fast iteration with agile sprints",
+      "Faster launch momentum and clearer delivery milestones",
+      "A product built around your workflows, users, and revenue model",
+      "Architecture prepared for heavy traffic, new features, and scale",
+      "Clean, documented code that supports long-term maintainability",
+      "Full ownership of your IP, codebase, data, and infrastructure",
     ],
     stats: [
-      { value: "8–16", label: "Weeks Build" },
-      { value: "MVP", label: "First Approach" },
-      { value: "100%", label: "Your Ownership" },
+      { value: "8–16", label: "Weeks to Launch" },
+      { value: "MVP", label: "MVP-First Delivery" },
+      { value: "100%", label: "IP Ownership" },
     ],
     
-    featuresDescription: "A complete done-for-you build covering every component needed to launch a scalable, cross-platform app tailored to your exact business needs.",
-    outcomesDescription: "A roadmap ready for custom android mobile app design and development or custom ios mobile app design and development as you grow.",
-    ctaDescription: "Book a free 30-minute strategy call. We’ll audit your current setup and show you exactly where we can help.",
-    ctaHeading: "Ready to Build the App You've Been Imagining?",
+    featuresDescription: "Custom app development is a full-service build process covering discovery, UX, architecture, engineering, integrations, testing, deployment, and launch readiness in one connected workflow.",
+    outcomesDescription: "What do you get from custom app development? You get a production-ready product aligned to your workflows, users, and growth plan, with scalable infrastructure, maintainable code, and full ownership.",
+    ctaDescription: "Book a free 30-minute strategy call and we'll review your scope, feature priorities, technical risks, and growth path.",
+    strategicSection: {
+      heading: "Why Custom Beats Off-the-Shelf Software",
+      body: "Custom application development gives you control over workflows, permissions, integrations, reporting, and product direction—which means fewer tool limitations, less manual work, and a system built for the way your business actually operates.",
+      items: [
+        {
+          description: "No feature bloat or forced workflows",
+        },
+        {
+          description: "No platform lock-in or shared ownership risk",
+        },
+        {
+          description: "No patchwork tools slowing your team down",
+        },
+      ],
+    },
+    ctaHeading: "Ready to Build the App Your Business Actually Needs?",
     ctaButton: "Start Custom App Project",
   },
 };

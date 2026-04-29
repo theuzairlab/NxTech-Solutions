@@ -42,16 +42,16 @@ export function WebDevelopmentPage() {
     <div className="w-full">
       <RevopsHero
         eyebrow="Conversion-First"
-        titleLines={["Websites Built to Convert,", "Not Just Look Good"]}
+        titleLines={["Web Development Built to Convert,", "Not Just Impress"]}
         highlightLine="High-Performance Web Experiences"
-        description="High-performance websites engineered to turn visitors into leads and revenue."
+        description="Our web development company services are built to load fast, guide action, and turn traffic into qualified leads, booked calls, and real revenue."
         primaryCtaLabel="Book Expert Call"
         onPrimaryClick={() => setShowCalendly(true)}
         secondaryCtaLabel="Explore All Services"
         secondaryCtaHref="/services"
         stats={[
           { value: "4–6", label: "Weeks to Launch" },
-          { value: "100+", label: "Core Web Vitals" },
+          { value: "100+", label: "Performance Checks" },
           { value: "CRM", label: "Ready" },
         ]}
         rightImageSrc="https://i.pinimg.com/1200x/bc/44/e7/bc44e7a24d9229593c08aacfa2e87f31.jpg"
