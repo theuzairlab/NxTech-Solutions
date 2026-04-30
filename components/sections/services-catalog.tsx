@@ -199,7 +199,7 @@ const MAIN_SERVICES: MainService[] = [
   },
 ];
 
-import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { useState, useEffect } from "react";
 
 function ServiceCarousel({ service, index }: { service: MainService; index: number }) {
@@ -207,8 +207,10 @@ function ServiceCarousel({ service, index }: { service: MainService; index: numb
   const contentRef = useRef<HTMLDivElement>(null);
   const ServiceIcon = service.icon;
   const [scrollRange, setScrollRange] = useState(0);
+  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(true);
 
-  // Horizontal Scroll Logic
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
@@ -219,14 +221,32 @@ function ServiceCarousel({ service, index }: { service: MainService; index: numb
         setScrollRange(contentRef.current.scrollWidth - contentRef.current.offsetWidth);
       }
     };
-
     calculateScrollRange();
     window.addEventListener("resize", calculateScrollRange);
     return () => window.removeEventListener("resize", calculateScrollRange);
   }, []);
 
-  // Use the transform, but we will apply it only conditionally in style
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const handleScroll = () => {
+      setCanScrollPrev(el.scrollLeft > 10);
+      setCanScrollNext(el.scrollLeft < el.scrollWidth - el.offsetWidth - 10);
+    };
+    handleScroll();
+    el.addEventListener("scroll", handleScroll);
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const x = useTransform(scrollYProgress, [0.1, 0.9], [0, -scrollRange]);
+
+  const scrollPrev = () => {
+    contentRef.current?.scrollBy({ left: -320, behavior: "smooth" });
+  };
+
+  const scrollNext = () => {
+    contentRef.current?.scrollBy({ left: 320, behavior: "smooth" });
+  };
 
   return (
     <div ref={targetRef} className="relative h-auto py-12 lg:h-[250vh] lg:py-0">
@@ -265,26 +285,23 @@ function ServiceCarousel({ service, index }: { service: MainService; index: numb
           </div>
 
           <div className="relative">
-            {/* 
-              Desktop: motion.div with horizontal translation based on scroll.
-              Mobile: motion.div with standard overflow scroll.
-            */}
             <motion.div
               ref={contentRef}
-              style={{ x: typeof window !== 'undefined' && window.innerWidth >= 1024 ? x : 0 }}
+              style={{ x: typeof window !== "undefined" && window.innerWidth >= 1024 ? x : 0 }}
               className="flex gap-6 sm:gap-10 overflow-x-auto lg:overflow-visible pb-12 lg:pb-0 px-4 sm:px-0 hide-scrollbar snap-x snap-mandatory -mx-4 lg:mx-0"
             >
               {service.subServices.map((sub) => {
                 const SubIcon = sub.icon;
+                const isCardActive = activeSlug === sub.slug;
                 return (
-                  <Link
+                  <div
                     key={sub.slug}
-                    href={`/services/${service.slug}/${sub.slug}`}
-                    className="group relative shrink-0 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer block transform snap-center lg:snap-start w-[290px] h-[400px] sm:w-[350px] sm:h-[450px] lg:w-[420px] lg:h-[500px] rounded-[2rem] sm:rounded-[2.5rem]"
+                    onClick={() => setActiveSlug(isCardActive ? null : sub.slug)}
+                    className={`group relative shrink-0 overflow-hidden shadow-xl transition-all duration-500 cursor-pointer block transform snap-center lg:snap-start w-[290px] h-[400px] sm:w-[350px] sm:h-[450px] lg:w-[420px] lg:h-[500px] rounded-[2rem] sm:rounded-[2.5rem] ${isCardActive ? "shadow-2xl" : "hover:shadow-2xl"}`}
                   >
                     {/* 1. Background Gradient */}
                     <div
-                      className={`absolute inset-0 bg-linear-to-br ${sub.gradient} transition-transform duration-700 group-hover:scale-110`}
+                      className={`absolute inset-0 bg-linear-to-br ${sub.gradient} transition-transform duration-700 ${isCardActive ? "scale-110" : "group-hover:scale-110"}`}
                     />
 
                     {/* 2. Abstract Decorative Background Elements */}
@@ -292,7 +309,11 @@ function ServiceCarousel({ service, index }: { service: MainService; index: numb
                     <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-black/10 blur-2xl group-hover:scale-150 transition-transform duration-700 delay-100" />
 
                     {/* 3. NORMAL STATE */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center p-8 sm:p-12 text-center transition-all duration-500 ease-in-out group-hover:-translate-y-24 group-hover:opacity-0 group-hover:blur-sm z-10">
+                    <div
+                      className={`absolute inset-0 flex flex-col items-center justify-center p-8 sm:p-12 text-center transition-all duration-500 ease-in-out z-10
+                        ${isCardActive ? "-translate-y-24 opacity-0 blur-sm" : ""}
+                        group-hover:-translate-y-24 group-hover:opacity-0 group-hover:blur-sm`}
+                    >
                       <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center shadow-inner mb-6 sm:mb-10 border border-white/30 transition-transform duration-500">
                         <SubIcon className="w-8 h-8 sm:w-12 sm:h-12 text-white" strokeWidth={2} />
                       </div>
@@ -301,8 +322,12 @@ function ServiceCarousel({ service, index }: { service: MainService; index: numb
                       </h3>
                     </div>
 
-                    {/* 4. HOVER STATE */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-between p-8 sm:p-12 text-center translate-y-24 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-20">
+                    {/* 4. ACTIVE / HOVER STATE */}
+                    <div
+                      className={`absolute inset-0 flex flex-col items-center justify-between p-8 sm:p-12 text-center transition-all duration-500 ease-in-out z-20
+                        ${isCardActive ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"}
+                        group-hover:translate-y-0 group-hover:opacity-100`}
+                    >
                       <div className="mt-2 w-full">
                         <h3 className="text-xl sm:text-3xl font-black text-white tracking-tight drop-shadow-xl">
                           {sub.label}
@@ -314,15 +339,39 @@ function ServiceCarousel({ service, index }: { service: MainService; index: numb
                         {sub.description}
                       </p>
 
-                      <div className="bg-white text-slate-900 rounded-full px-8 sm:px-12 py-3.5 sm:py-4 text-xs sm:text-sm font-black shadow-2xl flex items-center gap-2 sm:gap-3 hover:bg-slate-50 transition-all w-max mx-auto group/btn hover:scale-105 active:scale-95">
+                      <Link
+                        href={`/services/${service.slug}/${sub.slug}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="bg-white text-slate-900 rounded-full px-8 sm:px-12 py-3.5 sm:py-4 text-xs sm:text-sm font-black shadow-2xl flex items-center gap-2 sm:gap-3 hover:bg-slate-50 transition-all w-max mx-auto group/btn hover:scale-105 active:scale-95"
+                      >
                         LEARN MORE
                         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-primary transition-transform group-hover/btn:translate-x-1.5" />
-                      </div>
+                      </Link>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
             </motion.div>
+
+            {/* Mobile Arrow Navigation — hidden on desktop */}
+            <div className="flex items-center justify-center gap-6 mt-4 pb-2 lg:hidden">
+              <button
+                onClick={scrollPrev}
+                disabled={!canScrollPrev}
+                aria-label="Scroll left"
+                className="w-12 h-12 rounded-full bg-white border border-primary/20 shadow-md flex items-center justify-center text-primary disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary hover:text-white transition-all duration-200"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={scrollNext}
+                disabled={!canScrollNext}
+                aria-label="Scroll right"
+                className="w-12 h-12 rounded-full bg-white border border-primary/20 shadow-md flex items-center justify-center text-primary disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary hover:text-white transition-all duration-200"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

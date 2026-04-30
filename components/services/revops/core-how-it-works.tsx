@@ -122,18 +122,12 @@ export function RevopsCoreHowItWorks({ service }: RevopsCoreHowItWorksProps) {
           </p>
         </div>
 
-        <div className="relative space-y-6 border-l-2 border-primary/20 pl-6">
+        <div className="space-y-6">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             const accent = ACCENTS[idx % ACCENTS.length];
             return (
-              <div key={step.title} className="relative">
-                <div
-                  className="absolute -left-[31px] top-0 flex h-8 w-8 items-center justify-center rounded-full border-2 bg-white text-xs font-bold"
-                  style={{ borderColor: "hsl(var(--primary))", color: "hsl(var(--primary))" }}
-                >
-                  {idx + 1}
-                </div>
+              <div key={step.title}>
                 <div
                   className={`rounded-2xl border bg-white p-5 shadow-md ${accent.accentBorder}`}
                 >

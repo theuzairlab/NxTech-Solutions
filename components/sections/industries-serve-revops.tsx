@@ -1,7 +1,7 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Building2,
   HeartPulse,
@@ -9,7 +9,6 @@ import {
   Users,
   ShoppingCart,
   Store,
-  ChevronRight
 } from "lucide-react";
 
 const INDUSTRIES = [
@@ -58,6 +57,8 @@ const INDUSTRIES = [
 ] as const;
 
 export function IndustriesServeRevOps() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   return (
     <section className="relative container mx-auto pb-16 md:pb-24">
 
@@ -81,31 +82,36 @@ export function IndustriesServeRevOps() {
 
       <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {INDUSTRIES.map((industry) => {
+          {INDUSTRIES.map((industry, idx) => {
             const Icon = industry.icon;
+            const isActive = activeIndex === idx;
             return (
-              <Link
+              <div
                 key={industry.name}
-                href="/services#industries"
-                className="group relative h-[400px] rounded-4xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer block transform hover:-translate-y-1"
+                onClick={() => setActiveIndex(isActive ? null : idx)}
+                className={`group relative h-[400px] rounded-4xl overflow-hidden shadow-lg transition-all duration-500 cursor-pointer block transform hover:-translate-y-1 hover:shadow-2xl ${isActive ? "shadow-2xl -translate-y-1" : ""}`}
               >
                 {/* 1. Background Image */}
                 <Image
                   src={industry.image}
                   alt={industry.name}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  className={`object-cover transition-transform duration-700 ${isActive ? "scale-110" : "group-hover:scale-110"}`}
                 />
 
-                {/* Overlay to dim the image slightly so text is readable */}
-                <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 group-hover:bg-black/60" />
+                {/* Overlay */}
+                <div className={`absolute inset-0 transition-opacity duration-500 ${isActive ? "bg-black/60" : "bg-black/40 group-hover:bg-black/60"}`} />
 
-                {/* 2. Abstract Decorative Background Elements (Visible on base and hover) */}
+                {/* 2. Abstract Decorative Background Elements */}
                 <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white/10 blur-3xl group-hover:scale-150 transition-transform duration-700 delay-75" />
                 <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-black/20 blur-2xl group-hover:scale-150 transition-transform duration-700 delay-100" />
 
-                {/* 3. NORMAL STATE (Centered Icon + Title -> Fades away and goes up on hover) */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-500 ease-in-out group-hover:-translate-y-24 group-hover:opacity-0 group-hover:blur-sm z-10">
+                {/* 3. NORMAL STATE */}
+                <div
+                  className={`absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-500 ease-in-out z-10
+                    ${isActive ? "-translate-y-24 opacity-0 blur-sm" : ""}
+                    group-hover:-translate-y-24 group-hover:opacity-0 group-hover:blur-sm`}
+                >
                   <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shadow-inner mb-6 border border-white/30 transition-transform duration-500">
                     <Icon className="w-10 h-10 text-white" strokeWidth={2} />
                   </div>
@@ -114,9 +120,12 @@ export function IndustriesServeRevOps() {
                   </h3>
                 </div>
 
-                {/* 4. HOVER STATE (Details -> Comes up from bottom and fades in on hover) */}
-                <div className="absolute inset-0 flex flex-col items-center justify-between p-8 text-center translate-y-24 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-20">
-                  {/* Title slides to top of card inner */}
+                {/* 4. ACTIVE / HOVER STATE */}
+                <div
+                  className={`absolute inset-0 flex flex-col items-center justify-between p-8 text-center transition-all duration-500 ease-in-out z-20
+                    ${isActive ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"}
+                    group-hover:translate-y-0 group-hover:opacity-100`}
+                >
                   <div className="mt-2 w-full">
                     <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-wide drop-shadow-md">
                       {industry.name}
@@ -124,12 +133,11 @@ export function IndustriesServeRevOps() {
                     <div className="w-12 h-1 bg-white mx-auto mt-4 rounded-full" />
                   </div>
 
-                  {/* Description text center-bottom */}
                   <p className="text-white/95 text-base md:text-lg leading-relaxed my-auto drop-shadow-sm font-medium">
                     {industry.description}
                   </p>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>

@@ -293,10 +293,10 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     parentSlug: "ai-automation-marketing",
     parentLabel: "AI Marketing",
     eyebrow: "AI Marketing · Sales Automation",
-    title: "[Turn New Leads Into Qualified Sales Calls With]",
+    title: "Turn New Leads Into Qualified Sales Calls With",
     highlightLine: "Leads & Sales Automation",
     description:
-      "[Our sales automation service builds an ai sales automation system that responds in seconds, qualifies leads through real conversations, ranks intent, and books meetings automatically. Connected with CRM Management, AI Chatbot Development, and Workflow & Process Automation, it helps you scale sales process automation without adding manual work.]",
+      "Our sales automation service builds an ai sales automation system that responds in seconds, qualifies leads through real conversations, ranks intent, and books meetings automatically. Connected with CRM Management, AI Chatbot Development, and Workflow & Process Automation, it helps you scale sales process automation without adding manual work.",
     metaTitle: "Sales Automation Agency | Automate Your Entire Pipeline",
     metaDescription: "Close deals faster with automated proposals and order tracking. High-performance sales tech for any niche. Free Sales Funnel Audit for First 10 Signups!",
     heroImageSrc:
@@ -307,37 +307,37 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
         icon: Bot,
         title: "Instant AI Lead Response",
         description:
-          "[New leads are contacted in seconds through an outbound ai sales agent using call, SMS, email, or chat, helping you win attention while intent is still high.]",
+          "New leads are contacted in seconds through an outbound ai sales agent using call, SMS, email, or chat, helping you win attention while intent is still high.",
       },
       {
         icon: TrendingUp,
         title: "Intent-Based Lead Scoring",
         description:
-          "[We build automated crm logic that scores leads using engagement, source quality, replies, budget fit, and buying signals so your team sees who matters first.]",
+          "We build automated crm logic that scores leads using engagement, source quality, replies, budget fit, and buying signals so your team sees who matters first.",
       },
       {
         icon: MessageSquare,
         title: "Qualification Conversation Flows",
         description:
-          "[Custom qualification flows ask the right questions around fit, need, location, timeline, and budget so only relevant prospects move deeper into your sales automation system.]",
+          "Custom qualification flows ask the right questions around fit, need, location, timeline, and budget so only relevant prospects move deeper into your sales automation system.",
       },
       {
         icon: Database,
         title: "Auto Calendar Booking",
         description:
-          "[Qualified prospects are routed straight into rep calendars with automated confirmations, reminders, and handoff steps built through crm automation services.]",
+          "Qualified prospects are routed straight into rep calendars with automated confirmations, reminders, and handoff steps built through crm automation services.",
       },
       {
         icon: FileText,
         title: "Re-Engagement Campaigns",
         description:
-          "[Cold or inactive leads re-enter personalized follow-up flows at the right moment, giving your sales process automation setup more chances to convert missed demand.]",
+          "Cold or inactive leads re-enter personalized follow-up flows at the right moment, giving your sales process automation setup more chances to convert missed demand.",
       },
       {
         icon: Layers,
         title: "Sales Performance Dashboard",
         description:
-          "[A live dashboard tracks lead flow, response speed, booking rates, pipeline movement, and your ai marketing roi so every decision stays measurable.]",
+          "A live dashboard tracks lead flow, response speed, booking rates, pipeline movement, and your ai marketing roi so every decision stays measurable.",
       },
     ],
     outcomes: [
@@ -356,8 +356,8 @@ export const SUB_SERVICE_DATA: Record<string, SubServiceData> = {
     featuresDescription: "A complete, done-for-you build covering every component to get a working sales automation system live and driving revenue.",
     outcomesDescription: "You do not just get a software setup. You get a connected sales engine with fewer delays, better follow-up, and more control across your pipeline.",
     ctaDescription: "Book a free 30-minute strategy call and we’ll review your current pipeline, find the leaks, and show how a custom sales automation agency system can help your team close more deals with less effort.",
-    ctaHeading: "[Ready to Fill Your Calendar With Qualified Leads?]",
-    ctaButton: "[Book a Strategy Call]",
+    ctaHeading: "Ready to Fill Your Calendar With Qualified Leads?",
+    ctaButton: "Book a Strategy Call",
   },
 
   // ── Digital Marketing ─────────────────────────────────────────────────────
