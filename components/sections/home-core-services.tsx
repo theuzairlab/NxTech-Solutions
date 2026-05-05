@@ -65,6 +65,12 @@ export function HomeCoreServicesControlled({
         onPauseChange?.(false);
       }}
     >
+      <HeroSection
+        activeServiceId={activeServiceId}
+        onActiveServiceIdChange={onActiveServiceIdChange}
+        paused={isPaused}
+      />
+
       <CoreServicesRightRailTabs
         activeServiceId={activeServiceId}
         onActiveServiceIdChange={onActiveServiceIdChange}
@@ -75,12 +81,6 @@ export function HomeCoreServicesControlled({
       />
 
       <CoreServicesGrid
-        activeServiceId={activeServiceId}
-        onActiveServiceIdChange={onActiveServiceIdChange}
-        paused={isPaused}
-      />
-
-      <HeroSection
         activeServiceId={activeServiceId}
         onActiveServiceIdChange={onActiveServiceIdChange}
         paused={isPaused}

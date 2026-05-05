@@ -28,7 +28,7 @@ const DASHBOARD_SLIDES = [
     serviceTitle: "AI Marketing & Business Automation",
     slug: "ai-automation-marketing",
     heroLeft: {
-      blocks: ["We Build", "AI Marketing Systems &", "Revenue Funnels"],
+      blocks: ["We Build", "AI Marketing Systems"],
       accent: "That Turn Traffic Into Qualified Pipeline",
       paragraph:
         "NxTechNova combines AI Marketing, Workflow & Process Automation, and CRM Management to capture, qualify, and route leads faster—so every campaign turns more attention into sales-ready demand.",

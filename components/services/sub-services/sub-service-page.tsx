@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button";
 import { CalendlyModal } from "@/components/ui/calendly-modal";
 import { ParticlesBackground } from "@/components/ui/particles-background";
 import { WavyBackground } from "@/components/ui/wavy-background";
-import { SUB_SERVICE_DATA, type SubServiceData } from "./sub-service-data";
+import { ProgressiveSubServiceInquiryForm } from "@/components/forms/progressive-sub-service-inquiry-form";
+import { SubServiceFeaturesTimeline } from "./sub-service-features-timeline";
+import { SUB_SERVICE_DATA } from "./sub-service-data";
 
 interface SubServicePageProps {
   slug: string;
@@ -118,85 +120,38 @@ export function SubServicePage({ slug }: SubServicePageProps) {
               </motion.div>
             </motion.div>
 
-            {/* Right: Hero Image */}
+            {/* Right: Progressive inquiry form (replaces hero image) */}
             <motion.div
               initial={{ opacity: 0, x: 32 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.18 }}
-              className="mt-6 flex w-full justify-center lg:mt-0 lg:w-auto lg:justify-end"
+              className="mt-6 flex w-full justify-center lg:mt-0 lg:w-auto lg:justify-end lg:max-w-none"
             >
               <motion.div
-                className="relative mx-auto w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[440px] rounded-3xl border border-foreground/10 bg-background/30 p-3 backdrop-blur-2xl shadow-2xl"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
               >
-                <div className="relative aspect-square w-full rounded-2xl overflow-hidden">
-                  <img
-                    src={data.heroImageSrc}
-                    alt={data.heroImageAlt}
-                    className="object-cover w-full h-full rounded-2xl"
-                  />
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent rounded-2xl" />
-                </div>
+                <ProgressiveSubServiceInquiryForm
+                  serviceLabels={[`${data.parentLabel}: ${data.title}`]}
+                  subtitle={data.highlightLine}
+                />
               </motion.div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* ── Features Grid ─────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-linear-to-b from-background to-primary/5">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] uppercase text-primary mb-6">
-              What’s Included
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-bold text-foreground">
-              Everything You Need,{" "}
-              <span className="text-primary">Nothing You Don&apos;t</span>
-            </h2>
-            <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-              {data.featuresDescription || "A complete done-for-you build designed to remove repetitive steps and connect the systems your team already uses."}
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {data.features.map((feature, idx) => {
-              const Icon = feature.icon;
-              return (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.5, delay: idx * 0.08 }}
-                  className="group relative overflow-hidden rounded-2xl border border-slate-100 bg-white p-6 shadow-[0_8px_30px_rgba(15,23,42,0.08)] hover:shadow-[0_12px_40px_rgba(15,23,42,0.14)] transition-shadow duration-300"
-                >
-                  {/* Top accent */}
-                  <div className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-primary/60 via-sky-400/60 to-emerald-400/60" />
-
-                  <div className="mb-4 inline-flex items-center justify-center rounded-xl bg-primary/10 p-3">
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* ── What's Included (Answer-style scroll timeline — parity with core services) ── */}
+      <SubServiceFeaturesTimeline
+        features={data.features}
+        badge="What’s Included"
+        titleLead="Everything You Need,"
+        titleAccent="Nothing You Don't"
+        subtitle={
+          data.featuresDescription ||
+          "A complete done-for-you build designed to remove repetitive steps and connect the systems your team already uses."
+        }
+      />
 
       {/* ── Outcomes ──────────────────────────────────────────────────── */}
       <section className="py-20 sm:py-24 bg-linear-to-b from-primary/5 to-background">

@@ -83,3 +83,7 @@ Next Tasks — NxTechNova Website
 [✅] updated some missing old content with new 
 [✅] created new sections in servcies/sub-services pages
 [✅] Fixed UI for small screens responsivenes
+
+30-April-2026
+[✅] Fixed UI responsiveness for services and sub-services on small screens
+[✅] Resolved animation bugs that were impacting website performance
